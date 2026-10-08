@@ -30,7 +30,7 @@ For every component milestone (Phases 2 through 5), implementation **must not be
 ## Phases Overview
 
 - [x] **Phase 0: Foundations, Design Philosophy & Guidelines**
-- [ ] **Phase 1: Monorepo Scaffolding & Shared Token Engine**
+- [x] **Phase 1: Monorepo Scaffolding & Shared Token Engine**
 - [ ] **Phase 2: Core Primitives & Signature Grouped Controls**
 - [ ] **Phase 3: Form Controls & Structural Navigation**
 - [ ] **Phase 4: Overlays & Cross-Platform Behaviors**
@@ -59,7 +59,7 @@ For every component milestone (Phases 2 through 5), implementation **must not be
 
 _Goal: Set up the workspace infrastructure and compile tokens deterministically without duplication._
 
-- [ ] Configure `pnpm` workspaces:
+- [x] Configure `pnpm` workspaces:
   - `packages/tokens`: Single source of truth (TypeScript).
   - `packages/core`: Shared contracts, math functions, route constants.
   - `packages/web`: `@xenon/web` renderer.
@@ -67,15 +67,15 @@ _Goal: Set up the workspace infrastructure and compile tokens deterministically 
   - `packages/eslint-plugin`: Lint rules enforcing banned patterns (no gradients, no shadows, no emojis, no hardcoded colors).
   - `apps/docs`: Next.js documentation & showcase app.
   - `apps/native-example`: Expo app for native verification.
-- [ ] Implement `packages/tokens`:
+- [x] Implement `packages/tokens`:
   - Token compiler: Generates CSS variables (`--x-*`) for web and a strongly typed immutable object for React Native.
-- [ ] Implement `packages/core`:
+- [x] Implement `packages/core`:
   - Pure mathematical formulas with 100% test coverage:
     - `computeNestedRadius(parentRadius, padding)`
     - `clampControlRadius(height, radiusStop)`
     - `groupJointRadius(outerRadius)`
   - Centralized route constants (`AppRoutes`).
-- [ ] Automated verification pipeline (format, lint, typecheck, unit tests).
+- [x] Automated verification pipeline (format, lint, typecheck, unit tests).
 
 ---
 
