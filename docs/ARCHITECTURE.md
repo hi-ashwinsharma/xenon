@@ -68,8 +68,12 @@ Landing page, component library with search, guidelines, blog and discussions (F
 
 ## Order of work
 
-1. Tokens and `core` pure functions with unit tests.
-2. Web provider, `Surface`, `Text`, `Icon`, `Button`; native counterparts.
-3. Grouped controls and form inputs.
-4. Overlays and shared behavior hooks per platform.
-5. Docs site, then blog and Firebase.
+See [ROADMAP.md](ROADMAP.md) for the detailed phased milestone roadmap, deliverables, and the **Component Innovation & Grilling Protocol**.
+
+1. **Phase 1**: Monorepo scaffolding, tokens compiler, `core` pure math functions with unit tests.
+2. **Phase 2**: Primitives & signature controls (`XenonProvider`, `Surface`, `Button`, `ButtonGroup`, `InputGroup`).
+3. **Phase 3**: Form controls (`Switch`, `Slider`, `SegmentedControl`) & structural navigation (`Sidebar`, `GlassBar`, `TabBar`).
+4. **Phase 4**: Overlays & shared behavior hooks (`Popover`, `Tooltip`, `Dialog`, `Sheet`, `Select`, `CommandPalette`).
+5. **Phase 5**: Feedback & data display (`Badge`, `Toast`, `Table`, `Accordion`).
+6. **Phase 6**: Docs site, landing page showcase, guidelines & component catalog (`apps/docs`).
+7. **Phase 7**: Firebase discussions & blog.
