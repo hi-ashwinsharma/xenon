@@ -15,9 +15,11 @@
   "devDependencies": {
     "@types/react": "^19",
     "react": "19.3.0",
+    "react-native": "^0.87.1",
     "typescript": "^5"
   },
   "peerDependencies": {
-    "react": ">=19.0.0"
+    "react": ">=19.0.0",
+    "react-native": ">=0.74.0"
   }
 }
