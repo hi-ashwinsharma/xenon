@@ -127,3 +127,23 @@ All values `(proposed)`. Press scale 0.98. Native animates with Reanimated using
 ## Icons
 
 Phosphor, weight `thin`: `@phosphor-icons/react` on web, `phosphor-react-native` on native, behind one `Icon` wrapper with the same props. Sizes: 16, 20, 24. Icon color inherits text color. Icons paired with visible text are `aria-hidden`; icon-only controls require an accessible label.
+
+## Glass bar
+
+The only allowed blur. Applies to the top navbar or app bar and the bottom tab bar, nothing else `(proposed)`. References: the Telegram chat top bar and the Android foldable bottom navigation bar, where the blur is just strong enough to show that content sits underneath.
+
+| Token                | Value                                                                   |
+| -------------------- | ----------------------------------------------------------------------- |
+| `--x-glass-blur`     | 20 (web `blur()` px, native `BlurView` intensity about 50) `(proposed)` |
+| `--x-glass-tint`     | `--x-bg` at 72% opacity in dark, at 80% in light `(proposed)`           |
+| `--x-glass-edge`     | 1px hairline on the content side (bottom of top bar, top of bottom bar) |
+| `--x-glass-fallback` | Opaque `--x-bg`                                                         |
+
+Rules:
+
+1. No saturation boost, no brightness shift, no gradient, no shadow.
+2. Fall back to opaque `--x-bg` when `prefers-reduced-transparency` is set, when `backdrop-filter` is unsupported, and on Android devices where blur performs poorly.
+3. Text and icons on the bar must meet contrast against the worst-case content behind it, measured with the tint.
+4. The bar only blurs while content is scrolled under it; at scroll position 0 it is a plain `--x-bg` surface with a hairline.
+5. Web uses `backdrop-filter`. Native uses `expo-blur`; Android blur is experimental and must be verified on device.
+6. **Mirror edge (experimental, web only).** The Open Design navbar style, where the content edge appears mirrored to fill the bar, needs an SVG displacement or duplicated-content technique and is mostly Chromium-only. It stays a prototype until proven on the supported browsers, and the plain blur above remains the baseline.

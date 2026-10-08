@@ -29,7 +29,11 @@ Xenon is a quiet UI kit. It earns trust through geometry, restraint and negative
 | Heavy borders (2px+), dashed borders for decoration                               | 1px hairline                                         |
 | Decorative animation, parallax, looping motion                                    | Purposeful feedback only                             |
 | Mixed icon sets or icon weights                                                   | Phosphor `thin` via `Icon`                           |
-| Backdrop blur and glassmorphism                                                   | Opaque surfaces                                      |
+| Backdrop blur and glassmorphism anywhere except `GlassBar`                        | Opaque surfaces                                      |
+
+## Glass bar exception
+
+Blur is allowed in exactly one place: the top app bar or navbar and the bottom tab bar, as a `GlassBar`. Content scrolling underneath shows through a light blur and a tint, enough to tell something is there without hurting legibility. Never on cards, dialogs, popovers, sheets, buttons or page backgrounds. Spec in `TOKENS.md`.
 
 ## What "no AI look" means here
 

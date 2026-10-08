@@ -16,5 +16,5 @@
 14. **Density levels.** `comfortable` (default), `compact` (steps controls down one size and padding down one space step). Never mix levels in one surface.
 15. **Dividers.** Use a divider instead of a box. Hairline, full width of the group, with inset equal to the surface padding when inside a list.
 16. **Lists.** Row height at least 44 on touch; separate rows with a hairline, not spacing and background.
-17. **Sticky bars.** Fixed headers and tab bars use `--x-bg` and a hairline. No blur, including native translucent bars.
+17. **Sticky bars.** Fixed headers and tab bars are either opaque (`--x-bg` plus a hairline) or a `GlassBar`. No other blurred or translucent element exists.
 18. **Z-order.** Page, surface, popover, dialog, toast. Only overlays sit above surfaces, each separated by a hairline plus a scrim at 60 percent black in dark theme, 30 percent in light `(proposed)`.
