@@ -11,8 +11,8 @@ import {
   type Accent,
   type ResolvedTheme,
 } from "@xenon/tokens";
-import { useXenon } from "./provider.js";
-import type { NativeIconProps } from "./native.types.js";
+import { useXenon } from "./provider";
+import type { NativeIconProps } from "./native.types";
 
 function resolveIconSize(size?: IconSize): number {
   if (typeof size === "number") {

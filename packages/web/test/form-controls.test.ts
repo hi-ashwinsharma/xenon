@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createElement } from "react";
-import { Button, Field, Input, InputGroup } from "../src/index.js";
+import { Button, Field, Input, InputGroup } from "../src/index";
 
 describe("@xenon/web Form Controls", () => {
   describe("Input", () => {

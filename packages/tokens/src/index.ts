@@ -17,20 +17,16 @@ export type {
   TextStyleKey,
   Theme,
   TypographyTokenDefinition,
-} from "./tokens.types.js";
+} from "./tokens.types";
 
 export {
   ACCENT_COLORS,
   NEUTRAL_COLORS,
   ON_ACCENT_COLOR,
   SEMANTIC_COLORS,
-} from "./colors.js";
+} from "./colors";
 
-export {
-  FONT_FAMILY,
-  FONT_FAMILY_MONO,
-  TYPOGRAPHY_SCALE,
-} from "./typography.js";
+export { FONT_FAMILY, FONT_FAMILY_MONO, TYPOGRAPHY_SCALE } from "./typography";
 
 export {
   BORDER_WIDTH_NATIVE_DP,
@@ -38,17 +34,17 @@ export {
   CONTROL_HEIGHTS,
   SPACE_SCALE,
   TOUCH_HIT_MIN,
-} from "./space.js";
+} from "./space";
 
 export {
   CONCENTRIC_FLOOR_MULTIPLIER,
   DEFAULT_RADIUS_STOP,
   RADIUS_STOPS,
   SURFACE_RADIUS_CAP,
-} from "./radius.js";
+} from "./radius";
 
-export { MOTION_TOKENS } from "./motion.js";
-export { LIQUID_GLASS_TOKENS } from "./glass.js";
-export { compileCssVariables, compileNativeTokens } from "./compiler.js";
+export { MOTION_TOKENS } from "./motion";
+export { LIQUID_GLASS_TOKENS } from "./glass";
+export { compileCssVariables, compileNativeTokens } from "./compiler";
 
 export const TOKEN_VERSION = "0.1.0" as const;

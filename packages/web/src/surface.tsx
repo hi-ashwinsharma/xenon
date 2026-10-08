@@ -13,8 +13,8 @@ import {
   type RadiusStop,
 } from "@xenon/tokens";
 import { computeNestedRadius } from "@xenon/core";
-import { useXenon } from "./provider.js";
-import type { WebSurfaceContextValue, WebSurfaceProps } from "./web.types.js";
+import { useXenon } from "./provider";
+import type { WebSurfaceContextValue, WebSurfaceProps } from "./web.types";
 
 const SurfaceContext = createContext<WebSurfaceContextValue | null>(null);
 

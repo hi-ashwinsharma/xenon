@@ -1,0 +1,177 @@
+:root {
+  --x-space-1: 4px;
+  --x-space-2: 8px;
+  --x-space-3: 12px;
+  --x-space-4: 16px;
+  --x-space-5: 24px;
+  --x-space-6: 32px;
+  --x-space-7: 48px;
+  --x-space-8: 64px;
+  --x-space-9: 96px;
+  --x-space-10: 128px;
+  --x-control-sm: 32px;
+  --x-control-md: 40px;
+  --x-control-lg: 48px;
+  --x-hit-min: 44px;
+  --x-border-width: 1px;
+  --x-on-accent: #0A0A0A;
+  --x-dur-instant: 100ms;
+  --x-dur-fast: 160ms;
+  --x-dur-base: 240ms;
+  --x-dur-slow: 400ms;
+  --x-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --x-scale-press: 0.98;
+  --x-text-display-size: 4rem;
+  --x-text-display-lh: 4.25rem;
+  --x-text-display-tracking: 0.004em;
+  --x-text-display-weight: 200;
+  --x-text-largeTitle-size: 2.5rem;
+  --x-text-largeTitle-lh: 3rem;
+  --x-text-largeTitle-tracking: 0.01em;
+  --x-text-largeTitle-weight: 200;
+  --x-text-title1-size: 2rem;
+  --x-text-title1-lh: 2.5rem;
+  --x-text-title1-tracking: 0.013em;
+  --x-text-title1-weight: 200;
+  --x-text-title2-size: 1.5rem;
+  --x-text-title2-lh: 2rem;
+  --x-text-title2-tracking: 0.003em;
+  --x-text-title2-weight: 300;
+  --x-text-title3-size: 1.25rem;
+  --x-text-title3-lh: 1.75rem;
+  --x-text-title3-tracking: -0.023em;
+  --x-text-title3-weight: 300;
+  --x-text-headline-size: 1rem;
+  --x-text-headline-lh: 1.5rem;
+  --x-text-headline-tracking: -0.02em;
+  --x-text-headline-weight: 400;
+  --x-text-body-size: 1rem;
+  --x-text-body-lh: 1.5rem;
+  --x-text-body-tracking: -0.02em;
+  --x-text-body-weight: 300;
+  --x-text-callout-size: 0.9375rem;
+  --x-text-callout-lh: 1.375rem;
+  --x-text-callout-tracking: -0.016em;
+  --x-text-callout-weight: 300;
+  --x-text-subhead-size: 0.875rem;
+  --x-text-subhead-lh: 1.25rem;
+  --x-text-subhead-tracking: -0.011em;
+  --x-text-subhead-weight: 300;
+  --x-text-footnote-size: 0.8125rem;
+  --x-text-footnote-lh: 1.125rem;
+  --x-text-footnote-tracking: -0.006em;
+  --x-text-footnote-weight: 300;
+  --x-text-caption1-size: 0.75rem;
+  --x-text-caption1-lh: 1rem;
+  --x-text-caption1-tracking: 0em;
+  --x-text-caption1-weight: 400;
+  --x-text-caption2-size: 0.6875rem;
+  --x-text-caption2-lh: 0.875rem;
+  --x-text-caption2-tracking: 0.006em;
+  --x-text-caption2-weight: 400;
+}
+
+:root[data-x-theme="dark"] {
+  --x-bg: #000000;
+  --x-surface: #0A0A0A;
+  --x-surface-2: #111111;
+  --x-text: #EDEDED;
+  --x-text-muted: #A1A1A1;
+  --x-border: rgba(255, 255, 255, 0.10);
+  --x-border-active: rgba(255, 255, 255, 0.20);
+  --x-danger: #FF8A80;
+  --x-warning: #FFD54F;
+  --x-success: #81C784;
+  --x-info: #64B5F6;
+}
+
+:root[data-x-theme="light"] {
+  --x-bg: #FFFFFF;
+  --x-surface: #FAFAFA;
+  --x-surface-2: #F4F4F4;
+  --x-text: #0A0A0A;
+  --x-text-muted: #5C5C5C;
+  --x-border: rgba(0, 0, 0, 0.08);
+  --x-border-active: rgba(0, 0, 0, 0.16);
+  --x-danger: #E5484D;
+  --x-warning: #F59E0B;
+  --x-success: #2E7D32;
+  --x-info: #1976D2;
+}
+
+:root[data-x-accent="lime"][data-x-theme="dark"] {
+  --x-accent: #D4FF4F;
+}
+:root[data-x-accent="lime"][data-x-theme="light"] {
+  --x-accent: #A8D900;
+}
+
+:root[data-x-accent="pink"][data-x-theme="dark"] {
+  --x-accent: #FFB3D9;
+}
+:root[data-x-accent="pink"][data-x-theme="light"] {
+  --x-accent: #F08BBE;
+}
+
+:root[data-x-accent="blue"][data-x-theme="dark"] {
+  --x-accent: #9ED8FF;
+}
+:root[data-x-accent="blue"][data-x-theme="light"] {
+  --x-accent: #5FB4F0;
+}
+
+:root[data-x-accent="purple"][data-x-theme="dark"] {
+  --x-accent: #CDB4FF;
+}
+:root[data-x-accent="purple"][data-x-theme="light"] {
+  --x-accent: #A78BFA;
+}
+
+:root[data-x-accent="green"][data-x-theme="dark"] {
+  --x-accent: #9BFFB8;
+}
+:root[data-x-accent="green"][data-x-theme="light"] {
+  --x-accent: #4FD683;
+}
+
+:root[data-x-radius="0"] {
+  --x-radius-control: 0px;
+  --x-radius-surface: 0px;
+  --x-radius-joint: 0px;
+}
+
+:root[data-x-radius="1"] {
+  --x-radius-control: 4px;
+  --x-radius-surface: 6px;
+  --x-radius-joint: 2px;
+}
+
+:root[data-x-radius="2"] {
+  --x-radius-control: 8px;
+  --x-radius-surface: 10px;
+  --x-radius-joint: 2px;
+}
+
+:root[data-x-radius="3"] {
+  --x-radius-control: 12px;
+  --x-radius-surface: 16px;
+  --x-radius-joint: 3px;
+}
+
+:root[data-x-radius="4"] {
+  --x-radius-control: 16px;
+  --x-radius-surface: 20px;
+  --x-radius-joint: 4px;
+}
+
+:root[data-x-radius="5"] {
+  --x-radius-control: 20px;
+  --x-radius-surface: 24px;
+  --x-radius-joint: 5px;
+}
+
+:root[data-x-radius="6"] {
+  --x-radius-control: 9999px;
+  --x-radius-surface: 28px;
+  --x-radius-joint: 6px;
+}

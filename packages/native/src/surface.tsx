@@ -11,11 +11,11 @@ import {
   type ResolvedTheme,
 } from "@xenon/tokens";
 import { computeNestedRadius } from "@xenon/core";
-import { useXenon } from "./provider.js";
+import { useXenon } from "./provider";
 import type {
   NativeSurfaceContextValue,
   NativeSurfaceProps,
-} from "./native.types.js";
+} from "./native.types";
 
 const SurfaceContext = createContext<NativeSurfaceContextValue | null>(null);
 

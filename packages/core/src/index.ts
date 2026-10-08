@@ -2,20 +2,17 @@ export type {
   AppRoutesMap,
   ControlRadiusParams,
   NestedRadiusParams,
-} from "./core.types.js";
+} from "./core.types";
 
-export type {
-  XenonContextValue,
-  XenonProviderProps,
-} from "./provider.types.js";
+export type { XenonContextValue, XenonProviderProps } from "./provider.types";
 
 export type {
   SurfaceContextValue,
   SurfaceProps,
   SurfaceVariant,
-} from "./surface.types.js";
+} from "./surface.types";
 
-export type { DividerOrientation, DividerProps } from "./divider.types.js";
+export type { DividerOrientation, DividerProps } from "./divider.types";
 
 export type {
   FlexAlign,
@@ -24,7 +21,7 @@ export type {
   FlexWrap,
   GroupProps,
   StackProps,
-} from "./layout.types.js";
+} from "./layout.types";
 
 export type {
   HeadingLevel,
@@ -33,11 +30,11 @@ export type {
   TextElementTag,
   TextProps,
   TextTone,
-} from "./typography.types.js";
+} from "./typography.types";
 
-export type { IconProps, IconSize } from "./icon.types.js";
+export type { IconProps, IconSize } from "./icon.types";
 
-export type { VisuallyHiddenProps } from "./visually-hidden.types.js";
+export type { VisuallyHiddenProps } from "./visually-hidden.types";
 
 export type {
   ButtonGroupProps,
@@ -45,20 +42,20 @@ export type {
   ButtonSize,
   ButtonVariant,
   IconButtonProps,
-} from "./button.types.js";
+} from "./button.types";
 
-export type { LinkProps } from "./link.types.js";
+export type { LinkProps } from "./link.types";
 
-export type { ToggleButtonProps } from "./toggle-button.types.js";
+export type { ToggleButtonProps } from "./toggle-button.types";
 
 export type {
   FieldProps,
   InputGroupProps,
   InputProps,
   InputSize,
-} from "./input.types.js";
+} from "./input.types";
 
-export type { CheckboxProps, CheckboxSize } from "./checkbox.types.js";
+export type { CheckboxProps, CheckboxSize } from "./checkbox.types";
 
 export type {
   RadioContextValue,
@@ -66,13 +63,13 @@ export type {
   RadioOrientation,
   RadioProps,
   RadioSize,
-} from "./radio.types.js";
+} from "./radio.types";
 
-export type { SwitchProps, SwitchSize } from "./switch.types.js";
+export type { SwitchProps, SwitchSize } from "./switch.types";
 
-export type { SliderProps, SliderSize } from "./slider.types.js";
+export type { SliderProps, SliderSize } from "./slider.types";
 
-export { AppRoutes } from "./routes.js";
+export { AppRoutes } from "./routes";
 
 export {
   clampControlRadius,
@@ -83,4 +80,4 @@ export {
   percentToValue,
   snapToStep,
   valueToPercent,
-} from "./math.js";
+} from "./math";

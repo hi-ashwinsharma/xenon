@@ -6,7 +6,7 @@ import {
   IconButton,
   Link,
   ToggleButton,
-} from "../src/index.js";
+} from "../src/index";
 
 describe("@xenon/web Action Controls", () => {
   describe("Button", () => {

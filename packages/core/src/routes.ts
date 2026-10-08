@@ -1,4 +1,4 @@
-import type { AppRoutesMap } from "./core.types.js";
+import type { AppRoutesMap } from "./core.types";
 
 export const AppRoutes: AppRoutesMap = {
   home: "/",

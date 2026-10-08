@@ -8,8 +8,8 @@ import {
   type TextStyleKey,
 } from "@xenon/tokens";
 import type { HeadingLevel, HeadingStyleKey, TextTone } from "@xenon/core";
-import { useXenon } from "./provider.js";
-import type { NativeHeadingProps } from "./native.types.js";
+import { useXenon } from "./provider";
+import type { NativeHeadingProps } from "./native.types";
 
 function defaultStyleForLevel(level: HeadingLevel): HeadingStyleKey {
   switch (level) {

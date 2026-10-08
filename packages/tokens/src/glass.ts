@@ -1,7 +1,7 @@
 import type {
   GlassVariantDefinition,
   LiquidGlassVariant,
-} from "./tokens.types.js";
+} from "./tokens.types";
 
 export const LIQUID_GLASS_TOKENS: Readonly<
   Record<LiquidGlassVariant, GlassVariantDefinition>

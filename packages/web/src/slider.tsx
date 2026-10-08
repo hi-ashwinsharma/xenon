@@ -16,7 +16,7 @@ import {
   percentToValue,
   type SliderSize,
 } from "@xenon/core";
-import type { WebSliderProps } from "./web.types.js";
+import type { WebSliderProps } from "./web.types";
 
 function getSliderDimensions(size: SliderSize = "md"): {
   trackHeight: number;

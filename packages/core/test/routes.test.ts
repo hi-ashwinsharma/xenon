@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { AppRoutes } from "../src/routes.js";
+import { AppRoutes } from "../src/routes";
 
 describe("AppRoutes", () => {
   it("defines standard application routes starting with a slash", () => {

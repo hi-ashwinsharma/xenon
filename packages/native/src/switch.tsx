@@ -13,9 +13,9 @@ import {
   type ResolvedTheme,
 } from "@xenon/tokens";
 import type { SwitchSize } from "@xenon/core";
-import { useXenon } from "./provider.js";
-import { Text } from "./text.js";
-import type { NativeSwitchProps } from "./native.types.js";
+import { useXenon } from "./provider";
+import { Text } from "./text";
+import type { NativeSwitchProps } from "./native.types";
 
 function getSwitchDimensions(size: SwitchSize = "md"): {
   trackWidth: number;

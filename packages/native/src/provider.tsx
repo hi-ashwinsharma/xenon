@@ -17,7 +17,7 @@ import {
 import type {
   NativeXenonContextValue,
   NativeXenonProviderProps,
-} from "./native.types.js";
+} from "./native.types";
 
 const XenonContext = createContext<NativeXenonContextValue | null>(null);
 

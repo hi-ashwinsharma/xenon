@@ -1,5 +1,5 @@
 import { useId, type CSSProperties, type ReactElement } from "react";
-import type { WebFieldProps } from "./web.types.js";
+import type { WebFieldProps } from "./web.types";
 
 export function Field({
   label,

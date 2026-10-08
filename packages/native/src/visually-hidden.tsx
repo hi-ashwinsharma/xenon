@@ -1,6 +1,6 @@
 import { type ReactElement } from "react";
 import { View, type ViewStyle } from "react-native";
-import type { NativeVisuallyHiddenProps } from "./native.types.js";
+import type { NativeVisuallyHiddenProps } from "./native.types";
 
 const visuallyHiddenStyle: ViewStyle = {
   position: "absolute",

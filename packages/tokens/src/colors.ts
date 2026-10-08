@@ -4,7 +4,7 @@ import type {
   NeutralColors,
   ResolvedTheme,
   SemanticColors,
-} from "./tokens.types.js";
+} from "./tokens.types";
 
 export const NEUTRAL_COLORS: Readonly<Record<ResolvedTheme, NeutralColors>> = {
   dark: {

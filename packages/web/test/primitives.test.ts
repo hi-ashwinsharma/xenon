@@ -10,7 +10,7 @@ import {
   Text,
   VisuallyHidden,
   webRendererConfig,
-} from "../src/index.js";
+} from "../src/index";
 
 describe("@xenon/web Primitives", () => {
   it("exports a valid web renderer configuration", () => {

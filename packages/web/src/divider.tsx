@@ -1,6 +1,6 @@
 import { useMemo, type CSSProperties, type ReactElement } from "react";
-import { useSurface } from "./surface.js";
-import type { WebDividerProps } from "./web.types.js";
+import { useSurface } from "./surface";
+import type { WebDividerProps } from "./web.types";
 
 export function Divider({
   orientation = "horizontal",

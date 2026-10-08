@@ -6,9 +6,9 @@ import {
   type Accent,
   type ResolvedTheme,
 } from "@xenon/tokens";
-import { useXenon } from "./provider.js";
-import { Text } from "./text.js";
-import type { NativeLinkProps } from "./native.types.js";
+import { useXenon } from "./provider";
+import { Text } from "./text";
+import type { NativeLinkProps } from "./native.types";
 
 export function Link({
   href,

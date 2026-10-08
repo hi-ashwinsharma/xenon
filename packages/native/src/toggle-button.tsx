@@ -9,9 +9,9 @@ import {
   type ResolvedTheme,
 } from "@xenon/tokens";
 import { clampControlRadius } from "@xenon/core";
-import { useXenon } from "./provider.js";
-import { Text } from "./text.js";
-import type { NativeToggleButtonProps } from "./native.types.js";
+import { useXenon } from "./provider";
+import { Text } from "./text";
+import type { NativeToggleButtonProps } from "./native.types";
 
 export function ToggleButton({
   pressed: controlledPressed,

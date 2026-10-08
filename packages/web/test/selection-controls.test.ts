@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createElement } from "react";
-import { Checkbox, Radio, RadioGroup, Slider, Switch } from "../src/index.js";
+import { Checkbox, Radio, RadioGroup, Slider, Switch } from "../src/index";
 
 describe("@xenon/web Selection Controls", () => {
   describe("Checkbox", () => {

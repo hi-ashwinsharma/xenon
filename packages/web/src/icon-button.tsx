@@ -10,8 +10,8 @@ import {
   type RadiusStop,
 } from "@xenon/tokens";
 import { clampControlRadius } from "@xenon/core";
-import { useXenon } from "./provider.js";
-import type { WebIconButtonProps } from "./web.types.js";
+import { useXenon } from "./provider";
+import type { WebIconButtonProps } from "./web.types";
 
 export function IconButton({
   variant = "filled",

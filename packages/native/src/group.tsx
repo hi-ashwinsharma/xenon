@@ -1,7 +1,7 @@
 import { useMemo, type ReactElement } from "react";
 import { View, type ViewStyle } from "react-native";
 import type { FlexAlign, FlexJustify } from "@xenon/core";
-import type { NativeGroupProps } from "./native.types.js";
+import type { NativeGroupProps } from "./native.types";
 
 function mapAlign(align?: FlexAlign): ViewStyle["alignItems"] {
   switch (align) {

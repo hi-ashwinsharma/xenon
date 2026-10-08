@@ -1,5 +1,5 @@
 import { useMemo, type CSSProperties, type ReactElement } from "react";
-import type { WebLinkProps } from "./web.types.js";
+import type { WebLinkProps } from "./web.types";
 
 export function Link({
   href,

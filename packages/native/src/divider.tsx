@@ -5,9 +5,9 @@ import {
   type Accent,
   type ResolvedTheme,
 } from "@xenon/tokens";
-import { useSurface } from "./surface.js";
-import { useXenon } from "./provider.js";
-import type { NativeDividerProps } from "./native.types.js";
+import { useSurface } from "./surface";
+import { useXenon } from "./provider";
+import type { NativeDividerProps } from "./native.types";
 
 export function Divider({
   orientation = "horizontal",

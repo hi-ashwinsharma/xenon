@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { ButtonSize, ButtonVariant } from "./button.types.js";
+import type { ButtonSize, ButtonVariant } from "./button.types";
 
 export interface ToggleButtonProps {
   readonly pressed?: boolean;

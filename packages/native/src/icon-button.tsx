@@ -15,8 +15,8 @@ import {
   type ResolvedTheme,
 } from "@xenon/tokens";
 import { clampControlRadius } from "@xenon/core";
-import { useXenon } from "./provider.js";
-import type { NativeIconButtonProps } from "./native.types.js";
+import { useXenon } from "./provider";
+import type { NativeIconButtonProps } from "./native.types";
 
 export function IconButton({
   variant = "filled",

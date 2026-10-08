@@ -6,7 +6,7 @@ import {
 } from "react";
 import { TYPOGRAPHY_SCALE, type TextStyleKey } from "@xenon/tokens";
 import type { HeadingLevel, HeadingStyleKey, TextTone } from "@xenon/core";
-import type { WebHeadingProps } from "./web.types.js";
+import type { WebHeadingProps } from "./web.types";
 
 function defaultStyleForLevel(level: HeadingLevel): HeadingStyleKey {
   switch (level) {

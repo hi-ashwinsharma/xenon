@@ -1,7 +1,4 @@
-import type {
-  TextStyleKey,
-  TypographyTokenDefinition,
-} from "./tokens.types.js";
+import type { TextStyleKey, TypographyTokenDefinition } from "./tokens.types";
 
 export const FONT_FAMILY =
   "Geist Sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" as const;

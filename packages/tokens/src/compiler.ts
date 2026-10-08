@@ -3,23 +3,23 @@ import {
   NEUTRAL_COLORS,
   ON_ACCENT_COLOR,
   SEMANTIC_COLORS,
-} from "./colors.js";
-import { LIQUID_GLASS_TOKENS } from "./glass.js";
-import { MOTION_TOKENS } from "./motion.js";
-import { RADIUS_STOPS } from "./radius.js";
+} from "./colors";
+import { LIQUID_GLASS_TOKENS } from "./glass";
+import { MOTION_TOKENS } from "./motion";
+import { RADIUS_STOPS } from "./radius";
 import {
   BORDER_WIDTH_WEB_PX,
   CONTROL_HEIGHTS,
   SPACE_SCALE,
   TOUCH_HIT_MIN,
-} from "./space.js";
+} from "./space";
 import type {
   Accent,
   CompiledNativeTokens,
   RadiusStop,
   ResolvedTheme,
-} from "./tokens.types.js";
-import { TYPOGRAPHY_SCALE } from "./typography.js";
+} from "./tokens.types";
+import { TYPOGRAPHY_SCALE } from "./typography";
 
 export function compileCssVariables(): string {
   const lines: string[] = [":root {"];

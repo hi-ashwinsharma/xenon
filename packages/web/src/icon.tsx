@@ -6,7 +6,7 @@ import {
   type ReactElement,
 } from "react";
 import type { IconSize } from "@xenon/core";
-import type { WebIconProps } from "./web.types.js";
+import type { WebIconProps } from "./web.types";
 
 function resolveIconSize(size?: IconSize): number {
   if (typeof size === "number") {

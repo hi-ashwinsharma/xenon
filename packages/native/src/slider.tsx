@@ -26,8 +26,8 @@ import {
   percentToValue,
   type SliderSize,
 } from "@xenon/core";
-import { useXenon } from "./provider.js";
-import type { NativeSliderProps } from "./native.types.js";
+import { useXenon } from "./provider";
+import type { NativeSliderProps } from "./native.types";
 
 function getSliderDimensions(size: SliderSize = "md"): {
   trackHeight: number;

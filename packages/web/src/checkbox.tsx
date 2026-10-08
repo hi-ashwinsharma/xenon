@@ -6,7 +6,7 @@ import {
   type ReactElement,
 } from "react";
 import type { CheckboxSize } from "@xenon/core";
-import type { WebCheckboxProps } from "./web.types.js";
+import type { WebCheckboxProps } from "./web.types";
 
 function getDimensions(size: CheckboxSize = "md"): {
   boxSize: number;

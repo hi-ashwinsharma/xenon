@@ -7,11 +7,23 @@ import {
   SPACE_SCALE,
   compileCssVariables,
   compileNativeTokens,
-} from "../src/index.js";
+} from "../src/index";
+
+import { writeFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 describe("Token Compiler", () => {
   it("compiles web CSS variables accurately per TOKENS.md specification", () => {
     const css = compileCssVariables();
+    try {
+      writeFileSync(
+        resolve(__dirname, "../../../apps/docs/app/tokens.css"),
+        css,
+        "utf-8",
+      );
+    } catch {
+      // Ignored if docs directory not present in isolated environment
+    }
 
     expect(css).toContain("--x-space-1: 4px;");
     expect(css).toContain("--x-space-10: 128px;");

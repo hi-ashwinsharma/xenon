@@ -1,5 +1,5 @@
 import { type CSSProperties, type ReactElement } from "react";
-import type { WebVisuallyHiddenProps } from "./web.types.js";
+import type { WebVisuallyHiddenProps } from "./web.types";
 
 const visuallyHiddenStyle: CSSProperties = {
   position: "absolute",

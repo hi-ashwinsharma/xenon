@@ -14,9 +14,9 @@ import {
   type ResolvedTheme,
 } from "@xenon/tokens";
 import type { CheckboxSize } from "@xenon/core";
-import { useXenon } from "./provider.js";
-import { Text } from "./text.js";
-import type { NativeCheckboxProps } from "./native.types.js";
+import { useXenon } from "./provider";
+import { Text } from "./text";
+import type { NativeCheckboxProps } from "./native.types";
 
 function getDimensions(size: CheckboxSize = "md"): {
   boxSize: number;

@@ -8,7 +8,7 @@ import {
   percentToValue,
   snapToStep,
   valueToPercent,
-} from "../src/index.js";
+} from "../src/index";
 
 describe("computeNestedRadius", () => {
   it("computes concentric nested radius within floor and ceiling bounds", () => {

@@ -1,4 +1,4 @@
-import type { MotionTokenDefinition } from "./tokens.types.js";
+import type { MotionTokenDefinition } from "./tokens.types";
 
 export const MOTION_TOKENS: MotionTokenDefinition = {
   durInstant: 100,

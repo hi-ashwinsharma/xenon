@@ -23,9 +23,9 @@ import {
   type ResolvedTheme,
 } from "@xenon/tokens";
 import { clampControlRadius } from "@xenon/core";
-import { useXenon } from "./provider.js";
-import { Text } from "./text.js";
-import type { NativeInputProps } from "./native.types.js";
+import { useXenon } from "./provider";
+import { Text } from "./text";
+import type { NativeInputProps } from "./native.types";
 
 export function Input({
   value: controlledValue,

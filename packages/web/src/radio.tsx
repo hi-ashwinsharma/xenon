@@ -8,7 +8,7 @@ import {
   type ReactElement,
 } from "react";
 import type { RadioContextValue, RadioSize } from "@xenon/core";
-import type { WebRadioGroupProps, WebRadioProps } from "./web.types.js";
+import type { WebRadioGroupProps, WebRadioProps } from "./web.types";
 
 const RadioContext = createContext<RadioContextValue | null>(null);
 

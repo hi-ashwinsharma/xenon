@@ -7,9 +7,9 @@ import {
   type RadiusStop,
   type ResolvedTheme,
 } from "@xenon/tokens";
-import { useXenon } from "./provider.js";
-import { Text } from "./text.js";
-import type { NativeFieldProps } from "./native.types.js";
+import { useXenon } from "./provider";
+import { Text } from "./text";
+import type { NativeFieldProps } from "./native.types";
 
 export function Field({
   label,

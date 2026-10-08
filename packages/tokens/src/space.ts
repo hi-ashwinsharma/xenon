@@ -1,4 +1,4 @@
-import type { ControlSize } from "./tokens.types.js";
+import type { ControlSize } from "./tokens.types";
 
 export const SPACE_SCALE: Readonly<Record<number, number>> = {
   1: 4,

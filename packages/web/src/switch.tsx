@@ -6,7 +6,7 @@ import {
   type ReactElement,
 } from "react";
 import type { SwitchSize } from "@xenon/core";
-import type { WebSwitchProps } from "./web.types.js";
+import type { WebSwitchProps } from "./web.types";
 
 function getSwitchDimensions(size: SwitchSize = "md"): {
   trackWidth: number;

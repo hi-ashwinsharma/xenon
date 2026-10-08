@@ -14,10 +14,7 @@ import {
   type ResolvedTheme,
   type Theme,
 } from "@xenon/tokens";
-import type {
-  WebXenonContextValue,
-  WebXenonProviderProps,
-} from "./web.types.js";
+import type { WebXenonContextValue, WebXenonProviderProps } from "./web.types";
 
 const XenonContext = createContext<WebXenonContextValue | null>(null);
 

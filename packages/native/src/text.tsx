@@ -7,8 +7,8 @@ import {
   type ResolvedTheme,
 } from "@xenon/tokens";
 import type { TextTone } from "@xenon/core";
-import { useXenon } from "./provider.js";
-import type { NativeTextProps } from "./native.types.js";
+import { useXenon } from "./provider";
+import type { NativeTextProps } from "./native.types";
 
 function getToneColor(
   tone: TextTone,

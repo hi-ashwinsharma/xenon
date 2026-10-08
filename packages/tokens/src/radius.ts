@@ -1,4 +1,4 @@
-import type { RadiusStop, RadiusStopValues } from "./tokens.types.js";
+import type { RadiusStop, RadiusStopValues } from "./tokens.types";
 
 export const SURFACE_RADIUS_CAP = 28 as const;
 export const CONCENTRIC_FLOOR_MULTIPLIER = 0.4 as const;

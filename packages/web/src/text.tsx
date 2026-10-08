@@ -6,7 +6,7 @@ import {
 } from "react";
 import { TYPOGRAPHY_SCALE, type TextStyleKey } from "@xenon/tokens";
 import type { TextTone } from "@xenon/core";
-import type { WebTextProps } from "./web.types.js";
+import type { WebTextProps } from "./web.types";
 
 function getToneColor(tone: TextTone): string {
   switch (tone) {

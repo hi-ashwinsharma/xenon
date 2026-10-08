@@ -1,6 +1,6 @@
 import { useMemo, type CSSProperties, type ReactElement } from "react";
 import type { FlexAlign, FlexJustify } from "@xenon/core";
-import type { WebGroupProps } from "./web.types.js";
+import type { WebGroupProps } from "./web.types";
 
 function mapAlign(align?: FlexAlign): CSSProperties["alignItems"] {
   switch (align) {

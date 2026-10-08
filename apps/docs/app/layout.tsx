@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
-import type { RootLayoutProps } from "./layout.types.js";
+import type { RootLayoutProps } from "./layout.types";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  weight: ["200", "300", "400"],
-});
 
 export const metadata: Metadata = {
   title: "Xenon",
@@ -16,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" className={`${geistSans.variable} h-full antialiased`}>
+    <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
