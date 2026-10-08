@@ -16,8 +16,8 @@ A minimalistic UI kit for web (React) and React Native (Expo) built on hairline 
 
 ## Status
 
-Pre-alpha. This repository currently holds the project scaffold. Foundation docs
-(design system, tokens, architecture, component specs) are the next milestone.
+Pre-alpha. Phase 0 (foundations, tokens, guidelines, architecture) is complete.
+See [docs/ROADMAP.md](./docs/ROADMAP.md) for the phased milestone execution plan and component grilling protocol.
 
 ## Planned sitemap
 

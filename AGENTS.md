@@ -20,6 +20,7 @@ Xenon is a closed-source, minimalistic UI kit for **web (React DOM) and React Na
 4. [docs/PLATFORMS.md](docs/PLATFORMS.md): how web and native differ in input, layout and behavior.
 5. [docs/guidelines/README.md](docs/guidelines/README.md): rules for type, spacing, layout, shape, color, motion, interaction.
 6. [docs/V1-SCOPE.md](docs/V1-SCOPE.md): which components exist in v1.
+7. [docs/ROADMAP.md](docs/ROADMAP.md): execution phases and the **Component Innovation & Grilling Protocol**.
 
 ## Hard rules (never violate)
 
@@ -33,6 +34,7 @@ Xenon is a closed-source, minimalistic UI kit for **web (React DOM) and React Na
 - Font weights are 200, 300 or 400 only. Never 500 or above.
 - Types live in dedicated `*.types.ts` files, never in `.tsx` components.
 - Routes come from the central route constants, never string literals.
+- Before authoring any component, execute the **Component Innovation & Grilling Protocol** (`docs/ROADMAP.md`): brainstorm micro-interactions, distinct geometry, and Apple-grade precision via `ask_question`. Never output generic boilerplate.
 
 ## Anti-hallucination protocol
 
