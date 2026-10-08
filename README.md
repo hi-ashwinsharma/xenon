@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Xenon
 
-## Getting Started
+A minimalistic React UI kit built on hairline borders, crystal-clear edges, generous negative space and Apple-grade micro-interactions.
 
-First, run the development server:
+> Proprietary and closed source. See [LICENSE](./LICENSE). Not for redistribution.
+
+## Principles
+
+- Thin, modern type (Geist Sans, weights 200 to 400).
+- 1px soft hairline borders and dividers. No shadows. No gradients.
+- AMOLED black page background in dark theme.
+- Pill-shaped controls. Grouped controls use pill outer edges and small inner radii.
+- No card nesting. No emoji. Line icons only (Phosphor Thin).
+- Acid accent palette (lime, pink, blue, purple, green) tuned for dark and light themes.
+- Global tokens: theme, accent and a discrete corner-radius scale.
+
+## Status
+
+Pre-alpha. This repository currently holds the project scaffold. Foundation docs
+(design system, tokens, architecture, component specs) are the next milestone.
+
+## Planned sitemap
+
+- Landing page
+- Components, with search
+- Guidelines
+- Blog and discussions (Firebase-backed, lowest priority)
+
+## Tech stack
+
+- Next.js (App Router), React, TypeScript
+- Tailwind CSS v4
+- pnpm
+- Hosting: Vercel. Firebase for auth and data (later).
+
+## Getting started
+
+Requirements: Node.js 22 or newer, pnpm.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000>.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Script              | Purpose                    |
+| ------------------- | -------------------------- |
+| `pnpm dev`          | Start the dev server       |
+| `pnpm build`        | Production build           |
+| `pnpm start`        | Serve the production build |
+| `pnpm lint`         | Run ESLint                 |
+| `pnpm typecheck`    | Run the TypeScript checker |
+| `pnpm format`       | Format with Prettier       |
+| `pnpm format:check` | Verify formatting          |
 
-## Learn More
+## Workflow
 
-To learn more about Next.js, take a look at the following resources:
+Branch-based, with the repository kept private.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Create a branch from `main`: `feat/<name>`, `fix/<name>` or `docs/<name>`.
+2. Commit using [Conventional Commits](https://www.conventionalcommits.org).
+3. Open a pull request into `main` and wait for CI to pass.
+4. Review, then merge.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Security
 
-## Deploy on Vercel
+See [SECURITY.md](./SECURITY.md).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Copyright
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Copyright (c) 2026 Ashwin Sharma. All rights reserved.
