@@ -1,3 +1,5 @@
+import type { RadiusStop } from "@xenon/tokens";
+
 export interface AppRoutesMap {
   readonly home: string;
   readonly docs: string;
@@ -6,7 +8,12 @@ export interface AppRoutesMap {
   readonly blog: string;
 }
 
-export interface RadiusCalculationParams {
+export interface NestedRadiusParams {
   readonly parentRadius: number;
   readonly padding: number;
+}
+
+export interface ControlRadiusParams {
+  readonly height: number;
+  readonly radiusStop: RadiusStop | number;
 }
