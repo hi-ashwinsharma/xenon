@@ -1,0 +1,17 @@
+{
+  "name": "@xenon/native-example",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@xenon/core": "workspace:*",
+    "@xenon/native": "workspace:*",
+    "@xenon/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}
