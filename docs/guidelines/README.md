@@ -10,6 +10,8 @@ Rules that make Xenon interfaces clean. Each file is short and prescriptive. Tag
 | [color-motion.md](color-motion.md)     | Accent use, contrast, states, motion principles                                |
 | [interaction.md](interaction.md)       | Targets, forms, feedback, empty and error states, microcopy                    |
 
+Platform differences (web versus native) are in [../PLATFORMS.md](../PLATFORMS.md).
+
 ## Sources
 
 - Apple HIG: [Typography](https://developer.apple.com/design/human-interface-guidelines/typography), [Layout](https://developer.apple.com/design/human-interface-guidelines/layout), [Buttons](https://developer.apple.com/design/human-interface-guidelines/buttons), [Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility), [Motion](https://developer.apple.com/design/human-interface-guidelines/motion).

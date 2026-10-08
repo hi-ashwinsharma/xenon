@@ -1,6 +1,6 @@
 # Xenon
 
-A minimalistic React UI kit built on hairline borders, crystal-clear edges, generous negative space and Apple-grade micro-interactions.
+A minimalistic UI kit for web (React) and React Native (Expo) built on hairline borders, crystal-clear edges, generous negative space and Apple-grade micro-interactions.
 
 > Proprietary and closed source. See [LICENSE](./LICENSE). Not for redistribution.
 
@@ -28,7 +28,8 @@ Pre-alpha. This repository currently holds the project scaffold. Foundation docs
 
 ## Tech stack
 
-- Next.js (App Router), React, TypeScript
+- Shared tokens and core, with `@xenon/web` and `@xenon/native` renderers (planned)
+- Docs site: Next.js (App Router), React, TypeScript
 - Tailwind CSS v4
 - pnpm
 - Hosting: Vercel. Firebase for auth and data (later).
