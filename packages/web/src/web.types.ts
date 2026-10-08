@@ -1,13 +1,22 @@
-import type { HTMLAttributes } from "react";
 import type {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  HTMLAttributes,
+} from "react";
+import type {
+  ButtonGroupProps as CoreButtonGroupProps,
+  ButtonProps as CoreButtonProps,
   DividerProps as CoreDividerProps,
   GroupProps as CoreGroupProps,
   HeadingProps as CoreHeadingProps,
+  IconButtonProps as CoreIconButtonProps,
   IconProps as CoreIconProps,
+  LinkProps as CoreLinkProps,
   StackProps as CoreStackProps,
   SurfaceContextValue as CoreSurfaceContextValue,
   SurfaceProps as CoreSurfaceProps,
   TextProps as CoreTextProps,
+  ToggleButtonProps as CoreToggleButtonProps,
   VisuallyHiddenProps as CoreVisuallyHiddenProps,
   XenonContextValue as CoreXenonContextValue,
   XenonProviderProps as CoreXenonProviderProps,
@@ -61,3 +70,28 @@ export interface WebVisuallyHiddenProps
   extends
     Omit<CoreVisuallyHiddenProps, "className">,
     Omit<HTMLAttributes<HTMLSpanElement>, "children"> {}
+
+export interface WebButtonProps
+  extends
+    Omit<CoreButtonProps, "className" | "onClick">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "disabled"> {}
+
+export interface WebIconButtonProps
+  extends
+    Omit<CoreIconButtonProps, "className" | "onClick">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "disabled"> {}
+
+export interface WebButtonGroupProps
+  extends
+    Omit<CoreButtonGroupProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebLinkProps
+  extends
+    Omit<CoreLinkProps, "className" | "onClick">,
+    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "children" | "href"> {}
+
+export interface WebToggleButtonProps
+  extends
+    Omit<CoreToggleButtonProps, "className">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "disabled"> {}

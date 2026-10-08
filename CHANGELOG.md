@@ -10,6 +10,7 @@ All notable changes are documented here. Format based on [Keep a Changelog](http
 - `@xenon/tokens`: Single source of truth token engine with CSS variable and React Native compilers.
 - `@xenon/core`: Pure mathematical formulas (`computeNestedRadius`, `clampControlRadius`, `groupJointRadius`), centralized route constants (`AppRoutes`), and shared component contracts (`*.types.ts`).
 - `@xenon/web` and `@xenon/native` foundation primitives: `XenonProvider`, `Surface` (concentric nesting and Liquid Glass), `Divider`, `Stack`, `Group`, `Text`, `Heading` (strict weights 200, 300, 400), `Icon` (Phosphor Thin wrapper), and `VisuallyHidden`.
-- Comprehensive Vitest test suites for tokens, mathematical formulas, and web primitives.
+- `@xenon/web` and `@xenon/native` signature action controls: `Button` (6 variants including subtle and glass, optical padding, spring micro-interactions), `IconButton` (circular bounds and accessible labeling), `ButtonGroup` (Apple-style grouped capsule with inset hairline dividers), `Link` (hairline offset underline and safe external rel), and `ToggleButton` (surface feedback and aria-pressed).
+- Comprehensive Vitest test suites for tokens, mathematical formulas, web primitives, and action controls.
 - Project scaffold: Next.js, TypeScript, Tailwind CSS v4, ESLint, Prettier, CI.
 - Proprietary license, README, security policy, PR and issue templates.

@@ -1,13 +1,18 @@
 import type { StyleProp, TextStyle, ViewStyle } from "react-native";
 import type {
+  ButtonGroupProps as CoreButtonGroupProps,
+  ButtonProps as CoreButtonProps,
   DividerProps as CoreDividerProps,
   GroupProps as CoreGroupProps,
   HeadingProps as CoreHeadingProps,
+  IconButtonProps as CoreIconButtonProps,
   IconProps as CoreIconProps,
+  LinkProps as CoreLinkProps,
   StackProps as CoreStackProps,
   SurfaceContextValue as CoreSurfaceContextValue,
   SurfaceProps as CoreSurfaceProps,
   TextProps as CoreTextProps,
+  ToggleButtonProps as CoreToggleButtonProps,
   VisuallyHiddenProps as CoreVisuallyHiddenProps,
   XenonContextValue as CoreXenonContextValue,
   XenonProviderProps as CoreXenonProviderProps,
@@ -68,4 +73,43 @@ export interface NativeVisuallyHiddenProps extends Omit<
   "className"
 > {
   readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeButtonProps extends Omit<
+  CoreButtonProps,
+  "className" | "onClick"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly onPress?: () => void;
+}
+
+export interface NativeIconButtonProps extends Omit<
+  CoreIconButtonProps,
+  "className" | "onClick"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly onPress?: () => void;
+}
+
+export interface NativeButtonGroupProps extends Omit<
+  CoreButtonGroupProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeLinkProps extends Omit<
+  CoreLinkProps,
+  "className" | "onClick"
+> {
+  readonly style?: StyleProp<TextStyle>;
+  readonly onPress?: () => void;
+}
+
+export interface NativeToggleButtonProps extends Omit<
+  CoreToggleButtonProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly onPress?: () => void;
 }

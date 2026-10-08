@@ -39,6 +39,18 @@ export type { IconProps, IconSize } from "./icon.types.js";
 
 export type { VisuallyHiddenProps } from "./visually-hidden.types.js";
 
+export type {
+  ButtonGroupProps,
+  ButtonProps,
+  ButtonSize,
+  ButtonVariant,
+  IconButtonProps,
+} from "./button.types.js";
+
+export type { LinkProps } from "./link.types.js";
+
+export type { ToggleButtonProps } from "./toggle-button.types.js";
+
 export { AppRoutes } from "./routes.js";
 
 export {
