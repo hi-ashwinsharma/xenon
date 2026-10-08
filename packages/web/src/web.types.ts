@@ -7,6 +7,7 @@ import type {
 import type {
   ButtonGroupProps as CoreButtonGroupProps,
   ButtonProps as CoreButtonProps,
+  CheckboxProps as CoreCheckboxProps,
   DividerProps as CoreDividerProps,
   FieldProps as CoreFieldProps,
   GroupProps as CoreGroupProps,
@@ -16,9 +17,13 @@ import type {
   InputGroupProps as CoreInputGroupProps,
   InputProps as CoreInputProps,
   LinkProps as CoreLinkProps,
+  RadioGroupProps as CoreRadioGroupProps,
+  RadioProps as CoreRadioProps,
+  SliderProps as CoreSliderProps,
   StackProps as CoreStackProps,
   SurfaceContextValue as CoreSurfaceContextValue,
   SurfaceProps as CoreSurfaceProps,
+  SwitchProps as CoreSwitchProps,
   TextProps as CoreTextProps,
   ToggleButtonProps as CoreToggleButtonProps,
   VisuallyHiddenProps as CoreVisuallyHiddenProps,
@@ -124,3 +129,58 @@ export interface WebFieldProps
   extends
     Omit<CoreFieldProps, "className" | "id">,
     Omit<HTMLAttributes<HTMLDivElement>, "children" | "id"> {}
+
+export interface WebCheckboxProps
+  extends
+    Omit<CoreCheckboxProps, "className">,
+    Omit<
+      InputHTMLAttributes<HTMLInputElement>,
+      | "children"
+      | "size"
+      | "checked"
+      | "defaultChecked"
+      | "disabled"
+      | "value"
+      | "name"
+      | "id"
+      | "onChange"
+    > {}
+
+export interface WebRadioGroupProps
+  extends
+    Omit<CoreRadioGroupProps, "className">,
+    Omit<
+      HTMLAttributes<HTMLDivElement>,
+      "children" | "defaultValue" | "onChange"
+    > {}
+
+export interface WebRadioProps
+  extends
+    Omit<CoreRadioProps, "className">,
+    Omit<
+      InputHTMLAttributes<HTMLInputElement>,
+      "children" | "size" | "disabled" | "value" | "name" | "id" | "onChange"
+    > {}
+
+export interface WebSwitchProps
+  extends
+    Omit<CoreSwitchProps, "className">,
+    Omit<
+      ButtonHTMLAttributes<HTMLButtonElement>,
+      | "children"
+      | "size"
+      | "disabled"
+      | "value"
+      | "name"
+      | "id"
+      | "onChange"
+      | "onClick"
+    > {}
+
+export interface WebSliderProps
+  extends
+    Omit<CoreSliderProps, "className">,
+    Omit<
+      HTMLAttributes<HTMLDivElement>,
+      "children" | "defaultValue" | "onChange"
+    > {}

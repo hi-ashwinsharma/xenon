@@ -2,6 +2,7 @@ import type { StyleProp, TextStyle, ViewStyle } from "react-native";
 import type {
   ButtonGroupProps as CoreButtonGroupProps,
   ButtonProps as CoreButtonProps,
+  CheckboxProps as CoreCheckboxProps,
   DividerProps as CoreDividerProps,
   FieldProps as CoreFieldProps,
   GroupProps as CoreGroupProps,
@@ -11,9 +12,13 @@ import type {
   InputGroupProps as CoreInputGroupProps,
   InputProps as CoreInputProps,
   LinkProps as CoreLinkProps,
+  RadioGroupProps as CoreRadioGroupProps,
+  RadioProps as CoreRadioProps,
+  SliderProps as CoreSliderProps,
   StackProps as CoreStackProps,
   SurfaceContextValue as CoreSurfaceContextValue,
   SurfaceProps as CoreSurfaceProps,
+  SwitchProps as CoreSwitchProps,
   TextProps as CoreTextProps,
   ToggleButtonProps as CoreToggleButtonProps,
   VisuallyHiddenProps as CoreVisuallyHiddenProps,
@@ -134,5 +139,31 @@ export interface NativeInputGroupProps extends Omit<
 }
 
 export interface NativeFieldProps extends Omit<CoreFieldProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeCheckboxProps extends Omit<
+  CoreCheckboxProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeRadioGroupProps extends Omit<
+  CoreRadioGroupProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeRadioProps extends Omit<CoreRadioProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSwitchProps extends Omit<CoreSwitchProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSliderProps extends Omit<CoreSliderProps, "className"> {
   readonly style?: StyleProp<ViewStyle>;
 }

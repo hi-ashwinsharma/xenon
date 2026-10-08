@@ -74,3 +74,64 @@ export function groupJointRadius(outerRadius: RadiusStop | number): number {
   }
   return Math.min(outerRadius, Math.round(outerRadius * 0.25));
 }
+
+/**
+ * Clamps a numeric value strictly within min and max boundaries.
+ */
+export function clampValue(val: number, min: number, max: number): number {
+  if (min > max) {
+    return min;
+  }
+  return Math.min(Math.max(val, min), max);
+}
+
+/**
+ * Snaps a numeric value to the nearest step increment within [min, max].
+ */
+export function snapToStep(
+  val: number,
+  min: number,
+  max: number,
+  step: number,
+): number {
+  if (step <= 0) {
+    return clampValue(val, min, max);
+  }
+  const clamped = clampValue(val, min, max);
+  const steps = Math.round((clamped - min) / step);
+  const snapped = min + steps * step;
+  const precision = (step.toString().split(".")[1] || "").length;
+  const fixed = Number(snapped.toFixed(precision));
+  return clampValue(fixed, min, max);
+}
+
+/**
+ * Computes the percentage (0 to 100) corresponding to a value within [min, max].
+ */
+export function valueToPercent(val: number, min: number, max: number): number {
+  if (min >= max) {
+    return 0;
+  }
+  const clamped = clampValue(val, min, max);
+  return ((clamped - min) / (max - min)) * 100;
+}
+
+/**
+ * Converts a percentage (0 to 100) to a numeric value within [min, max], optionally snapped to step.
+ */
+export function percentToValue(
+  percent: number,
+  min: number,
+  max: number,
+  step?: number,
+): number {
+  if (min >= max) {
+    return min;
+  }
+  const clampedPercent = Math.min(Math.max(percent, 0), 100);
+  const raw = min + (clampedPercent / 100) * (max - min);
+  if (step !== undefined && step > 0) {
+    return snapToStep(raw, min, max, step);
+  }
+  return raw;
+}

@@ -1,9 +1,13 @@
 import { describe, expect, it } from "vitest";
 import {
   clampControlRadius,
+  clampValue,
   computeNestedRadius,
   getGroupJointRadiusForStop,
   groupJointRadius,
+  percentToValue,
+  snapToStep,
+  valueToPercent,
 } from "../src/index.js";
 
 describe("computeNestedRadius", () => {
@@ -85,5 +89,40 @@ describe("groupJointRadius", () => {
     expect(groupJointRadius(16)).toBe(4);
     expect(groupJointRadius(20)).toBe(5);
     expect(groupJointRadius(24)).toBe(6);
+  });
+});
+
+describe("slider math functions", () => {
+  it("clampValue bounds values within min and max", () => {
+    expect(clampValue(50, 0, 100)).toBe(50);
+    expect(clampValue(-10, 0, 100)).toBe(0);
+    expect(clampValue(150, 0, 100)).toBe(100);
+    expect(clampValue(5, 10, 0)).toBe(10);
+  });
+
+  it("snapToStep snaps to closest step cleanly", () => {
+    expect(snapToStep(23, 0, 100, 5)).toBe(25);
+    expect(snapToStep(22, 0, 100, 5)).toBe(20);
+    expect(snapToStep(0.24, 0, 1, 0.1)).toBe(0.2);
+    expect(snapToStep(0.26, 0, 1, 0.1)).toBe(0.3);
+    expect(snapToStep(50, 0, 100, 0)).toBe(50);
+  });
+
+  it("valueToPercent computes accurate percentage", () => {
+    expect(valueToPercent(50, 0, 100)).toBe(50);
+    expect(valueToPercent(0, 0, 100)).toBe(0);
+    expect(valueToPercent(100, 0, 100)).toBe(100);
+    expect(valueToPercent(25, 0, 50)).toBe(50);
+    expect(valueToPercent(10, 20, 20)).toBe(0);
+  });
+
+  it("percentToValue converts percentage back to value", () => {
+    expect(percentToValue(50, 0, 100)).toBe(50);
+    expect(percentToValue(0, 0, 100)).toBe(0);
+    expect(percentToValue(100, 0, 100)).toBe(100);
+    expect(percentToValue(50, 0, 100, 10)).toBe(50);
+    expect(percentToValue(52, 0, 100, 10)).toBe(50);
+    expect(percentToValue(57, 0, 100, 10)).toBe(60);
+    expect(percentToValue(50, 100, 100)).toBe(100);
   });
 });

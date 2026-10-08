@@ -1,6 +1,7 @@
 export type {
   NativeButtonGroupProps,
   NativeButtonProps,
+  NativeCheckboxProps,
   NativeDividerProps,
   NativeFieldProps,
   NativeGroupProps,
@@ -10,10 +11,14 @@ export type {
   NativeInputGroupProps,
   NativeInputProps,
   NativeLinkProps,
+  NativeRadioGroupProps,
+  NativeRadioProps,
   NativeRendererConfig,
+  NativeSliderProps,
   NativeStackProps,
   NativeSurfaceContextValue,
   NativeSurfaceProps,
+  NativeSwitchProps,
   NativeTextProps,
   NativeToggleButtonProps,
   NativeVisuallyHiddenProps,
@@ -40,6 +45,11 @@ export { ToggleButton } from "./toggle-button.js";
 export { Input } from "./input.js";
 export { InputGroup } from "./input-group.js";
 export { Field } from "./field.js";
+
+export { Checkbox } from "./checkbox.js";
+export { RadioGroup, Radio } from "./radio.js";
+export { Switch } from "./switch.js";
+export { Slider } from "./slider.js";
 
 export const nativeRendererConfig: {
   readonly platform: "native";

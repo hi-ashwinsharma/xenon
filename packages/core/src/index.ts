@@ -58,11 +58,29 @@ export type {
   InputSize,
 } from "./input.types.js";
 
+export type { CheckboxProps, CheckboxSize } from "./checkbox.types.js";
+
+export type {
+  RadioContextValue,
+  RadioGroupProps,
+  RadioOrientation,
+  RadioProps,
+  RadioSize,
+} from "./radio.types.js";
+
+export type { SwitchProps, SwitchSize } from "./switch.types.js";
+
+export type { SliderProps, SliderSize } from "./slider.types.js";
+
 export { AppRoutes } from "./routes.js";
 
 export {
   clampControlRadius,
+  clampValue,
   computeNestedRadius,
   getGroupJointRadiusForStop,
   groupJointRadius,
+  percentToValue,
+  snapToStep,
+  valueToPercent,
 } from "./math.js";
