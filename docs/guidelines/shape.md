@@ -14,6 +14,8 @@ Seven discrete stops from sharp (0) to pill (6), set globally via `data-x-radius
 
 When a child sits inside a parent with padding `p`, the child radius is the parent radius minus `p`, so the curves share a center.
 
+On web the formula is CSS; on native it is `computeNestedRadius` from `packages/core`, with the parent radius and padding supplied by context.
+
 ```css
 .child {
   border-radius: max(
@@ -54,10 +56,10 @@ Controls inside a surface are allowed; they are controls, not cards.
 
 ## Hairlines
 
-- 1px, soft, low-alpha neutral (see `TOKENS.md`). Never 2px, never dashed for decoration.
+- 1px, soft, low-alpha neutral (see `TOKENS.md`). Never 2px, never dashed for decoration. Native dividers use `StyleSheet.hairlineWidth`.
 - Use device-pixel-aware rendering: align the hairline to whole pixels, and do not scale elements by fractions that blur edges.
 - A surface has a border or a tone step against its parent, not both strongly. Dark theme surfaces use a border and a faint tone step.
-- No shadows and no glows. Focus uses a 2px offset ring in the accent color, drawn as `outline`, not as a shadow.
+- No shadows and no glows, including Android `elevation` and iOS `shadow*` props. Web focus uses a 2px offset ring in the accent color, drawn as `outline`, not as a shadow.
 
 ## Icons in shapes
 

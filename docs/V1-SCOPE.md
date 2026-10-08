@@ -2,6 +2,8 @@
 
 Tags: **Core** must ship, **Should** is included in v1 cut. Everything under "Later" is out of v1.
 
+Every v1 component ships on **web and native** with identical props (see `PLATFORMS.md` for platform-specific forms such as `Select` as a bottom sheet on native).
+
 Grouped controls (button group, input group, segmented control) are a v1 signature feature and are marketed on the landing page.
 
 ## Foundations

@@ -2,13 +2,15 @@
 
 ## Targets
 
-1. **Hit area.** iOS default control 44x44pt, minimum 28x28; macOS default 28x28, minimum 20x20 `(Apple HIG: Accessibility)`. Xenon controls are 32, 40 or 48px high, and on `pointer: coarse` the hit area expands to at least 44px with invisible padding.
+1. **Hit area.** iOS default control 44x44pt, minimum 28x28; macOS default 28x28, minimum 20x20 `(Apple HIG: Accessibility)`. Xenon controls are 32, 40 or 48 high. On web `pointer: coarse` and on native (`hitSlop`) the hit area expands to at least 44 with invisible padding. Native defaults to `md` or `lg` controls.
 2. **Space between targets.** Keep about 12px around bezelled controls, about 24px around bezel-less ones `(Apple HIG)`.
 3. **Use style, not size, to mark the primary action.** Same-size buttons form a set of equal choices; make one filled and the others outline or ghost `(Apple HIG: Buttons)`.
 4. **One primary per view.** At most one filled accent button in a surface.
 5. **Avoid white fill with black text as a custom style.** It reads as a selected or toggled state.
-6. **Focus.** Every interactive element has a visible `:focus-visible` ring: 2px accent outline, 2px offset. Never remove outlines without replacement.
-7. **Keyboard.** Every control works by keyboard. Follow WAI-ARIA Authoring Practices for composite widgets.
+6. **Focus and press.** On web every interactive element has a visible `:focus-visible` ring (2px accent outline, 2px offset); never remove outlines without replacement. On native, show a pressed state and give hardware-keyboard and screen-reader focus a visible ring.
+   6a. **Hover is an enhancement.** It exists on web under `@media (hover: hover)` only. Touch has none, so every hover cue needs a pressed or focus equivalent.
+7. **Keyboard and assistive tech.** Every control works by keyboard on web (WAI-ARIA Authoring Practices) and with VoiceOver and TalkBack on native (`accessibilityRole`, `accessibilityState`).
+8. **Mobile keyboards.** Forms scroll the focused field into view, use the right `inputMode` or `keyboardType`, and never let the on-screen keyboard cover the action button.
 
 ## Forms
 

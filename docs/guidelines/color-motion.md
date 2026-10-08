@@ -27,7 +27,7 @@ Every interactive component defines: rest, hover, pressed, focus-visible, disabl
 5. **Realistic.** Enter and exit follow the same path. A sheet that slides up exits downward `(Apple HIG)`.
 6. **Optional.** Support `prefers-reduced-motion`: replace movement with a fade of at most 100ms. Never convey information by motion alone `(Apple HIG)`.
 7. **Press.** Pressed controls scale to 0.98 over 100ms. Release is a spring.
-8. **Easing.** Use `--x-ease-standard` for most; `--x-ease-spring` for press release, switch thumbs and sheets.
+8. **Easing.** Use `--x-ease-standard` for most; `--x-spring-soft` for press release, switch thumbs and sheets.
 9. **Animate transform and opacity only.** Never animate layout properties. Use View Transitions for route and theme changes where supported.
 10. **Theme and accent switching** crossfades colors in `--x-dur-base`.
 11. **Stagger** is allowed on landing page reveals at 40ms steps, maximum 6 items, never on product UI.
