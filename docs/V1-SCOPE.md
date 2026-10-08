@@ -8,11 +8,11 @@ Grouped controls (button group, input group, segmented control) are a v1 signatu
 
 ## Foundations
 
-`XenonProvider` (theme, accent, radius), `Surface`, `Divider`, `Stack`, `Group`, `Text`, `Heading`, `Icon`, `VisuallyHidden`.
+`XenonProvider` (theme, accent, radius), `Surface` (`glass`), `Divider`, `Stack`, `Group`, `Text`, `Heading`, `Icon`, `VisuallyHidden`.
 
 ## Actions
 
-`Button`, `IconButton`, `ButtonGroup`, `Link`, `ToggleButton`.
+`Button` (`glass`), `IconButton` (`glass`), `ButtonGroup`, `Link`, `ToggleButton`.
 
 ## Inputs
 
@@ -20,7 +20,7 @@ Grouped controls (button group, input group, segmented control) are a v1 signatu
 
 ## Navigation
 
-`Tabs`, `Breadcrumb`, `Pagination`, `CommandPalette`.
+`Navbar` / `GlassBar`, `TabBar`, `Tabs`, `Breadcrumb`, `Pagination`, `CommandPalette` (`glass`).
 
 ## Feedback
 

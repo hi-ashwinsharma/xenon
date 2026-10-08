@@ -128,22 +128,33 @@ All values `(proposed)`. Press scale 0.98. Native animates with Reanimated using
 
 Phosphor, weight `thin`: `@phosphor-icons/react` on web, `phosphor-react-native` on native, behind one `Icon` wrapper with the same props. Sizes: 16, 20, 24. Icon color inherits text color. Icons paired with visible text are `aria-hidden`; icon-only controls require an accessible label.
 
-## Glass bar
+## Liquid Glass
 
-The only allowed blur. Applies to the top navbar or app bar and the bottom tab bar, nothing else `(proposed)`. References: the Telegram chat top bar and the Android foldable bottom navigation bar, where the blur is just strong enough to show that content sits underneath.
+Blur is permitted exclusively as **Liquid Glass** on floating and overlay elements `(Apple HIG: Materials)`. Liquid Glass creates a functional floating layer above content, allowing underlying elements to peek through while preserving foreground contrast.
 
-| Token                | Value                                                                   |
-| -------------------- | ----------------------------------------------------------------------- |
-| `--x-glass-blur`     | 20 (web `blur()` px, native `BlurView` intensity about 50) `(proposed)` |
-| `--x-glass-tint`     | `--x-bg` at 72% opacity in dark, at 80% in light `(proposed)`           |
-| `--x-glass-edge`     | 1px hairline on the content side (bottom of top bar, top of bottom bar) |
-| `--x-glass-fallback` | Opaque `--x-bg`                                                         |
+Liquid Glass has two variants:
 
-Rules:
+- **`regular`** (default): Balanced blur + tint for structural chrome, popovers, dialogs, and text-bearing overlays.
+- **`clear`**: High-translucency blur for minimal floating icon action buttons, media controls, and floating pill toolbars over rich visual content.
 
-1. No saturation boost, no brightness shift, no gradient, no shadow.
-2. Fall back to opaque `--x-bg` when `prefers-reduced-transparency` is set, when `backdrop-filter` is unsupported, and on Android devices where blur performs poorly.
-3. Text and icons on the bar must meet contrast against the worst-case content behind it, measured with the tint.
-4. The bar only blurs while content is scrolled under it; at scroll position 0 it is a plain `--x-bg` surface with a hairline.
-5. Web uses `backdrop-filter`. Native uses `expo-blur`; Android blur is experimental and must be verified on device.
-6. **Mirror edge (experimental, web only).** The Open Design navbar style, where the content edge appears mirrored to fill the bar, needs an SVG displacement or duplicated-content technique and is mostly Chromium-only. It stays a prototype until proven on the supported browsers, and the plain blur above remains the baseline.
+| Token                       | Regular Variant                                                  | Clear Variant                                                    |
+| --------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Blur intensity              | 20px web `blur()` / Native `BlurView` intensity ~50 `(proposed)` | 10px web `blur()` / Native `BlurView` intensity ~25 `(proposed)` |
+| Tint dark (`--x-bg`)        | 72% opacity (`rgba(0,0,0,0.72)`) `(proposed)`                    | 40% opacity (`rgba(0,0,0,0.40)`) `(proposed)`                    |
+| Tint light (`--x-bg`)       | 80% opacity (`rgba(255,255,255,0.80)`) `(proposed)`              | 50% opacity (`rgba(255,255,255,0.50)`) `(proposed)`              |
+| Hairline edge               | 1px `--x-border` on exposed content edges                        | 1px `--x-border` (faint neutral hairline)                        |
+| Dimming layer (clear, opt.) | n/a                                                              | 35% dark dimming layer when over bright imagery `(Apple HIG)`    |
+| Fallback                    | Opaque `--x-bg` or `--x-surface`                                 | Opaque `--x-surface-2` or `--x-bg`                               |
+
+### Rules & Permitted Scope
+
+1. **Permitted Components**:
+   - Navigation and structural bars (`Navbar`/`GlassBar`, `TabBar`, floating segmented bars).
+   - Floating action controls and icon buttons (`IconButton glass`, `Button glass`, floating toolbars).
+   - Floating overlays (`Popover`, `CommandPalette`, `Sheet` drag header, `Dialog`).
+2. **Strictly Banned in Static Content**:
+   - Never use Liquid Glass on standard content cards, form inputs, table rows, static inline buttons, or page canvas backgrounds.
+3. **No Decorative Extras**: No saturation boost, no multi-color bloom, no gradients, and no drop shadows.
+4. **Fallback Handling**: Gracefully falls back to opaque backgrounds when `prefers-reduced-transparency` is active, when `backdrop-filter` is unsupported, or on Android devices with low GPU capabilities.
+5. **Component API**: Supported components accept `glass?: boolean | "regular" | "clear"` (`true` defaults to `"regular"`). Dedicated aliases like `GlassBar` are provided for developer ergonomics.
+6. **Mirror edge (experimental, web only)**: Open Design-style mirror refraction remains an opt-in web-only prototype. Plain blur remains the universal cross-platform baseline.

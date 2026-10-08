@@ -23,7 +23,7 @@ Xenon is a closed-source, minimalistic UI kit for **web (React DOM) and React Na
 
 ## Hard rules (never violate)
 
-- No gradients. No shadows of any kind (CSS `box-shadow`, iOS `shadow*`, Android `elevation`). No blur except the `GlassBar` (see `docs/TOKENS.md`). Depth comes from hairlines and surface tone only.
+- No gradients. No shadows of any kind (CSS `box-shadow`, iOS `shadow*`, Android `elevation`). No blur except Liquid Glass on floating/overlay layers (see `docs/TOKENS.md`). Depth comes from hairlines and surface tone only.
 - No emoji anywhere. Icons: Phosphor, weight `thin`, via the Xenon `Icon` wrapper on both platforms.
 - No raw hex, px, ms or cubic-bezier in components. Use tokens from `docs/TOKENS.md`.
 - Every v1 component ships on web and native with identical props. Shared logic and formulas live in `packages/core`, never duplicated per renderer.

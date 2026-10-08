@@ -4,23 +4,23 @@ Xenon looks the same on web, iOS and Android. How it behaves differs because inp
 
 ## Mapping
 
-| Concern        | Web                                                                | Native (Expo)                                                                             |
-| -------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| Units          | px, type in `rem`                                                  | dp                                                                                        |
-| Hairline       | 1px                                                                | `StyleSheet.hairlineWidth` for dividers, 1dp for control borders                          |
-| Hover          | Only inside `@media (hover: hover)`                                | None. Use pressed state                                                                   |
-| Pressed        | `:active`, scale 0.98                                              | `Pressable` pressed, scale 0.98                                                           |
-| Focus ring     | `:focus-visible` 2px accent outline, 2px offset                    | No ring for touch. Show for hardware keyboard and screen-reader focus where supported     |
-| Hit area       | Expand to 44px on `pointer: coarse`                                | `hitSlop` to 44dp                                                                         |
-| Text scaling   | Browser zoom and `rem`                                             | OS font scale, capped by `maxFontSizeMultiplier` (see `TOKENS.md`)                        |
-| Theme          | `data-x-theme`, `prefers-color-scheme`                             | `useColorScheme` through provider                                                         |
-| Safe area      | `env(safe-area-inset-*)`                                           | `react-native-safe-area-context`                                                          |
-| Keyboard       | Native browser behavior                                            | Keyboard-avoiding layout on forms and sheets                                              |
-| Motion         | CSS, View Transitions                                              | Reanimated                                                                                |
-| Reduced motion | `prefers-reduced-motion`                                           | `AccessibilityInfo.isReduceMotionEnabled`                                                 |
-| Haptics        | None                                                               | Light impact on switch, segment change, destructive confirm (`expo-haptics`) `(proposed)` |
-| Shadow         | Banned                                                             | Banned, including Android `elevation` and iOS `shadow*` props                             |
-| Blur           | Banned, except the `GlassBar` (see `TOKENS.md`): `backdrop-filter` | Banned, except the `GlassBar`: `expo-blur` `BlurView`                                     |
+| Concern        | Web                                                                                                                     | Native (Expo)                                                                                            |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Units          | px, type in `rem`                                                                                                       | dp                                                                                                       |
+| Hairline       | 1px                                                                                                                     | `StyleSheet.hairlineWidth` for dividers, 1dp for control borders                                         |
+| Hover          | Only inside `@media (hover: hover)`                                                                                     | None. Use pressed state                                                                                  |
+| Pressed        | `:active`, scale 0.98                                                                                                   | `Pressable` pressed, scale 0.98                                                                          |
+| Focus ring     | `:focus-visible` 2px accent outline, 2px offset                                                                         | No ring for touch. Show for hardware keyboard and screen-reader focus where supported                    |
+| Hit area       | Expand to 44px on `pointer: coarse`                                                                                     | `hitSlop` to 44dp                                                                                        |
+| Text scaling   | Browser zoom and `rem`                                                                                                  | OS font scale, capped by `maxFontSizeMultiplier` (see `TOKENS.md`)                                       |
+| Theme          | `data-x-theme`, `prefers-color-scheme`                                                                                  | `useColorScheme` through provider                                                                        |
+| Safe area      | `env(safe-area-inset-*)`                                                                                                | `react-native-safe-area-context`                                                                         |
+| Keyboard       | Native browser behavior                                                                                                 | Keyboard-avoiding layout on forms and sheets                                                             |
+| Motion         | CSS, View Transitions                                                                                                   | Reanimated                                                                                               |
+| Reduced motion | `prefers-reduced-motion`                                                                                                | `AccessibilityInfo.isReduceMotionEnabled`                                                                |
+| Haptics        | None                                                                                                                    | Light impact on switch, segment change, destructive confirm (`expo-haptics`) `(proposed)`                |
+| Shadow         | Banned                                                                                                                  | Banned, including Android `elevation` and iOS `shadow*` props                                            |
+| Blur           | Banned in static content. Allowed as Liquid Glass (`regular` / `clear`) on floating & overlay layers: `backdrop-filter` | Banned in static content. Allowed as Liquid Glass on floating & overlay layers: `expo-blur` (`BlurView`) |
 
 ## Responsive behavior
 

@@ -15,25 +15,40 @@ Xenon is a quiet UI kit. It earns trust through geometry, restraint and negative
 
 ## Banned patterns
 
-| Banned                                                                            | Use instead                                          |
-| --------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| `linear-gradient`, `radial-gradient`, `conic-gradient`, gradient text, mesh blobs | Flat surface tones                                   |
-| `box-shadow`, `drop-shadow`, `text-shadow`, glow, ring-as-shadow                  | 1px hairline border, surface tone step               |
-| Emoji and emoji-like glyphs                                                       | Phosphor Thin icons                                  |
-| Card inside card                                                                  | Divider, spacing, or a header row inside one surface |
-| Font weight 500 or higher                                                         | Size and color for hierarchy                         |
-| Raw hex, raw px, raw ms, raw easing in components                                 | Tokens                                               |
-| Hardcoded `border-radius: 9999px` on large surfaces                               | Radius tokens with surface cap                       |
-| Pure-white text on AMOLED black for body copy                                     | `--x-text` (softened)                                |
-| Multiple accents on one screen for decoration                                     | One accent, semantic colors only for status          |
-| Heavy borders (2px+), dashed borders for decoration                               | 1px hairline                                         |
-| Decorative animation, parallax, looping motion                                    | Purposeful feedback only                             |
-| Mixed icon sets or icon weights                                                   | Phosphor `thin` via `Icon`                           |
-| Backdrop blur and glassmorphism anywhere except `GlassBar`                        | Opaque surfaces                                      |
+| Banned                                                                                   | Use instead                                          |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `linear-gradient`, `radial-gradient`, `conic-gradient`, gradient text, mesh blobs        | Flat surface tones                                   |
+| `box-shadow`, `drop-shadow`, `text-shadow`, glow, ring-as-shadow                         | 1px hairline border, surface tone step               |
+| Emoji and emoji-like glyphs                                                              | Phosphor Thin icons                                  |
+| Card inside card                                                                         | Divider, spacing, or a header row inside one surface |
+| Font weight 500 or higher                                                                | Size and color for hierarchy                         |
+| Raw hex, raw px, raw ms, raw easing in components                                        | Tokens                                               |
+| Hardcoded `border-radius: 9999px` on large surfaces                                      | Radius tokens with surface cap                       |
+| Pure-white text on AMOLED black for body copy                                            | `--x-text` (softened)                                |
+| Multiple accents on one screen for decoration                                            | One accent, semantic colors only for status          |
+| Heavy borders (2px+), dashed borders for decoration                                      | 1px hairline                                         |
+| Decorative animation, parallax, looping motion                                           | Purposeful feedback only                             |
+| Mixed icon sets or icon weights                                                          | Phosphor `thin` via `Icon`                           |
+| Backdrop blur and glassmorphism in the static content layer (cards, inputs, page canvas) | Opaque surfaces (`--x-surface`)                      |
 
-## Glass bar exception
+## Liquid Glass: the floating layer exception
 
-Blur is allowed in exactly one place: the top app bar or navbar and the bottom tab bar, as a `GlassBar`. Content scrolling underneath shows through a light blur and a tint, enough to tell something is there without hurting legibility. Never on cards, dialogs, popovers, sheets, buttons or page backgrounds. Spec in `TOKENS.md`.
+Blur is allowed exclusively as **Liquid Glass** on floating and overlay elements `(Apple HIG: Materials)`. Liquid Glass forms a distinct functional layer that floats above scrollable content, letting background elements peek through to preserve spatial context without sacrificing foreground legibility.
+
+### Permitted Floating Scope:
+
+- **Navigation & Structural Bars**: Top Navbar (`GlassBar`), Bottom TabBar, Floating Dock/Segmented Bar.
+- **Floating Action Controls**: Floating action buttons (`IconButton glass`, `Button glass`), floating media/filter controls.
+- **Floating Overlays**: `Popover`, `CommandPalette`, `Sheet` headers, `Dialog`.
+
+### Strictly Banned in Content Layer:
+
+- Never apply glass to standard inline content cards, table rows, form input fields, static inline buttons, or page canvas backgrounds. Glass inside the content layer creates visual chaos and destroys information hierarchy.
+
+### Two Variants:
+
+- **`regular`**: High legibility, structural blur for text-bearing chrome, navigation bars, and overlays.
+- **`clear`**: Ultra-translucent blur for minimal floating action icon pills over rich visual media.
 
 ## What "no AI look" means here
 
