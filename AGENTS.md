@@ -32,7 +32,7 @@ Xenon is a closed-source, minimalistic UI kit for **web (React DOM) and React Na
 - No card inside a card. Use dividers and spacing to group within a surface.
 - Radius comes from the global radius token. Nested radius follows the concentric rule in `docs/guidelines/shape.md`.
 - Font weights are 200, 300 or 400 only. Never 500 or above.
-- Types live in dedicated `*.types.ts` files, never in `.tsx` components.
+- Absolute type safety: never use `any` or loose `unknown`. Every prop, function, hook, ref, event handler, and callback must have explicit, exhaustive types. Types live in dedicated `*.types.ts` files, never in `.tsx` components.
 - Routes come from the central route constants, never string literals.
 - Before authoring any component, execute the **Component Innovation & Grilling Protocol** (`docs/ROADMAP.md`): brainstorm micro-interactions, distinct geometry, and Apple-grade precision via `ask_question`. Never output generic boilerplate.
 
