@@ -51,6 +51,13 @@ export type { LinkProps } from "./link.types.js";
 
 export type { ToggleButtonProps } from "./toggle-button.types.js";
 
+export type {
+  FieldProps,
+  InputGroupProps,
+  InputProps,
+  InputSize,
+} from "./input.types.js";
+
 export { AppRoutes } from "./routes.js";
 
 export {

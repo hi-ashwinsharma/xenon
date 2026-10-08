@@ -31,7 +31,7 @@ For every component milestone (Phases 2 through 5), implementation **must not be
 
 - [x] **Phase 0: Foundations, Design Philosophy & Guidelines**
 - [x] **Phase 1: Monorepo Scaffolding & Shared Token Engine**
-- [ ] **Phase 2: Core Primitives & Signature Grouped Controls**
+- [x] **Phase 2: Core Primitives & Signature Grouped Controls**
 - [ ] **Phase 3: Form Controls & Structural Navigation**
 - [ ] **Phase 4: Overlays & Cross-Platform Behaviors**
 - [ ] **Phase 5: Feedback & Data Display**
@@ -83,8 +83,8 @@ _Goal: Set up the workspace infrastructure and compile tokens deterministically 
 
 _Goal: Deliver the foundational visual surfaces, text, icons, and signature pill/grouped action controls._
 
-- [ ] **Grilling & Design Session**: Surface concentric mechanics, button press spring dynamics, grouped joint geometry.
-- [ ] Shared Foundations:
+- [x] **Grilling & Design Session**: Surface concentric mechanics, button press spring dynamics, grouped joint geometry.
+- [x] Shared Foundations:
   - `XenonProvider` (web & native theme, accent, radius context).
   - `Surface` (concentric radius inheritance, optional `glass` support).
   - `Divider` (1px hairline web, `StyleSheet.hairlineWidth` native).
@@ -92,15 +92,15 @@ _Goal: Deliver the foundational visual surfaces, text, icons, and signature pill
   - `Text` and `Heading` (Geist Sans, Apple HIG-aligned scales, tracking curves).
   - `Icon` wrapper (Phosphor Thin on web & native).
   - `VisuallyHidden` a11y primitive.
-- [ ] Signature Action Controls:
-  - `Button` (pill shape, regular & clear glass variants, spring micro-interactions).
+- [x] Signature Action Controls:
+  - `Button` (pill shape, 6 variants including subtle & glass, spring micro-interactions).
   - `IconButton` (concentric/circular pill bounds, accessible labeling).
-  - `ButtonGroup` (signature grouped control: pill outer edges, small joint inner radius, hairline seam).
+  - `ButtonGroup` (Apple-grade grouped capsule: outer edges, inset hairline dividers).
   - `Link` and `ToggleButton`.
-- [ ] Initial Form Grouping:
-  - `Input` (pill shape, focus ring, muted example placeholder).
-  - `InputGroup` (grouped inputs with attached buttons/labels).
-  - `Field` (persistent top label, bottom help, error with icon).
+- [x] Initial Form Grouping:
+  - `Input` (pill shape, focus ring, prefix/suffix, clearable, muted example placeholder).
+  - `InputGroup` (grouped inputs with attached buttons/labels sharing hairline boundaries).
+  - `Field` (persistent top label, optional indicator, bottom help, error with icon).
 
 ---
 

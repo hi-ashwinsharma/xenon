@@ -2,10 +2,13 @@ export type {
   NativeButtonGroupProps,
   NativeButtonProps,
   NativeDividerProps,
+  NativeFieldProps,
   NativeGroupProps,
   NativeHeadingProps,
   NativeIconButtonProps,
   NativeIconProps,
+  NativeInputGroupProps,
+  NativeInputProps,
   NativeLinkProps,
   NativeRendererConfig,
   NativeStackProps,
@@ -33,6 +36,10 @@ export { IconButton } from "./icon-button.js";
 export { ButtonGroup } from "./button-group.js";
 export { Link } from "./link.js";
 export { ToggleButton } from "./toggle-button.js";
+
+export { Input } from "./input.js";
+export { InputGroup } from "./input-group.js";
+export { Field } from "./field.js";
 
 export const nativeRendererConfig: {
   readonly platform: "native";

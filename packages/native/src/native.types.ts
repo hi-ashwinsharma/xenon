@@ -3,10 +3,13 @@ import type {
   ButtonGroupProps as CoreButtonGroupProps,
   ButtonProps as CoreButtonProps,
   DividerProps as CoreDividerProps,
+  FieldProps as CoreFieldProps,
   GroupProps as CoreGroupProps,
   HeadingProps as CoreHeadingProps,
   IconButtonProps as CoreIconButtonProps,
   IconProps as CoreIconProps,
+  InputGroupProps as CoreInputGroupProps,
+  InputProps as CoreInputProps,
   LinkProps as CoreLinkProps,
   StackProps as CoreStackProps,
   SurfaceContextValue as CoreSurfaceContextValue,
@@ -112,4 +115,24 @@ export interface NativeToggleButtonProps extends Omit<
 > {
   readonly style?: StyleProp<ViewStyle>;
   readonly onPress?: () => void;
+}
+
+export interface NativeInputProps extends Omit<
+  CoreInputProps,
+  "className" | "onChange"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly inputStyle?: StyleProp<TextStyle>;
+  readonly onChangeText?: (text: string) => void;
+}
+
+export interface NativeInputGroupProps extends Omit<
+  CoreInputGroupProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeFieldProps extends Omit<CoreFieldProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
 }

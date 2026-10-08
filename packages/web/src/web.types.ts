@@ -2,15 +2,19 @@ import type {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
   HTMLAttributes,
+  InputHTMLAttributes,
 } from "react";
 import type {
   ButtonGroupProps as CoreButtonGroupProps,
   ButtonProps as CoreButtonProps,
   DividerProps as CoreDividerProps,
+  FieldProps as CoreFieldProps,
   GroupProps as CoreGroupProps,
   HeadingProps as CoreHeadingProps,
   IconButtonProps as CoreIconButtonProps,
   IconProps as CoreIconProps,
+  InputGroupProps as CoreInputGroupProps,
+  InputProps as CoreInputProps,
   LinkProps as CoreLinkProps,
   StackProps as CoreStackProps,
   SurfaceContextValue as CoreSurfaceContextValue,
@@ -95,3 +99,28 @@ export interface WebToggleButtonProps
   extends
     Omit<CoreToggleButtonProps, "className">,
     Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "disabled"> {}
+
+export interface WebInputProps
+  extends
+    Omit<CoreInputProps, "className" | "onChange">,
+    Omit<
+      InputHTMLAttributes<HTMLInputElement>,
+      | "children"
+      | "size"
+      | "prefix"
+      | "disabled"
+      | "readOnly"
+      | "value"
+      | "defaultValue"
+      | "placeholder"
+    > {}
+
+export interface WebInputGroupProps
+  extends
+    Omit<CoreInputGroupProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebFieldProps
+  extends
+    Omit<CoreFieldProps, "className" | "id">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children" | "id"> {}
