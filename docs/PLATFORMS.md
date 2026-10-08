@@ -34,18 +34,19 @@ Xenon looks the same on web, iOS and Android. How it behaves differs because inp
 
 Same name and props, different presentation where touch demands it.
 
-| Component        | Web                             | Native                                                             |
-| ---------------- | ------------------------------- | ------------------------------------------------------------------ |
-| `Popover`        | Anchored floating panel         | Anchored panel, or sheet when space is tight                       |
-| `DropdownMenu`   | Anchored menu                   | Action sheet style menu                                            |
-| `Select`         | Anchored listbox                | Bottom sheet picker                                                |
-| `Combobox`       | Anchored listbox with typeahead | Full-height sheet with search field                                |
-| `Tooltip`        | Hover and focus                 | Long press, or omitted when the label is visible                   |
-| `Dialog`         | Centered modal                  | Centered modal                                                     |
-| `Sheet`          | Side or bottom drawer           | Bottom sheet with drag handle and swipe dismiss                    |
-| `Toast`          | Corner stack                    | Top or bottom inset, respects safe area                            |
-| `CommandPalette` | Keyboard shortcut overlay       | Search sheet                                                       |
-| `Table`          | Native table                    | Scrollable list with row cells; horizontal scroll only when needed |
+| Component        | Web                             | Native                                                                   |
+| ---------------- | ------------------------------- | ------------------------------------------------------------------------ |
+| `Popover`        | Anchored floating panel         | Anchored panel, or sheet when space is tight                             |
+| `DropdownMenu`   | Anchored menu                   | Action sheet style menu                                                  |
+| `Select`         | Anchored listbox                | Bottom sheet picker                                                      |
+| `Combobox`       | Anchored listbox with typeahead | Full-height sheet with search field                                      |
+| `Tooltip`        | Hover and focus                 | Long press, or omitted when the label is visible                         |
+| `Dialog`         | Centered modal                  | Centered modal                                                           |
+| `Sheet`          | Side or bottom drawer           | Bottom sheet with drag handle and swipe dismiss                          |
+| `Toast`          | Corner stack                    | Top or bottom inset, respects safe area                                  |
+| `CommandPalette` | Keyboard shortcut overlay       | Search sheet                                                             |
+| `Sidebar`        | Collapsible desktop panel       | Slide-over drawer sheet on phone; persistent split column on iPad/tablet |
+| `Table`          | Native table                    | Scrollable list with row cells; horizontal scroll only when needed       |
 
 ## Platform rules
 

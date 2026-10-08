@@ -7,7 +7,7 @@
 5. **Alignment is relationship.** Aligned items read as related; indented items read as subordinate `(Apple HIG: Layout)`. Align to one left edge per column. Use indentation only for hierarchy.
 6. **Optical padding.** Pill controls need more horizontal padding than vertical: horizontal is at least `height / 2`. Text must not touch the curve.
 7. **Surface padding is symmetric** unless a header row or footer row is present. Header and footer are separated by a divider, not an inner card.
-8. **Page width.** Web content max width 1120, prose 680, wide showcase 1280 `(proposed)`. Side margin is 24 on phone, 48 on tablet and 64 on desktop, on both platforms.
+8. **Page and dashboard width.** Web content max width 1120, prose 680, wide showcase / docs 1280, dashboard layout max width 1440 to 1600 `(proposed)`. On large or ultrawide displays (21:9 / 32:9), never allow dashboard content to stretch arbitrarily edge-to-edge; cap the container and let outer negative space breathe naturally. Side margin is 24 on phone, 48 on tablet and 64 on desktop.
 9. **Grid.** 12 columns, 24 gutter on desktop, 16 on mobile. Components snap to column edges.
 10. **One focal point per viewport.** Landing sections hold one idea, one headline, one visual.
 11. **Vertical rhythm.** Section gap 96 to 128, heading to content 24 to 32, paragraph gap 16.
@@ -18,3 +18,7 @@
 16. **Lists.** Row height at least 44 on touch; separate rows with a hairline, not spacing and background.
 17. **Sticky bars.** Fixed headers and tab bars are either opaque (`--x-bg` plus a hairline) or a `GlassBar`. No other blurred or translucent element exists.
 18. **Z-order.** Page, surface, popover, dialog, toast. Only overlays sit above surfaces, each separated by a hairline plus a scrim at 60 percent black in dark theme, 30 percent in light `(proposed)`.
+19. **Sidebar architecture.**
+    - **Default: background-less** (`hasBackground={false}`). The sidebar lives directly on the page canvas (`--x-bg`), letting navigation float quietly in negative space without boxing in the UI.
+    - **Separator**: Separator-less by default (`separator={false}`) in documentation and sparse layouts where whitespace provides the natural visual boundary. An optional 1px hairline right separator (`separator={true}`) is available for users and dense dashboards that require structural guidance.
+    - **Solid / Muscular variant**: When a dense application specifically requires a grounded, framed console look, `hasBackground={true}` applies `--x-surface` to the sidebar.

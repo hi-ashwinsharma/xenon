@@ -20,7 +20,7 @@ Grouped controls (button group, input group, segmented control) are a v1 signatu
 
 ## Navigation
 
-`Navbar` / `GlassBar`, `TabBar`, `Tabs`, `Breadcrumb`, `Pagination`, `CommandPalette` (`glass`).
+`Navbar` / `GlassBar`, `TabBar`, `Sidebar`, `Tabs`, `Breadcrumb`, `Pagination`, `CommandPalette` (`glass`).
 
 ## Feedback
 
@@ -36,7 +36,7 @@ Grouped controls (button group, input group, segmented control) are a v1 signatu
 
 ## Later (not v1)
 
-Date picker, calendar, number input, OTP input, file upload, sidebar, navbar, context menu, hover card, stat, charts, data grid, rich-text editor, carousel, tree, stepper.
+Date picker, calendar, number input, OTP input, file upload, context menu, hover card, stat, charts, data grid, rich-text editor, carousel, tree, stepper.
 
 ## Build order (proposed)
 
