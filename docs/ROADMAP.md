@@ -32,7 +32,7 @@ For every component milestone (Phases 2 through 5), implementation **must not be
 - [x] **Phase 0: Foundations, Design Philosophy & Guidelines**
 - [x] **Phase 1: Monorepo Scaffolding & Shared Token Engine**
 - [x] **Phase 2: Core Primitives & Signature Grouped Controls**
-- [ ] **Phase 3: Form Controls & Structural Navigation**
+- [x] **Phase 3: Form Controls & Structural Navigation**
 - [ ] **Phase 4: Overlays & Cross-Platform Behaviors**
 - [ ] **Phase 5: Feedback & Data Display**
 - [ ] **Phase 6: Documentation & Showcase Platform (`apps/docs`)**
@@ -116,12 +116,12 @@ _Goal: Deliver clean input controls and structural navigation chrome._
   - `Slider` (discrete & continuous, spring thumb).
   - `SegmentedControl` (grouped pill selector with animated active indicator and spring squash physics).
   - `Input` & `Field` (architectural geometry, dedicated pill search input with living prefix and shortcut badge, Phosphor WarningCircle and X thin icons).
-- [ ] Navigation Chrome:
-  - `Navbar` / `GlassBar` (sticky top bar, transparent at rest, Liquid Glass on scroll).
-  - `TabBar` (mobile bottom navigation with Liquid Glass option).
-  - `Sidebar` (background-less by default, optional right hairline separator, optional solid surface mode).
-  - `Tabs` (pill or underline indicator, roving focus).
-  - `Breadcrumb` and `Pagination`.
+- [x] Navigation Chrome:
+  - `Navbar` / `GlassBar` (adaptive scroll elevation for Navbar, permanent Liquid Glass for GlassBar).
+  - `TabBar` (mobile bottom navigation with floating Liquid Glass island and docked modes).
+  - `Sidebar` (background-less by default, rail collapsible mode, optional hairline separator, solid surface mode).
+  - `Tabs` (pill capsule and sliding hairline underline indicators, roving focus).
+  - `Breadcrumb` and `Pagination` (Phosphor Thin caret separators, direct page jumps, compact mode).
 
 ---
 

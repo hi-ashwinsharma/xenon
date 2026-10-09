@@ -6,11 +6,18 @@ import type {
   TextareaHTMLAttributes,
 } from "react";
 import type {
+  BreadcrumbItemProps as CoreBreadcrumbItemProps,
+  BreadcrumbLinkProps as CoreBreadcrumbLinkProps,
+  BreadcrumbListProps as CoreBreadcrumbListProps,
+  BreadcrumbPageProps as CoreBreadcrumbPageProps,
+  BreadcrumbProps as CoreBreadcrumbProps,
+  BreadcrumbSeparatorProps as CoreBreadcrumbSeparatorProps,
   ButtonGroupProps as CoreButtonGroupProps,
   ButtonProps as CoreButtonProps,
   CheckboxProps as CoreCheckboxProps,
   DividerProps as CoreDividerProps,
   FieldProps as CoreFieldProps,
+  GlassBarProps as CoreGlassBarProps,
   GroupProps as CoreGroupProps,
   HeadingProps as CoreHeadingProps,
   IconButtonProps as CoreIconButtonProps,
@@ -18,14 +25,28 @@ import type {
   InputGroupProps as CoreInputGroupProps,
   InputProps as CoreInputProps,
   LinkProps as CoreLinkProps,
+  NavbarProps as CoreNavbarProps,
+  PaginationProps as CorePaginationProps,
   RadioGroupProps as CoreRadioGroupProps,
   RadioProps as CoreRadioProps,
   SegmentedControlProps as CoreSegmentedControlProps,
+  SidebarFooterProps as CoreSidebarFooterProps,
+  SidebarGroupProps as CoreSidebarGroupProps,
+  SidebarHeaderProps as CoreSidebarHeaderProps,
+  SidebarItemProps as CoreSidebarItemProps,
+  SidebarNavProps as CoreSidebarNavProps,
+  SidebarProps as CoreSidebarProps,
   SliderProps as CoreSliderProps,
   StackProps as CoreStackProps,
   SurfaceContextValue as CoreSurfaceContextValue,
   SurfaceProps as CoreSurfaceProps,
   SwitchProps as CoreSwitchProps,
+  TabBarItemProps as CoreTabBarItemProps,
+  TabBarProps as CoreTabBarProps,
+  TabsContentProps as CoreTabsContentProps,
+  TabsListProps as CoreTabsListProps,
+  TabsProps as CoreTabsProps,
+  TabsTriggerProps as CoreTabsTriggerProps,
   TextareaProps as CoreTextareaProps,
   TextProps as CoreTextProps,
   ToggleButtonProps as CoreToggleButtonProps,
@@ -209,3 +230,112 @@ export interface WebTextareaProps
       | "readOnly"
       | "maxLength"
     > {}
+
+export interface WebNavbarProps
+  extends
+    Omit<CoreNavbarProps, "className">,
+    Omit<HTMLAttributes<HTMLElement>, "children"> {}
+
+export interface WebGlassBarProps
+  extends
+    Omit<CoreGlassBarProps, "className">,
+    Omit<HTMLAttributes<HTMLElement>, "children"> {}
+
+export interface WebSidebarProps
+  extends
+    Omit<CoreSidebarProps, "className">,
+    Omit<HTMLAttributes<HTMLElement>, "children"> {}
+
+export interface WebSidebarHeaderProps
+  extends
+    Omit<CoreSidebarHeaderProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebSidebarNavProps
+  extends
+    Omit<CoreSidebarNavProps, "className">,
+    Omit<HTMLAttributes<HTMLElement>, "children"> {}
+
+export interface WebSidebarGroupProps
+  extends
+    Omit<CoreSidebarGroupProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebSidebarItemProps
+  extends
+    Omit<CoreSidebarItemProps, "className" | "onClick">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "disabled"> {}
+
+export interface WebSidebarFooterProps
+  extends
+    Omit<CoreSidebarFooterProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebTabsProps
+  extends
+    Omit<CoreTabsProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children" | "defaultValue"> {}
+
+export interface WebTabsListProps
+  extends
+    Omit<CoreTabsListProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebTabsTriggerProps
+  extends
+    Omit<CoreTabsTriggerProps, "className">,
+    Omit<
+      ButtonHTMLAttributes<HTMLButtonElement>,
+      "children" | "disabled" | "value"
+    > {}
+
+export interface WebTabsContentProps
+  extends
+    Omit<CoreTabsContentProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebTabBarProps
+  extends
+    Omit<CoreTabBarProps, "className">,
+    Omit<HTMLAttributes<HTMLElement>, "children"> {}
+
+export interface WebTabBarItemProps
+  extends
+    Omit<CoreTabBarItemProps, "className" | "onClick">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "disabled"> {}
+
+export interface WebBreadcrumbProps
+  extends
+    Omit<CoreBreadcrumbProps, "className">,
+    Omit<HTMLAttributes<HTMLElement>, "children"> {}
+
+export interface WebBreadcrumbListProps
+  extends
+    Omit<CoreBreadcrumbListProps, "className">,
+    Omit<HTMLAttributes<HTMLOListElement>, "children"> {}
+
+export interface WebBreadcrumbItemProps
+  extends
+    Omit<CoreBreadcrumbItemProps, "className">,
+    Omit<HTMLAttributes<HTMLLIElement>, "children"> {}
+
+export interface WebBreadcrumbLinkProps
+  extends
+    Omit<CoreBreadcrumbLinkProps, "className" | "onClick">,
+    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "children" | "href"> {}
+
+export interface WebBreadcrumbPageProps
+  extends
+    Omit<CoreBreadcrumbPageProps, "className">,
+    Omit<HTMLAttributes<HTMLSpanElement>, "children"> {}
+
+export interface WebBreadcrumbSeparatorProps
+  extends
+    Omit<CoreBreadcrumbSeparatorProps, "className">,
+    Omit<HTMLAttributes<HTMLLIElement>, "children"> {}
+
+export interface WebPaginationProps
+  extends
+    Omit<CorePaginationProps, "className">,
+    Omit<HTMLAttributes<HTMLElement>, "children"> {}
+

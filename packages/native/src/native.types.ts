@@ -1,10 +1,17 @@
 import type { StyleProp, TextStyle, ViewStyle } from "react-native";
 import type {
+  BreadcrumbItemProps as CoreBreadcrumbItemProps,
+  BreadcrumbLinkProps as CoreBreadcrumbLinkProps,
+  BreadcrumbListProps as CoreBreadcrumbListProps,
+  BreadcrumbPageProps as CoreBreadcrumbPageProps,
+  BreadcrumbProps as CoreBreadcrumbProps,
+  BreadcrumbSeparatorProps as CoreBreadcrumbSeparatorProps,
   ButtonGroupProps as CoreButtonGroupProps,
   ButtonProps as CoreButtonProps,
   CheckboxProps as CoreCheckboxProps,
   DividerProps as CoreDividerProps,
   FieldProps as CoreFieldProps,
+  GlassBarProps as CoreGlassBarProps,
   GroupProps as CoreGroupProps,
   HeadingProps as CoreHeadingProps,
   IconButtonProps as CoreIconButtonProps,
@@ -12,14 +19,28 @@ import type {
   InputGroupProps as CoreInputGroupProps,
   InputProps as CoreInputProps,
   LinkProps as CoreLinkProps,
+  NavbarProps as CoreNavbarProps,
+  PaginationProps as CorePaginationProps,
   RadioGroupProps as CoreRadioGroupProps,
   RadioProps as CoreRadioProps,
   SegmentedControlProps as CoreSegmentedControlProps,
+  SidebarFooterProps as CoreSidebarFooterProps,
+  SidebarGroupProps as CoreSidebarGroupProps,
+  SidebarHeaderProps as CoreSidebarHeaderProps,
+  SidebarItemProps as CoreSidebarItemProps,
+  SidebarNavProps as CoreSidebarNavProps,
+  SidebarProps as CoreSidebarProps,
   SliderProps as CoreSliderProps,
   StackProps as CoreStackProps,
   SurfaceContextValue as CoreSurfaceContextValue,
   SurfaceProps as CoreSurfaceProps,
   SwitchProps as CoreSwitchProps,
+  TabBarItemProps as CoreTabBarItemProps,
+  TabBarProps as CoreTabBarProps,
+  TabsContentProps as CoreTabsContentProps,
+  TabsListProps as CoreTabsListProps,
+  TabsProps as CoreTabsProps,
+  TabsTriggerProps as CoreTabsTriggerProps,
   TextareaProps as CoreTextareaProps,
   TextProps as CoreTextProps,
   ToggleButtonProps as CoreToggleButtonProps,
@@ -181,3 +202,111 @@ export interface NativeTextareaProps
   readonly inputStyle?: StyleProp<TextStyle>;
   readonly onChangeText?: (text: string) => void;
 }
+
+export interface NativeNavbarProps extends Omit<CoreNavbarProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeGlassBarProps
+  extends Omit<CoreGlassBarProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSidebarProps
+  extends Omit<CoreSidebarProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSidebarHeaderProps
+  extends Omit<CoreSidebarHeaderProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSidebarNavProps
+  extends Omit<CoreSidebarNavProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSidebarGroupProps
+  extends Omit<CoreSidebarGroupProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSidebarItemProps
+  extends Omit<CoreSidebarItemProps, "className" | "onClick"> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly onPress?: () => void;
+}
+
+export interface NativeSidebarFooterProps
+  extends Omit<CoreSidebarFooterProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTabsProps
+  extends Omit<CoreTabsProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTabsListProps
+  extends Omit<CoreTabsListProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTabsTriggerProps
+  extends Omit<CoreTabsTriggerProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly onPress?: () => void;
+}
+
+export interface NativeTabsContentProps
+  extends Omit<CoreTabsContentProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTabBarProps extends Omit<CoreTabBarProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTabBarItemProps
+  extends Omit<CoreTabBarItemProps, "className" | "onClick"> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly onPress?: () => void;
+}
+
+export interface NativeBreadcrumbProps
+  extends Omit<CoreBreadcrumbProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeBreadcrumbListProps
+  extends Omit<CoreBreadcrumbListProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeBreadcrumbItemProps
+  extends Omit<CoreBreadcrumbItemProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeBreadcrumbLinkProps
+  extends Omit<CoreBreadcrumbLinkProps, "className" | "onClick"> {
+  readonly style?: StyleProp<TextStyle>;
+  readonly onPress?: () => void;
+}
+
+export interface NativeBreadcrumbPageProps
+  extends Omit<CoreBreadcrumbPageProps, "className"> {
+  readonly style?: StyleProp<TextStyle>;
+}
+
+export interface NativeBreadcrumbSeparatorProps
+  extends Omit<CoreBreadcrumbSeparatorProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativePaginationProps
+  extends Omit<CorePaginationProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+

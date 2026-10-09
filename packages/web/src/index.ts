@@ -1,9 +1,16 @@
 export type {
+  WebBreadcrumbItemProps,
+  WebBreadcrumbLinkProps,
+  WebBreadcrumbListProps,
+  WebBreadcrumbPageProps,
+  WebBreadcrumbProps,
+  WebBreadcrumbSeparatorProps,
   WebButtonGroupProps,
   WebButtonProps,
   WebCheckboxProps,
   WebDividerProps,
   WebFieldProps,
+  WebGlassBarProps,
   WebGroupProps,
   WebHeadingProps,
   WebIconButtonProps,
@@ -11,15 +18,29 @@ export type {
   WebInputGroupProps,
   WebInputProps,
   WebLinkProps,
+  WebNavbarProps,
+  WebPaginationProps,
   WebRadioGroupProps,
   WebRadioProps,
   WebRendererConfig,
   WebSegmentedControlProps,
+  WebSidebarFooterProps,
+  WebSidebarGroupProps,
+  WebSidebarHeaderProps,
+  WebSidebarItemProps,
+  WebSidebarNavProps,
+  WebSidebarProps,
   WebSliderProps,
   WebStackProps,
   WebSurfaceContextValue,
   WebSurfaceProps,
   WebSwitchProps,
+  WebTabBarItemProps,
+  WebTabBarProps,
+  WebTabsContentProps,
+  WebTabsListProps,
+  WebTabsProps,
+  WebTabsTriggerProps,
   WebTextareaProps,
   WebTextProps,
   WebToggleButtonProps,
@@ -54,6 +75,29 @@ export { RadioGroup, Radio } from "./radio";
 export { Switch } from "./switch";
 export { Slider } from "./slider";
 export { SegmentedControl } from "./segmented-control";
+
+export { Navbar } from "./navbar";
+export { GlassBar } from "./glassbar";
+export {
+  Sidebar,
+  SidebarHeader,
+  SidebarNav,
+  SidebarGroup,
+  SidebarItem,
+  SidebarFooter,
+  useSidebarContext,
+} from "./sidebar";
+export { Tabs, TabsList, TabsTrigger, TabsContent, useTabs } from "./tabs";
+export { TabBar, TabBarItem } from "./tab-bar";
+export {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "./breadcrumb";
+export { Pagination } from "./pagination";
 
 export const webRendererConfig = {
   platform: "web",

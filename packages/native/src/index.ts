@@ -1,9 +1,16 @@
 export type {
+  NativeBreadcrumbItemProps,
+  NativeBreadcrumbLinkProps,
+  NativeBreadcrumbListProps,
+  NativeBreadcrumbPageProps,
+  NativeBreadcrumbProps,
+  NativeBreadcrumbSeparatorProps,
   NativeButtonGroupProps,
   NativeButtonProps,
   NativeCheckboxProps,
   NativeDividerProps,
   NativeFieldProps,
+  NativeGlassBarProps,
   NativeGroupProps,
   NativeHeadingProps,
   NativeIconButtonProps,
@@ -11,15 +18,29 @@ export type {
   NativeInputGroupProps,
   NativeInputProps,
   NativeLinkProps,
+  NativeNavbarProps,
+  NativePaginationProps,
   NativeRadioGroupProps,
   NativeRadioProps,
   NativeRendererConfig,
   NativeSegmentedControlProps,
+  NativeSidebarFooterProps,
+  NativeSidebarGroupProps,
+  NativeSidebarHeaderProps,
+  NativeSidebarItemProps,
+  NativeSidebarNavProps,
+  NativeSidebarProps,
   NativeSliderProps,
   NativeStackProps,
   NativeSurfaceContextValue,
   NativeSurfaceProps,
   NativeSwitchProps,
+  NativeTabBarItemProps,
+  NativeTabBarProps,
+  NativeTabsContentProps,
+  NativeTabsListProps,
+  NativeTabsProps,
+  NativeTabsTriggerProps,
   NativeTextareaProps,
   NativeTextProps,
   NativeToggleButtonProps,
@@ -54,6 +75,29 @@ export { RadioGroup, Radio } from "./radio";
 export { Switch } from "./switch";
 export { Slider } from "./slider";
 export { SegmentedControl } from "./segmented-control";
+
+export { Navbar } from "./navbar";
+export { GlassBar } from "./glassbar";
+export {
+  Sidebar,
+  SidebarHeader,
+  SidebarNav,
+  SidebarGroup,
+  SidebarItem,
+  SidebarFooter,
+  useSidebarContext,
+} from "./sidebar";
+export { Tabs, TabsList, TabsTrigger, TabsContent, useTabs } from "./tabs";
+export { TabBar, TabBarItem } from "./tab-bar";
+export {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "./breadcrumb";
+export { Pagination } from "./pagination";
 
 export const nativeRendererConfig: {
   readonly platform: "native";

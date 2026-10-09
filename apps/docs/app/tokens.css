@@ -69,12 +69,16 @@
   --x-text-caption2-lh: 0.875rem;
   --x-text-caption2-tracking: 0.006em;
   --x-text-caption2-weight: 400;
+  --x-glass-regular-blur: 20px;
+  --x-glass-clear-blur: 10px;
 }
 
 :root[data-x-theme="dark"] {
   --x-bg: #000000;
   --x-surface: #0A0A0A;
   --x-surface-2: #111111;
+  --x-glass-regular-bg: rgba(0, 0, 0, 0.72);
+  --x-glass-clear-bg: rgba(0, 0, 0, 0.40);
   --x-text: #EDEDED;
   --x-text-muted: #A1A1A1;
   --x-border: rgba(255, 255, 255, 0.10);
@@ -89,6 +93,8 @@
   --x-bg: #FFFFFF;
   --x-surface: #FAFAFA;
   --x-surface-2: #F4F4F4;
+  --x-glass-regular-bg: rgba(255, 255, 255, 0.80);
+  --x-glass-clear-bg: rgba(255, 255, 255, 0.50);
   --x-text: #0A0A0A;
   --x-text-muted: #5C5C5C;
   --x-border: rgba(0, 0, 0, 0.08);

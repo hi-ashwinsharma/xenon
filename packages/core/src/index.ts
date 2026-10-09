@@ -79,6 +79,44 @@ export type {
 
 export type { TextareaProps } from "./textarea.types";
 
+export type { GlassBarProps, NavbarProps } from "./navbar.types";
+
+export type {
+  SidebarCollapsibleMode,
+  SidebarFooterProps,
+  SidebarGroupProps,
+  SidebarHeaderProps,
+  SidebarItemProps,
+  SidebarNavProps,
+  SidebarProps,
+} from "./sidebar.types";
+
+export type {
+  TabsContentProps,
+  TabsContextValue,
+  TabsListProps,
+  TabsProps,
+  TabsTriggerProps,
+  TabsVariant,
+} from "./tabs.types";
+
+export type {
+  TabBarItemProps,
+  TabBarProps,
+  TabBarVariant,
+} from "./tab-bar.types";
+
+export type {
+  BreadcrumbItemProps,
+  BreadcrumbLinkProps,
+  BreadcrumbListProps,
+  BreadcrumbPageProps,
+  BreadcrumbProps,
+  BreadcrumbSeparatorProps,
+} from "./breadcrumb.types";
+
+export type { PaginationProps } from "./pagination.types";
+
 export { AppRoutes } from "./routes";
 
 export {
