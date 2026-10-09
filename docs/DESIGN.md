@@ -50,6 +50,21 @@ Blur is allowed exclusively as **Liquid Glass** on floating and overlay elements
 - **`regular`**: High legibility, structural blur for text-bearing chrome, navigation bars, and overlays.
 - **`clear`**: Ultra-translucent blur for minimal floating action icon pills over rich visual media.
 
+## Overlay Architecture: Anchored Pop-Overs & Hero Kinematics
+
+Xenon departs from legacy desktop UI libraries by **abolishing disruptive, view-blocking centered modal dialogs** for common contextual actions. 
+
+1. **Anchored Pop-Overs on Web**:
+   - Contextual actions, selectors, and disclosures open as **anchored pop-overs** physically tethered to their trigger element rather than blocking the entire screen.
+   - **Hero / Container Transform Kinematics**: The pop-over smoothly expands directly from the trigger component's coordinates and morphs/collapses back into the trigger upon dismissal (inspired by iOS popover presentations and Android container transform / hero animations).
+   - **Unobstructed Context**: The pop-over surface itself uses **Liquid Glass material** (`var(--x-glass-regular)` with 1px hairline border). **The rest of the UI is NOT blurred or obstructed**—background content remains crisp and legible so the user never loses their train of thought.
+
+2. **Apple-Grade Bottom Sheets on Native**:
+   - On React Native (Expo), anchored desktop floating cards are replaced with gesture-driven **Bottom Sheets** featuring an Apple HIG tactile pill grab handle and interactive drag-to-dismiss kinematics.
+
+3. **Full-Canvas Liquid Glass Scrim**:
+   - Reserved strictly for immersive global overlays: `CommandPalette` (`⌘K`) and full-screen `Sheet` flows, where deep focus on the search or workflow justifies blurring the background canvas.
+
 ## What "no AI look" means here
 
 Avoid the generic generated-UI look: purple-blue gradients, glowing cards, emoji bullets, oversized rounded cards stuffed with badges, and dense dashboards on landing pages. Xenon pages are sparse, aligned to a grid, and typographically led.
