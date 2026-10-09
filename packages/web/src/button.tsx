@@ -55,6 +55,7 @@ export function Button({
       fontSize:
         size === "sm" ? "0.875rem" : size === "lg" ? "1.0625rem" : "1rem",
       fontWeight: 400,
+      letterSpacing: "-0.01em",
       cursor: disabled || loading ? "not-allowed" : "pointer",
       opacity: disabled ? 0.4 : 1,
       transform:
@@ -119,9 +120,9 @@ export function Button({
       default:
         return {
           ...base,
-          backgroundColor: "var(--x-surface)",
-          color: "var(--x-text)",
-          border: "1px solid var(--x-border)",
+          backgroundColor: "var(--x-text)",
+          color: "var(--x-bg)",
+          border: "1px solid transparent",
         };
     }
   }, [

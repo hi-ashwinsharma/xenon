@@ -52,7 +52,7 @@ export function Text({
       fontFamily: "var(--x-font-family)",
       fontSize: tokenDef.web.remSize,
       lineHeight: tokenDef.web.remLineHeight,
-      letterSpacing: `${tokenDef.web.letterSpacing}px`,
+      letterSpacing: `${tokenDef.web.letterSpacing}em`,
       fontWeight: effectiveWeight,
       color: getToneColor(tone),
       textAlign: align,

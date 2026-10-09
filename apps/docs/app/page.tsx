@@ -51,10 +51,13 @@ import {
   XenonProvider,
 } from "@xenon/web";
 
+type ShowcaseDomain = "all" | "actions" | "forms" | "navigation" | "surfaces";
+
 function ShowcaseContent() {
   const [theme, setTheme] = useState<ResolvedTheme>("dark");
   const [accent, setAccent] = useState<Accent>("lime");
   const [radius, setRadius] = useState<RadiusStop>(4);
+  const [activeDomain, setActiveDomain] = useState<ShowcaseDomain>("all");
 
   // Live state for interactive components
   const [toggleActive, setToggleActive] = useState<boolean>(true);
@@ -63,8 +66,7 @@ function ShowcaseContent() {
   const [switchChecked, setSwitchChecked] = useState<boolean>(true);
   const [selectedPlan, setSelectedPlan] = useState<string>("pro");
   const [checkboxAccepted, setCheckboxAccepted] = useState<boolean>(true);
-  const [checkboxIndeterminate, setCheckboxIndeterminate] =
-    useState<boolean>(true);
+  const [checkboxIndeterminate, setCheckboxIndeterminate] = useState<boolean>(true);
   const [segmentView, setSegmentView] = useState<string>("preview");
   const [feedbackText, setFeedbackText] = useState<string>("");
 
@@ -82,6 +84,11 @@ function ShowcaseContent() {
   const accents: Accent[] = ["lime", "pink", "blue", "purple", "green"];
   const radiusStops: RadiusStop[] = [0, 1, 2, 3, 4, 5, 6];
 
+  const showActions = activeDomain === "all" || activeDomain === "actions";
+  const showForms = activeDomain === "all" || activeDomain === "forms";
+  const showNav = activeDomain === "all" || activeDomain === "navigation";
+  const showSurfaces = activeDomain === "all" || activeDomain === "surfaces";
+
   return (
     <XenonProvider accent={accent} radius={radius} theme={theme}>
       <div
@@ -89,7 +96,7 @@ function ShowcaseContent() {
           minHeight: "100vh",
           backgroundColor: "var(--x-bg)",
           color: "var(--x-text)",
-          padding: "48px 24px",
+          padding: "72px 32px 140px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -97,492 +104,391 @@ function ShowcaseContent() {
         }}
       >
         <Stack
-          gap={48}
+          gap={88}
           style={{
             width: "100%",
-            maxWidth: "960px",
+            maxWidth: "1040px",
           }}
         >
-          {/* Header & Interactive Control Bar */}
+          {/* Header & Global Environment Controls */}
           <header
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: "24px",
+              gap: "32px",
               borderBottom: "1px solid var(--x-border)",
-              paddingBottom: "32px",
+              paddingBottom: "40px",
             }}
           >
             <div
               style={{
                 display: "flex",
-                alignItems: "center",
+                alignItems: "flex-start",
                 justifyContent: "space-between",
                 flexWrap: "wrap",
-                gap: "16px",
+                gap: "24px",
               }}
             >
-              <div>
-                <Heading level={1} weight={200}>
-                  Xenon Component Showcase
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <span
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: 400,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--x-accent)",
+                    fontFamily: "var(--x-font-family-mono, monospace)",
+                  }}
+                >
+                  Xenon Design System · v1.0 Core
+                </span>
+                <Heading level={1} weight={300}>
+                  Component Showcase
                 </Heading>
-                <Text tone="muted">
-                  Minimalistic, hairline-crisp React primitives with Apple HIG
-                  precision.
+                <Text
+                  style={{
+                    lineHeight: 1.6,
+                    maxWidth: "560px",
+                  }}
+                  tone="muted"
+                >
+                  Minimalistic, hairline-crisp primitives engineered for Web & Native
+                  from a single mathematical token foundation.
                 </Text>
               </div>
 
               {/* Theme toggle */}
-              <ButtonGroup size="sm">
-                <Button
-                  onClick={() => setTheme("dark")}
-                  variant={theme === "dark" ? "filled" : "ghost"}
-                >
-                  Dark
-                </Button>
-                <Button
-                  onClick={() => setTheme("light")}
-                  variant={theme === "light" ? "filled" : "ghost"}
-                >
-                  Light
-                </Button>
-              </ButtonGroup>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "8px" }}>
+                <Text style={{ fontSize: "12px" }} tone="muted" weight={400}>
+                  Theme
+                </Text>
+                <ButtonGroup size="sm">
+                  <Button
+                    onClick={() => setTheme("dark")}
+                    variant={theme === "dark" ? "filled" : "ghost"}
+                  >
+                    Dark
+                  </Button>
+                  <Button
+                    onClick={() => setTheme("light")}
+                    variant={theme === "light" ? "filled" : "ghost"}
+                  >
+                    Light
+                  </Button>
+                </ButtonGroup>
+              </div>
             </div>
 
-            {/* Accent & Radius controllers */}
+            {/* Accent, Radius & Domain Filter Bar */}
             <div
               style={{
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                flexWrap: "wrap",
+                flexDirection: "column",
                 gap: "16px",
-                padding: "16px",
+                padding: "20px",
                 backgroundColor: "var(--x-surface)",
                 borderRadius: "var(--x-radius-control)",
                 border: "1px solid var(--x-border)",
               }}
             >
-              <Group align="center" gap={12}>
-                <Text tone="muted">Accent:</Text>
-                {accents.map((acc) => (
-                  <Button
-                    key={acc}
-                    onClick={() => setAccent(acc)}
-                    size="sm"
-                    variant={accent === acc ? "accent" : "ghost"}
-                  >
-                    {acc.charAt(0).toUpperCase() + acc.slice(1)}
-                  </Button>
-                ))}
-              </Group>
-
-              <Group align="center" gap={8}>
-                <Text tone="muted">Radius Stop:</Text>
-                {radiusStops.map((stop) => (
-                  <Button
-                    key={stop}
-                    onClick={() => setRadius(stop)}
-                    size="sm"
-                    variant={radius === stop ? "filled" : "ghost"}
-                  >
-                    {stop === 6 ? "6 (Pill)" : String(stop)}
-                  </Button>
-                ))}
-              </Group>
-            </div>
-          </header>
-
-          {/* Section 1: Tactile Selection Controls (Phase 3A) */}
-          <section
-            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
-          >
-            <div>
-              <Heading level={2} weight={300}>
-                Selection & Tactile Controls (Phase 3A)
-              </Heading>
-              <Text tone="muted">
-                Hairline indicators, Apple HIG spring kinematics, squash &
-                stretch switches.
-              </Text>
-            </div>
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                gap: "24px",
-              }}
-            >
-              {/* Checkboxes */}
-              <Surface
-                padding={24}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
-                }}
-              >
-                <Heading level={3} weight={400}>
-                  Checkboxes
-                </Heading>
-                <Checkbox
-                  checked={checkboxAccepted}
-                  description="Required to access the cloud playground"
-                  label="Accept terms of service"
-                  onCheckedChange={setCheckboxAccepted}
-                />
-                <Checkbox
-                  checked={checkboxIndeterminate}
-                  description="Mixed parent selection"
-                  indeterminate
-                  label="Select all sub-milestones"
-                  onCheckedChange={setCheckboxIndeterminate}
-                />
-                <Checkbox disabled label="Disabled unchecked option" />
-              </Surface>
-
-              {/* Switches */}
-              <Surface
-                padding={24}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
-                }}
-              >
-                <Heading level={3} weight={400}>
-                  Switches
-                </Heading>
-                <Switch
-                  checked={switchChecked}
-                  description="Real-time blur on overlay elements"
-                  label="Liquid Glass"
-                  onCheckedChange={setSwitchChecked}
-                  size="md"
-                />
-                <Switch
-                  description="Tactile vibration on tap"
-                  label="Haptic Feedback (sm)"
-                  size="sm"
-                />
-                <Switch
-                  defaultChecked
-                  description="56x32 Apple HIG dimension"
-                  label="Performance Mode (lg)"
-                  size="lg"
-                />
-              </Surface>
-
-              {/* Radio Group */}
-              {/* Radio Group: Aperture & Tile */}
-              <Surface
-                padding={24}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <Heading level={3} weight={400}>
-                    Single Choice
-                  </Heading>
-                  <Text tone="accent">Aperture & Tile</Text>
-                </div>
-
-                <Text tone="muted">Aperture Iris Indicator:</Text>
-                <RadioGroup
-                  onValueChange={setSelectedPlan}
-                  value={selectedPlan}
-                >
-                  <Radio
-                    description="Standard dev environment"
-                    label="Hobbyist"
-                    value="hobby"
-                  />
-                  <Radio
-                    description="Full multi-package monorepo"
-                    label="Pro Developer"
-                    value="pro"
-                  />
-                </RadioGroup>
-
-                <Divider />
-
-                <Text tone="muted">Architectural Selection Tile:</Text>
-                <RadioGroup
-                  onValueChange={setSelectedPlan}
-                  value={selectedPlan}
-                  variant="tile"
-                >
-                  <Radio
-                    description="Automated CI with unlimited seats"
-                    label="Enterprise Cloud"
-                    value="enterprise"
-                  />
-                </RadioGroup>
-              </Surface>
-
-              {/* Slider */}
-              <Surface
-                padding={24}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "20px",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <Heading level={3} weight={400}>
-                    Slider
-                  </Heading>
-                  <Text tone="accent">{sliderValue}%</Text>
-                </div>
-                <Slider
-                  max={100}
-                  min={0}
-                  onValueChange={setSliderValue}
-                  step={1}
-                  value={sliderValue}
-                />
-                <Text tone="muted">
-                  Interactive drag & keyboard control (Arrows, Home, End,
-                  PageUp/Down).
-                </Text>
-              </Surface>
-
-              {/* Segmented Control */}
-              <Surface
-                padding={24}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <Heading level={3} weight={400}>
-                    Segmented Control
-                  </Heading>
-                  <Text tone="accent">{segmentView.toUpperCase()}</Text>
-                </div>
-                <Text tone="muted">
-                  Apple HIG sliding capsule with squash-and-stretch kinematics:
-                </Text>
-                <SegmentedControl
-                  onValueChange={setSegmentView}
-                  options={[
-                    { value: "preview", label: "Preview" },
-                    { value: "code", label: "Code" },
-                    { value: "tokens", label: "Tokens" },
-                  ]}
-                  value={segmentView}
-                />
-                <SegmentedControl
-                  defaultValue="week"
-                  fullWidth
-                  options={[
-                    { value: "day", label: "Day" },
-                    { value: "week", label: "Week" },
-                    { value: "month", label: "Month" },
-                    { value: "year", label: "Year" },
-                  ]}
-                  size="sm"
-                />
-              </Surface>
-            </div>
-          </section>
-
-          {/* Section 2: Signature Action Controls (Phase 2B) */}
-          <section
-            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
-          >
-            <div>
-              <Heading level={2} weight={300}>
-                Action Controls & ButtonGroup (Phase 2B)
-              </Heading>
-              <Text tone="muted">
-                Six button variants, Apple-grade capsule toolbars with inset
-                hairlines.
-              </Text>
-            </div>
-
-            <Surface
-              padding={24}
-              style={{ display: "flex", flexDirection: "column", gap: "20px" }}
-            >
-              <Text tone="muted">Button Variants & IconButton:</Text>
-              <Group align="center" gap={12} wrap="wrap">
-                <Button variant="accent">Accent</Button>
-                <Button variant="filled">Filled</Button>
-                <Button variant="subtle">Subtle</Button>
-                <Button variant="outline">Outline</Button>
-                <Button variant="ghost">Ghost</Button>
-                <Button variant="glass">Liquid Glass</Button>
-                <IconButton ariaLabel="Settings" size="md" variant="subtle">
-                  <Icon size="sm">
-                    <svg
-                      fill="none"
-                      height="16"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      viewBox="0 0 24 24"
-                      width="16"
-                    >
-                      <circle cx="12" cy="12" r="3" />
-                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                    </svg>
-                  </Icon>
-                </IconButton>
-              </Group>
-
-              <Divider />
-
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "space-between",
                   alignItems: "center",
+                  justifyContent: "space-between",
                   flexWrap: "wrap",
                   gap: "16px",
                 }}
               >
-                <div>
-                  <Text tone="muted">Signature ButtonGroup:</Text>
-                  <ButtonGroup size="md">
-                    <Button variant="filled">Preview</Button>
-                    <Button variant="filled">Code</Button>
-                    <Button variant="filled">Props</Button>
-                  </ButtonGroup>
-                </div>
-
-                <div>
-                  <Text tone="muted">ToggleButton & Link:</Text>
-                  <Group align="center" gap={16}>
-                    <ToggleButton
-                      onPressedChange={setToggleActive}
-                      pressed={toggleActive}
+                <Group align="center" gap={12}>
+                  <Text style={{ fontSize: "13px" }} tone="muted" weight={400}>
+                    Accent Tone:
+                  </Text>
+                  {accents.map((acc) => (
+                    <Button
+                      key={acc}
+                      onClick={() => setAccent(acc)}
+                      size="sm"
+                      variant={accent === acc ? "accent" : "ghost"}
                     >
-                      Pin Inspector
-                    </ToggleButton>
-                    <Link href="https://github.com/hi-ashwinsharma/xenon">
-                      GitHub Repository
-                    </Link>
-                  </Group>
-                </div>
+                      {acc.charAt(0).toUpperCase() + acc.slice(1)}
+                    </Button>
+                  ))}
+                </Group>
+
+                <Group align="center" gap={8}>
+                  <Text style={{ fontSize: "13px" }} tone="muted" weight={400}>
+                    Corner Stop:
+                  </Text>
+                  {radiusStops.map((stop) => (
+                    <Button
+                      key={stop}
+                      onClick={() => setRadius(stop)}
+                      size="sm"
+                      variant={radius === stop ? "filled" : "ghost"}
+                    >
+                      {stop === 6 ? "6 (Pill)" : String(stop)}
+                    </Button>
+                  ))}
+                </Group>
               </div>
-            </Surface>
-          </section>
 
-          {/* Section 3: Form Grouping & Field (Phase 2C) */}
-          <section
-            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
-          >
-            <div>
-              <Heading level={2} weight={300}>
-                Inputs, InputGroup & Field (Phase 2C)
-              </Heading>
-              <Text tone="muted">
-                Capsule group boundaries with flush joint radiuses and
-                accessible field messaging.
-              </Text>
-            </div>
+              <Divider />
 
-            <Surface
-              padding={24}
-              style={{ display: "flex", flexDirection: "column", gap: "24px" }}
-            >
+              {/* Domain Switcher */}
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: "16px",
-                  marginBottom: "8px",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                  gap: "12px",
                 }}
               >
-                <Checkbox
-                  checked={fieldError}
-                  label="Simulate validation error"
-                  onCheckedChange={setFieldError}
+                <Text style={{ fontSize: "13px" }} tone="muted" weight={400}>
+                  Filter Modules:
+                </Text>
+                <SegmentedControl
+                  onValueChange={(val) => setActiveDomain(val as ShowcaseDomain)}
+                  options={[
+                    { value: "all", label: "All Modules" },
+                    { value: "actions", label: "Actions & Buttons" },
+                    { value: "forms", label: "Forms & Controls" },
+                    { value: "navigation", label: "Navigation Chrome" },
+                    { value: "surfaces", label: "Surfaces & Math" },
+                  ]}
+                  value={activeDomain}
                 />
               </div>
+            </div>
+          </header>
 
-              <div
+          {/* Section 1: Signature Action Controls (Phase 2B) */}
+          {showActions && (
+            <section style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <span
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: 400,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--x-accent)",
+                    fontFamily: "var(--x-font-family-mono, monospace)",
+                  }}
+                >
+                  Phase 2B · Action Primitives
+                </span>
+                <Heading level={2} weight={400}>
+                  Signature Buttons & Micro-Interactions
+                </Heading>
+                <Text style={{ lineHeight: 1.6, maxWidth: "720px" }} tone="muted">
+                  Tactile pill geometry with Apple-calibrated font weight 400.
+                  Filled buttons render as solid high-contrast primary pills, sharply
+                  distinguished from transparent hairline outline buttons.
+                </Text>
+              </div>
+
+              {/* Part A: On Canvas Background */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <Text tone="default" weight={400}>
+                    1. Rendered on Canvas Background (var(--x-bg))
+                  </Text>
+                  <Text style={{ fontSize: "12px" }} tone="muted">
+                    Notice the contrast between solid Filled and wireframe Outline
+                  </Text>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                    gap: "12px",
+                    padding: "24px",
+                    border: "1px dashed var(--x-border)",
+                    borderRadius: "var(--x-radius-control)",
+                  }}
+                >
+                  <Button variant="filled">Filled (Solid Primary)</Button>
+                  <Button variant="outline">Outline (Hairline)</Button>
+                  <Button variant="subtle">Subtle Tone</Button>
+                  <Button variant="accent">Accent Electric</Button>
+                  <Button variant="glass">Liquid Glass</Button>
+                  <Button variant="ghost">Ghost Plain</Button>
+                  <IconButton ariaLabel="Settings" size="md" variant="subtle">
+                    <Icon size="sm">
+                      <svg
+                        fill="none"
+                        height="16"
+                        stroke="currentColor"
+                        strokeWidth="1.25"
+                        viewBox="0 0 24 24"
+                        width="16"
+                      >
+                        <circle cx="12" cy="12" r="3" />
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                      </svg>
+                    </Icon>
+                  </IconButton>
+                </div>
+              </div>
+
+              {/* Part B: On Raised Surface Card */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <Text tone="default" weight={400}>
+                    2. Rendered Inside Raised Surface Card (var(--x-surface))
+                  </Text>
+                  <Text style={{ fontSize: "12px" }} tone="muted">
+                    Filled maintains solid authority over surface cards without blending in
+                  </Text>
+                </div>
+
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "24px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <Group align="center" gap={12} wrap="wrap">
+                    <Button variant="filled">Filled (Solid Primary)</Button>
+                    <Button variant="outline">Outline (Hairline)</Button>
+                    <Button variant="subtle">Subtle Tone</Button>
+                    <Button variant="accent">Accent Electric</Button>
+                    <Button variant="glass">Liquid Glass</Button>
+                    <Button variant="ghost">Ghost Plain</Button>
+                  </Group>
+
+                  <Divider />
+
+                  {/* Part C: Sizes, Toolbars & ToggleButton */}
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                      gap: "24px",
+                    }}
+                  >
+                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                      <Text tone="muted" weight={400}>
+                        Size Scale & States
+                      </Text>
+                      <Group align="center" gap={8} wrap="wrap">
+                        <Button size="sm" variant="filled">Small (32px)</Button>
+                        <Button size="md" variant="filled">Medium (40px)</Button>
+                        <Button size="lg" variant="filled">Large (48px)</Button>
+                        <Button loading size="sm" variant="outline">Loading</Button>
+                        <Button disabled size="sm" variant="outline">Disabled</Button>
+                      </Group>
+                    </div>
+
+                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                      <Text tone="muted" weight={400}>
+                        Connected ButtonGroup & Toggle
+                      </Text>
+                      <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
+                        <ButtonGroup size="md">
+                          <Button variant="filled">Design</Button>
+                          <Button variant="filled">Inspect</Button>
+                          <Button variant="filled">Tokens</Button>
+                        </ButtonGroup>
+
+                        <ToggleButton
+                          onPressedChange={setToggleActive}
+                          pressed={toggleActive}
+                        >
+                          Pin Inspector
+                        </ToggleButton>
+                      </div>
+                    </div>
+                  </div>
+                </Surface>
+              </div>
+            </section>
+          )}
+
+          {/* Section 2: Forms, Inputs & Selection Controls (Phase 2C & 3A) */}
+          {showForms && (
+            <section style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <span
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: 400,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--x-accent)",
+                    fontFamily: "var(--x-font-family-mono, monospace)",
+                  }}
+                >
+                  Phase 2C & 3A · Forms & Selection
+                </span>
+                <Heading level={2} weight={400}>
+                  Architectural Inputs & Kinematic Controls
+                </Heading>
+                <Text style={{ lineHeight: 1.6, maxWidth: "720px" }} tone="muted">
+                  Standard form fields maintain restrained architectural corners
+                  (Stop 1–2 / 6–8px) with optical horizontal padding. Full pills are reserved
+                  strictly for dedicated search bars and action chips.
+                </Text>
+              </div>
+
+              {/* Subsection A: Inputs & Field Grouping */}
+              <Surface
+                padding={28}
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                  gap: "24px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "28px",
+                  backgroundColor: "var(--x-surface)",
                 }}
               >
-                {/* 1. Architectural Data Input */}
-                <Field
-                  error={
-                    fieldError ? "Please enter a valid organization" : undefined
-                  }
-                  helpText="Restrained 8px architectural geometry with recessed surface-2"
-                  label="Organization Name"
-                >
-                  <Input
-                    clearable
-                    defaultValue="HotCrunch Core Labs"
-                    invalid={fieldError}
-                    placeholder="e.g. Acme Corp"
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+                  <Heading level={3} weight={400}>
+                    Architectural Data Fields & InputGroup
+                  </Heading>
+                  <Checkbox
+                    checked={fieldError}
+                    label="Toggle simulated validation state"
+                    onCheckedChange={setFieldError}
                   />
-                </Field>
+                </div>
 
-                {/* 2. Dedicated Search Input */}
-                <Field
-                  helpText="Reserved pill geometry with living prefix and ⌘K badge"
-                  label="Quick Navigator"
-                  optional
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                    gap: "24px",
+                  }}
                 >
-                  <Input
-                    clearable
-                    placeholder="Search documentation, API..."
-                    prefix={
-                      <Icon size="sm">
-                        <svg
-                          fill="none"
-                          height="16"
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="1.25"
-                          viewBox="0 0 16 16"
-                          width="16"
-                        >
-                          <circle cx="7" cy="7" r="4.5" />
-                          <line x1="10.5" x2="14" y1="10.5" y2="14" />
-                        </svg>
-                      </Icon>
-                    }
-                    shortcutKey="⌘K"
-                    variant="search"
-                  />
-                </Field>
-
-                {/* 3. Flush Attached InputGroup */}
-                <Field
-                  helpText="Continuous group with flush joint boundaries"
-                  label="License Authorization"
-                  optional
-                >
-                  <InputGroup size="md">
+                  {/* 1. Architectural Data Input */}
+                  <Field
+                    error={fieldError ? "Please enter a valid organization identifier" : undefined}
+                    helpText="Restrained 8px architectural geometry on recessed surface-2"
+                    label="Organization Domain"
+                  >
                     <Input
-                      placeholder="xenon_lic_..."
+                      clearable
+                      defaultValue="hotcrunch.labs"
+                      invalid={fieldError}
+                      placeholder="e.g. acme.io"
+                    />
+                  </Field>
+
+                  {/* 2. Dedicated Search Pill */}
+                  <Field
+                    helpText="Reserved pill geometry with living prefix and ⌘K badge"
+                    label="Quick Search"
+                    optional
+                  >
+                    <Input
+                      clearable
+                      placeholder="Search components, APIs, tokens..."
                       prefix={
                         <Icon size="sm">
                           <svg
@@ -595,719 +501,989 @@ function ShowcaseContent() {
                             viewBox="0 0 16 16"
                             width="16"
                           >
-                            <circle cx="8" cy="8" r="4" />
-                            <path d="M12 8h2" />
+                            <circle cx="7" cy="7" r="4.5" />
+                            <line x1="10.5" x2="14" y1="10.5" y2="14" />
                           </svg>
                         </Icon>
                       }
+                      shortcutKey="⌘K"
+                      variant="search"
                     />
-                    <Button variant="accent">Verify</Button>
-                  </InputGroup>
+                  </Field>
+
+                  {/* 3. Flush Attached InputGroup */}
+                  <Field
+                    helpText="Continuous group with flush joint boundaries"
+                    label="Enterprise License"
+                    optional
+                  >
+                    <InputGroup size="md">
+                      <Input
+                        placeholder="xenon_core_live_..."
+                        prefix={
+                          <Icon size="sm">
+                            <svg
+                              fill="none"
+                              height="16"
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.25"
+                              viewBox="0 0 16 16"
+                              width="16"
+                            >
+                              <circle cx="8" cy="8" r="4" />
+                              <path d="M12 8h2" />
+                            </svg>
+                          </Icon>
+                        }
+                      />
+                      <Button variant="accent">Verify</Button>
+                    </InputGroup>
+                  </Field>
+                </div>
+
+                {/* 4. Architectural Textarea */}
+                <Field
+                  helpText="Auto-grow expansion with live character metrics"
+                  label="Architectural Specification & Decisions"
+                  optional
+                >
+                  <Textarea
+                    autoGrow
+                    maxLength={280}
+                    onChange={(e) => setFeedbackText(e.target.value)}
+                    placeholder="Document structural rationale, negative space requirements, and motion kinematics..."
+                    showCount
+                    value={feedbackText}
+                  />
                 </Field>
-              </div>
+              </Surface>
 
-              {/* 4. Architectural Textarea with Auto-growth & Character Count */}
-              <Field
-                helpText="Architectural 8px radius with dynamic auto-growth and live character metrics"
-                label="Release Notes & Engineering Rationale"
-                optional
-              >
-                <Textarea
-                  autoGrow
-                  maxLength={280}
-                  onChange={(e) => setFeedbackText(e.target.value)}
-                  placeholder="Deliberate deeply on the semantic role, negative space, and geometry..."
-                  showCount
-                  value={feedbackText}
-                />
-              </Field>
-            </Surface>
-          </section>
-
-          {/* Section 4: Structural Navigation Chrome (Phase 3B) */}
-          <section
-            style={{ display: "flex", flexDirection: "column", gap: "24px" }}
-          >
-            <div>
-              <Heading level={2} weight={300}>
-                Structural Navigation Chrome (Phase 3B)
-              </Heading>
-              <Text tone="muted">
-                Engineered with Apple-grade micro-interactions, Liquid Glass blur, background-less negative space sidebars, and hairline boundaries.
-              </Text>
-            </div>
-
-            {/* 1. Navbar & GlassBar */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              <Text tone="accent">1. Top Navigation: Adaptive Navbar & Liquid GlassBar</Text>
+              {/* Subsection B: Kinematic Selection Controls */}
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
-                  border: "1px solid var(--x-border)",
-                  borderRadius: "8px",
-                  overflow: "hidden",
-                  backgroundColor: "var(--x-surface-2)",
-                  padding: "16px",
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                  gap: "24px",
                 }}
               >
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                  <Text tone="muted" weight={400}>Adaptive Navbar (Transparent at rest, elevates to Liquid Glass on scroll)</Text>
-                  <Navbar
-                    actions={
-                      <Group gap={8}>
-                        <Button size="sm" variant="subtle">Docs</Button>
-                        <Button size="sm" variant="filled">Sign in</Button>
+                {/* Switches */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <Heading level={3} weight={400}>
+                    Tactile Switches
+                  </Heading>
+                  <Text tone="muted">Squash-and-stretch kinematics:</Text>
+                  <Switch
+                    checked={switchChecked}
+                    description="Real-time blur on overlay elements"
+                    label="Liquid Glass"
+                    onCheckedChange={setSwitchChecked}
+                    size="md"
+                  />
+                  <Switch
+                    description="Tactile vibration on tap"
+                    label="Haptic Engine (sm)"
+                    size="sm"
+                  />
+                  <Switch
+                    defaultChecked
+                    description="56x32 Apple HIG dimension"
+                    label="Display 120Hz (lg)"
+                    size="lg"
+                  />
+                </Surface>
+
+                {/* Checkboxes */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <Heading level={3} weight={400}>
+                    Checkboxes
+                  </Heading>
+                  <Text tone="muted">Hairline indicator precision:</Text>
+                  <Checkbox
+                    checked={checkboxAccepted}
+                    description="Required for production sync"
+                    label="Accept Terms of Service"
+                    onCheckedChange={setCheckboxAccepted}
+                  />
+                  <Checkbox
+                    checked={checkboxIndeterminate}
+                    description="Mixed parent selection"
+                    indeterminate
+                    label="Select Sub-Packages"
+                    onCheckedChange={setCheckboxIndeterminate}
+                  />
+                  <Checkbox disabled label="Restricted Permission" />
+                </Surface>
+
+                {/* Single Choice Radios */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <Heading level={3} weight={400}>
+                    Single Choice
+                  </Heading>
+                  <Text tone="muted">Aperture Iris Indicator:</Text>
+                  <RadioGroup
+                    onValueChange={setSelectedPlan}
+                    value={selectedPlan}
+                  >
+                    <Radio
+                      description="Single workspace sandbox"
+                      label="Community"
+                      value="community"
+                    />
+                    <Radio
+                      description="Full multi-package monorepo"
+                      label="Pro Developer"
+                      value="pro"
+                    />
+                  </RadioGroup>
+
+                  <Divider />
+
+                  <Text tone="muted">Selection Tile:</Text>
+                  <RadioGroup
+                    onValueChange={setSelectedPlan}
+                    value={selectedPlan}
+                    variant="tile"
+                  >
+                    <Radio
+                      description="Enterprise-grade scale"
+                      label="Enterprise Cloud"
+                      value="enterprise"
+                    />
+                  </RadioGroup>
+                </Surface>
+
+                {/* Continuous Slider & Segmented Control */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Slider & Segment
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      {sliderValue}%
+                    </span>
+                  </div>
+
+                  <Slider
+                    max={100}
+                    min={0}
+                    onValueChange={setSliderValue}
+                    step={1}
+                    value={sliderValue}
+                  />
+
+                  <Divider />
+
+                  <Text tone="muted">Segmented Sliding Capsule:</Text>
+                  <SegmentedControl
+                    onValueChange={setSegmentView}
+                    options={[
+                      { value: "preview", label: "Preview" },
+                      { value: "code", label: "Code" },
+                      { value: "tokens", label: "Tokens" },
+                    ]}
+                    value={segmentView}
+                  />
+                </Surface>
+              </div>
+            </section>
+          )}
+
+          {/* Section 3: Structural Navigation Chrome (Phase 3B) */}
+          {showNav && (
+            <section style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <span
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: 400,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--x-accent)",
+                    fontFamily: "var(--x-font-family-mono, monospace)",
+                  }}
+                >
+                  Phase 3B · Navigation Chrome
+                </span>
+                <Heading level={2} weight={400}>
+                  Structural Navigation Chrome
+                </Heading>
+                <Text style={{ lineHeight: 1.6, maxWidth: "720px" }} tone="muted">
+                  Floating island geometry with negative space sidebars, zero outer borders,
+                  soft inset vertical dividers, and real-time Liquid Glass blur.
+                </Text>
+              </div>
+
+              {/* 1. Adaptive Navbar & Liquid GlassBar */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                <Text tone="default" weight={400}>
+                  1. Top Navigation: Adaptive Navbar & Liquid GlassBar
+                </Text>
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    border: "1px solid var(--x-border)",
+                    borderRadius: "12px",
+                    overflow: "hidden",
+                    backgroundColor: "var(--x-surface-2)",
+                    padding: "20px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                    <Text style={{ fontSize: "12px" }} tone="muted" weight={400}>
+                      Adaptive Navbar (Transparent at rest, elevates to Liquid Glass on scroll)
+                    </Text>
+                    <Navbar
+                      actions={
+                        <Group gap={8}>
+                          <Button size="sm" variant="subtle">Docs</Button>
+                          <Button size="sm" variant="filled">Sign in</Button>
+                        </Group>
+                      }
+                      bordered
+                      brand={
+                        <Group align="center" gap={8}>
+                          <div
+                            style={{
+                              width: "18px",
+                              height: "18px",
+                              borderRadius: "4px",
+                              backgroundColor: "var(--x-accent)",
+                            }}
+                          />
+                          <Text weight={400}>Xenon UI</Text>
+                        </Group>
+                      }
+                      nav={
+                        <Group gap={16}>
+                          <Link href="#components">Components</Link>
+                          <Link href="#foundations">Tokens</Link>
+                          <Link href="#guidelines">HIG Spec</Link>
+                        </Group>
+                      }
+                      sticky={false}
+                      style={{ position: "relative", borderRadius: "8px" }}
+                    />
+                  </div>
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                    <Text style={{ fontSize: "12px" }} tone="muted" weight={400}>
+                      Continuous GlassBar (Permanent Liquid Glass with regular blur)
+                    </Text>
+                    <GlassBar
+                      actions={
+                        <Button size="sm" variant="glass">⌘K Search</Button>
+                      }
+                      bordered
+                      brand={
+                        <Text tone="accent" weight={400}>Floating Glass Console</Text>
+                      }
+                      glassType="regular"
+                      nav={
+                        <Group gap={16}>
+                          <Text tone="default">v0.1.0-alpha</Text>
+                          <Text tone="muted">Apple HIG Engine</Text>
+                        </Group>
+                      }
+                      sticky={false}
+                      style={{ position: "relative", borderRadius: "8px" }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. Floating Sidebar */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+                  <div>
+                    <Text tone="default" weight={400}>
+                      2. Floating Sidebar Island (No Outer Border, Soft Inset Dividers)
+                    </Text>
+                    <Text style={{ fontSize: "12px" }} tone="muted">
+                      Floats detached in the canvas. Outer border is off by default per architectural spec.
+                    </Text>
+                  </div>
+                  <Group gap={8} wrap="wrap">
+                    <Button
+                      onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+                      size="sm"
+                      variant={sidebarCollapsed ? "filled" : "outline"}
+                    >
+                      {sidebarCollapsed ? "Expand (240px)" : "Rail Mode (56px)"}
+                    </Button>
+                    <Button
+                      onClick={() => setSidebarVariant(sidebarVariant === "floating" ? "docked" : "floating")}
+                      size="sm"
+                      variant={sidebarVariant === "floating" ? "filled" : "outline"}
+                    >
+                      {sidebarVariant === "floating" ? "Variant: Floating" : "Variant: Docked"}
+                    </Button>
+                    <Button
+                      onClick={() => setSidebarBordered(!sidebarBordered)}
+                      size="sm"
+                      variant={sidebarBordered ? "filled" : "outline"}
+                    >
+                      {sidebarBordered ? "Border: On" : "Border: Off"}
+                    </Button>
+                    <Button
+                      onClick={() => setSidebarSolid(!sidebarSolid)}
+                      size="sm"
+                      variant={sidebarSolid ? "filled" : "outline"}
+                    >
+                      {sidebarSolid ? "Surface Tone" : "Transparent"}
+                    </Button>
+                  </Group>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "stretch",
+                    height: "360px",
+                    border: "1px solid var(--x-border)",
+                    borderRadius: "12px",
+                    overflow: "hidden",
+                    backgroundColor: "var(--x-bg)",
+                    position: "relative",
+                  }}
+                >
+                  <Sidebar
+                    bordered={sidebarBordered}
+                    collapsed={sidebarCollapsed}
+                    collapsible="rail"
+                    hasBackground={sidebarSolid}
+                    variant={sidebarVariant}
+                    width={240}
+                  >
+                    <SidebarHeader>
+                      <Group align="center" gap={8}>
+                        <Icon size="sm">
+                          <svg fill="none" height="16" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
+                            <polygon points="8 2 14 13 2 13" />
+                          </svg>
+                        </Icon>
+                        {!sidebarCollapsed && <Text weight={400}>Xenon Studio</Text>}
                       </Group>
-                    }
-                    bordered
-                    brand={
+                    </SidebarHeader>
+
+                    <SidebarDivider inset={12} />
+
+                    <SidebarNav>
+                      <SidebarGroup label="Workspace">
+                        <SidebarItem
+                          active
+                          icon={
+                            <Icon size="sm">
+                              <svg fill="none" height="16" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
+                                <path d="M2 6.5L8 2l6 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6.5z" />
+                              </svg>
+                            </Icon>
+                          }
+                          label="Overview"
+                          shortcut="⌘1"
+                        />
+                        <SidebarItem
+                          icon={
+                            <Icon size="sm">
+                              <svg fill="none" height="16" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
+                                <circle cx="8" cy="8" r="6" />
+                                <polygon points="10 5.5 8.5 8.5 5.5 10.5 7.5" />
+                              </svg>
+                            </Icon>
+                          }
+                          label="Insights"
+                          shortcut="⌘2"
+                        />
+                        <SidebarItem
+                          badge={
+                            <span
+                              style={{
+                                fontSize: "10px",
+                                backgroundColor: "var(--x-accent)",
+                                color: "var(--x-on-accent)",
+                                padding: "1px 6px",
+                                borderRadius: "9999px",
+                                fontWeight: 400,
+                              }}
+                            >
+                              New
+                            </span>
+                          }
+                          icon={
+                            <Icon size="sm">
+                              <svg fill="none" height="16" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
+                                <path d="M12 5.5a4 4 0 0 0-8 0c0 3-1.5 4.5-1.5 4.5h11s-1.5-1.5-1.5-4.5" />
+                                <path d="M6.8 12.5a1.5 1.5 0 0 0 2.4 0" />
+                              </svg>
+                            </Icon>
+                          }
+                          label="Activity"
+                          shortcut="⌘3"
+                        />
+                      </SidebarGroup>
+
+                      <SidebarDivider inset={12} />
+
+                      <SidebarGroup label="Configuration">
+                        <SidebarItem
+                          icon={
+                            <Icon size="sm">
+                              <svg fill="none" height="16" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
+                                <circle cx="8" cy="8" r="3" />
+                                <path d="M13.2 6.5l-.8-.5a5 5 0 0 0 0-1.8l.8-.5a1 1 0 0 0 .4-1.3l-1-1.7a1 1 0 0 0-1.3-.4l-.8.5a5 5 0 0 0-1.6-.9V-.1" />
+                              </svg>
+                            </Icon>
+                          }
+                          label="Tokens & Rules"
+                        />
+                      </SidebarGroup>
+                    </SidebarNav>
+
+                    <SidebarDivider inset={12} />
+
+                    <SidebarFooter>
                       <Group align="center" gap={8}>
                         <div
                           style={{
-                            width: "20px",
-                            height: "20px",
-                            borderRadius: "4px",
-                            backgroundColor: "var(--x-accent)",
+                            width: "22px",
+                            height: "22px",
+                            borderRadius: "9999px",
+                            backgroundColor: "var(--x-surface-2)",
+                            border: "1px solid var(--x-border)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "11px",
                           }}
-                        />
-                        <Text weight={400}>Xenon UI</Text>
+                        >
+                          A
+                        </div>
+                        {!sidebarCollapsed && <Text tone="muted">ashwin@domain</Text>}
                       </Group>
-                    }
-                    nav={
-                      <Group gap={16}>
-                        <Link href="#components">Components</Link>
-                        <Link href="#foundations">Tokens</Link>
-                        <Link href="#guidelines">HIG Spec</Link>
-                      </Group>
-                    }
-                    sticky={false}
-                    style={{ position: "relative", borderRadius: "6px" }}
-                  />
-                </div>
+                    </SidebarFooter>
+                  </Sidebar>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                  <Text tone="muted" weight={400}>Continuous GlassBar (Permanent Liquid Glass with regular blur)</Text>
-                  <GlassBar
-                    actions={
-                      <Button size="sm" variant="glass">⌘K Search</Button>
-                    }
-                    bordered
-                    brand={
-                      <Text tone="accent" weight={400}>Floating Glass Console</Text>
-                    }
-                    glassType="regular"
-                    nav={
-                      <Group gap={16}>
-                        <Text tone="default">v0.1.0-alpha</Text>
-                        <Text tone="muted">Apple HIG Engine</Text>
-                      </Group>
-                    }
-                    sticky={false}
-                    style={{ position: "relative", borderRadius: "6px" }}
-                  />
+                  <div
+                    style={{
+                      flex: 1,
+                      padding: "32px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: "8px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <Text tone="accent" weight={400}>Main Workspace Canvas</Text>
+                    <Text style={{ maxWidth: "360px", lineHeight: 1.5 }} tone="muted">
+                      Notice how the floating sidebar sits comfortably without edge pinning,
+                      maintaining calm negative space.
+                    </Text>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* 2. Floating Sidebar with Soft Inset Dividers */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
-                <div>
-                  <Text tone="accent">2. Floating Sidebar (Detached Island, Zero Outer Border, Soft Inset Dividers)</Text>
-                  <Text tone="muted">
-                    Floats freely inside the canvas without sticking edge-to-edge. Outer border is off by default.
+              {/* 3. Tabs: Pill & Underline */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+                  <Text tone="default" weight={400}>
+                    3. Tabs (Pill Capsule & Hairline Underline)
                   </Text>
+                  <Group gap={8}>
+                    <Button
+                      onClick={() => setTabsVariant("pill")}
+                      size="sm"
+                      variant={tabsVariant === "pill" ? "filled" : "outline"}
+                    >
+                      Pill Capsule
+                    </Button>
+                    <Button
+                      onClick={() => setTabsVariant("underline")}
+                      size="sm"
+                      variant={tabsVariant === "underline" ? "filled" : "outline"}
+                    >
+                      Hairline Underline
+                    </Button>
+                  </Group>
                 </div>
-                <Group gap={8}>
-                  <Button
-                    onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                    size="sm"
-                    variant={sidebarCollapsed ? "filled" : "outline"}
-                  >
-                    {sidebarCollapsed ? "Expand (240px)" : "Rail Mode (56px)"}
-                  </Button>
-                  <Button
-                    onClick={() => setSidebarVariant(sidebarVariant === "floating" ? "docked" : "floating")}
-                    size="sm"
-                    variant={sidebarVariant === "floating" ? "filled" : "outline"}
-                  >
-                    {sidebarVariant === "floating" ? "Variant: Floating" : "Variant: Docked"}
-                  </Button>
-                  <Button
-                    onClick={() => setSidebarBordered(!sidebarBordered)}
-                    size="sm"
-                    variant={sidebarBordered ? "filled" : "outline"}
-                  >
-                    {sidebarBordered ? "Outer Border: On" : "Outer Border: Off (Default)"}
-                  </Button>
-                  <Button
-                    onClick={() => setSidebarSolid(!sidebarSolid)}
-                    size="sm"
-                    variant={sidebarSolid ? "filled" : "outline"}
-                  >
-                    {sidebarSolid ? "Surface Tone" : "Transparent Canvas"}
-                  </Button>
-                </Group>
-              </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "stretch",
-                  height: "380px",
-                  border: "1px solid var(--x-border)",
-                  borderRadius: "12px",
-                  overflow: "hidden",
-                  backgroundColor: "var(--x-bg)",
-                  position: "relative",
-                }}
-              >
-                <Sidebar
-                  bordered={sidebarBordered}
-                  collapsed={sidebarCollapsed}
-                  collapsible="rail"
-                  hasBackground={sidebarSolid}
-                  variant={sidebarVariant}
-                  width={240}
+                <Surface
+                  padding={24}
+                  style={{
+                    backgroundColor: "var(--x-surface)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                  }}
                 >
-                  <SidebarHeader>
-                    <Group align="center" gap={8}>
-                      <Icon size="sm">
-                        <svg fill="none" height="16" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
-                          <polygon points="8 2 14 13 2 13" />
-                        </svg>
-                      </Icon>
-                      {!sidebarCollapsed && <Text weight={400}>Xenon Studio</Text>}
-                    </Group>
-                  </SidebarHeader>
-
-                  <SidebarDivider inset={12} />
-
-                  <SidebarNav>
-                    <SidebarGroup label="Workspace">
-                      <SidebarItem
-                        active
+                  <Tabs onValueChange={setActiveNavTab} value={activeNavTab} variant={tabsVariant}>
+                    <TabsList ariaLabel="Project Settings">
+                      <TabsTrigger
                         icon={
                           <Icon size="sm">
-                            <svg fill="none" height="16" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
+                            <svg fill="none" height="14" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="14">
+                              <rect height="12" rx="2" width="12" x="2" y="2" />
+                              <line x1="2" x2="14" y1="6" y2="6" />
+                            </svg>
+                          </Icon>
+                        }
+                        value="components"
+                      >
+                        Components
+                      </TabsTrigger>
+                      <TabsTrigger
+                        icon={
+                          <Icon size="sm">
+                            <svg fill="none" height="14" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="14">
+                              <polygon points="8 2 14 13 2 13" />
+                            </svg>
+                          </Icon>
+                        }
+                        value="architecture"
+                      >
+                        Architecture
+                      </TabsTrigger>
+                      <TabsTrigger value="tokens">Design Tokens</TabsTrigger>
+                      <TabsTrigger disabled value="experimental">Experimental (Locked)</TabsTrigger>
+                    </TabsList>
+
+                    <TabsContent value="components">
+                      <Surface padding={16} style={{ backgroundColor: "var(--x-surface-2)" }}>
+                        <Text tone="default" weight={400}>V1 Component System</Text>
+                        <Text tone="muted">
+                          30+ components engineered with identical props across React DOM and React Native (Expo).
+                        </Text>
+                      </Surface>
+                    </TabsContent>
+
+                    <TabsContent value="architecture">
+                      <Surface padding={16} style={{ backgroundColor: "var(--x-surface-2)" }}>
+                        <Text tone="default" weight={400}>Single Source of Truth</Text>
+                        <Text tone="muted">
+                          Zero token duplication. Core mathematical formulas compute concentric radius and joint geometries at runtime.
+                        </Text>
+                      </Surface>
+                    </TabsContent>
+
+                    <TabsContent value="tokens">
+                      <Surface padding={16} style={{ backgroundColor: "var(--x-surface-2)" }}>
+                        <Text tone="default" weight={400}>Discrete 7-Stop Radius & Acid Accents</Text>
+                        <Text tone="muted">
+                          Apple HIG-calibrated typography tracking, 1px hairline precision, and pure Liquid Glass blurs.
+                        </Text>
+                      </Surface>
+                    </TabsContent>
+                  </Tabs>
+                </Surface>
+              </div>
+
+              {/* 4. TabBar & Breadcrumb / Pagination */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+                  gap: "24px",
+                }}
+              >
+                {/* Mobile TabBar */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Text tone="default" weight={400}>
+                      4. Mobile TabBar
+                    </Text>
+                    <Group gap={8}>
+                      <Button
+                        onClick={() => setTabBarVariant("floating")}
+                        size="sm"
+                        variant={tabBarVariant === "floating" ? "filled" : "outline"}
+                      >
+                        Floating
+                      </Button>
+                      <Button
+                        onClick={() => setTabBarVariant("docked")}
+                        size="sm"
+                        variant={tabBarVariant === "docked" ? "filled" : "outline"}
+                      >
+                        Docked
+                      </Button>
+                    </Group>
+                  </div>
+
+                  <div
+                    style={{
+                      position: "relative",
+                      height: "170px",
+                      border: "1px solid var(--x-border)",
+                      borderRadius: "12px",
+                      overflow: "hidden",
+                      backgroundColor: "var(--x-surface)",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text style={{ fontSize: "12px" }} tone="muted">Viewport Simulator</Text>
+                    <TabBar
+                      style={{ position: "absolute" }}
+                      variant={tabBarVariant}
+                    >
+                      <TabBarItem
+                        active
+                        icon={
+                          <Icon size="md">
+                            <svg fill="none" height="18" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="18">
                               <path d="M2 6.5L8 2l6 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6.5z" />
                             </svg>
                           </Icon>
                         }
-                        label="Overview"
-                        shortcut="⌘1"
+                        label="Home"
                       />
-                      <SidebarItem
+                      <TabBarItem
                         icon={
-                          <Icon size="sm">
-                            <svg fill="none" height="16" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
+                          <Icon size="md">
+                            <svg fill="none" height="18" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="18">
                               <circle cx="8" cy="8" r="6" />
-                              <polygon points="10 5.5 8.5 8.5 5.5 10.5 7.5 7.5" />
+                              <polygon points="10 5.5 8.5 8.5 5.5 10.5 7.5" />
                             </svg>
                           </Icon>
                         }
-                        label="Insights"
-                        shortcut="⌘2"
+                        label="Search"
                       />
-                      <SidebarItem
-                        badge={
-                          <span
-                            style={{
-                              fontSize: "10px",
-                              backgroundColor: "var(--x-accent)",
-                              color: "var(--x-on-accent)",
-                              padding: "1px 6px",
-                              borderRadius: "9999px",
-                              fontWeight: 400,
-                            }}
-                          >
-                            New
-                          </span>
-                        }
+                      <TabBarItem
+                        badge
                         icon={
-                          <Icon size="sm">
-                            <svg fill="none" height="16" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
+                          <Icon size="md">
+                            <svg fill="none" height="18" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="18">
                               <path d="M12 5.5a4 4 0 0 0-8 0c0 3-1.5 4.5-1.5 4.5h11s-1.5-1.5-1.5-4.5" />
                               <path d="M6.8 12.5a1.5 1.5 0 0 0 2.4 0" />
                             </svg>
                           </Icon>
                         }
-                        label="Notifications"
-                        shortcut="⌘3"
+                        label="Activity"
                       />
-                    </SidebarGroup>
-
-                    <SidebarDivider inset={12} />
-
-                    <SidebarGroup label="Configuration">
-                      <SidebarItem
+                      <TabBarItem
                         icon={
-                          <Icon size="sm">
-                            <svg fill="none" height="16" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
-                              <circle cx="8" cy="8" r="3" />
-                              <path d="M13.2 6.5l-.8-.5a5 5 0 0 0 0-1.8l.8-.5a1 1 0 0 0 .4-1.3l-1-1.7a1 1 0 0 0-1.3-.4l-.8.5a5 5 0 0 0-1.6-.9V-.1" />
+                          <Icon size="md">
+                            <svg fill="none" height="18" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="18">
+                              <circle cx="8" cy="5" r="3" />
+                              <path d="M3 14c0-2.5 2.5-4 5-4s5 1.5 5 4" />
                             </svg>
                           </Icon>
                         }
-                        label="Tokens & Rules"
+                        label="Profile"
                       />
-                    </SidebarGroup>
-                  </SidebarNav>
-
-                  <SidebarDivider inset={12} />
-
-                  <SidebarFooter>
-                    <Group align="center" gap={8}>
-                      <div
-                        style={{
-                          width: "24px",
-                          height: "24px",
-                          borderRadius: "9999px",
-                          backgroundColor: "var(--x-surface-2)",
-                          border: "1px solid var(--x-border)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "11px",
-                        }}
-                      >
-                        A
-                      </div>
-                      {!sidebarCollapsed && <Text tone="muted">ashwin@domain</Text>}
-                    </Group>
-                  </SidebarFooter>
-                </Sidebar>
-
-                <div
-                  style={{
-                    flex: 1,
-                    padding: "24px",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: "8px",
-                  }}
-                >
-                  <Text tone="accent">Content Canvas Area</Text>
-                  <Text tone="muted">
-                    Notice the floating sidebar island with soft inset vertical dividers and no outer border.
-                  </Text>
-                </div>
-              </div>
-            </div>
-
-            {/* 3. Tabs: Pill & Underline Indicators */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
-                <Text tone="accent">3. Tabs (Pill Capsule & Minimalist Underline)</Text>
-                <Group gap={8}>
-                  <Button
-                    onClick={() => setTabsVariant("pill")}
-                    size="sm"
-                    variant={tabsVariant === "pill" ? "filled" : "outline"}
-                  >
-                    Pill Capsule
-                  </Button>
-                  <Button
-                    onClick={() => setTabsVariant("underline")}
-                    size="sm"
-                    variant={tabsVariant === "underline" ? "filled" : "outline"}
-                  >
-                    Hairline Underline
-                  </Button>
-                </Group>
-              </div>
-
-              <Surface
-                padding={24}
-                style={{
-                  backgroundColor: "var(--x-surface)",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
-                }}
-              >
-                <Tabs onValueChange={setActiveNavTab} value={activeNavTab} variant={tabsVariant}>
-                  <TabsList ariaLabel="Project Settings">
-                    <TabsTrigger
-                      icon={
-                        <Icon size="sm">
-                          <svg fill="none" height="14" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="14">
-                            <rect height="12" rx="2" width="12" x="2" y="2" />
-                            <line x1="2" x2="14" y1="6" y2="6" />
-                          </svg>
-                        </Icon>
-                      }
-                      value="components"
-                    >
-                      Components
-                    </TabsTrigger>
-                    <TabsTrigger
-                      icon={
-                        <Icon size="sm">
-                          <svg fill="none" height="14" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="14">
-                            <polygon points="8 2 14 13 2 13" />
-                          </svg>
-                        </Icon>
-                      }
-                      value="architecture"
-                    >
-                      Architecture
-                    </TabsTrigger>
-                    <TabsTrigger value="tokens">Design Tokens</TabsTrigger>
-                    <TabsTrigger disabled value="experimental">Experimental (Locked)</TabsTrigger>
-                  </TabsList>
-
-                  <TabsContent value="components">
-                    <Surface padding={16} style={{ backgroundColor: "var(--x-surface-2)" }}>
-                      <Text tone="default" weight={400}>V1 Component System</Text>
-                      <Text tone="muted">
-                        30+ components engineered with identical props across React DOM and React Native (Expo).
-                      </Text>
-                    </Surface>
-                  </TabsContent>
-
-                  <TabsContent value="architecture">
-                    <Surface padding={16} style={{ backgroundColor: "var(--x-surface-2)" }}>
-                      <Text tone="default" weight={400}>Single Source of Truth</Text>
-                      <Text tone="muted">
-                        Zero token duplication. Core mathematical formulas compute concentric radius and joint geometries at runtime.
-                      </Text>
-                    </Surface>
-                  </TabsContent>
-
-                  <TabsContent value="tokens">
-                    <Surface padding={16} style={{ backgroundColor: "var(--x-surface-2)" }}>
-                      <Text tone="default" weight={400}>Discrete 7-Stop Radius & Acid Accents</Text>
-                      <Text tone="muted">
-                        Apple HIG-calibrated typography tracking, 1px hairline precision, and pure Liquid Glass blurs.
-                      </Text>
-                    </Surface>
-                  </TabsContent>
-                </Tabs>
-              </Surface>
-            </div>
-
-            {/* 4. TabBar (Floating Island vs Docked) */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
-                <Text tone="accent">4. Mobile TabBar (Floating Liquid Glass Island & Docked Modes)</Text>
-                <Group gap={8}>
-                  <Button
-                    onClick={() => setTabBarVariant("floating")}
-                    size="sm"
-                    variant={tabBarVariant === "floating" ? "filled" : "outline"}
-                  >
-                    Floating Island
-                  </Button>
-                  <Button
-                    onClick={() => setTabBarVariant("docked")}
-                    size="sm"
-                    variant={tabBarVariant === "docked" ? "filled" : "outline"}
-                  >
-                    Docked Bottom
-                  </Button>
-                </Group>
-              </div>
-
-              <div
-                style={{
-                  position: "relative",
-                  height: "180px",
-                  border: "1px solid var(--x-border)",
-                  borderRadius: "8px",
-                  overflow: "hidden",
-                  backgroundColor: "var(--x-bg)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Text tone="muted">Viewport Simulator (Scrollable Content Behind TabBar)</Text>
-
-                <TabBar
-                  style={{ position: "absolute" }}
-                  variant={tabBarVariant}
-                >
-                  <TabBarItem
-                    active
-                    icon={
-                      <Icon size="md">
-                        <svg fill="none" height="18" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="18">
-                          <path d="M2 6.5L8 2l6 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6.5z" />
-                        </svg>
-                      </Icon>
-                    }
-                    label="Home"
-                  />
-                  <TabBarItem
-                    icon={
-                      <Icon size="md">
-                        <svg fill="none" height="18" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="18">
-                          <circle cx="8" cy="8" r="6" />
-                          <polygon points="10 5.5 8.5 8.5 5.5 10.5 7.5 7.5" />
-                        </svg>
-                      </Icon>
-                    }
-                    label="Search"
-                  />
-                  <TabBarItem
-                    badge
-                    icon={
-                      <Icon size="md">
-                        <svg fill="none" height="18" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="18">
-                          <path d="M12 5.5a4 4 0 0 0-8 0c0 3-1.5 4.5-1.5 4.5h11s-1.5-1.5-1.5-4.5" />
-                          <path d="M6.8 12.5a1.5 1.5 0 0 0 2.4 0" />
-                        </svg>
-                      </Icon>
-                    }
-                    label="Activity"
-                  />
-                  <TabBarItem
-                    icon={
-                      <Icon size="md">
-                        <svg fill="none" height="18" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="18">
-                          <circle cx="8" cy="5" r="3" />
-                          <path d="M3 14c0-2.5 2.5-4 5-4s5 1.5 5 4" />
-                        </svg>
-                      </Icon>
-                    }
-                    label="Profile"
-                  />
-                </TabBar>
-              </div>
-            </div>
-
-            {/* 5. Breadcrumb & Pagination */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              <Text tone="accent">5. Breadcrumb Hierarchy & Pagination Controls</Text>
-              <Surface
-                padding={24}
-                style={{
-                  backgroundColor: "var(--x-surface)",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "24px",
-                }}
-              >
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                  <Text tone="muted" weight={400}>Semantic Breadcrumb Navigation</Text>
-                  <Breadcrumb>
-                    <BreadcrumbList>
-                      <BreadcrumbItem>
-                        <BreadcrumbLink href="#home">Xenon</BreadcrumbLink>
-                      </BreadcrumbItem>
-                      <BreadcrumbSeparator />
-                      <BreadcrumbItem>
-                        <BreadcrumbLink href="#components">Components</BreadcrumbLink>
-                      </BreadcrumbItem>
-                      <BreadcrumbSeparator />
-                      <BreadcrumbItem>
-                        <BreadcrumbLink href="#navigation">Navigation</BreadcrumbLink>
-                      </BreadcrumbItem>
-                      <BreadcrumbSeparator />
-                      <BreadcrumbItem>
-                        <BreadcrumbPage>Tabs & Pagination</BreadcrumbPage>
-                      </BreadcrumbItem>
-                    </BreadcrumbList>
-                  </Breadcrumb>
+                    </TabBar>
+                  </div>
                 </div>
 
-                <Divider />
-
+                {/* Breadcrumbs & Pagination */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
-                    <Text tone="muted" weight={400}>Hairline Pagination (Active: Page {activePage} of 12)</Text>
-                    <Button
-                      onClick={() => setPaginationCompact(!paginationCompact)}
-                      size="sm"
-                      variant="outline"
-                    >
-                      {paginationCompact ? "Mode: Full Numbers" : "Mode: Compact"}
-                    </Button>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "center", padding: "12px 0" }}>
-                    <Pagination
-                      compact={paginationCompact}
-                      onPageChange={setActivePage}
-                      page={activePage}
-                      siblingCount={1}
-                      totalPages={12}
-                    />
-                  </div>
-                </div>
-              </Surface>
-            </div>
-          </section>
-
-          {/* Section 5: Surfaces & Concentric Radius (Phase 2A) */}
-          <section
-            style={{ display: "flex", flexDirection: "column", gap: "24px" }}
-          >
-            <div>
-              <Heading level={2} weight={300}>
-                Concentric Surfaces & Nesting (Phase 2A)
-              </Heading>
-              <Text tone="muted">
-                Mathematical concentric corner calculation: inner = max(outer - pad, outer * 0.4).
-                Curves share an exact optical center and never collapse into sharp squares.
-              </Text>
-            </div>
-
-            {/* Subsection A: Multiple Padding Variations */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              <Text tone="muted">
-                Sample Grid: Constant Parent Radius (Stop {radius} = {RADIUS_STOPS[radius].surface}px) with 4 Inset Padding Steps
-              </Text>
-
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
-                  gap: "16px",
-                }}
-              >
-                {[8, 16, 24, 32].map((pad) => {
-                  const parentR = RADIUS_STOPS[radius].surface;
-                  const childR = computeNestedRadius(parentR, pad);
-                  const isFloored = parentR > 0 && parentR - pad < parentR * 0.4;
-
-                  return (
-                    <Surface
-                      key={pad}
-                      padding={pad}
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "12px",
-                        backgroundColor: "var(--x-surface)",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          fontSize: "0.75rem",
-                        }}
-                      >
-                        <Text tone="muted">Padding: {pad}px</Text>
-                        <Text tone="accent">Inner R: {childR.toFixed(1)}px</Text>
-                      </div>
-
-                      <Surface
-                        padding={16}
-                        style={{
-                          backgroundColor: "var(--x-surface-2)",
-                          minHeight: "84px",
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          textAlign: "center",
-                        }}
-                      >
-                        <Text tone="default">Child Surface</Text>
-                        <Text tone="muted">
-                          {isFloored
-                            ? `Floor (40%): ${childR.toFixed(1)}px`
-                            : `${parentR} - ${pad} = ${childR.toFixed(1)}px`}
-                        </Text>
-                      </Surface>
-                    </Surface>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Subsection B: Deep Multi-Level Nesting (Russian Doll) */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              <Text tone="muted">
-                Deep Recursive Nesting: 4 Nested Surface Layers Cascading Context Downwards
-              </Text>
-
-              <Surface
-                padding={28}
-                style={{
-                  backgroundColor: "var(--x-surface)",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <Text tone="default">Level 1 (Root Surface)</Text>
-                  <Text tone="accent">
-                    R = {RADIUS_STOPS[radius].surface}px · Pad = 28px
+                  <Text tone="default" weight={400}>
+                    5. Breadcrumb & Pagination
                   </Text>
-                </div>
-
-                <Surface
-                  padding={20}
-                  style={{
-                    backgroundColor: "var(--x-surface-2)",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "14px",
-                  }}
-                >
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <Text tone="default">Level 2 (Nested Card)</Text>
-                    <Text tone="accent">
-                      R = {computeNestedRadius(RADIUS_STOPS[radius].surface, 28).toFixed(1)}px · Pad = 20px
-                    </Text>
-                  </div>
 
                   <Surface
-                    padding={16}
+                    padding={20}
                     style={{
                       backgroundColor: "var(--x-surface)",
                       display: "flex",
                       flexDirection: "column",
-                      gap: "12px",
+                      gap: "18px",
+                      height: "170px",
+                      justifyContent: "space-between",
+                      boxSizing: "border-box",
+                    }}
+                  >
+                    <Breadcrumb>
+                      <BreadcrumbList>
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="#home">Xenon</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="#components">Components</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                          <BreadcrumbPage>Navigation</BreadcrumbPage>
+                        </BreadcrumbItem>
+                      </BreadcrumbList>
+                    </Breadcrumb>
+
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <Pagination
+                        compact={paginationCompact}
+                        onPageChange={setActivePage}
+                        page={activePage}
+                        siblingCount={1}
+                        totalPages={12}
+                      />
+                      <Button
+                        onClick={() => setPaginationCompact(!paginationCompact)}
+                        size="sm"
+                        variant="ghost"
+                      >
+                        {paginationCompact ? "Full" : "Compact"}
+                      </Button>
+                    </div>
+                  </Surface>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Section 4: Surfaces & Concentric Geometry (Phase 2A) */}
+          {showSurfaces && (
+            <section style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <span
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: 400,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--x-accent)",
+                    fontFamily: "var(--x-font-family-mono, monospace)",
+                  }}
+                >
+                  Phase 2A · Surface Geometry
+                </span>
+                <Heading level={2} weight={400}>
+                  Concentric Surfaces & Mathematical Insets
+                </Heading>
+                <Text style={{ lineHeight: 1.6, maxWidth: "720px" }} tone="muted">
+                  Mathematical concentric corner calculation: inner = max(outer - pad, outer * 0.4).
+                  Concentric curves share an exact optical center and never collapse into sharp squares.
+                </Text>
+              </div>
+
+              {/* Subsection A: Multiple Inset Padding Variations */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                <Text tone="default" weight={400}>
+                  1. Concentric Padding Matrix (Outer Radius: Stop {radius} = {RADIUS_STOPS[radius].surface}px)
+                </Text>
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
+                    gap: "16px",
+                  }}
+                >
+                  {[8, 16, 24, 32].map((pad) => {
+                    const parentR = RADIUS_STOPS[radius].surface;
+                    const childR = computeNestedRadius(parentR, pad);
+                    const isFloored = parentR > 0 && parentR - pad < parentR * 0.4;
+
+                    return (
+                      <Surface
+                        key={pad}
+                        padding={pad}
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "12px",
+                          backgroundColor: "var(--x-surface)",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            fontSize: "12px",
+                          }}
+                        >
+                          <Text tone="muted">Pad: {pad}px</Text>
+                          <span
+                            style={{
+                              color: "var(--x-accent)",
+                              fontFamily: "var(--x-font-family-mono, monospace)",
+                              fontSize: "12px",
+                            }}
+                          >
+                            R: {childR.toFixed(1)}px
+                          </span>
+                        </div>
+
+                        <Surface
+                          padding={16}
+                          style={{
+                            backgroundColor: "var(--x-surface-2)",
+                            minHeight: "76px",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            textAlign: "center",
+                          }}
+                        >
+                          <Text tone="default" weight={400}>Child Surface</Text>
+                          <Text style={{ fontSize: "11px" }} tone="muted">
+                            {isFloored
+                              ? `Floor (40%): ${childR.toFixed(1)}px`
+                              : `${parentR} - ${pad} = ${childR.toFixed(1)}px`}
+                          </Text>
+                        </Surface>
+                      </Surface>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Subsection B: Deep Multi-Level Nesting (Russian Doll) */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                <Text tone="default" weight={400}>
+                  2. Deep Recursive Nesting: 4 Surface Layers Preserving Optical Center
+                </Text>
+
+                <Surface
+                  padding={28}
+                  style={{
+                    backgroundColor: "var(--x-surface)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Text tone="default" weight={400}>Level 1 (Root Card)</Text>
+                    <span
+                      style={{
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                        fontSize: "12px",
+                      }}
+                    >
+                      R = {RADIUS_STOPS[radius].surface}px · Pad = 28px
+                    </span>
+                  </div>
+
+                  <Surface
+                    padding={20}
+                    style={{
+                      backgroundColor: "var(--x-surface-2)",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "14px",
                     }}
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <Text tone="default">Level 3 (Grandchild Card)</Text>
-                      <Text tone="accent">
-                        R = {computeNestedRadius(
-                          computeNestedRadius(RADIUS_STOPS[radius].surface, 28),
-                          20,
-                        ).toFixed(1)}px · Pad = 16px
-                      </Text>
+                      <Text tone="default" weight={400}>Level 2 (Nested Card)</Text>
+                      <span
+                        style={{
+                          color: "var(--x-accent)",
+                          fontFamily: "var(--x-font-family-mono, monospace)",
+                          fontSize: "12px",
+                        }}
+                      >
+                        R = {computeNestedRadius(RADIUS_STOPS[radius].surface, 28).toFixed(1)}px · Pad = 20px
+                      </span>
                     </div>
 
                     <Surface
-                      padding={12}
+                      padding={16}
                       style={{
-                        backgroundColor: "var(--x-surface-2)",
+                        backgroundColor: "var(--x-surface)",
                         display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        flexWrap: "wrap",
-                        gap: "8px",
+                        flexDirection: "column",
+                        gap: "12px",
                       }}
                     >
-                      <Text tone="accent">Level 4 (Innermost Core Surface)</Text>
-                      <Text tone="muted">
-                        R = {computeNestedRadius(
-                          computeNestedRadius(
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <Text tone="default" weight={400}>Level 3 (Grandchild Card)</Text>
+                        <span
+                          style={{
+                            color: "var(--x-accent)",
+                            fontFamily: "var(--x-font-family-mono, monospace)",
+                            fontSize: "12px",
+                          }}
+                        >
+                          R = {computeNestedRadius(
                             computeNestedRadius(RADIUS_STOPS[radius].surface, 28),
                             20,
-                          ),
-                          16,
-                        ).toFixed(1)}px · Perfect Harmony
-                      </Text>
+                          ).toFixed(1)}px · Pad = 16px
+                        </span>
+                      </div>
+
+                      <Surface
+                        padding={12}
+                        style={{
+                          backgroundColor: "var(--x-surface-2)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          flexWrap: "wrap",
+                          gap: "8px",
+                        }}
+                      >
+                        <Text tone="accent" weight={400}>Level 4 (Innermost Core)</Text>
+                        <span
+                          style={{
+                            fontSize: "12px",
+                            color: "var(--x-text-muted)",
+                            fontFamily: "var(--x-font-family-mono, monospace)",
+                          }}
+                        >
+                          R = {computeNestedRadius(
+                            computeNestedRadius(
+                              computeNestedRadius(RADIUS_STOPS[radius].surface, 28),
+                              20,
+                            ),
+                            16,
+                          ).toFixed(1)}px · Concentric Harmony
+                        </span>
+                      </Surface>
                     </Surface>
                   </Surface>
                 </Surface>
-              </Surface>
-            </div>
-          </section>
+              </div>
+            </section>
+          )}
         </Stack>
       </div>
     </XenonProvider>

@@ -93,13 +93,21 @@ export function Button({
           borderWidth: 0,
         };
       case "glass":
+        return {
+          ...base,
+          backgroundColor:
+            resolvedTheme === "dark"
+              ? nativeTokens.glass.regular.darkTint
+              : nativeTokens.glass.regular.lightTint,
+          borderWidth: StyleSheet.hairlineWidth,
+          borderColor: nativeTokens.colors.border,
+        };
       case "filled":
       default:
         return {
           ...base,
-          backgroundColor: nativeTokens.colors.surface,
-          borderWidth: StyleSheet.hairlineWidth,
-          borderColor: nativeTokens.colors.border,
+          backgroundColor: nativeTokens.colors.text,
+          borderWidth: 0,
         };
     }
   };
@@ -107,7 +115,9 @@ export function Button({
   const textColor =
     variant === "accent"
       ? nativeTokens.colors.onAccent
-      : nativeTokens.colors.text;
+      : variant === "filled"
+        ? nativeTokens.colors.bg
+        : nativeTokens.colors.text;
 
   return (
     <Pressable
@@ -127,6 +137,7 @@ export function Button({
         <Text
           styleKey={size === "sm" ? "callout" : "body"}
           style={{ color: textColor }}
+          weight={400}
         >
           {children}
         </Text>

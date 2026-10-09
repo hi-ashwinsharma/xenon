@@ -22,7 +22,7 @@ export const TYPOGRAPHY_SCALE: Readonly<
   },
   largeTitle: {
     name: "largeTitle",
-    weight: 200,
+    weight: 300,
     native: { fontSize: 34, lineHeight: 41, letterSpacing: 0.012 },
     web: {
       fontSize: 40,
@@ -34,7 +34,7 @@ export const TYPOGRAPHY_SCALE: Readonly<
   },
   title1: {
     name: "title1",
-    weight: 200,
+    weight: 400,
     native: { fontSize: 28, lineHeight: 34, letterSpacing: 0.014 },
     web: {
       fontSize: 32,
@@ -46,7 +46,7 @@ export const TYPOGRAPHY_SCALE: Readonly<
   },
   title2: {
     name: "title2",
-    weight: 300,
+    weight: 400,
     native: { fontSize: 22, lineHeight: 28, letterSpacing: -0.012 },
     web: {
       fontSize: 24,
@@ -58,7 +58,7 @@ export const TYPOGRAPHY_SCALE: Readonly<
   },
   title3: {
     name: "title3",
-    weight: 300,
+    weight: 400,
     native: { fontSize: 20, lineHeight: 25, letterSpacing: -0.023 },
     web: {
       fontSize: 20,
