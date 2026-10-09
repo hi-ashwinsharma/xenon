@@ -119,7 +119,58 @@ export type {
 
 export type { PaginationProps } from "./pagination.types";
 
+export type {
+  FloatingOptions,
+  FloatingPlacement,
+  FloatingResult,
+  Rect,
+} from "./floating";
+
+export type {
+  PopoverCloseProps,
+  PopoverContentProps,
+  PopoverContextValue,
+  PopoverPlacement,
+  PopoverProps,
+  PopoverTriggerProps,
+} from "./popover.types";
+
+export type {
+  TooltipContentProps,
+  TooltipContextValue,
+  TooltipPlacement,
+  TooltipProps,
+  TooltipTriggerProps,
+} from "./tooltip.types";
+
+export type {
+  DialogCloseProps,
+  DialogContentProps,
+  DialogContextValue,
+  DialogDescriptionProps,
+  DialogFooterProps,
+  DialogHeaderProps,
+  DialogProps,
+  DialogTitleProps,
+  DialogTriggerProps,
+} from "./dialog.types";
+
+export type {
+  SheetCloseProps,
+  SheetContentProps,
+  SheetContextValue,
+  SheetDescriptionProps,
+  SheetFooterProps,
+  SheetHeaderProps,
+  SheetProps,
+  SheetSide,
+  SheetTitleProps,
+  SheetTriggerProps,
+} from "./sheet.types";
+
 export { AppRoutes } from "./routes";
+
+export { computeFloatingPlacement } from "./floating";
 
 export {
   clampControlRadius,
@@ -131,3 +182,4 @@ export {
   snapToStep,
   valueToPercent,
 } from "./math";
+

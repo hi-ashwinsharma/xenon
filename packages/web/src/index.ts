@@ -8,6 +8,14 @@ export type {
   WebButtonGroupProps,
   WebButtonProps,
   WebCheckboxProps,
+  WebDialogCloseProps,
+  WebDialogContentProps,
+  WebDialogDescriptionProps,
+  WebDialogFooterProps,
+  WebDialogHeaderProps,
+  WebDialogProps,
+  WebDialogTitleProps,
+  WebDialogTriggerProps,
   WebDividerProps,
   WebFieldProps,
   WebGlassBarProps,
@@ -20,10 +28,22 @@ export type {
   WebLinkProps,
   WebNavbarProps,
   WebPaginationProps,
+  WebPopoverCloseProps,
+  WebPopoverContentProps,
+  WebPopoverProps,
+  WebPopoverTriggerProps,
   WebRadioGroupProps,
   WebRadioProps,
   WebRendererConfig,
   WebSegmentedControlProps,
+  WebSheetCloseProps,
+  WebSheetContentProps,
+  WebSheetDescriptionProps,
+  WebSheetFooterProps,
+  WebSheetHeaderProps,
+  WebSheetProps,
+  WebSheetTitleProps,
+  WebSheetTriggerProps,
   WebSidebarDividerProps,
   WebSidebarFooterProps,
   WebSidebarGroupProps,
@@ -45,6 +65,9 @@ export type {
   WebTextareaProps,
   WebTextProps,
   WebToggleButtonProps,
+  WebTooltipContentProps,
+  WebTooltipProps,
+  WebTooltipTriggerProps,
   WebVisuallyHiddenProps,
   WebXenonContextValue,
   WebXenonProviderProps,
@@ -100,6 +123,46 @@ export {
   BreadcrumbSeparator,
 } from "./breadcrumb";
 export { Pagination } from "./pagination";
+
+export {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverClose,
+  usePopover,
+} from "./popover";
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  useTooltip,
+} from "./tooltip";
+export {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+  useDialog,
+} from "./dialog";
+export {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+  SheetFooter,
+  SheetClose,
+  useSheet,
+} from "./sheet";
+
+export { usePresence } from "./hooks/use-presence";
+export { useFocusTrap } from "./hooks/use-focus-trap";
+export { useClickOutside } from "./hooks/use-click-outside";
 
 export const webRendererConfig = {
   platform: "web",

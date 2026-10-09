@@ -15,6 +15,14 @@ import type {
   ButtonGroupProps as CoreButtonGroupProps,
   ButtonProps as CoreButtonProps,
   CheckboxProps as CoreCheckboxProps,
+  DialogCloseProps as CoreDialogCloseProps,
+  DialogContentProps as CoreDialogContentProps,
+  DialogDescriptionProps as CoreDialogDescriptionProps,
+  DialogFooterProps as CoreDialogFooterProps,
+  DialogHeaderProps as CoreDialogHeaderProps,
+  DialogProps as CoreDialogProps,
+  DialogTitleProps as CoreDialogTitleProps,
+  DialogTriggerProps as CoreDialogTriggerProps,
   DividerProps as CoreDividerProps,
   FieldProps as CoreFieldProps,
   GlassBarProps as CoreGlassBarProps,
@@ -27,9 +35,23 @@ import type {
   LinkProps as CoreLinkProps,
   NavbarProps as CoreNavbarProps,
   PaginationProps as CorePaginationProps,
+  PopoverCloseProps as CorePopoverCloseProps,
+  PopoverContentProps as CorePopoverContentProps,
+  PopoverPlacement as CorePopoverPlacement,
+  PopoverProps as CorePopoverProps,
+  PopoverTriggerProps as CorePopoverTriggerProps,
   RadioGroupProps as CoreRadioGroupProps,
   RadioProps as CoreRadioProps,
   SegmentedControlProps as CoreSegmentedControlProps,
+  SheetCloseProps as CoreSheetCloseProps,
+  SheetContentProps as CoreSheetContentProps,
+  SheetDescriptionProps as CoreSheetDescriptionProps,
+  SheetFooterProps as CoreSheetFooterProps,
+  SheetHeaderProps as CoreSheetHeaderProps,
+  SheetProps as CoreSheetProps,
+  SheetSide as CoreSheetSide,
+  SheetTitleProps as CoreSheetTitleProps,
+  SheetTriggerProps as CoreSheetTriggerProps,
   SidebarDividerProps as CoreSidebarDividerProps,
   SidebarFooterProps as CoreSidebarFooterProps,
   SidebarGroupProps as CoreSidebarGroupProps,
@@ -51,6 +73,10 @@ import type {
   TextareaProps as CoreTextareaProps,
   TextProps as CoreTextProps,
   ToggleButtonProps as CoreToggleButtonProps,
+  TooltipContentProps as CoreTooltipContentProps,
+  TooltipPlacement as CoreTooltipPlacement,
+  TooltipProps as CoreTooltipProps,
+  TooltipTriggerProps as CoreTooltipTriggerProps,
   VisuallyHiddenProps as CoreVisuallyHiddenProps,
   XenonContextValue as CoreXenonContextValue,
   XenonProviderProps as CoreXenonProviderProps,
@@ -344,4 +370,124 @@ export interface WebPaginationProps
   extends
     Omit<CorePaginationProps, "className">,
     Omit<HTMLAttributes<HTMLElement>, "children"> {}
+
+// --- Overlays ---
+
+export interface WebPopoverProps extends CorePopoverProps {}
+
+export interface WebPopoverTriggerProps
+  extends
+    Omit<CorePopoverTriggerProps, "children">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+  children: React.ReactNode;
+}
+
+export interface WebPopoverContentProps
+  extends
+    Omit<CorePopoverContentProps, "className" | "style">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebPopoverCloseProps
+  extends
+    Omit<CorePopoverCloseProps, "children">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+  children: React.ReactNode;
+}
+
+export interface WebTooltipProps extends CoreTooltipProps {}
+
+export interface WebTooltipTriggerProps
+  extends
+    Omit<CoreTooltipTriggerProps, "children">,
+    Omit<HTMLAttributes<HTMLElement>, "children"> {
+  children: React.ReactNode;
+}
+
+export interface WebTooltipContentProps
+  extends
+    Omit<CoreTooltipContentProps, "className" | "style">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebDialogProps extends CoreDialogProps {}
+
+export interface WebDialogTriggerProps
+  extends
+    Omit<CoreDialogTriggerProps, "children">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+  children: React.ReactNode;
+}
+
+export interface WebDialogContentProps
+  extends
+    Omit<CoreDialogContentProps, "className" | "style">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebDialogHeaderProps
+  extends
+    Omit<CoreDialogHeaderProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebDialogTitleProps
+  extends
+    Omit<CoreDialogTitleProps, "className">,
+    Omit<HTMLAttributes<HTMLHeadingElement>, "children"> {}
+
+export interface WebDialogDescriptionProps
+  extends
+    Omit<CoreDialogDescriptionProps, "className">,
+    Omit<HTMLAttributes<HTMLParagraphElement>, "children"> {}
+
+export interface WebDialogFooterProps
+  extends
+    Omit<CoreDialogFooterProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebDialogCloseProps
+  extends
+    Omit<CoreDialogCloseProps, "children">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+  children: React.ReactNode;
+}
+
+export interface WebSheetProps extends CoreSheetProps {}
+
+export interface WebSheetTriggerProps
+  extends
+    Omit<CoreSheetTriggerProps, "children">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+  children: React.ReactNode;
+}
+
+export interface WebSheetContentProps
+  extends
+    Omit<CoreSheetContentProps, "className" | "style">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebSheetHeaderProps
+  extends
+    Omit<CoreSheetHeaderProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebSheetTitleProps
+  extends
+    Omit<CoreSheetTitleProps, "className">,
+    Omit<HTMLAttributes<HTMLHeadingElement>, "children"> {}
+
+export interface WebSheetDescriptionProps
+  extends
+    Omit<CoreSheetDescriptionProps, "className">,
+    Omit<HTMLAttributes<HTMLParagraphElement>, "children"> {}
+
+export interface WebSheetFooterProps
+  extends
+    Omit<CoreSheetFooterProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebSheetCloseProps
+  extends
+    Omit<CoreSheetCloseProps, "children">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+  children: React.ReactNode;
+}
+
 

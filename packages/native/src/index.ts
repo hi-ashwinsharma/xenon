@@ -8,6 +8,14 @@ export type {
   NativeButtonGroupProps,
   NativeButtonProps,
   NativeCheckboxProps,
+  NativeDialogCloseProps,
+  NativeDialogContentProps,
+  NativeDialogDescriptionProps,
+  NativeDialogFooterProps,
+  NativeDialogHeaderProps,
+  NativeDialogProps,
+  NativeDialogTitleProps,
+  NativeDialogTriggerProps,
   NativeDividerProps,
   NativeFieldProps,
   NativeGlassBarProps,
@@ -20,10 +28,22 @@ export type {
   NativeLinkProps,
   NativeNavbarProps,
   NativePaginationProps,
+  NativePopoverCloseProps,
+  NativePopoverContentProps,
+  NativePopoverProps,
+  NativePopoverTriggerProps,
   NativeRadioGroupProps,
   NativeRadioProps,
   NativeRendererConfig,
   NativeSegmentedControlProps,
+  NativeSheetCloseProps,
+  NativeSheetContentProps,
+  NativeSheetDescriptionProps,
+  NativeSheetFooterProps,
+  NativeSheetHeaderProps,
+  NativeSheetProps,
+  NativeSheetTitleProps,
+  NativeSheetTriggerProps,
   NativeSidebarDividerProps,
   NativeSidebarFooterProps,
   NativeSidebarGroupProps,
@@ -45,6 +65,9 @@ export type {
   NativeTextareaProps,
   NativeTextProps,
   NativeToggleButtonProps,
+  NativeTooltipContentProps,
+  NativeTooltipProps,
+  NativeTooltipTriggerProps,
   NativeVisuallyHiddenProps,
   NativeXenonContextValue,
   NativeXenonProviderProps,
@@ -100,6 +123,42 @@ export {
   BreadcrumbSeparator,
 } from "./breadcrumb";
 export { Pagination } from "./pagination";
+
+export {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverClose,
+  usePopover,
+} from "./popover";
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  useTooltip,
+} from "./tooltip";
+export {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+  useDialog,
+} from "./dialog";
+export {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+  SheetFooter,
+  SheetClose,
+  useSheet,
+} from "./sheet";
 
 export const nativeRendererConfig: {
   readonly platform: "native";

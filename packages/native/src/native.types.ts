@@ -9,6 +9,14 @@ import type {
   ButtonGroupProps as CoreButtonGroupProps,
   ButtonProps as CoreButtonProps,
   CheckboxProps as CoreCheckboxProps,
+  DialogCloseProps as CoreDialogCloseProps,
+  DialogContentProps as CoreDialogContentProps,
+  DialogDescriptionProps as CoreDialogDescriptionProps,
+  DialogFooterProps as CoreDialogFooterProps,
+  DialogHeaderProps as CoreDialogHeaderProps,
+  DialogProps as CoreDialogProps,
+  DialogTitleProps as CoreDialogTitleProps,
+  DialogTriggerProps as CoreDialogTriggerProps,
   DividerProps as CoreDividerProps,
   FieldProps as CoreFieldProps,
   GlassBarProps as CoreGlassBarProps,
@@ -21,9 +29,23 @@ import type {
   LinkProps as CoreLinkProps,
   NavbarProps as CoreNavbarProps,
   PaginationProps as CorePaginationProps,
+  PopoverCloseProps as CorePopoverCloseProps,
+  PopoverContentProps as CorePopoverContentProps,
+  PopoverPlacement as CorePopoverPlacement,
+  PopoverProps as CorePopoverProps,
+  PopoverTriggerProps as CorePopoverTriggerProps,
   RadioGroupProps as CoreRadioGroupProps,
   RadioProps as CoreRadioProps,
   SegmentedControlProps as CoreSegmentedControlProps,
+  SheetCloseProps as CoreSheetCloseProps,
+  SheetContentProps as CoreSheetContentProps,
+  SheetDescriptionProps as CoreSheetDescriptionProps,
+  SheetFooterProps as CoreSheetFooterProps,
+  SheetHeaderProps as CoreSheetHeaderProps,
+  SheetProps as CoreSheetProps,
+  SheetSide as CoreSheetSide,
+  SheetTitleProps as CoreSheetTitleProps,
+  SheetTriggerProps as CoreSheetTriggerProps,
   SidebarDividerProps as CoreSidebarDividerProps,
   SidebarFooterProps as CoreSidebarFooterProps,
   SidebarGroupProps as CoreSidebarGroupProps,
@@ -45,6 +67,10 @@ import type {
   TextareaProps as CoreTextareaProps,
   TextProps as CoreTextProps,
   ToggleButtonProps as CoreToggleButtonProps,
+  TooltipContentProps as CoreTooltipContentProps,
+  TooltipPlacement as CoreTooltipPlacement,
+  TooltipProps as CoreTooltipProps,
+  TooltipTriggerProps as CoreTooltipTriggerProps,
   VisuallyHiddenProps as CoreVisuallyHiddenProps,
   XenonContextValue as CoreXenonContextValue,
   XenonProviderProps as CoreXenonProviderProps,
@@ -315,4 +341,95 @@ export interface NativePaginationProps
   extends Omit<CorePaginationProps, "className"> {
   readonly style?: StyleProp<ViewStyle>;
 }
+
+// --- Overlays ---
+
+export interface NativePopoverProps extends CorePopoverProps {}
+
+export interface NativePopoverTriggerProps extends CorePopoverTriggerProps {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativePopoverContentProps
+  extends Omit<CorePopoverContentProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativePopoverCloseProps extends CorePopoverCloseProps {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTooltipProps extends CoreTooltipProps {}
+
+export interface NativeTooltipTriggerProps extends CoreTooltipTriggerProps {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTooltipContentProps
+  extends Omit<CoreTooltipContentProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeDialogProps extends CoreDialogProps {}
+
+export interface NativeDialogTriggerProps extends CoreDialogTriggerProps {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeDialogContentProps
+  extends Omit<CoreDialogContentProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeDialogHeaderProps extends CoreDialogHeaderProps {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeDialogTitleProps extends CoreDialogTitleProps {
+  readonly style?: StyleProp<TextStyle>;
+}
+
+export interface NativeDialogDescriptionProps extends CoreDialogDescriptionProps {
+  readonly style?: StyleProp<TextStyle>;
+}
+
+export interface NativeDialogFooterProps extends CoreDialogFooterProps {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeDialogCloseProps extends CoreDialogCloseProps {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSheetProps extends CoreSheetProps {}
+
+export interface NativeSheetTriggerProps extends CoreSheetTriggerProps {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSheetContentProps
+  extends Omit<CoreSheetContentProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSheetHeaderProps extends CoreSheetHeaderProps {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSheetTitleProps extends CoreSheetTitleProps {
+  readonly style?: StyleProp<TextStyle>;
+}
+
+export interface NativeSheetDescriptionProps extends CoreSheetDescriptionProps {
+  readonly style?: StyleProp<TextStyle>;
+}
+
+export interface NativeSheetFooterProps extends CoreSheetFooterProps {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSheetCloseProps extends CoreSheetCloseProps {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
 

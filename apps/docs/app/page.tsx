@@ -13,6 +13,14 @@ import {
   Button,
   ButtonGroup,
   Checkbox,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
   Divider,
   Field,
   GlassBar,
@@ -25,9 +33,21 @@ import {
   Link,
   Navbar,
   Pagination,
+  Popover,
+  PopoverClose,
+  PopoverContent,
+  PopoverTrigger,
   Radio,
   RadioGroup,
   SegmentedControl,
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
   Sidebar,
   SidebarDivider,
   SidebarFooter,
@@ -48,10 +68,13 @@ import {
   Text,
   Textarea,
   ToggleButton,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
   XenonProvider,
 } from "@xenon/web";
 
-type ShowcaseDomain = "all" | "actions" | "forms" | "navigation" | "surfaces";
+type ShowcaseDomain = "all" | "actions" | "forms" | "navigation" | "overlays" | "surfaces";
 
 function ShowcaseContent() {
   const [theme, setTheme] = useState<ResolvedTheme>("dark");
@@ -87,6 +110,7 @@ function ShowcaseContent() {
   const showActions = activeDomain === "all" || activeDomain === "actions";
   const showForms = activeDomain === "all" || activeDomain === "forms";
   const showNav = activeDomain === "all" || activeDomain === "navigation";
+  const showOverlays = activeDomain === "all" || activeDomain === "overlays";
   const showSurfaces = activeDomain === "all" || activeDomain === "surfaces";
 
   return (
@@ -255,6 +279,7 @@ function ShowcaseContent() {
                     { value: "actions", label: "Actions & Buttons" },
                     { value: "forms", label: "Forms & Controls" },
                     { value: "navigation", label: "Navigation Chrome" },
+                    { value: "overlays", label: "Overlays & Anchors" },
                     { value: "surfaces", label: "Surfaces & Math" },
                   ]}
                   value={activeDomain}
@@ -1276,7 +1301,321 @@ function ShowcaseContent() {
             </section>
           )}
 
-          {/* Section 4: Surfaces & Concentric Geometry (Phase 2A) */}
+          {/* Section 4: Overlays & Hero Kinematics (Phase 4) */}
+          {showOverlays && (
+            <section style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <span
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: 400,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--x-accent)",
+                    fontFamily: "var(--x-font-family-mono, monospace)",
+                  }}
+                >
+                  Phase 4 · Overlays & Hero Kinematics
+                </span>
+                <Heading level={2} weight={400}>
+                  Anchored Pop-Overs, Tooltips, Sheets & Modals
+                </Heading>
+                <Text style={{ lineHeight: 1.6, maxWidth: "720px" }} tone="muted">
+                  Xenon departs from legacy desktop UI libraries by abolishing disruptive, view-blocking
+                  dialogs for common contextual actions. Contextual tasks open as anchored pop-overs
+                  with hero container transforms that smoothly bloom from and collapse back into the trigger,
+                  crafted with Liquid Glass and zero background obstruction.
+                </Text>
+              </div>
+
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                  gap: "24px",
+                }}
+              >
+                {/* 1. Anchored Popover with Hero Container Transform */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Anchored Pop-Over
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Hero Kinematics
+                    </span>
+                  </div>
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Notice how the Liquid Glass card blooms directly from the trigger button and
+                    collapses back into it on close. The rest of the UI is NOT blurred or obstructed!
+                  </Text>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", paddingTop: "8px" }}>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button variant="filled">Inspect Kinematics</Button>
+                      </PopoverTrigger>
+                      <PopoverContent placement="bottom" width={300}>
+                        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <Text tone="default" weight={400}>Liquid Glass Inspector</Text>
+                            <span
+                              style={{
+                                fontSize: "10px",
+                                backgroundColor: "var(--x-accent)",
+                                color: "var(--x-on-accent)",
+                                padding: "1px 6px",
+                                borderRadius: "9999px",
+                                fontWeight: 400,
+                              }}
+                            >
+                              Live
+                            </span>
+                          </div>
+                          <Text style={{ fontSize: "12px", lineHeight: 1.5 }} tone="muted">
+                            Anchored directly to the trigger bounds. Notice that the background behind this popover
+                            remains sharp and crystal clear.
+                          </Text>
+                          <Divider />
+                          <div style={{ display: "flex", justifyContent: "flex-end", gap: "8px" }}>
+                            <PopoverClose asChild>
+                              <Button size="sm" variant="outline">Dismiss</Button>
+                            </PopoverClose>
+                            <Button size="sm" variant="filled">Confirm</Button>
+                          </div>
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                </Surface>
+
+                {/* 2. Tooltip Micro-Pills */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Delayed Tooltips
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Micro-Pill
+                    </span>
+                  </div>
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Instant hover response gated by `@media (hover: hover)` with Apple-grade
+                    spring fade and hairline border.
+                  </Text>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "16px", paddingTop: "8px" }}>
+                    <Tooltip delayMs={200}>
+                      <TooltipTrigger asChild>
+                        <Button size="sm" variant="subtle">Hover for Token Spec</Button>
+                      </TooltipTrigger>
+                      <TooltipContent placement="top">
+                        --x-spring-soft: cubic-bezier(0.16, 1, 0.3, 1)
+                      </TooltipContent>
+                    </Tooltip>
+
+                    <Tooltip delayMs={200}>
+                      <TooltipTrigger asChild>
+                        <IconButton ariaLabel="Help" size="sm" variant="outline">
+                          <Icon size="sm">
+                            <svg fill="none" height="14" stroke="currentColor" strokeWidth="1.25" viewBox="0 0 16 16" width="14">
+                              <circle cx="8" cy="8" r="7" />
+                              <path d="M6 6a2 2 0 1 1 2.5 1.9c-.5.3-.5.8-.5 1.1" />
+                              <circle cx="8" cy="11.5" r="0.5" />
+                            </svg>
+                          </Icon>
+                        </IconButton>
+                      </TooltipTrigger>
+                      <TooltipContent placement="bottom">
+                        Concentric Corner Radius
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+                </Surface>
+
+                {/* 3. Modal Dialog */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Modal Dialog
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Focus Trap
+                    </span>
+                  </div>
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Centered accessible dialog with keyboard focus containment, Escape dismissal,
+                    and subtle dim scrim.
+                  </Text>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", paddingTop: "8px" }}>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="outline">Open Modal Dialog</Button>
+                      </DialogTrigger>
+                      <DialogContent width={420}>
+                        <DialogHeader>
+                          <DialogTitle>Deploy Production Build</DialogTitle>
+                          <DialogDescription>
+                            This operation will compile all 7 monorepo packages and publish artifacts
+                            to the edge network.
+                          </DialogDescription>
+                        </DialogHeader>
+
+                        <div
+                          style={{
+                            padding: "12px",
+                            backgroundColor: "var(--x-surface-2)",
+                            borderRadius: "8px",
+                            fontSize: "12px",
+                            color: "var(--x-text-muted)",
+                          }}
+                        >
+                          Target Branch: <span style={{ color: "var(--x-accent)" }}>main</span> · Commit: <span style={{ color: "var(--x-accent)" }}>v1.0.0-rc</span>
+                        </div>
+
+                        <DialogFooter>
+                          <DialogClose asChild>
+                            <Button variant="ghost">Cancel</Button>
+                          </DialogClose>
+                          <DialogClose asChild>
+                            <Button variant="filled">Confirm Deploy</Button>
+                          </DialogClose>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                </Surface>
+
+                {/* 4. Apple-Grade Sheet (Bottom & Side) */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Liquid Glass Sheet
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Full Blur Scrim
+                    </span>
+                  </div>
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Apple-grade bottom drawer with tactile grab handle pill and full-canvas
+                    Liquid Glass blur scrim (blur: 16px).
+                  </Text>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", paddingTop: "8px" }}>
+                    <Sheet>
+                      <SheetTrigger asChild>
+                        <Button variant="accent">Bottom Drawer</Button>
+                      </SheetTrigger>
+                      <SheetContent hasGrabHandle side="bottom">
+                        <SheetHeader>
+                          <SheetTitle>Filter Workspace Assets</SheetTitle>
+                          <SheetDescription>
+                            Configure visual tags, search parameters, and platform filters.
+                          </SheetDescription>
+                        </SheetHeader>
+
+                        <div style={{ display: "flex", flexDirection: "column", gap: "12px", padding: "12px 0" }}>
+                          <Text tone="default" weight={400}>Platform Filter</Text>
+                          <ButtonGroup size="sm">
+                            <Button variant="filled">All</Button>
+                            <Button variant="ghost">React DOM</Button>
+                            <Button variant="ghost">Expo Native</Button>
+                          </ButtonGroup>
+                        </div>
+
+                        <SheetFooter>
+                          <SheetClose asChild>
+                            <Button variant="filled">Apply Preferences</Button>
+                          </SheetClose>
+                        </SheetFooter>
+                      </SheetContent>
+                    </Sheet>
+
+                    <Sheet>
+                      <SheetTrigger asChild>
+                        <Button variant="ghost">Side Drawer</Button>
+                      </SheetTrigger>
+                      <SheetContent side="right">
+                        <SheetHeader>
+                          <SheetTitle>Sidebar Inspector</SheetTitle>
+                          <SheetDescription>
+                            Real-time debug telemetry and accessibility audits.
+                          </SheetDescription>
+                        </SheetHeader>
+                        <div style={{ flex: 1, padding: "16px 0" }}>
+                          <Text tone="muted">Zero accessibility violations detected across all active viewports.</Text>
+                        </div>
+                        <SheetFooter>
+                          <SheetClose asChild>
+                            <Button variant="filled">Close</Button>
+                          </SheetClose>
+                        </SheetFooter>
+                      </SheetContent>
+                    </Sheet>
+                  </div>
+                </Surface>
+              </div>
+            </section>
+          )}
+
+          {/* Section 5: Surfaces & Concentric Geometry (Phase 2A) */}
           {showSurfaces && (
             <section style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
