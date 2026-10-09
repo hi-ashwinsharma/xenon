@@ -3,6 +3,8 @@ import type { ControlSize } from "@xenon/tokens";
 
 export type InputSize = ControlSize;
 
+export type InputVariant = "default" | "search";
+
 export interface InputProps {
   readonly value?: string;
   readonly defaultValue?: string;
@@ -10,6 +12,9 @@ export interface InputProps {
   readonly disabled?: boolean;
   readonly readOnly?: boolean;
   readonly size?: InputSize;
+  readonly variant?: InputVariant;
+  readonly shortcutKey?: string;
+  readonly surface?: "surface" | "subtle";
   readonly prefix?: ReactNode;
   readonly suffix?: ReactNode;
   readonly invalid?: boolean;

@@ -81,10 +81,13 @@ export function Checkbox({
     onCheckedChange?.(nextChecked);
   };
 
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
+
   const containerStyle: CSSProperties = {
     display: "inline-flex",
     alignItems: description ? "flex-start" : "center",
-    gap: "8px",
+    gap: "10px",
     position: "relative",
     cursor: disabled ? "not-allowed" : "pointer",
     opacity: disabled ? 0.45 : 1,
@@ -106,14 +109,19 @@ export function Checkbox({
       ? "var(--x-danger)"
       : isChecked || indeterminate
         ? "var(--x-accent)"
-        : "var(--x-border)",
+        : isHovered
+          ? "var(--x-border-active)"
+          : "var(--x-border)",
     backgroundColor:
-      isChecked || indeterminate ? "var(--x-accent)" : "transparent",
+      isChecked || indeterminate
+        ? "var(--x-accent)"
+        : "var(--x-surface-2)",
     color: "var(--x-on-accent)",
     flexShrink: 0,
     marginTop: description ? "2px" : 0,
+    transform: isPressed && !disabled ? "scale(0.92)" : "scale(1)",
     transition:
-      "background-color var(--x-dur-fast) var(--x-ease-standard), border-color var(--x-dur-fast) var(--x-ease-standard), transform var(--x-dur-fast) var(--x-ease-standard)",
+      "background-color var(--x-dur-fast) var(--x-ease-standard), border-color var(--x-dur-fast) var(--x-ease-standard), transform var(--x-dur-instant) ease-out",
     boxSizing: "border-box",
   };
 
@@ -128,7 +136,17 @@ export function Checkbox({
   };
 
   return (
-    <label className={className} style={containerStyle}>
+    <label
+      className={className}
+      onMouseEnter={() => !disabled && setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setIsPressed(false);
+      }}
+      onMouseDown={() => !disabled && setIsPressed(true)}
+      onMouseUp={() => setIsPressed(false)}
+      style={containerStyle}
+    >
       <input
         aria-checked={indeterminate ? "mixed" : isChecked}
         aria-invalid={error ? "true" : undefined}
@@ -151,10 +169,10 @@ export function Checkbox({
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="1.5"
+            strokeWidth="1.25"
             style={{
-              transition:
-                "transform var(--x-dur-fast) var(--x-ease-standard), opacity var(--x-dur-fast) var(--x-ease-standard)",
+              transform: "scale(1)",
+              animation: "fadeScale 120ms ease-out",
             }}
             viewBox="0 0 16 16"
             width={iconSize}

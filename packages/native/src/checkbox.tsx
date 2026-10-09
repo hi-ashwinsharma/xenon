@@ -130,13 +130,15 @@ export function Checkbox({
       : nativeTokens.colors.border;
 
   const boxBgColor =
-    isChecked || indeterminate ? nativeTokens.colors.accent : "transparent";
+    isChecked || indeterminate
+      ? nativeTokens.colors.accent
+      : nativeTokens.colors.surface2;
 
   const boxStyle: ViewStyle = {
     width: boxSize,
     height: boxSize,
     borderRadius: cornerRadius,
-    borderWidth: StyleSheet.hairlineWidth * 1.5,
+    borderWidth: 1,
     borderColor: boxBorderColor,
     backgroundColor: boxBgColor,
     alignItems: "center",
@@ -156,7 +158,7 @@ export function Checkbox({
       onPress={handlePress}
       style={({ pressed }) => [
         containerStyle,
-        { transform: [{ scale: pressed && !disabled ? 0.96 : 1 }] },
+        { transform: [{ scale: pressed && !disabled ? 0.92 : 1 }] },
         style,
       ]}
     >

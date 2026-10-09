@@ -14,11 +14,13 @@ export type {
   NativeRadioGroupProps,
   NativeRadioProps,
   NativeRendererConfig,
+  NativeSegmentedControlProps,
   NativeSliderProps,
   NativeStackProps,
   NativeSurfaceContextValue,
   NativeSurfaceProps,
   NativeSwitchProps,
+  NativeTextareaProps,
   NativeTextProps,
   NativeToggleButtonProps,
   NativeVisuallyHiddenProps,
@@ -45,11 +47,13 @@ export { ToggleButton } from "./toggle-button";
 export { Input } from "./input";
 export { InputGroup } from "./input-group";
 export { Field } from "./field";
+export { Textarea } from "./textarea";
 
 export { Checkbox } from "./checkbox";
 export { RadioGroup, Radio } from "./radio";
 export { Switch } from "./switch";
 export { Slider } from "./slider";
+export { SegmentedControl } from "./segmented-control";
 
 export const nativeRendererConfig: {
   readonly platform: "native";

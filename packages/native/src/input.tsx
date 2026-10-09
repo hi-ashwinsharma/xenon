@@ -27,6 +27,39 @@ import { useXenon } from "./provider";
 import { Text } from "./text";
 import type { NativeInputProps } from "./native.types";
 
+function getArchitecturalRadius(
+  size: "sm" | "md" | "lg",
+  stop: RadiusStop,
+): number {
+  if (stop === 0) {
+    return 0;
+  }
+  if (stop === 1) {
+    return 4;
+  }
+  switch (size) {
+    case "sm":
+      return 6;
+    case "lg":
+      return 10;
+    case "md":
+    default:
+      return 8;
+  }
+}
+
+function getHorizontalPadding(size: "sm" | "md" | "lg"): number {
+  switch (size) {
+    case "sm":
+      return 10;
+    case "lg":
+      return 14;
+    case "md":
+    default:
+      return 12;
+  }
+}
+
 export function Input({
   value: controlledValue,
   defaultValue = "",
@@ -34,6 +67,9 @@ export function Input({
   disabled = false,
   readOnly = false,
   size = "md",
+  variant = "default",
+  shortcutKey,
+  surface = "subtle",
   prefix,
   suffix,
   invalid = false,
@@ -72,8 +108,11 @@ export function Input({
   );
 
   const height = CONTROL_HEIGHTS[size];
-  const borderRadius = clampControlRadius(height, radius);
-  const baseHorizontalPadding = height / 2;
+  const borderRadius =
+    variant === "search"
+      ? height / 2
+      : getArchitecturalRadius(size, radius);
+  const baseHorizontalPadding = getHorizontalPadding(size);
 
   const handleChangeText = useCallback(
     (text: string): void => {
@@ -102,40 +141,46 @@ export function Input({
       ? nativeTokens.colors.accent
       : nativeTokens.colors.border;
 
+  const bgColor =
+    surface === "surface"
+      ? nativeTokens.colors.surface
+      : nativeTokens.colors.surface2;
+
   const containerStyle: ViewStyle = useMemo(() => {
     return {
       flexDirection: "row",
       alignItems: "center",
       height,
       borderRadius,
-      backgroundColor: nativeTokens.colors.surface,
-      borderWidth: isFocused ? 1.5 : StyleSheet.hairlineWidth,
+      backgroundColor: bgColor,
+      borderWidth: isFocused ? 1 : StyleSheet.hairlineWidth,
       borderColor,
-      paddingLeft: prefix ? 12 : baseHorizontalPadding,
-      paddingRight: suffix || clearable ? 12 : baseHorizontalPadding,
-      opacity: disabled ? 0.4 : 1,
+      paddingLeft: prefix ? 10 : baseHorizontalPadding,
+      paddingRight: suffix || clearable || shortcutKey ? 8 : baseHorizontalPadding,
+      opacity: disabled ? 0.45 : 1,
     };
   }, [
     height,
     borderRadius,
     baseHorizontalPadding,
+    bgColor,
     borderColor,
     isFocused,
     prefix,
     suffix,
     clearable,
+    shortcutKey,
     disabled,
-    nativeTokens,
   ]);
 
   const resolvedInputStyle: TextStyle = useMemo(() => {
     return {
       flex: 1,
       height: "100%",
-      fontSize: size === "sm" ? 14 : size === "lg" ? 17 : 16,
+      fontSize: size === "sm" ? 13 : size === "lg" ? 16 : 14,
       color: nativeTokens.colors.text,
       paddingVertical: 0,
-      paddingHorizontal: 6,
+      paddingHorizontal: 4,
     };
   }, [size, nativeTokens]);
 
@@ -147,7 +192,13 @@ export function Input({
       style={[containerStyle, style]}
     >
       {prefix && (
-        <View style={{ alignItems: "center", justifyContent: "center" }}>
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: isFocused ? 1 : 0.6,
+          }}
+        >
           {prefix}
         </View>
       )}
@@ -170,17 +221,53 @@ export function Input({
           accessibilityLabel="Clear input"
           accessibilityRole="button"
           onPress={handleClear}
-          style={{
+          style={({ pressed }) => ({
             width: 20,
             height: 20,
+            borderRadius: 10,
             alignItems: "center",
             justifyContent: "center",
+            transform: [{ scale: pressed ? 0.88 : 1 }],
+          })}
+        >
+          <View style={{ width: 10, height: 10, alignItems: "center", justifyContent: "center" }}>
+            <View
+              style={{
+                position: "absolute",
+                width: 10,
+                height: 1,
+                backgroundColor: nativeTokens.colors.textMuted,
+                transform: [{ rotate: "45deg" }],
+              }}
+            />
+            <View
+              style={{
+                position: "absolute",
+                width: 10,
+                height: 1,
+                backgroundColor: nativeTokens.colors.textMuted,
+                transform: [{ rotate: "-45deg" }],
+              }}
+            />
+          </View>
+        </Pressable>
+      )}
+
+      {shortcutKey && !isFocused && !value && (
+        <View
+          style={{
+            paddingHorizontal: 5,
+            paddingVertical: 2,
+            borderRadius: 4,
+            backgroundColor: nativeTokens.colors.surface,
+            borderWidth: StyleSheet.hairlineWidth,
+            borderColor: nativeTokens.colors.border,
           }}
         >
-          <Text style={{ color: nativeTokens.colors.textMuted, fontSize: 16 }}>
-            ×
+          <Text styleKey="caption2" style={{ color: nativeTokens.colors.textMuted, fontSize: 10 }}>
+            {shortcutKey}
           </Text>
-        </Pressable>
+        </View>
       )}
 
       {suffix && (

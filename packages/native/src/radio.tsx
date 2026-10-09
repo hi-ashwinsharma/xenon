@@ -46,6 +46,7 @@ export function RadioGroup({
   onValueChange,
   name,
   orientation = "vertical",
+  variant = "default",
   size = "md",
   disabled = false,
   "aria-label": ariaLabel,
@@ -65,7 +66,7 @@ export function RadioGroup({
 
   const groupStyle: ViewStyle = {
     flexDirection: orientation === "horizontal" ? "row" : "column",
-    gap: orientation === "horizontal" ? 20 : 12,
+    gap: orientation === "horizontal" ? 16 : 10,
   };
 
   return (
@@ -76,6 +77,7 @@ export function RadioGroup({
         onValueChange: handleSelect,
         disabled,
         size,
+        variant,
       }}
     >
       <View
@@ -93,6 +95,7 @@ export function Radio({
   value,
   label,
   description,
+  variant: itemVariant,
   disabled: itemDisabled,
   size: itemSize,
   "aria-label": ariaLabel,
@@ -118,6 +121,7 @@ export function Radio({
   const isSelected = context?.value === value;
   const isDisabled = itemDisabled ?? context?.disabled ?? false;
   const effectiveSize = itemSize ?? context?.size ?? "md";
+  const effectiveVariant = itemVariant ?? context?.variant ?? "default";
 
   const { outerSize, innerSize, textTone } = getRadioDimensions(effectiveSize);
 
@@ -128,20 +132,38 @@ export function Radio({
     context?.onValueChange?.(value);
   };
 
+  const isTile = effectiveVariant === "tile";
+
   const containerStyle: ViewStyle = {
     flexDirection: "row",
     alignItems: description ? "flex-start" : "center",
     opacity: isDisabled ? 0.45 : 1,
+    gap: 12,
+    ...(isTile
+      ? {
+          paddingHorizontal: 16,
+          paddingVertical: 14,
+          borderRadius: 8,
+          borderWidth: 1,
+          borderColor: isSelected
+            ? nativeTokens.colors.accent
+            : nativeTokens.colors.border,
+          backgroundColor: isSelected
+            ? nativeTokens.colors.surface2
+            : nativeTokens.colors.surface,
+        }
+      : {}),
   };
 
   const ringStyle: ViewStyle = {
     width: outerSize,
     height: outerSize,
     borderRadius: 9999,
-    borderWidth: StyleSheet.hairlineWidth * 1.5,
+    borderWidth: 1,
     borderColor: isSelected
       ? nativeTokens.colors.accent
       : nativeTokens.colors.border,
+    backgroundColor: isSelected ? "transparent" : nativeTokens.colors.surface2,
     alignItems: "center",
     justifyContent: "center",
     marginTop: description ? 2 : 0,
@@ -166,14 +188,20 @@ export function Radio({
       onPress={handlePress}
       style={({ pressed }) => [
         containerStyle,
-        { transform: [{ scale: pressed && !isDisabled ? 0.96 : 1 }] },
+        {
+          transform: [
+            {
+              scale: pressed && !isDisabled ? (isTile ? 0.98 : 0.90) : 1,
+            },
+          ],
+        },
         style,
       ]}
     >
       <View style={ringStyle}>{isSelected && <View style={dotStyle} />}</View>
 
       {(label || description) && (
-        <View style={{ marginLeft: 8, flexDirection: "column", gap: 2 }}>
+        <View style={{ flex: isTile ? 1 : undefined, flexDirection: "column", gap: 2 }}>
           {label && (
             <Text
               style={

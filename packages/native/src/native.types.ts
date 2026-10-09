@@ -14,11 +14,13 @@ import type {
   LinkProps as CoreLinkProps,
   RadioGroupProps as CoreRadioGroupProps,
   RadioProps as CoreRadioProps,
+  SegmentedControlProps as CoreSegmentedControlProps,
   SliderProps as CoreSliderProps,
   StackProps as CoreStackProps,
   SurfaceContextValue as CoreSurfaceContextValue,
   SurfaceProps as CoreSurfaceProps,
   SwitchProps as CoreSwitchProps,
+  TextareaProps as CoreTextareaProps,
   TextProps as CoreTextProps,
   ToggleButtonProps as CoreToggleButtonProps,
   VisuallyHiddenProps as CoreVisuallyHiddenProps,
@@ -166,4 +168,16 @@ export interface NativeSwitchProps extends Omit<CoreSwitchProps, "className"> {
 
 export interface NativeSliderProps extends Omit<CoreSliderProps, "className"> {
   readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSegmentedControlProps<T extends string = string>
+  extends Omit<CoreSegmentedControlProps<T>, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTextareaProps
+  extends Omit<CoreTextareaProps, "className" | "onChange"> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly inputStyle?: StyleProp<TextStyle>;
+  readonly onChangeText?: (text: string) => void;
 }

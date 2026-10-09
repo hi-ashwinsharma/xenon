@@ -50,6 +50,7 @@ export function RadioGroup({
   onValueChange,
   name,
   orientation = "vertical",
+  variant = "default",
   size = "md",
   disabled = false,
   "aria-label": ariaLabel,
@@ -74,7 +75,7 @@ export function RadioGroup({
   const groupStyle: CSSProperties = {
     display: "flex",
     flexDirection: orientation === "horizontal" ? "row" : "column",
-    gap: orientation === "horizontal" ? "20px" : "12px",
+    gap: orientation === "horizontal" ? "16px" : "10px",
     fontFamily: "var(--x-font-family)",
     ...style,
   };
@@ -87,6 +88,7 @@ export function RadioGroup({
         onValueChange: handleSelect,
         disabled,
         size,
+        variant,
       }}
     >
       <div
@@ -107,6 +109,7 @@ export function Radio({
   value,
   label,
   description,
+  variant: itemVariant,
   disabled: itemDisabled,
   size: itemSize,
   "aria-label": ariaLabel,
@@ -123,6 +126,10 @@ export function Radio({
   const isSelected = context?.value === value;
   const isDisabled = itemDisabled ?? context?.disabled ?? false;
   const effectiveSize = itemSize ?? context?.size ?? "md";
+  const effectiveVariant = itemVariant ?? context?.variant ?? "default";
+
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
 
   const { outerSize, innerSize, fontSize, lh } =
     getRadioDimensions(effectiveSize);
@@ -136,15 +143,37 @@ export function Radio({
     }
   };
 
+  const isTile = effectiveVariant === "tile";
+
   const containerStyle: CSSProperties = {
     display: "inline-flex",
     alignItems: description ? "flex-start" : "center",
-    gap: "8px",
+    gap: "12px",
     position: "relative",
     cursor: isDisabled ? "not-allowed" : "pointer",
     opacity: isDisabled ? 0.45 : 1,
     fontFamily: "var(--x-font-family)",
     userSelect: "none",
+    boxSizing: "border-box",
+    ...(isTile
+      ? {
+          padding: "14px 16px",
+          borderRadius: "8px",
+          border: `1px solid ${
+            isSelected
+              ? "var(--x-accent)"
+              : isHovered
+                ? "var(--x-border-active)"
+                : "var(--x-border)"
+          }`,
+          backgroundColor: isSelected
+            ? "var(--x-surface-2)"
+            : "var(--x-surface)",
+          transform: isPressed && !isDisabled ? "scale(0.98)" : "scale(1)",
+          transition:
+            "border-color var(--x-dur-fast) var(--x-ease-standard), background-color var(--x-dur-fast) var(--x-ease-standard), transform var(--x-dur-instant) ease-out",
+        }
+      : {}),
     ...style,
   };
 
@@ -157,13 +186,23 @@ export function Radio({
     borderRadius: "9999px",
     borderWidth: "1px",
     borderStyle: "solid",
-    borderColor: isSelected ? "var(--x-accent)" : "var(--x-border)",
-    backgroundColor: "transparent",
+    borderColor: isSelected
+      ? "var(--x-accent)"
+      : isHovered
+        ? "var(--x-border-active)"
+        : "var(--x-border)",
+    backgroundColor: isSelected ? "transparent" : "var(--x-surface-2)",
     flexShrink: 0,
     marginTop: description ? "2px" : 0,
     boxSizing: "border-box",
+    transform:
+      !isTile && isPressed && !isDisabled
+        ? "scale(0.90)"
+        : !isTile && isHovered && !isDisabled
+          ? "scale(0.96)"
+          : "scale(1)",
     transition:
-      "border-color var(--x-dur-fast) var(--x-ease-standard), box-shadow var(--x-dur-fast) var(--x-ease-standard)",
+      "border-color var(--x-dur-fast) var(--x-ease-standard), transform var(--x-dur-instant) ease-out, background-color var(--x-dur-fast) var(--x-ease-standard)",
   };
 
   const dotStyle: CSSProperties = {
@@ -171,10 +210,10 @@ export function Radio({
     height: `${innerSize}px`,
     borderRadius: "9999px",
     backgroundColor: "var(--x-accent)",
-    transform: isSelected ? "scale(1)" : "scale(0)",
-    opacity: isSelected ? 1 : 0,
+    transform: isSelected ? "scale(1)" : isHovered ? "scale(0.5)" : "scale(0)",
+    opacity: isSelected ? 1 : isHovered ? 0.2 : 0,
     transition:
-      "transform var(--x-dur-fast) var(--x-ease-standard), opacity var(--x-dur-fast) var(--x-ease-standard)",
+      "transform var(--x-dur-fast) var(--x-spring-soft, cubic-bezier(0.16, 1, 0.3, 1)), opacity var(--x-dur-fast) var(--x-ease-standard)",
   };
 
   const hiddenInputStyle: CSSProperties = {
@@ -188,7 +227,17 @@ export function Radio({
   };
 
   return (
-    <label className={className} style={containerStyle}>
+    <label
+      className={className}
+      onMouseDown={() => !isDisabled && setIsPressed(true)}
+      onMouseEnter={() => !isDisabled && setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setIsPressed(false);
+      }}
+      onMouseUp={() => setIsPressed(false)}
+      style={containerStyle}
+    >
       <input
         aria-label={ariaLabel}
         checked={isSelected}
@@ -210,6 +259,7 @@ export function Radio({
             display: "inline-flex",
             flexDirection: "column",
             gap: "2px",
+            flex: isTile ? 1 : undefined,
           }}
         >
           {label && (
@@ -217,8 +267,8 @@ export function Radio({
               style={{
                 fontSize,
                 lineHeight: lh,
-                color: "var(--x-text)",
-                fontWeight: 400,
+                color: isSelected && isTile ? "var(--x-text)" : "var(--x-text)",
+                fontWeight: isSelected && isTile ? 400 : 400,
               }}
             >
               {label}

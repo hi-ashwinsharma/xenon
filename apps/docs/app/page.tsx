@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import type { Accent, RadiusStop, ResolvedTheme } from "@xenon/tokens";
+import { RADIUS_STOPS, type Accent, type RadiusStop, type ResolvedTheme } from "@xenon/tokens";
+import { computeNestedRadius } from "@xenon/core";
 import {
   Button,
   ButtonGroup,
@@ -17,11 +18,13 @@ import {
   Link,
   Radio,
   RadioGroup,
+  SegmentedControl,
   Slider,
   Stack,
   Surface,
   Switch,
   Text,
+  Textarea,
   ToggleButton,
   XenonProvider,
 } from "@xenon/web";
@@ -40,6 +43,8 @@ function ShowcaseContent() {
   const [checkboxAccepted, setCheckboxAccepted] = useState<boolean>(true);
   const [checkboxIndeterminate, setCheckboxIndeterminate] =
     useState<boolean>(true);
+  const [segmentView, setSegmentView] = useState<string>("preview");
+  const [feedbackText, setFeedbackText] = useState<string>("");
 
   const accents: Accent[] = ["lime", "pink", "blue", "purple", "green"];
   const radiusStops: RadiusStop[] = [0, 1, 2, 3, 4, 5, 6];
@@ -237,6 +242,7 @@ function ShowcaseContent() {
               </Surface>
 
               {/* Radio Group */}
+              {/* Radio Group: Aperture & Tile */}
               <Surface
                 padding={24}
                 style={{
@@ -245,9 +251,14 @@ function ShowcaseContent() {
                   gap: "16px",
                 }}
               >
-                <Heading level={3} weight={400}>
-                  Radio Group
-                </Heading>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <Heading level={3} weight={400}>
+                    Single Choice
+                  </Heading>
+                  <Text tone="accent">Aperture & Tile</Text>
+                </div>
+
+                <Text tone="muted">Aperture Iris Indicator:</Text>
                 <RadioGroup
                   onValueChange={setSelectedPlan}
                   value={selectedPlan}
@@ -262,10 +273,19 @@ function ShowcaseContent() {
                     label="Pro Developer"
                     value="pro"
                   />
+                </RadioGroup>
+
+                <Divider />
+
+                <Text tone="muted">Architectural Selection Tile:</Text>
+                <RadioGroup
+                  onValueChange={setSelectedPlan}
+                  value={selectedPlan}
+                  variant="tile"
+                >
                   <Radio
-                    description="Multi-seat enterprise workspace"
-                    disabled
-                    label="Enterprise"
+                    description="Automated CI with unlimited seats"
+                    label="Enterprise Cloud"
                     value="enterprise"
                   />
                 </RadioGroup>
@@ -304,6 +324,52 @@ function ShowcaseContent() {
                   PageUp/Down).
                 </Text>
               </Surface>
+
+              {/* Segmented Control */}
+              <Surface
+                padding={24}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Heading level={3} weight={400}>
+                    Segmented Control
+                  </Heading>
+                  <Text tone="accent">{segmentView.toUpperCase()}</Text>
+                </div>
+                <Text tone="muted">
+                  Apple HIG sliding capsule with squash-and-stretch kinematics:
+                </Text>
+                <SegmentedControl
+                  onValueChange={setSegmentView}
+                  options={[
+                    { value: "preview", label: "Preview" },
+                    { value: "code", label: "Code" },
+                    { value: "tokens", label: "Tokens" },
+                  ]}
+                  value={segmentView}
+                />
+                <SegmentedControl
+                  defaultValue="week"
+                  fullWidth
+                  options={[
+                    { value: "day", label: "Day" },
+                    { value: "week", label: "Week" },
+                    { value: "month", label: "Month" },
+                    { value: "year", label: "Year" },
+                  ]}
+                  size="sm"
+                />
+              </Surface>
             </div>
           </section>
 
@@ -333,7 +399,7 @@ function ShowcaseContent() {
                 <Button variant="outline">Outline</Button>
                 <Button variant="ghost">Ghost</Button>
                 <Button variant="glass">Liquid Glass</Button>
-                <IconButton aria-label="Settings" size="md" variant="subtle">
+                <IconButton ariaLabel="Settings" size="md" variant="subtle">
                   <Icon size="sm">
                     <svg
                       fill="none"
@@ -428,88 +494,266 @@ function ShowcaseContent() {
                   gap: "24px",
                 }}
               >
+                {/* 1. Architectural Data Input */}
                 <Field
                   error={
                     fieldError ? "Please enter a valid organization" : undefined
                   }
-                  helpText="Displayed on your invoices and team profile"
+                  helpText="Restrained 8px architectural geometry with recessed surface-2"
                   label="Organization Name"
                 >
                   <Input
+                    clearable
                     defaultValue="HotCrunch Core Labs"
                     invalid={fieldError}
                     placeholder="e.g. Acme Corp"
                   />
                 </Field>
 
+                {/* 2. Dedicated Search Input */}
                 <Field
-                  helpText="Search packages across the workspace"
-                  label="Attached Search Group"
+                  helpText="Reserved pill geometry with living prefix and ⌘K badge"
+                  label="Quick Navigator"
+                  optional
+                >
+                  <Input
+                    clearable
+                    placeholder="Search documentation, API..."
+                    prefix={
+                      <Icon size="sm">
+                        <svg
+                          fill="none"
+                          height="16"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.25"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <circle cx="7" cy="7" r="4.5" />
+                          <line x1="10.5" x2="14" y1="10.5" y2="14" />
+                        </svg>
+                      </Icon>
+                    }
+                    shortcutKey="⌘K"
+                    variant="search"
+                  />
+                </Field>
+
+                {/* 3. Flush Attached InputGroup */}
+                <Field
+                  helpText="Continuous group with flush joint boundaries"
+                  label="License Authorization"
                   optional
                 >
                   <InputGroup size="md">
                     <Input
-                      placeholder="Find component..."
-                      prefix={<span style={{ opacity: 0.5 }}>⌘</span>}
+                      placeholder="xenon_lic_..."
+                      prefix={
+                        <Icon size="sm">
+                          <svg
+                            fill="none"
+                            height="16"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="1.25"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <circle cx="8" cy="8" r="4" />
+                            <path d="M12 8h2" />
+                          </svg>
+                        </Icon>
+                      }
                     />
-                    <Button variant="filled">Search</Button>
+                    <Button variant="accent">Verify</Button>
                   </InputGroup>
                 </Field>
               </div>
+
+              {/* 4. Architectural Textarea with Auto-growth & Character Count */}
+              <Field
+                helpText="Architectural 8px radius with dynamic auto-growth and live character metrics"
+                label="Release Notes & Engineering Rationale"
+                optional
+              >
+                <Textarea
+                  autoGrow
+                  maxLength={280}
+                  onChange={(e) => setFeedbackText(e.target.value)}
+                  placeholder="Deliberate deeply on the semantic role, negative space, and geometry..."
+                  showCount
+                  value={feedbackText}
+                />
+              </Field>
             </Surface>
           </section>
 
           {/* Section 4: Surfaces & Concentric Radius (Phase 2A) */}
           <section
-            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+            style={{ display: "flex", flexDirection: "column", gap: "24px" }}
           >
             <div>
               <Heading level={2} weight={300}>
                 Concentric Surfaces & Nesting (Phase 2A)
               </Heading>
               <Text tone="muted">
-                Mathematical concentric corner calculation: inner = max(outer -
-                pad, outer * 0.4).
+                Mathematical concentric corner calculation: inner = max(outer - pad, outer * 0.4).
+                Curves share an exact optical center and never collapse into sharp squares.
               </Text>
             </div>
 
-            <Surface
-              padding={32}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "20px",
-                backgroundColor: "var(--x-surface)",
-              }}
-            >
-              <Text tone="default">
-                Parent Surface with outer radius token (Stop {radius})
+            {/* Subsection A: Multiple Padding Variations */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              <Text tone="muted">
+                Sample Grid: Constant Parent Radius (Stop {radius} = {RADIUS_STOPS[radius].surface}px) with 4 Inset Padding Steps
               </Text>
 
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
                   gap: "16px",
                 }}
               >
-                <Surface
-                  padding={20}
-                  style={{ backgroundColor: "var(--x-surface-2)" }}
-                >
-                  <Text tone="accent">Nested Surface A</Text>
-                  <Text tone="muted">Calculated inner corner radius</Text>
-                </Surface>
+                {[8, 16, 24, 32].map((pad) => {
+                  const parentR = RADIUS_STOPS[radius].surface;
+                  const childR = computeNestedRadius(parentR, pad);
+                  const isFloored = parentR > 0 && parentR - pad < parentR * 0.4;
+
+                  return (
+                    <Surface
+                      key={pad}
+                      padding={pad}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "12px",
+                        backgroundColor: "var(--x-surface)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          fontSize: "0.75rem",
+                        }}
+                      >
+                        <Text tone="muted">Padding: {pad}px</Text>
+                        <Text tone="accent">Inner R: {childR.toFixed(1)}px</Text>
+                      </div>
+
+                      <Surface
+                        padding={16}
+                        style={{
+                          backgroundColor: "var(--x-surface-2)",
+                          minHeight: "84px",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          textAlign: "center",
+                        }}
+                      >
+                        <Text tone="default">Child Surface</Text>
+                        <Text tone="muted">
+                          {isFloored
+                            ? `Floor (40%): ${childR.toFixed(1)}px`
+                            : `${parentR} - ${pad} = ${childR.toFixed(1)}px`}
+                        </Text>
+                      </Surface>
+                    </Surface>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Subsection B: Deep Multi-Level Nesting (Russian Doll) */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              <Text tone="muted">
+                Deep Recursive Nesting: 4 Nested Surface Layers Cascading Context Downwards
+              </Text>
+
+              <Surface
+                padding={28}
+                style={{
+                  backgroundColor: "var(--x-surface)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px",
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <Text tone="default">Level 1 (Root Surface)</Text>
+                  <Text tone="accent">
+                    R = {RADIUS_STOPS[radius].surface}px · Pad = 28px
+                  </Text>
+                </div>
 
                 <Surface
                   padding={20}
-                  style={{ backgroundColor: "var(--x-surface-2)" }}
+                  style={{
+                    backgroundColor: "var(--x-surface-2)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                  }}
                 >
-                  <Text tone="accent">Nested Surface B</Text>
-                  <Text tone="muted">Perfect concentric harmony</Text>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Text tone="default">Level 2 (Nested Card)</Text>
+                    <Text tone="accent">
+                      R = {computeNestedRadius(RADIUS_STOPS[radius].surface, 28).toFixed(1)}px · Pad = 20px
+                    </Text>
+                  </div>
+
+                  <Surface
+                    padding={16}
+                    style={{
+                      backgroundColor: "var(--x-surface)",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "12px",
+                    }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <Text tone="default">Level 3 (Grandchild Card)</Text>
+                      <Text tone="accent">
+                        R = {computeNestedRadius(
+                          computeNestedRadius(RADIUS_STOPS[radius].surface, 28),
+                          20,
+                        ).toFixed(1)}px · Pad = 16px
+                      </Text>
+                    </div>
+
+                    <Surface
+                      padding={12}
+                      style={{
+                        backgroundColor: "var(--x-surface-2)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        flexWrap: "wrap",
+                        gap: "8px",
+                      }}
+                    >
+                      <Text tone="accent">Level 4 (Innermost Core Surface)</Text>
+                      <Text tone="muted">
+                        R = {computeNestedRadius(
+                          computeNestedRadius(
+                            computeNestedRadius(RADIUS_STOPS[radius].surface, 28),
+                            20,
+                          ),
+                          16,
+                        ).toFixed(1)}px · Perfect Harmony
+                      </Text>
+                    </Surface>
+                  </Surface>
                 </Surface>
-              </div>
-            </Surface>
+              </Surface>
+            </div>
           </section>
         </Stack>
       </div>

@@ -75,24 +75,32 @@ export function Field({
           {error && (
             <View
               style={{
-                width: 12,
-                height: 12,
-                borderRadius: 6,
-                backgroundColor: nativeTokens.colors.semantic.danger,
+                width: 14,
+                height: 14,
+                borderRadius: 7,
+                borderWidth: 1,
+                borderColor: nativeTokens.colors.semantic.danger,
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
-              <Text
+              <View
                 style={{
-                  color: nativeTokens.colors.bg,
-                  fontSize: 9,
-                  fontWeight: "400",
-                  lineHeight: 10,
+                  width: 1.5,
+                  height: 4.5,
+                  backgroundColor: nativeTokens.colors.semantic.danger,
+                  borderRadius: 1,
+                  marginBottom: 1.5,
                 }}
-              >
-                !
-              </Text>
+              />
+              <View
+                style={{
+                  width: 1.5,
+                  height: 1.5,
+                  borderRadius: 1,
+                  backgroundColor: nativeTokens.colors.semantic.danger,
+                }}
+              />
             </View>
           )}
           <Text

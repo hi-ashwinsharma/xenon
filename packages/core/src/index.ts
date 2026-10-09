@@ -53,6 +53,7 @@ export type {
   InputGroupProps,
   InputProps,
   InputSize,
+  InputVariant,
 } from "./input.types";
 
 export type { CheckboxProps, CheckboxSize } from "./checkbox.types";
@@ -63,11 +64,20 @@ export type {
   RadioOrientation,
   RadioProps,
   RadioSize,
+  RadioVariant,
 } from "./radio.types";
 
 export type { SwitchProps, SwitchSize } from "./switch.types";
 
 export type { SliderProps, SliderSize } from "./slider.types";
+
+export type {
+  SegmentedControlOption,
+  SegmentedControlProps,
+  SegmentedControlSize,
+} from "./segmented-control.types";
+
+export type { TextareaProps } from "./textarea.types";
 
 export { AppRoutes } from "./routes";
 

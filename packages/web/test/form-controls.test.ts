@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createElement } from "react";
-import { Button, Field, Input, InputGroup } from "../src/index";
+import { Button, Field, Input, InputGroup, SegmentedControl, Textarea } from "../src/index";
 
 describe("@xenon/web Form Controls", () => {
   describe("Input", () => {
@@ -75,6 +75,41 @@ describe("@xenon/web Form Controls", () => {
       );
 
       expect(field.props.error).toBe("Please enter a valid email address");
+    });
+  });
+
+  describe("SegmentedControl", () => {
+    it("renders options with active selection", () => {
+      const options = [
+        { value: "day", label: "Day" },
+        { value: "week", label: "Week" },
+        { value: "month", label: "Month" },
+      ] as const;
+
+      const element = createElement(SegmentedControl, {
+        options,
+        value: "week",
+        size: "md",
+      });
+
+      expect(element.props.value).toBe("week");
+      expect(element.props.options).toHaveLength(3);
+    });
+  });
+
+  describe("Textarea", () => {
+    it("renders default textarea with autoGrow and rows", () => {
+      const element = createElement(Textarea, {
+        placeholder: "Write feedback...",
+        autoGrow: true,
+        showCount: true,
+        maxLength: 240,
+      });
+
+      expect(element.props.placeholder).toBe("Write feedback...");
+      expect(element.props.autoGrow).toBe(true);
+      expect(element.props.showCount).toBe(true);
+      expect(element.props.maxLength).toBe(240);
     });
   });
 });

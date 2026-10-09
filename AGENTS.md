@@ -25,7 +25,9 @@ Xenon is a closed-source, minimalistic UI kit for **web (React DOM) and React Na
 ## Hard rules (never violate)
 
 - No gradients. No shadows of any kind (CSS `box-shadow`, iOS `shadow*`, Android `elevation`). No blur except Liquid Glass on floating/overlay layers (see `docs/TOKENS.md`). Depth comes from hairlines and surface tone only.
-- No emoji anywhere. Icons: Phosphor, weight `thin`, via the Xenon `Icon` wrapper on both platforms.
+- No emoji anywhere. No raw ASCII/unicode characters (`×`, `!`, `+`, `-`, `?`, `>`) for UI chrome, badges, indicators, clear buttons, or action triggers. Icons must strictly be Phosphor, weight `thin`, via the Xenon `Icon` wrapper on both platforms.
+- Hairline precision & focus: All borders and dividers are strictly 1px (`StyleSheet.hairlineWidth` on native). Focus states must NEVER use detached browser outlines (no `outline-offset: 2px` or harsh halos). Interactive focus must smoothly transition the 1px hairline border to `var(--x-accent)` or hug the geometry seamlessly.
+- Form control architectural geometry: Standard data inputs and form fields must not be styled as oblong stadium capsules/pills. Inputs maintain restrained architectural corner geometry (Stop 1–2 / 6–8px) with optical horizontal padding (10–14px, never `height / 2`). Full pills are reserved strictly for action buttons, chips, and dedicated search bars.
 - No raw hex, px, ms or cubic-bezier in components. Use tokens from `docs/TOKENS.md`.
 - Every v1 component ships on web and native with identical props. Shared logic and formulas live in `packages/core`, never duplicated per renderer.
 - Hover is web-only and gated by `@media (hover: hover)`. Never hide critical actions behind hover.
@@ -34,7 +36,7 @@ Xenon is a closed-source, minimalistic UI kit for **web (React DOM) and React Na
 - Font weights are 200, 300 or 400 only. Never 500 or above.
 - Absolute type safety: never use `any` or loose `unknown`. Every prop, function, hook, ref, event handler, and callback must have explicit, exhaustive types. Types live in dedicated `*.types.ts` files, never in `.tsx` components.
 - Routes come from the central route constants, never string literals.
-- Before authoring any component, execute the **Component Innovation & Grilling Protocol** (`docs/ROADMAP.md`): brainstorm micro-interactions, distinct geometry, and Apple-grade precision via `ask_question`. Never output generic boilerplate.
+- Before authoring any component, execute the **Component Innovation & Grilling Protocol** (`docs/ROADMAP.md`): brainstorm micro-interactions, distinct geometry, and Apple-grade precision via `ask_question`. Never output generic boilerplate, unstyled placeholders, or legacy UI patterns.
 
 ## Anti-hallucination protocol
 

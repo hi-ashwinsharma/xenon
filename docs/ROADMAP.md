@@ -108,13 +108,14 @@ _Goal: Deliver the foundational visual surfaces, text, icons, and signature pill
 
 _Goal: Deliver clean input controls and structural navigation chrome._
 
-- [ ] **Grilling & Design Session**: Fluid tactile interactions on native (switches, sliders), background-less sidebar navigation, and glass bar scroll triggers.
-- [ ] Form Controls:
-  - `Textarea` (smooth resize, hairline border).
-  - `Checkbox` and `RadioGroup` (hairline geometry, spring indicator).
+- [x] **Grilling & Design Session**: Micro-interactions, aperture iris single choice, architectural form geometry, and Apple spring kinematics.
+- [x] Form Controls:
+  - `Textarea` (smooth resize, hairline border, auto-growth, character counter).
+  - `Checkbox` and `RadioGroup` (hairline geometry, aperture iris indicator, tile selection mode).
   - `Switch` (smooth sliding thumb, native haptic feedback).
   - `Slider` (discrete & continuous, spring thumb).
-  - `SegmentedControl` (grouped pill selector with animated active indicator).
+  - `SegmentedControl` (grouped pill selector with animated active indicator and spring squash physics).
+  - `Input` & `Field` (architectural geometry, dedicated pill search input with living prefix and shortcut badge, Phosphor WarningCircle and X thin icons).
 - [ ] Navigation Chrome:
   - `Navbar` / `GlassBar` (sticky top bar, transparent at rest, Liquid Glass on scroll).
   - `TabBar` (mobile bottom navigation with Liquid Glass option).

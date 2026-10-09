@@ -3,6 +3,7 @@ import type {
   ButtonHTMLAttributes,
   HTMLAttributes,
   InputHTMLAttributes,
+  TextareaHTMLAttributes,
 } from "react";
 import type {
   ButtonGroupProps as CoreButtonGroupProps,
@@ -19,11 +20,13 @@ import type {
   LinkProps as CoreLinkProps,
   RadioGroupProps as CoreRadioGroupProps,
   RadioProps as CoreRadioProps,
+  SegmentedControlProps as CoreSegmentedControlProps,
   SliderProps as CoreSliderProps,
   StackProps as CoreStackProps,
   SurfaceContextValue as CoreSurfaceContextValue,
   SurfaceProps as CoreSurfaceProps,
   SwitchProps as CoreSwitchProps,
+  TextareaProps as CoreTextareaProps,
   TextProps as CoreTextProps,
   ToggleButtonProps as CoreToggleButtonProps,
   VisuallyHiddenProps as CoreVisuallyHiddenProps,
@@ -183,4 +186,26 @@ export interface WebSliderProps
     Omit<
       HTMLAttributes<HTMLDivElement>,
       "children" | "defaultValue" | "onChange"
+    > {}
+
+export interface WebSegmentedControlProps<T extends string = string>
+  extends
+    Omit<CoreSegmentedControlProps<T>, "className" | "aria-label">,
+    Omit<
+      HTMLAttributes<HTMLDivElement>,
+      "children" | "defaultValue" | "onChange"
+    > {}
+
+export interface WebTextareaProps
+  extends
+    Omit<CoreTextareaProps, "className" | "onChange">,
+    Omit<
+      TextareaHTMLAttributes<HTMLTextAreaElement>,
+      | "children"
+      | "value"
+      | "defaultValue"
+      | "placeholder"
+      | "disabled"
+      | "readOnly"
+      | "maxLength"
     > {}

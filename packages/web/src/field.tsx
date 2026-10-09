@@ -70,17 +70,26 @@ export function Field({
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: "12px",
-                height: "12px",
-                borderRadius: "50%",
-                backgroundColor: "var(--x-danger)",
-                color: "var(--x-bg)",
-                fontSize: "9px",
-                fontWeight: "bold",
-                lineHeight: 1,
+                width: "14px",
+                height: "14px",
+                color: "var(--x-danger)",
+                flexShrink: 0,
               }}
             >
-              !
+              <svg
+                fill="none"
+                height="14"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.25"
+                viewBox="0 0 16 16"
+                width="14"
+              >
+                <circle cx="8" cy="8" r="6.25" />
+                <line x1="8" x2="8" y1="5" y2="8" />
+                <circle cx="8" cy="11" fill="currentColor" r="0.6" stroke="none" />
+              </svg>
             </span>
           )}
           <span>{error ?? helpText}</span>

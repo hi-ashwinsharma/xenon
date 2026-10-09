@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 export type RadioSize = "sm" | "md" | "lg";
 export type RadioOrientation = "vertical" | "horizontal";
 
+export type RadioVariant = "default" | "tile";
+
 export interface RadioGroupProps {
   /**
    * Controlled value of the selected radio item.
@@ -24,6 +26,10 @@ export interface RadioGroupProps {
    * Layout orientation for the group. Defaults to "vertical".
    */
   orientation?: RadioOrientation;
+  /**
+   * Visual variant: "default" (aperture indicator) or "tile" (interactive option card). Defaults to "default".
+   */
+  variant?: RadioVariant;
   /**
    * Size tier applied to child radio items. Defaults to "md".
    */
@@ -48,13 +54,17 @@ export interface RadioProps {
    */
   value: string;
   /**
-   * Text label placed adjacent to the circular indicator.
+   * Text label placed adjacent to the indicator.
    */
   label?: ReactNode;
   /**
    * Secondary supporting text placed beneath the label.
    */
   description?: ReactNode;
+  /**
+   * Visual variant override: "default" (aperture indicator) or "tile" (interactive card).
+   */
+  variant?: RadioVariant;
   /**
    * Disabled state for this specific radio option.
    */
@@ -79,4 +89,5 @@ export interface RadioContextValue {
   onValueChange?: (value: string) => void;
   disabled?: boolean;
   size?: RadioSize;
+  variant?: RadioVariant;
 }
