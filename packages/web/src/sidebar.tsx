@@ -6,8 +6,9 @@ import {
   type CSSProperties,
   type ReactElement,
 } from "react";
-import type { SidebarCollapsibleMode } from "@xenon/core";
+import type { SidebarCollapsibleMode, SidebarVariant } from "@xenon/core";
 import type {
+  WebSidebarDividerProps,
   WebSidebarFooterProps,
   WebSidebarGroupProps,
   WebSidebarHeaderProps,
@@ -19,11 +20,13 @@ import type {
 interface SidebarContextValue {
   readonly collapsed: boolean;
   readonly collapsible: SidebarCollapsibleMode;
+  readonly variant: SidebarVariant;
 }
 
 const SidebarContext = createContext<SidebarContextValue>({
   collapsed: false,
   collapsible: "rail",
+  variant: "floating",
 });
 
 export function useSidebarContext(): SidebarContextValue {
@@ -31,8 +34,11 @@ export function useSidebarContext(): SidebarContextValue {
 }
 
 export function Sidebar({
+  variant = "floating",
+  bordered = false,
   hasBackground = false,
   separator = false,
+  glass = false,
   collapsed = false,
   collapsible = "rail",
   width = 240,
@@ -44,6 +50,7 @@ export function Sidebar({
 }: WebSidebarProps): ReactElement {
   const isHidden = collapsed && collapsible === "offcanvas";
   const currentWidth = collapsed ? collapsedWidth : width;
+  const isFloating = variant === "floating";
 
   const sidebarStyle: CSSProperties = {
     position: "relative",
@@ -51,21 +58,38 @@ export function Sidebar({
     flexDirection: "column",
     width: `${currentWidth}px`,
     minWidth: `${currentWidth}px`,
-    height: "100%",
-    minHeight: "100vh",
     boxSizing: "border-box",
-    backgroundColor: hasBackground ? "var(--x-surface)" : "transparent",
-    borderRight: separator ? "1px solid var(--x-border)" : "none",
     transition:
       "width var(--x-dur-base) var(--x-ease-standard), min-width var(--x-dur-base) var(--x-ease-standard)",
     overflow: "hidden",
     userSelect: "none",
+    border: bordered ? "1px solid var(--x-border)" : "none",
+    borderRight: separator ? "1px solid var(--x-border)" : bordered ? undefined : "none",
+    ...(isFloating
+      ? {
+          height: "calc(100% - 24px)",
+          margin: "12px",
+          borderRadius: "var(--x-radius-surface, 14px)",
+          backgroundColor: glass
+            ? "var(--x-glass-regular-bg)"
+            : hasBackground
+              ? "var(--x-surface)"
+              : "transparent",
+          backdropFilter: glass ? "blur(var(--x-glass-regular-blur))" : "none",
+          WebkitBackdropFilter: glass ? "blur(var(--x-glass-regular-blur))" : "none",
+        }
+      : {
+          height: "100%",
+          minHeight: "100vh",
+          borderRadius: 0,
+          backgroundColor: hasBackground ? "var(--x-surface)" : "transparent",
+        }),
     ...style,
   };
 
   const contextValue: SidebarContextValue = useMemo(
-    () => ({ collapsed, collapsible }),
-    [collapsed, collapsible],
+    () => ({ collapsed, collapsible, variant }),
+    [collapsed, collapsible, variant],
   );
 
   return (
@@ -74,6 +98,7 @@ export function Sidebar({
         className={className}
         data-x-collapsed={collapsed ? "true" : "false"}
         data-x-sidebar=""
+        data-x-variant={variant}
         style={sidebarStyle}
         {...restProps}
       >
@@ -95,11 +120,10 @@ export function SidebarHeader({
     display: "flex",
     alignItems: "center",
     justifyContent: collapsed ? "center" : "flex-start",
-    height: "56px",
+    height: "52px",
     paddingLeft: collapsed ? 0 : "var(--x-space-4, 16px)",
     paddingRight: collapsed ? 0 : "var(--x-space-4, 16px)",
     boxSizing: "border-box",
-    borderBottom: "1px solid var(--x-border)",
     flexShrink: 0,
     overflow: "hidden",
     whiteSpace: "nowrap",
@@ -113,6 +137,28 @@ export function SidebarHeader({
   );
 }
 
+export function SidebarDivider({
+  inset = 12,
+  className,
+  style,
+  ...restProps
+}: WebSidebarDividerProps): ReactElement {
+  const { collapsed } = useSidebarContext();
+
+  const dividerStyle: CSSProperties = {
+    height: "1px",
+    width: collapsed ? "28px" : `calc(100% - ${inset * 2}px)`,
+    margin: "6px auto",
+    backgroundColor: "var(--x-border)",
+    opacity: 0.6,
+    borderRadius: "1px",
+    flexShrink: 0,
+    ...style,
+  };
+
+  return <div aria-hidden="true" className={className} style={dividerStyle} {...restProps} />;
+}
+
 export function SidebarNav({
   children,
   className,
@@ -123,8 +169,8 @@ export function SidebarNav({
     display: "flex",
     flexDirection: "column",
     flex: 1,
-    paddingTop: "var(--x-space-3, 12px)",
-    paddingBottom: "var(--x-space-3, 12px)",
+    paddingTop: "var(--x-space-2, 8px)",
+    paddingBottom: "var(--x-space-2, 8px)",
     paddingLeft: "var(--x-space-2, 8px)",
     paddingRight: "var(--x-space-2, 8px)",
     gap: "var(--x-space-1, 4px)",
@@ -157,7 +203,7 @@ export function SidebarGroup({
         display: "flex",
         flexDirection: "column",
         gap: "var(--x-space-1, 4px)",
-        marginBottom: "var(--x-space-3, 12px)",
+        marginBottom: "var(--x-space-2, 8px)",
         ...style,
       }}
       {...restProps}
@@ -333,9 +379,8 @@ export function SidebarFooter({
     display: "flex",
     alignItems: "center",
     justifyContent: collapsed ? "center" : "flex-start",
-    padding: collapsed ? "var(--x-space-2, 8px) 0" : "var(--x-space-3, 12px) var(--x-space-4, 16px)",
+    padding: collapsed ? "var(--x-space-2, 8px) 0" : "var(--x-space-2, 8px) var(--x-space-4, 16px)",
     boxSizing: "border-box",
-    borderTop: "1px solid var(--x-border)",
     flexShrink: 0,
     ...style,
   };

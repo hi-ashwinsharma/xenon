@@ -30,6 +30,7 @@ import type {
   RadioGroupProps as CoreRadioGroupProps,
   RadioProps as CoreRadioProps,
   SegmentedControlProps as CoreSegmentedControlProps,
+  SidebarDividerProps as CoreSidebarDividerProps,
   SidebarFooterProps as CoreSidebarFooterProps,
   SidebarGroupProps as CoreSidebarGroupProps,
   SidebarHeaderProps as CoreSidebarHeaderProps,
@@ -255,6 +256,11 @@ export interface WebSidebarNavProps
   extends
     Omit<CoreSidebarNavProps, "className">,
     Omit<HTMLAttributes<HTMLElement>, "children"> {}
+
+export interface WebSidebarDividerProps
+  extends
+    Omit<CoreSidebarDividerProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
 
 export interface WebSidebarGroupProps
   extends

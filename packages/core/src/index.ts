@@ -83,12 +83,14 @@ export type { GlassBarProps, NavbarProps } from "./navbar.types";
 
 export type {
   SidebarCollapsibleMode,
+  SidebarDividerProps,
   SidebarFooterProps,
   SidebarGroupProps,
   SidebarHeaderProps,
   SidebarItemProps,
   SidebarNavProps,
   SidebarProps,
+  SidebarVariant,
 } from "./sidebar.types";
 
 export type {

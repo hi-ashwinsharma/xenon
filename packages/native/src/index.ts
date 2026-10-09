@@ -24,6 +24,7 @@ export type {
   NativeRadioProps,
   NativeRendererConfig,
   NativeSegmentedControlProps,
+  NativeSidebarDividerProps,
   NativeSidebarFooterProps,
   NativeSidebarGroupProps,
   NativeSidebarHeaderProps,
@@ -80,11 +81,12 @@ export { Navbar } from "./navbar";
 export { GlassBar } from "./glassbar";
 export {
   Sidebar,
-  SidebarHeader,
-  SidebarNav,
-  SidebarGroup,
-  SidebarItem,
+  SidebarDivider,
   SidebarFooter,
+  SidebarGroup,
+  SidebarHeader,
+  SidebarItem,
+  SidebarNav,
   useSidebarContext,
 } from "./sidebar";
 export { Tabs, TabsList, TabsTrigger, TabsContent, useTabs } from "./tabs";

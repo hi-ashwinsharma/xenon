@@ -24,6 +24,7 @@ import type {
   RadioGroupProps as CoreRadioGroupProps,
   RadioProps as CoreRadioProps,
   SegmentedControlProps as CoreSegmentedControlProps,
+  SidebarDividerProps as CoreSidebarDividerProps,
   SidebarFooterProps as CoreSidebarFooterProps,
   SidebarGroupProps as CoreSidebarGroupProps,
   SidebarHeaderProps as CoreSidebarHeaderProps,
@@ -224,6 +225,11 @@ export interface NativeSidebarHeaderProps
 
 export interface NativeSidebarNavProps
   extends Omit<CoreSidebarNavProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSidebarDividerProps
+  extends Omit<CoreSidebarDividerProps, "className"> {
   readonly style?: StyleProp<ViewStyle>;
 }
 

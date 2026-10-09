@@ -29,6 +29,7 @@ import {
   RadioGroup,
   SegmentedControl,
   Sidebar,
+  SidebarDivider,
   SidebarFooter,
   SidebarGroup,
   SidebarHeader,
@@ -68,9 +69,10 @@ function ShowcaseContent() {
   const [feedbackText, setFeedbackText] = useState<string>("");
 
   // Navigation interactive state
+  const [sidebarVariant, setSidebarVariant] = useState<"floating" | "docked">("floating");
+  const [sidebarBordered, setSidebarBordered] = useState<boolean>(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false);
-  const [sidebarSolid, setSidebarSolid] = useState<boolean>(false);
-  const [sidebarSeparator, setSidebarSeparator] = useState<boolean>(true);
+  const [sidebarSolid, setSidebarSolid] = useState<boolean>(true);
   const [activeNavTab, setActiveNavTab] = useState<string>("components");
   const [tabsVariant, setTabsVariant] = useState<"pill" | "underline">("pill");
   const [tabBarVariant, setTabBarVariant] = useState<"floating" | "docked">("floating");
@@ -709,31 +711,43 @@ function ShowcaseContent() {
               </div>
             </div>
 
-            {/* 2. Background-less & Rail Sidebar */}
+            {/* 2. Floating Sidebar with Soft Inset Dividers */}
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
-                <Text tone="accent">2. Sidebar Navigation (Background-less Default, Rail Mode, Hairline Separator)</Text>
+                <div>
+                  <Text tone="accent">2. Floating Sidebar (Detached Island, Zero Outer Border, Soft Inset Dividers)</Text>
+                  <Text tone="muted">
+                    Floats freely inside the canvas without sticking edge-to-edge. Outer border is off by default.
+                  </Text>
+                </div>
                 <Group gap={8}>
                   <Button
                     onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
                     size="sm"
                     variant={sidebarCollapsed ? "filled" : "outline"}
                   >
-                    {sidebarCollapsed ? "Expand to 240px" : "Collapse to Rail (56px)"}
+                    {sidebarCollapsed ? "Expand (240px)" : "Rail Mode (56px)"}
+                  </Button>
+                  <Button
+                    onClick={() => setSidebarVariant(sidebarVariant === "floating" ? "docked" : "floating")}
+                    size="sm"
+                    variant={sidebarVariant === "floating" ? "filled" : "outline"}
+                  >
+                    {sidebarVariant === "floating" ? "Variant: Floating" : "Variant: Docked"}
+                  </Button>
+                  <Button
+                    onClick={() => setSidebarBordered(!sidebarBordered)}
+                    size="sm"
+                    variant={sidebarBordered ? "filled" : "outline"}
+                  >
+                    {sidebarBordered ? "Outer Border: On" : "Outer Border: Off (Default)"}
                   </Button>
                   <Button
                     onClick={() => setSidebarSolid(!sidebarSolid)}
                     size="sm"
                     variant={sidebarSolid ? "filled" : "outline"}
                   >
-                    {sidebarSolid ? "Mode: Solid Surface" : "Mode: Background-less Canvas"}
-                  </Button>
-                  <Button
-                    onClick={() => setSidebarSeparator(!sidebarSeparator)}
-                    size="sm"
-                    variant={sidebarSeparator ? "filled" : "outline"}
-                  >
-                    {sidebarSeparator ? "Right Hairline: On" : "Right Hairline: Off"}
+                    {sidebarSolid ? "Surface Tone" : "Transparent Canvas"}
                   </Button>
                 </Group>
               </div>
@@ -741,19 +755,21 @@ function ShowcaseContent() {
               <div
                 style={{
                   display: "flex",
-                  height: "360px",
+                  alignItems: "stretch",
+                  height: "380px",
                   border: "1px solid var(--x-border)",
-                  borderRadius: "8px",
+                  borderRadius: "12px",
                   overflow: "hidden",
                   backgroundColor: "var(--x-bg)",
+                  position: "relative",
                 }}
               >
                 <Sidebar
+                  bordered={sidebarBordered}
                   collapsed={sidebarCollapsed}
                   collapsible="rail"
                   hasBackground={sidebarSolid}
-                  separator={sidebarSeparator}
-                  style={{ minHeight: "100%" }}
+                  variant={sidebarVariant}
                   width={240}
                 >
                   <SidebarHeader>
@@ -763,12 +779,14 @@ function ShowcaseContent() {
                           <polygon points="8 2 14 13 2 13" />
                         </svg>
                       </Icon>
-                      {!sidebarCollapsed && <Text weight={400}>Acme Corp</Text>}
+                      {!sidebarCollapsed && <Text weight={400}>Xenon Studio</Text>}
                     </Group>
                   </SidebarHeader>
 
+                  <SidebarDivider inset={12} />
+
                   <SidebarNav>
-                    <SidebarGroup label="Main">
+                    <SidebarGroup label="Workspace">
                       <SidebarItem
                         active
                         icon={
@@ -790,7 +808,7 @@ function ShowcaseContent() {
                             </svg>
                           </Icon>
                         }
-                        label="Analytics"
+                        label="Insights"
                         shortcut="⌘2"
                       />
                       <SidebarItem
@@ -821,7 +839,9 @@ function ShowcaseContent() {
                       />
                     </SidebarGroup>
 
-                    <SidebarGroup label="Settings">
+                    <SidebarDivider inset={12} />
+
+                    <SidebarGroup label="Configuration">
                       <SidebarItem
                         icon={
                           <Icon size="sm">
@@ -831,10 +851,12 @@ function ShowcaseContent() {
                             </svg>
                           </Icon>
                         }
-                        label="Security & API"
+                        label="Tokens & Rules"
                       />
                     </SidebarGroup>
                   </SidebarNav>
+
+                  <SidebarDivider inset={12} />
 
                   <SidebarFooter>
                     <Group align="center" gap={8}>
@@ -869,9 +891,9 @@ function ShowcaseContent() {
                     gap: "8px",
                   }}
                 >
-                  <Text tone="accent">Main Content Canvas Area</Text>
+                  <Text tone="accent">Content Canvas Area</Text>
                   <Text tone="muted">
-                    Notice how the sidebar lives on the page canvas without enclosing boxes or cards.
+                    Notice the floating sidebar island with soft inset vertical dividers and no outer border.
                   </Text>
                 </div>
               </div>

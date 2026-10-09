@@ -16,10 +16,11 @@ import {
   type Accent,
   type ResolvedTheme,
 } from "@xenon/tokens";
-import type { SidebarCollapsibleMode } from "@xenon/core";
+import type { SidebarCollapsibleMode, SidebarVariant } from "@xenon/core";
 import { useXenon } from "./provider";
 import { Text } from "./text";
 import type {
+  NativeSidebarDividerProps,
   NativeSidebarFooterProps,
   NativeSidebarGroupProps,
   NativeSidebarHeaderProps,
@@ -31,11 +32,13 @@ import type {
 interface SidebarContextValue {
   readonly collapsed: boolean;
   readonly collapsible: SidebarCollapsibleMode;
+  readonly variant: SidebarVariant;
 }
 
 const SidebarContext = createContext<SidebarContextValue>({
   collapsed: false,
   collapsible: "rail",
+  variant: "floating",
 });
 
 export function useSidebarContext(): SidebarContextValue {
@@ -43,8 +46,11 @@ export function useSidebarContext(): SidebarContextValue {
 }
 
 export function Sidebar({
+  variant = "floating",
+  bordered = false,
   hasBackground = false,
   separator = false,
+  glass = false,
   collapsed = false,
   collapsible = "rail",
   width = 240,
@@ -71,24 +77,44 @@ export function Sidebar({
 
   const isHidden = collapsed && collapsible === "offcanvas";
   const currentWidth = collapsed ? collapsedWidth : width;
+  const isFloating = variant === "floating";
+
+  const bg = glass
+    ? resolvedTheme === "dark"
+      ? nativeTokens.glass.regular.darkTint
+      : nativeTokens.glass.regular.lightTint
+    : hasBackground
+      ? nativeTokens.colors.surface
+      : "transparent";
 
   const sidebarStyle: ViewStyle = useMemo(
     () => ({
       display: isHidden ? "none" : "flex",
       flexDirection: "column",
       width: currentWidth,
-      height: "100%",
-      backgroundColor: hasBackground ? nativeTokens.colors.surface : "transparent",
-      borderRightWidth: separator ? StyleSheet.hairlineWidth : 0,
+      borderWidth: bordered ? StyleSheet.hairlineWidth : 0,
+      borderColor: nativeTokens.colors.border,
+      borderRightWidth: separator ? StyleSheet.hairlineWidth : bordered ? StyleSheet.hairlineWidth : 0,
       borderRightColor: nativeTokens.colors.border,
       overflow: "hidden",
+      ...(isFloating
+        ? {
+            margin: 12,
+            borderRadius: 14,
+            backgroundColor: bg,
+          }
+        : {
+            height: "100%",
+            backgroundColor: bg,
+            borderRadius: 0,
+          }),
     }),
-    [isHidden, currentWidth, hasBackground, separator, nativeTokens],
+    [isHidden, currentWidth, bordered, separator, isFloating, bg, nativeTokens],
   );
 
   const contextValue: SidebarContextValue = useMemo(
-    () => ({ collapsed, collapsible }),
-    [collapsed, collapsible],
+    () => ({ collapsed, collapsible, variant }),
+    [collapsed, collapsible, variant],
   );
 
   return (
@@ -126,13 +152,11 @@ export function SidebarHeader({
     <View
       style={[
         {
-          height: 56,
+          height: 52,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: collapsed ? "center" : "flex-start",
           paddingHorizontal: collapsed ? 0 : nativeTokens.space[4],
-          borderBottomWidth: StyleSheet.hairlineWidth,
-          borderBottomColor: nativeTokens.colors.border,
         },
         style,
       ]}
@@ -140,6 +164,49 @@ export function SidebarHeader({
     >
       {children}
     </View>
+  );
+}
+
+export function SidebarDivider({
+  inset = 12,
+  style,
+  ...restProps
+}: NativeSidebarDividerProps): ReactElement {
+  const { collapsed } = useSidebarContext();
+  let resolvedTheme: ResolvedTheme = "dark";
+  let accent: Accent = "lime";
+
+  try {
+    const xenon = useXenon();
+    resolvedTheme = xenon.resolvedTheme;
+    accent = xenon.accent;
+  } catch {
+    // Fallback
+  }
+
+  const nativeTokens = useMemo(
+    () => compileNativeTokens(resolvedTheme, accent),
+    [resolvedTheme, accent],
+  );
+
+  return (
+    <View
+      accessibilityElementsHidden
+      importantForAccessibility="no"
+      style={[
+        {
+          height: StyleSheet.hairlineWidth,
+          backgroundColor: nativeTokens.colors.border,
+          opacity: 0.5,
+          marginVertical: 6,
+          ...(collapsed
+            ? { width: 28, alignSelf: "center" }
+            : { marginHorizontal: inset }),
+        },
+        style,
+      ]}
+      {...restProps}
+    />
   );
 }
 
@@ -167,7 +234,7 @@ export function SidebarNav({
   return (
     <ScrollView
       contentContainerStyle={{
-        paddingVertical: nativeTokens.space[3],
+        paddingVertical: nativeTokens.space[2],
         paddingHorizontal: nativeTokens.space[2],
         gap: nativeTokens.space[1],
       }}
@@ -206,7 +273,7 @@ export function SidebarGroup({
     <View
       style={[
         {
-          marginBottom: nativeTokens.space[3],
+          marginBottom: nativeTokens.space[2],
           gap: nativeTokens.space[1],
         },
         style,
@@ -364,10 +431,8 @@ export function SidebarFooter({
           flexDirection: "row",
           alignItems: "center",
           justifyContent: collapsed ? "center" : "flex-start",
-          paddingVertical: collapsed ? nativeTokens.space[2] : nativeTokens.space[3],
+          paddingVertical: collapsed ? nativeTokens.space[2] : nativeTokens.space[2],
           paddingHorizontal: collapsed ? 0 : nativeTokens.space[4],
-          borderTopWidth: StyleSheet.hairlineWidth,
-          borderTopColor: nativeTokens.colors.border,
         },
         style,
       ]}

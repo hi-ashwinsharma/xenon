@@ -11,6 +11,7 @@ import {
   Navbar,
   Pagination,
   Sidebar,
+  SidebarDivider,
   SidebarFooter,
   SidebarGroup,
   SidebarHeader,
@@ -106,6 +107,24 @@ describe("@xenon/web Navigation Controls", () => {
 
       expect(sidebar.props.hasBackground).toBe(true);
       expect(sidebar.props.separator).toBe(false);
+    });
+
+    it("defaults to floating variant with zero outer border and soft inset dividers", () => {
+      const divider = createElement(SidebarDivider, { inset: 16 });
+      const floatingSidebar = createElement(
+        Sidebar,
+        {
+          variant: "floating",
+          bordered: false,
+        },
+        createElement(SidebarHeader, null, "Acme"),
+        divider,
+        createElement(SidebarNav, null),
+      );
+
+      expect(floatingSidebar.props.variant).toBe("floating");
+      expect(floatingSidebar.props.bordered).toBe(false);
+      expect(divider.props.inset).toBe(16);
     });
   });
 
