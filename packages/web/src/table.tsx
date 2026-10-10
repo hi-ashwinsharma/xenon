@@ -51,14 +51,16 @@ export const Table = forwardRef<HTMLTableElement, WebTableProps>(function Table(
 ): ReactElement {
   const contextValue = useMemo(() => ({ variant, size }), [variant, size]);
 
-  const containerStyle: CSSProperties = {
-    position: "relative",
-    width: fullWidth ? "100%" : "auto",
-    overflowX: "auto",
-    WebkitOverflowScrolling: "touch",
-    borderRadius: variant === "bordered" ? "var(--x-radius)" : undefined,
-    border: variant === "bordered" ? "1px solid var(--x-border)" : undefined,
-  };
+    const isOuterBordered = variant === "bordered" || variant === "default";
+    const containerStyle: CSSProperties = {
+      position: "relative",
+      width: fullWidth ? "100%" : "auto",
+      overflowX: "auto",
+      WebkitOverflowScrolling: "touch",
+      borderRadius: "var(--x-radius-surface, 16px)",
+      border: isOuterBordered ? "1px solid var(--x-border)" : undefined,
+      overflow: "hidden",
+    };
 
   const tableStyle: CSSProperties = {
     width: "100%",

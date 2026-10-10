@@ -20,6 +20,13 @@
   --x-dur-base: 240ms;
   --x-dur-slow: 400ms;
   --x-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --x-ease-spring: cubic-bezier(0.2, 0, 0, 1);
+  --x-motion-ease-spring: cubic-bezier(0.2, 0, 0, 1);
+  --x-motion-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --x-motion-duration-fast: 160ms;
+  --x-motion-duration-base: 240ms;
+  --x-motion-duration-moderate: 240ms;
+  --x-motion-duration-slow: 400ms;
   --x-scale-press: 0.98;
   --x-text-display-size: 4rem;
   --x-text-display-lh: 4.25rem;
@@ -144,40 +151,47 @@
   --x-radius-control: 0px;
   --x-radius-surface: 0px;
   --x-radius-joint: 0px;
+  --x-radius: 0px;
 }
 
 :root[data-x-radius="1"] {
   --x-radius-control: 4px;
   --x-radius-surface: 6px;
   --x-radius-joint: 2px;
+  --x-radius: 6px;
 }
 
 :root[data-x-radius="2"] {
   --x-radius-control: 8px;
   --x-radius-surface: 10px;
   --x-radius-joint: 2px;
+  --x-radius: 10px;
 }
 
 :root[data-x-radius="3"] {
   --x-radius-control: 12px;
   --x-radius-surface: 16px;
   --x-radius-joint: 3px;
+  --x-radius: 16px;
 }
 
 :root[data-x-radius="4"] {
   --x-radius-control: 16px;
   --x-radius-surface: 20px;
   --x-radius-joint: 4px;
+  --x-radius: 20px;
 }
 
 :root[data-x-radius="5"] {
   --x-radius-control: 20px;
   --x-radius-surface: 24px;
   --x-radius-joint: 5px;
+  --x-radius: 24px;
 }
 
 :root[data-x-radius="6"] {
   --x-radius-control: 9999px;
   --x-radius-surface: 28px;
   --x-radius-joint: 6px;
+  --x-radius: 28px;
 }

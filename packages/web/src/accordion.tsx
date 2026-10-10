@@ -143,7 +143,7 @@ export const Accordion = forwardRef<HTMLDivElement, WebAccordionProps>(
       display: "flex",
       flexDirection: "column",
       gap: variant === "separated" ? "8px" : 0,
-      borderRadius: variant === "bordered" ? "var(--x-radius)" : undefined,
+      borderRadius: variant === "bordered" ? "var(--x-radius-surface, 16px)" : undefined,
       border: variant === "bordered" ? "1px solid var(--x-border)" : undefined,
       overflow: variant === "bordered" ? "hidden" : undefined,
       ...style,
@@ -189,7 +189,7 @@ export const AccordionItem = forwardRef<HTMLDivElement, WebAccordionItemProps>(
         variant === "default" || variant === "bordered"
           ? "1px solid var(--x-border)"
           : undefined,
-      borderRadius: variant === "separated" ? "var(--x-radius)" : undefined,
+      borderRadius: variant === "separated" ? "var(--x-radius-surface, 16px)" : undefined,
       border: variant === "separated" ? "1px solid var(--x-border)" : undefined,
       backgroundColor: variant === "separated" ? "var(--x-surface-1)" : "transparent",
       overflow: "hidden",
@@ -250,7 +250,7 @@ export const AccordionTrigger = forwardRef<
 
   const caretStyle: CSSProperties = {
     transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
-    transition: "transform var(--x-motion-duration-moderate) var(--x-motion-ease-spring)",
+    transition: "transform 280ms cubic-bezier(0.2, 0, 0, 1)",
     color: "var(--x-text-muted)",
     flexShrink: 0,
     marginLeft: "12px",
@@ -297,7 +297,9 @@ export const AccordionContent = forwardRef<
   const wrapperStyle: CSSProperties = {
     display: "grid",
     gridTemplateRows: isExpanded ? "1fr" : "0fr",
-    transition: "grid-template-rows var(--x-motion-duration-moderate) var(--x-motion-ease-spring)",
+    opacity: isExpanded ? 1 : 0,
+    transition:
+      "grid-template-rows 280ms cubic-bezier(0.2, 0, 0, 1), opacity 240ms cubic-bezier(0.2, 0, 0, 1)",
     ...style,
   };
 
@@ -318,7 +320,7 @@ export const AccordionContent = forwardRef<
       id={itemContext.contentId}
       role="region"
       aria-labelledby={itemContext.triggerId}
-      hidden={!isExpanded}
+      aria-hidden={!isExpanded}
       style={wrapperStyle}
       className={className}
       {...restProps}

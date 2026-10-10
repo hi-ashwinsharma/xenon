@@ -2,12 +2,18 @@ import React, {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import {
+  Animated,
+  LayoutAnimation,
+  Platform,
   Pressable,
   StyleSheet,
+  UIManager,
   View,
 } from "react-native";
 import {
@@ -26,6 +32,13 @@ import type {
   NativeAccordionProps,
   NativeAccordionTriggerProps,
 } from "./native.types";
+
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 interface AccordionContextValue {
   readonly type: AccordionType;
@@ -52,12 +65,27 @@ function CaretDownIcon({
   readonly color: string;
   readonly isExpanded: boolean;
 }) {
+  const spinAnim = useRef(new Animated.Value(isExpanded ? 1 : 0)).current;
+
+  useEffect(() => {
+    Animated.timing(spinAnim, {
+      toValue: isExpanded ? 1 : 0,
+      duration: 260,
+      useNativeDriver: true,
+    }).start();
+  }, [isExpanded, spinAnim]);
+
+  const spin = spinAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "180deg"],
+  });
+
   return (
-    <View
+    <Animated.View
       style={[
         styles.caret,
         {
-          transform: [{ rotate: isExpanded ? "180deg" : "0deg" }],
+          transform: [{ rotate: spin }],
         },
       ]}
     >
@@ -69,7 +97,7 @@ function CaretDownIcon({
           },
         ]}
       />
-    </View>
+    </Animated.View>
   );
 }
 
@@ -124,6 +152,7 @@ export function Accordion({
 
   const toggleValue = useCallback(
     (itemValue: string) => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       let nextValues: string[];
 
       if (type === "single") {

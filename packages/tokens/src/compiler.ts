@@ -40,6 +40,13 @@ export function compileCssVariables(): string {
   lines.push(`  --x-dur-base: ${MOTION_TOKENS.durBase}ms;`);
   lines.push(`  --x-dur-slow: ${MOTION_TOKENS.durSlow}ms;`);
   lines.push(`  --x-ease-standard: ${MOTION_TOKENS.easeStandard};`);
+  lines.push(`  --x-ease-spring: cubic-bezier(0.2, 0, 0, 1);`);
+  lines.push(`  --x-motion-ease-spring: cubic-bezier(0.2, 0, 0, 1);`);
+  lines.push(`  --x-motion-ease-out: cubic-bezier(0, 0, 0.2, 1);`);
+  lines.push(`  --x-motion-duration-fast: ${MOTION_TOKENS.durFast}ms;`);
+  lines.push(`  --x-motion-duration-base: ${MOTION_TOKENS.durBase}ms;`);
+  lines.push(`  --x-motion-duration-moderate: ${MOTION_TOKENS.durBase}ms;`);
+  lines.push(`  --x-motion-duration-slow: ${MOTION_TOKENS.durSlow}ms;`);
   lines.push(`  --x-scale-press: ${MOTION_TOKENS.pressScale};`);
 
   for (const [, token] of Object.entries(TYPOGRAPHY_SCALE)) {
@@ -94,6 +101,7 @@ export function compileCssVariables(): string {
     );
     lines.push(`  --x-radius-surface: ${val.surface}px;`);
     lines.push(`  --x-radius-joint: ${val.joint}px;`);
+    lines.push(`  --x-radius: ${val.surface}px;`);
     lines.push("}");
   }
 
