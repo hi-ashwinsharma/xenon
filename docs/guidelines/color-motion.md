@@ -31,3 +31,4 @@ Every interactive component defines: rest, hover, pressed, focus-visible, disabl
 9. **Animate transform and opacity only.** Never animate layout properties. Use View Transitions for route and theme changes where supported.
 10. **Theme and accent switching** crossfades colors in `--x-dur-base`.
 11. **Stagger** is allowed on landing page reveals at 40ms steps, maximum 6 items, never on product UI.
+12. **Zero instant/snappy transitions.** No UI state change is ever instantaneous or snappy. Disclosures, height changes (via CSS grid `0fr -> 1fr` with inner overflow clipping), active states, carets, appearances, and dismissals must transition with Apple-grade fluid curves (`--x-ease-standard` or physics springs). Never apply HTML `hidden` or `display: none` directly to elements undergoing transitions without presence/unmount coordination.

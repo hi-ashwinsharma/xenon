@@ -10,7 +10,7 @@ Xenon is a quiet UI kit. It earns trust through geometry, restraint and negative
 4. **Concentric geometry.** Shapes nest with mathematically related radii. Nothing looks alien inside its parent.
 5. **Thin type.** Geist Sans at weights 200 to 400, sized larger when lighter (Apple HIG guidance for thin fonts).
 6. **Pill-first controls.** Buttons and inputs are pills at the pill radius stop. Groups use pill outer edges and small inner joints.
-7. **Apple-grade motion.** Brief, purposeful, cancelable, and always reduced-motion safe.
+7. **Apple-grade motion.** Fluid and seamless: no UI state change is ever snappy or abrupt. Brief, purposeful, cancelable, and always reduced-motion safe.
 8. **One accent.** One acid accent at a time, chosen globally. Everything else is neutral.
 
 ## Banned patterns
@@ -28,6 +28,7 @@ Xenon is a quiet UI kit. It earns trust through geometry, restraint and negative
 | Multiple accents on one screen for decoration                                            | One accent, semantic colors only for status          |
 | Heavy borders (2px+), dashed borders for decoration                                      | 1px hairline                                         |
 | Decorative animation, parallax, looping motion                                           | Purposeful feedback only                             |
+| Instant or snappy UI transitions, uncoordinated `hidden` / `display: none`               | Apple-grade fluid transitions (physics springs, easing)|
 | Mixed icon sets or icon weights                                                          | Phosphor `thin` via `Icon`                           |
 | Backdrop blur and glassmorphism in the static content layer (cards, inputs, page canvas) | Opaque surfaces (`--x-surface`)                      |
 
