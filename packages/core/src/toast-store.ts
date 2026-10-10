@@ -37,16 +37,25 @@ class ToastStore {
     }
   };
 
-  public show = (options: ToastOptions | string): string => {
+  public show = (
+    optionsOrTitle: ToastOptions | string,
+    maybeOptions?: Partial<ToastOptions>,
+  ): string => {
     const id = createToastId();
     const item: ToastItem =
-      typeof options === "string"
-        ? { id, title: options, tone: "neutral", durationMs: 4000 }
+      typeof optionsOrTitle === "string"
+        ? {
+            id,
+            title: optionsOrTitle,
+            tone: "neutral",
+            durationMs: 4000,
+            ...maybeOptions,
+          }
         : {
             id,
             durationMs: 4000,
             tone: "neutral",
-            ...options,
+            ...optionsOrTitle,
           };
 
     // Add to stack, limit to maxToasts

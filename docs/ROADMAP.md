@@ -34,7 +34,7 @@ For every component milestone (Phases 2 through 5), implementation **must not be
 - [x] **Phase 2: Core Primitives & Signature Grouped Controls**
 - [x] **Phase 3: Form Controls & Structural Navigation**
 - [x] **Phase 4: Overlays & Cross-Platform Behaviors**
-- [ ] **Phase 5: Feedback & Data Display**
+- [x] **Phase 5: Feedback & Data Display**
 - [ ] **Phase 6: Documentation & Showcase Platform (`apps/docs`)**
 - [ ] **Phase 7: Community, Discussions & Blog (Firebase)**
 
@@ -148,18 +148,18 @@ _Goal: Hand-craft accessible overlay primitives across Web (DOM) and Native (Exp
 
 _Goal: High-density and clean data presentation components._
 
-- [ ] **Grilling & Design Session**: Table scroll ergonomics, subtle accordion spring collapses, clean avatars.
-- [ ] Feedback Elements:
+- [x] **Grilling & Design Session**: Table scroll ergonomics, subtle accordion spring collapses, clean avatars, isomorphic code highlighting.
+- [x] Feedback Elements:
   - `Badge` (acid accent indicators, subtle neutral tags).
-  - `Toast` (queue-managed transient notifications).
-  - `Progress` (thin track, accent fill).
+  - `Toast` (queue-managed transient notifications with imperative store & declarative component).
+  - `Progress` (thin track, determinate fill & indeterminate sweep).
   - `Spinner` and `Skeleton` (geometric loading states).
   - `Alert` (inline status callout, semantic tones).
-- [ ] Data Display:
-  - `Table` (clean hairline dividers, tabular numbers, horizontal scroll containment).
-  - `Accordion` (smooth disclosure without jarring jumps).
-  - `Avatar` (pill/circle bounds, fallback typography, group clustering).
-  - `CodeBlock` (Geist Mono, surface container, hairline border, copy micro-action).
+- [x] Data Display:
+  - `Table` & `DataTable` (clean hairline dividers, tabular numbers, horizontal scroll containment).
+  - `Accordion` (smooth disclosure without jarring jumps, spring caret rotation).
+  - `Avatar` & `AvatarGroup` (pill/circle bounds, fallback typography, group clustering with ring masks).
+  - `CodeBlock` (Geist Mono, surface container, hairline border, copy micro-action with checkmark feedback timer, zero-dependency isomorphic tokenizer).
 
 ---
 

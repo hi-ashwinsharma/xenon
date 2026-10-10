@@ -1,5 +1,11 @@
 export type {
+  WebAccordionContentProps,
+  WebAccordionItemProps,
+  WebAccordionProps,
+  WebAccordionTriggerProps,
   WebAlertProps,
+  WebAvatarGroupProps,
+  WebAvatarProps,
   WebBadgeProps,
   WebBreadcrumbItemProps,
   WebBreadcrumbLinkProps,
@@ -9,11 +15,14 @@ export type {
   WebBreadcrumbSeparatorProps,
   WebButtonGroupProps,
   WebButtonProps,
+  WebCodeBlockProps,
   ComboboxOption,
   CommandPaletteItem,
   WebCheckboxProps,
   WebComboboxProps,
   WebCommandPaletteProps,
+  DataTableColumn,
+  WebDataTableProps,
   WebDialogCloseProps,
   WebDialogContentProps,
   WebDialogDescriptionProps,
@@ -77,6 +86,16 @@ export type {
   WebSwitchProps,
   WebTabBarItemProps,
   WebTabBarProps,
+  WebTableBodyProps,
+  WebTableCaptionProps,
+  WebTableCellProps,
+  WebTableFooterProps,
+  WebTableHeadProps,
+  WebTableHeaderProps,
+  WebTableProps,
+  WebTableRowProps,
+  TableSize,
+  TableVariant,
   WebTabsContentProps,
   WebTabsListProps,
   WebTabsProps,
@@ -209,6 +228,29 @@ export { Spinner } from "./spinner";
 export { Skeleton } from "./skeleton";
 export { Toast, ToastProvider, toast } from "./toast";
 
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableRow,
+  TableHead,
+  TableCell,
+  TableCaption,
+  DataTable,
+} from "./table";
+
+export {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "./accordion";
+
+export { Avatar, AvatarGroup } from "./avatar";
+
+export { CodeBlock } from "./codeblock";
+
 export { usePresence } from "./hooks/use-presence";
 export { useFocusTrap } from "./hooks/use-focus-trap";
 export { useClickOutside } from "./hooks/use-click-outside";
@@ -218,3 +260,4 @@ export const webRendererConfig = {
   platform: "web",
   ready: true,
 } as const;
+

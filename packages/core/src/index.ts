@@ -259,4 +259,53 @@ export {
   valueToPercent,
 } from "./math";
 
+export type {
+  DataTableColumn,
+  DataTableProps,
+  TableAlign,
+  TableBodyProps,
+  TableCaptionProps,
+  TableCellProps,
+  TableFooterProps,
+  TableHeadProps,
+  TableHeaderProps,
+  TableProps,
+  TableRowProps,
+  TableSize,
+  TableVariant,
+} from "./table.types";
+
+export type {
+  AccordionContentProps,
+  AccordionItemProps,
+  AccordionProps,
+  AccordionTriggerProps,
+  AccordionType,
+  AccordionVariant,
+} from "./accordion.types";
+
+export type {
+  AvatarGroupProps,
+  AvatarProps,
+  AvatarShape,
+  AvatarSize,
+  AvatarStatus,
+  AvatarStatusPlacement,
+} from "./avatar.types";
+
+export type {
+  CodeBlockProps,
+  CodeBlockVariant,
+  CodeToken,
+  CodeTokenType,
+} from "./codeblock.types";
+
+export {
+  getInitials,
+  resolveAvatarDimensions,
+  tokenizeCode,
+  tokenizeLine,
+  type ResolvedAvatarMetrics,
+} from "./data-display.utils";
+
 

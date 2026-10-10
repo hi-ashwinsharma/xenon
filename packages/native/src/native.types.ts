@@ -1,6 +1,18 @@
 import type { StyleProp, TextStyle, ViewStyle } from "react-native";
 import type {
+  AccordionContentProps as CoreAccordionContentProps,
+  AccordionItemProps as CoreAccordionItemProps,
+  AccordionProps as CoreAccordionProps,
+  AccordionTriggerProps as CoreAccordionTriggerProps,
+  AccordionType as CoreAccordionType,
+  AccordionVariant as CoreAccordionVariant,
   AlertProps as CoreAlertProps,
+  AvatarGroupProps as CoreAvatarGroupProps,
+  AvatarProps as CoreAvatarProps,
+  AvatarShape as CoreAvatarShape,
+  AvatarSize as CoreAvatarSize,
+  AvatarStatus as CoreAvatarStatus,
+  AvatarStatusPlacement as CoreAvatarStatusPlacement,
   BadgeProps as CoreBadgeProps,
   BreadcrumbItemProps as CoreBreadcrumbItemProps,
   BreadcrumbLinkProps as CoreBreadcrumbLinkProps,
@@ -11,10 +23,16 @@ import type {
   ButtonGroupProps as CoreButtonGroupProps,
   ButtonProps as CoreButtonProps,
   CheckboxProps as CoreCheckboxProps,
+  CodeBlockProps as CoreCodeBlockProps,
+  CodeBlockVariant as CoreCodeBlockVariant,
+  CodeToken as CoreCodeToken,
+  CodeTokenType as CoreCodeTokenType,
   ComboboxOption as CoreComboboxOption,
   ComboboxProps as CoreComboboxProps,
   CommandPaletteItem as CoreCommandPaletteItem,
   CommandPaletteProps as CoreCommandPaletteProps,
+  DataTableColumn as CoreDataTableColumn,
+  DataTableProps as CoreDataTableProps,
   DialogCloseProps as CoreDialogCloseProps,
   DialogContentProps as CoreDialogContentProps,
   DialogDescriptionProps as CoreDialogDescriptionProps,
@@ -81,6 +99,17 @@ import type {
   SwitchProps as CoreSwitchProps,
   TabBarItemProps as CoreTabBarItemProps,
   TabBarProps as CoreTabBarProps,
+  TableAlign as CoreTableAlign,
+  TableBodyProps as CoreTableBodyProps,
+  TableCaptionProps as CoreTableCaptionProps,
+  TableCellProps as CoreTableCellProps,
+  TableFooterProps as CoreTableFooterProps,
+  TableHeadProps as CoreTableHeadProps,
+  TableHeaderProps as CoreTableHeaderProps,
+  TableProps as CoreTableProps,
+  TableRowProps as CoreTableRowProps,
+  TableSize as CoreTableSize,
+  TableVariant as CoreTableVariant,
   TabsContentProps as CoreTabsContentProps,
   TabsListProps as CoreTabsListProps,
   TabsProps as CoreTabsProps,
@@ -542,25 +571,126 @@ export interface NativeToastProps extends Omit<CoreToastProps, "className"> {
 
 export interface NativeToastProviderProps extends CoreToastProviderProps {}
 
+// --- Data Display (Batch 2) ---
+
+export interface NativeTableProps extends Omit<CoreTableProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTableHeaderProps
+  extends Omit<CoreTableHeaderProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTableBodyProps
+  extends Omit<CoreTableBodyProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTableFooterProps
+  extends Omit<CoreTableFooterProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTableRowProps
+  extends Omit<CoreTableRowProps, "className" | "onClick"> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly onPress?: () => void;
+}
+
+export interface NativeTableHeadProps
+  extends Omit<CoreTableHeadProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly textStyle?: StyleProp<TextStyle>;
+}
+
+export interface NativeTableCellProps
+  extends Omit<CoreTableCellProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly textStyle?: StyleProp<TextStyle>;
+}
+
+export interface NativeTableCaptionProps
+  extends Omit<CoreTableCaptionProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly textStyle?: StyleProp<TextStyle>;
+}
+
+export interface NativeDataTableProps<T>
+  extends Omit<CoreDataTableProps<T>, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeAccordionProps
+  extends Omit<CoreAccordionProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeAccordionItemProps
+  extends Omit<CoreAccordionItemProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeAccordionTriggerProps
+  extends Omit<CoreAccordionTriggerProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly textStyle?: StyleProp<TextStyle>;
+}
+
+export interface NativeAccordionContentProps
+  extends Omit<CoreAccordionContentProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeAvatarProps
+  extends Omit<CoreAvatarProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly textStyle?: StyleProp<TextStyle>;
+}
+
+export interface NativeAvatarGroupProps
+  extends Omit<CoreAvatarGroupProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeCodeBlockProps
+  extends Omit<CoreCodeBlockProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
 export type {
+  AccordionType,
+  AccordionVariant,
   AlertTone,
   AlertVariant,
+  AvatarShape,
+  AvatarSize,
+  AvatarStatus,
+  AvatarStatusPlacement,
   BadgeSize,
   BadgeTone,
   BadgeVariant,
+  CodeBlockVariant,
+  CodeToken,
+  CodeTokenType,
   ComboboxOption,
   CommandPaletteItem,
+  DataTableColumn,
   ProgressSize,
   ProgressTone,
   SkeletonVariant,
   SpinnerSize,
   SpinnerTone,
+  TableAlign,
+  TableSize,
+  TableVariant,
   ToastAction,
   ToastItem,
   ToastOptions,
   ToastPlacement,
   ToastTone,
 } from "@xenon/core";
+
 
 
 

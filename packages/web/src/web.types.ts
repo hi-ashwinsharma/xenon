@@ -6,7 +6,19 @@ import type {
   TextareaHTMLAttributes,
 } from "react";
 import type {
+  AccordionContentProps as CoreAccordionContentProps,
+  AccordionItemProps as CoreAccordionItemProps,
+  AccordionProps as CoreAccordionProps,
+  AccordionTriggerProps as CoreAccordionTriggerProps,
+  AccordionType as CoreAccordionType,
+  AccordionVariant as CoreAccordionVariant,
   AlertProps as CoreAlertProps,
+  AvatarGroupProps as CoreAvatarGroupProps,
+  AvatarProps as CoreAvatarProps,
+  AvatarShape as CoreAvatarShape,
+  AvatarSize as CoreAvatarSize,
+  AvatarStatus as CoreAvatarStatus,
+  AvatarStatusPlacement as CoreAvatarStatusPlacement,
   BadgeProps as CoreBadgeProps,
   BreadcrumbItemProps as CoreBreadcrumbItemProps,
   BreadcrumbLinkProps as CoreBreadcrumbLinkProps,
@@ -17,10 +29,16 @@ import type {
   ButtonGroupProps as CoreButtonGroupProps,
   ButtonProps as CoreButtonProps,
   CheckboxProps as CoreCheckboxProps,
+  CodeBlockProps as CoreCodeBlockProps,
+  CodeBlockVariant as CoreCodeBlockVariant,
+  CodeToken as CoreCodeToken,
+  CodeTokenType as CoreCodeTokenType,
   ComboboxOption as CoreComboboxOption,
   ComboboxProps as CoreComboboxProps,
   CommandPaletteItem as CoreCommandPaletteItem,
   CommandPaletteProps as CoreCommandPaletteProps,
+  DataTableColumn as CoreDataTableColumn,
+  DataTableProps as CoreDataTableProps,
   DialogCloseProps as CoreDialogCloseProps,
   DialogContentProps as CoreDialogContentProps,
   DialogDescriptionProps as CoreDialogDescriptionProps,
@@ -87,6 +105,17 @@ import type {
   SwitchProps as CoreSwitchProps,
   TabBarItemProps as CoreTabBarItemProps,
   TabBarProps as CoreTabBarProps,
+  TableAlign as CoreTableAlign,
+  TableBodyProps as CoreTableBodyProps,
+  TableCaptionProps as CoreTableCaptionProps,
+  TableCellProps as CoreTableCellProps,
+  TableFooterProps as CoreTableFooterProps,
+  TableHeadProps as CoreTableHeadProps,
+  TableHeaderProps as CoreTableHeaderProps,
+  TableProps as CoreTableProps,
+  TableRowProps as CoreTableRowProps,
+  TableSize as CoreTableSize,
+  TableVariant as CoreTableVariant,
   TabsContentProps as CoreTabsContentProps,
   TabsListProps as CoreTabsListProps,
   TabsProps as CoreTabsProps,
@@ -614,14 +643,106 @@ export interface WebToastProps
 
 export interface WebToastProviderProps extends CoreToastProviderProps {}
 
+// --- Data Display (Batch 2) ---
+
+export interface WebTableProps
+  extends
+    Omit<CoreTableProps, "className">,
+    Omit<HTMLAttributes<HTMLTableElement>, "children"> {}
+
+export interface WebTableHeaderProps
+  extends
+    Omit<CoreTableHeaderProps, "className">,
+    Omit<HTMLAttributes<HTMLTableSectionElement>, "children"> {}
+
+export interface WebTableBodyProps
+  extends
+    Omit<CoreTableBodyProps, "className">,
+    Omit<HTMLAttributes<HTMLTableSectionElement>, "children"> {}
+
+export interface WebTableFooterProps
+  extends
+    Omit<CoreTableFooterProps, "className">,
+    Omit<HTMLAttributes<HTMLTableSectionElement>, "children"> {}
+
+export interface WebTableRowProps
+  extends
+    Omit<CoreTableRowProps, "className">,
+    Omit<HTMLAttributes<HTMLTableRowElement>, "children" | "onClick"> {}
+
+export interface WebTableHeadProps
+  extends
+    Omit<CoreTableHeadProps, "className">,
+    Omit<HTMLAttributes<HTMLTableCellElement>, "children"> {}
+
+export interface WebTableCellProps
+  extends
+    Omit<CoreTableCellProps, "className">,
+    Omit<HTMLAttributes<HTMLTableCellElement>, "children"> {}
+
+export interface WebTableCaptionProps
+  extends
+    Omit<CoreTableCaptionProps, "className">,
+    Omit<HTMLAttributes<HTMLTableCaptionElement>, "children"> {}
+
+export interface WebDataTableProps<T>
+  extends
+    Omit<CoreDataTableProps<T>, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebAccordionProps
+  extends
+    Omit<CoreAccordionProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children" | "defaultValue"> {}
+
+export interface WebAccordionItemProps
+  extends
+    Omit<CoreAccordionItemProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebAccordionTriggerProps
+  extends
+    Omit<CoreAccordionTriggerProps, "className">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "disabled"> {}
+
+export interface WebAccordionContentProps
+  extends
+    Omit<CoreAccordionContentProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebAvatarProps
+  extends
+    Omit<CoreAvatarProps, "className">,
+    Omit<HTMLAttributes<HTMLSpanElement>, "children" | "onError"> {}
+
+export interface WebAvatarGroupProps
+  extends
+    Omit<CoreAvatarGroupProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebCodeBlockProps
+  extends
+    Omit<CoreCodeBlockProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "title" | "onCopy" | "children"> {}
+
 export type {
+  AccordionType,
+  AccordionVariant,
   AlertTone,
   AlertVariant,
+  AvatarShape,
+  AvatarSize,
+  AvatarStatus,
+  AvatarStatusPlacement,
   BadgeSize,
   BadgeTone,
   BadgeVariant,
+  CodeBlockVariant,
+  CodeToken,
+  CodeTokenType,
   ComboboxOption,
   CommandPaletteItem,
+  DataTableColumn,
   DropdownMenuItemProps,
   ProgressSize,
   ProgressTone,
@@ -629,6 +750,9 @@ export type {
   SkeletonVariant,
   SpinnerSize,
   SpinnerTone,
+  TableAlign,
+  TableSize,
+  TableVariant,
   ToastAction,
   ToastItem,
   ToastOptions,

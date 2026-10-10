@@ -1,5 +1,11 @@
 export type {
+  NativeAccordionContentProps,
+  NativeAccordionItemProps,
+  NativeAccordionProps,
+  NativeAccordionTriggerProps,
   NativeAlertProps,
+  NativeAvatarGroupProps,
+  NativeAvatarProps,
   NativeBadgeProps,
   NativeBreadcrumbItemProps,
   NativeBreadcrumbLinkProps,
@@ -10,8 +16,10 @@ export type {
   NativeButtonGroupProps,
   NativeButtonProps,
   NativeCheckboxProps,
+  NativeCodeBlockProps,
   NativeComboboxProps,
   NativeCommandPaletteProps,
+  NativeDataTableProps,
   NativeDialogCloseProps,
   NativeDialogContentProps,
   NativeDialogDescriptionProps,
@@ -75,6 +83,16 @@ export type {
   NativeSwitchProps,
   NativeTabBarItemProps,
   NativeTabBarProps,
+  NativeTableBodyProps,
+  NativeTableCaptionProps,
+  NativeTableCellProps,
+  NativeTableFooterProps,
+  NativeTableHeadProps,
+  NativeTableHeaderProps,
+  NativeTableProps,
+  NativeTableRowProps,
+  TableSize,
+  TableVariant,
   NativeTabsContentProps,
   NativeTabsListProps,
   NativeTabsProps,
@@ -204,6 +222,29 @@ export { Spinner } from "./spinner";
 export { Skeleton } from "./skeleton";
 export { Toast, ToastProvider, toast } from "./toast";
 
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableRow,
+  TableHead,
+  TableCell,
+  TableCaption,
+  DataTable,
+} from "./table";
+
+export {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "./accordion";
+
+export { Avatar, AvatarGroup } from "./avatar";
+
+export { CodeBlock } from "./codeblock";
+
 export const nativeRendererConfig: {
   readonly platform: "native";
   readonly ready: true;
@@ -211,3 +252,4 @@ export const nativeRendererConfig: {
   platform: "native",
   ready: true,
 } as const;
+

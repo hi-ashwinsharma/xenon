@@ -4,7 +4,13 @@ import { useState } from "react";
 import { RADIUS_STOPS, type Accent, type RadiusStop, type ResolvedTheme } from "@xenon/tokens";
 import { computeNestedRadius } from "@xenon/core";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
   Alert,
+  Avatar,
+  AvatarGroup,
   Badge,
   Breadcrumb,
   BreadcrumbItem,
@@ -15,9 +21,11 @@ import {
   Button,
   ButtonGroup,
   Checkbox,
+  CodeBlock,
   Combobox,
   CommandPalette,
   type CommandPaletteItem,
+  DataTable,
   Dialog,
   DialogClose,
   DialogContent,
@@ -79,6 +87,16 @@ import {
   Switch,
   TabBar,
   TabBarItem,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+  type TableSize,
+  type TableVariant,
   Tabs,
   TabsContent,
   TabsList,
@@ -95,7 +113,15 @@ import {
   XenonProvider,
 } from "@xenon/web";
 
-type ShowcaseDomain = "all" | "actions" | "forms" | "navigation" | "overlays" | "feedback" | "surfaces";
+type ShowcaseDomain =
+  | "all"
+  | "actions"
+  | "forms"
+  | "navigation"
+  | "overlays"
+  | "feedback"
+  | "data-display"
+  | "surfaces";
 
 function ShowcaseContent() {
   const [theme, setTheme] = useState<ResolvedTheme>("dark");
@@ -110,6 +136,10 @@ function ShowcaseContent() {
   const [switchChecked, setSwitchChecked] = useState<boolean>(true);
   const [selectedPlan, setSelectedPlan] = useState<string>("pro");
   const [checkboxAccepted, setCheckboxAccepted] = useState<boolean>(true);
+  const [tableVariant, setTableVariant] = useState<TableVariant>("bordered");
+  const [tableSize, setTableSize] = useState<TableSize>("md");
+  const [selectedRowId, setSelectedRowId] = useState<number>(2);
+  const [codeLineNumbers, setCodeLineNumbers] = useState<boolean>(true);
   const [checkboxIndeterminate, setCheckboxIndeterminate] = useState<boolean>(true);
   const [segmentView, setSegmentView] = useState<string>("preview");
   const [feedbackText, setFeedbackText] = useState<string>("");
@@ -190,11 +220,40 @@ function ShowcaseContent() {
   const [progressVal, setProgressVal] = useState<number>(45);
   const [alertDismissed, setAlertDismissed] = useState<boolean>(false);
 
+  const sampleCodeSnippet = `import { Button, Surface } from "@xenon/web";
+
+export function ActionHero() {
+  // Pure spring micro-interaction with concentric bounds
+  return (
+    <Surface padding={24}>
+      <Button variant="accent" size="lg" onClick={() => console.log("Engaged")}>
+        Deploy Architecture
+      </Button>
+    </Surface>
+  );
+}`;
+
+  const sampleTableData = [
+    { id: 1, component: "Button", type: "Action", bundleSize: "1.4 kB", tests: 7, status: "Active" },
+    { id: 2, component: "Select", type: "Overlay", bundleSize: "3.2 kB", tests: 6, status: "Active" },
+    { id: 3, component: "Table", type: "Data Display", bundleSize: "2.1 kB", tests: 6, status: "Active" },
+    { id: 4, component: "CodeBlock", type: "Data Display", bundleSize: "2.8 kB", tests: 4, status: "Active" },
+  ];
+
+  const sampleTableColumns = [
+    { key: "component", header: "Component" },
+    { key: "type", header: "Category" },
+    { key: "bundleSize", header: "Size", numeric: true, align: "right" as const },
+    { key: "tests", header: "Test Cases", numeric: true, align: "right" as const },
+    { key: "status", header: "Status" },
+  ];
+
   const showActions = activeDomain === "all" || activeDomain === "actions";
   const showForms = activeDomain === "all" || activeDomain === "forms";
   const showNav = activeDomain === "all" || activeDomain === "navigation";
   const showOverlays = activeDomain === "all" || activeDomain === "overlays";
   const showFeedback = activeDomain === "all" || activeDomain === "feedback";
+  const showDataDisplay = activeDomain === "all" || activeDomain === "data-display";
   const showSurfaces = activeDomain === "all" || activeDomain === "surfaces";
 
   return (
@@ -366,6 +425,7 @@ function ShowcaseContent() {
                     { value: "navigation", label: "Navigation Chrome" },
                     { value: "overlays", label: "Overlays & Anchors" },
                     { value: "feedback", label: "Feedback & Status" },
+                    { value: "data-display", label: "Data Display" },
                     { value: "surfaces", label: "Surfaces & Math" },
                   ]}
                   value={activeDomain}
@@ -2253,7 +2313,333 @@ function ShowcaseContent() {
             </section>
           )}
 
-          {/* Section 6: Surfaces & Concentric Geometry (Phase 2A) */}
+          {/* Section 06: Data Display & Inspection (Phase 5 Batch 2) */}
+          {showDataDisplay && (
+            <section style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <span
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: 400,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--x-accent)",
+                    fontFamily: "var(--x-font-family-mono, monospace)",
+                  }}
+                >
+                  Section 06 · Data Display & Inspection
+                </span>
+                <Heading level={2} weight={300}>
+                  Dense Information, Hierarchies & Code Surfaces
+                </Heading>
+                <Text tone="muted">
+                  Hairline data tables with tabular numeric metrics, spring-rotated accordion disclosures, concentric masked avatars, and an Apple-grade Geist Mono terminal codeblock with copy micro-actions.
+                </Text>
+              </div>
+
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(460px, 1fr))",
+                  gap: "24px",
+                }}
+              >
+                {/* 1. Table & DataTable */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Table & DataTable
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Tabular Nums · Hairlines
+                    </span>
+                  </div>
+
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Compound and data-driven table components with horizontal scroll containment and customizable row interaction.
+                  </Text>
+
+                  {/* Table Controls */}
+                  <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <Text style={{ fontSize: "12px" }} tone="muted">Variant:</Text>
+                      <SegmentedControl
+                        value={tableVariant}
+                        onValueChange={(val) => setTableVariant(val as TableVariant)}
+                        options={[
+                          { value: "default", label: "Default" },
+                          { value: "bordered", label: "Bordered" },
+                          { value: "subtle", label: "Subtle" },
+                        ]}
+                      />
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <Text style={{ fontSize: "12px" }} tone="muted">Size:</Text>
+                      <SegmentedControl
+                        value={tableSize}
+                        onValueChange={(val) => setTableSize(val as TableSize)}
+                        options={[
+                          { value: "sm", label: "SM" },
+                          { value: "md", label: "MD" },
+                          { value: "lg", label: "LG" },
+                        ]}
+                      />
+                    </div>
+                  </div>
+
+                  <Divider />
+
+                  <DataTable
+                    columns={sampleTableColumns}
+                    data={sampleTableData}
+                    variant={tableVariant}
+                    size={tableSize}
+                    interactive
+                    onRowClick={(item) => {
+                      setSelectedRowId(item.id);
+                      toast.show(`Selected ${item.component}`, { tone: "accent" });
+                    }}
+                  />
+
+                  {/* Compound Subcomponents Demonstration */}
+                  <Divider />
+                  <Text style={{ fontSize: "12px" }} tone="muted">
+                    Compound Table Primitives Preview:
+                  </Text>
+                  <Table variant="bordered" size="sm">
+                    <TableCaption>Resource allocation metrics by service</TableCaption>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Service</TableHead>
+                        <TableHead align="right">Latency</TableHead>
+                        <TableHead align="right">Throughput</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow selected={selectedRowId === 1} interactive onClick={() => setSelectedRowId(1)}>
+                        <TableCell>Core Proxy</TableCell>
+                        <TableCell align="right" numeric>1.2 ms</TableCell>
+                        <TableCell align="right" numeric>42,100 req/s</TableCell>
+                      </TableRow>
+                      <TableRow selected={selectedRowId === 2} interactive onClick={() => setSelectedRowId(2)}>
+                        <TableCell>Edge Compute</TableCell>
+                        <TableCell align="right" numeric>3.8 ms</TableCell>
+                        <TableCell align="right" numeric>18,400 req/s</TableCell>
+                      </TableRow>
+                    </TableBody>
+                    <TableFooter>
+                      <TableRow>
+                        <TableCell>Aggregated</TableCell>
+                        <TableCell align="right" numeric>2.5 ms avg</TableCell>
+                        <TableCell align="right" numeric>60,500 req/s</TableCell>
+                      </TableRow>
+                    </TableFooter>
+                  </Table>
+                </Surface>
+
+                {/* 2. Accordion Disclosures */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Accordion
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Spring Caret · Multi/Single
+                    </span>
+                  </div>
+
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Apple spring-rotated caret disclosure with fluid grid-animation and single/multiple expansion.
+                  </Text>
+
+                  <Text style={{ fontSize: "12px" }} tone="muted">
+                    Single Collapsible (Bordered):
+                  </Text>
+                  <Accordion type="single" defaultValue="philosophy" variant="bordered">
+                    <AccordionItem value="philosophy">
+                      <AccordionTrigger>Geometric Restraint</AccordionTrigger>
+                      <AccordionContent>
+                        Xenon rejects arbitrary decorative drop-shadows, gradients, and bloated chrome. Visual hierarchy is established strictly through 1px hairlines and surface tone shifts.
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="tokens">
+                      <AccordionTrigger>Token Determinism</AccordionTrigger>
+                      <AccordionContent>
+                        Colors, spacing, discrete 7-stop radius scales, and spring response curves are compiled from a single token engine to eliminate web/native discrepancy.
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="concentric">
+                      <AccordionTrigger>Concentric Radius Rule</AccordionTrigger>
+                      <AccordionContent>
+                        Inner child radii automatically conform to R_child = max(R_parent - padding, 0.4 * R_parent), guaranteeing consistent curvature without visual jarring.
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+
+                  <Divider />
+
+                  <Text style={{ fontSize: "12px" }} tone="muted">
+                    Multiple Expansion (Separated):
+                  </Text>
+                  <Accordion type="multiple" defaultValue={["multi-1"]} variant="separated">
+                    <AccordionItem value="multi-1">
+                      <AccordionTrigger>Renderer Independence</AccordionTrigger>
+                      <AccordionContent>
+                        React DOM and React Native share math, tokens, and props while leveraging native UI primitives on each respective runtime.
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="multi-2">
+                      <AccordionTrigger>Zero-Any Strict Typing</AccordionTrigger>
+                      <AccordionContent>
+                        Every interface is exhaustively typed in *.types.ts files with clean contract separation from rendering logic.
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </Surface>
+
+                {/* 3. Avatar & AvatarGroup */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Avatar & AvatarGroup
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Pill Mask · Monograms
+                    </span>
+                  </div>
+
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Concentric pill & circle bounds with auto-monogram extraction, semantic status dots, and masked negative-margin overlapping clusters.
+                  </Text>
+
+                  {/* Individual Avatars with Status */}
+                  <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
+                    <Avatar size="xl" name="Ashwin Sharma" status="online" />
+                    <Avatar size="lg" name="Xenon Core" status="busy" />
+                    <Avatar size="md" name="Elena Rostova" status="away" />
+                    <Avatar size="sm" name="David Kim" status="offline" />
+                    <Avatar size="xs" name="Zack Miller" />
+                    <Avatar size="lg" shape="rounded" name="Architectural Spec" status="online" />
+                  </div>
+
+                  <Divider />
+
+                  <Text style={{ fontSize: "12px" }} tone="muted">
+                    AvatarGroup Overlap Cluster:
+                  </Text>
+                  <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+                    <AvatarGroup max={4} size="md">
+                      <Avatar name="Sarah Connor" />
+                      <Avatar name="John Doe" />
+                      <Avatar name="Alice Walker" />
+                      <Avatar name="Bob Vance" />
+                      <Avatar name="Charlie Brown" />
+                      <Avatar name="Diana Prince" />
+                    </AvatarGroup>
+
+                    <AvatarGroup max={3} size="lg" spacing="tight">
+                      <Avatar name="Alpha Lead" />
+                      <Avatar name="Beta Reviewer" />
+                      <Avatar name="Gamma Auditor" />
+                      <Avatar name="Delta Operator" />
+                    </AvatarGroup>
+                  </div>
+                </Surface>
+
+                {/* 4. CodeBlock */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      CodeBlock
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Geist Mono · Clipboard Feedback
+                    </span>
+                  </div>
+
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Apple-grade terminal container with filename chrome, language indicator, copy micro-action with checkmark feedback timer, and line numbers.
+                  </Text>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <Switch
+                      checked={codeLineNumbers}
+                      onCheckedChange={setCodeLineNumbers}
+                    />
+                    <Text style={{ fontSize: "12px" }} tone="muted">
+                      Show Line Numbers
+                    </Text>
+                  </div>
+
+                  <CodeBlock
+                    code={sampleCodeSnippet}
+                    filename="ButtonHero.tsx"
+                    language="tsx"
+                    showLineNumbers={codeLineNumbers}
+                    onCopy={() => toast.success("Copied to Clipboard", { description: "CodeBlock snippet ready to paste" })}
+                  />
+                </Surface>
+              </div>
+            </section>
+          )}
+
+          {/* Section 7: Surfaces & Concentric Geometry (Phase 2A) */}
           {showSurfaces && (
             <section style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
