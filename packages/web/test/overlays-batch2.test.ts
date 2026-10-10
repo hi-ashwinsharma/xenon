@@ -33,6 +33,18 @@ describe("@xenon/web Overlay Primitives (Batch 2)", () => {
       expect(menu.props.defaultOpen).toBe(false);
       expect(menu.props.children).toHaveLength(2);
     });
+
+    it("supports openOnHover and custom hoverDelayMs props", () => {
+      const menu = createElement(
+        DropdownMenu,
+        { openOnHover: true, hoverDelayMs: 200 },
+        createElement(DropdownMenuTrigger, null, "Hover Me"),
+        createElement(DropdownMenuContent, null, createElement(DropdownMenuItem, null, "Item")),
+      );
+
+      expect(menu.props.openOnHover).toBe(true);
+      expect(menu.props.hoverDelayMs).toBe(200);
+    });
   });
 
   describe("Select", () => {

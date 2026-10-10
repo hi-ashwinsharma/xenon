@@ -2,7 +2,9 @@
 
 import React, {
   createContext,
+  useCallback,
   useContext,
+  useEffect,
   useId,
   useLayoutEffect,
   useRef,
@@ -29,6 +31,9 @@ import type {
 interface DropdownMenuContextValue {
   open: boolean;
   setOpen: (open: boolean) => void;
+  openOnHover?: boolean;
+  handleMouseEnter: () => void;
+  handleMouseLeave: () => void;
   triggerRef: React.RefObject<HTMLButtonElement | null>;
   contentRef: React.RefObject<HTMLDivElement | null>;
   triggerRect: Rect | null;
@@ -53,6 +58,8 @@ export function DropdownMenu({
   open: controlledOpen,
   defaultOpen = false,
   onOpenChange,
+  openOnHover = false,
+  hoverDelayMs = 150,
   children,
 }: WebDropdownMenuProps) {
   const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(defaultOpen);
@@ -66,8 +73,17 @@ export function DropdownMenu({
 
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const itemsMapRef = useRef<Map<number, { onSelect?: () => void; disabled?: boolean }>>(new Map());
+  const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const setOpen = (nextOpen: boolean) => {
+  const clearHoverTimer = useCallback(() => {
+    if (hoverTimerRef.current !== null) {
+      clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
+  }, []);
+
+  const setOpen = useCallback((nextOpen: boolean) => {
+    clearHoverTimer();
     if (!isControlled) {
       setUncontrolledOpen(nextOpen);
     }
@@ -75,9 +91,9 @@ export function DropdownMenu({
       setActiveIndex(-1);
     }
     onOpenChange?.(nextOpen);
-  };
+  }, [clearHoverTimer, isControlled, onOpenChange]);
 
-  const updateTriggerRect = () => {
+  const updateTriggerRect = useCallback(() => {
     if (triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect();
       setTriggerRect({
@@ -87,7 +103,30 @@ export function DropdownMenu({
         height: rect.height,
       });
     }
-  };
+  }, []);
+
+  const handleMouseEnter = useCallback(() => {
+    if (!openOnHover) return;
+    clearHoverTimer();
+    updateTriggerRect();
+    setOpen(true);
+  }, [openOnHover, clearHoverTimer, updateTriggerRect, setOpen]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (!openOnHover) return;
+    clearHoverTimer();
+    hoverTimerRef.current = setTimeout(() => {
+      setOpen(false);
+    }, hoverDelayMs);
+  }, [openOnHover, clearHoverTimer, hoverDelayMs, setOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (hoverTimerRef.current !== null) {
+        clearTimeout(hoverTimerRef.current);
+      }
+    };
+  }, []);
 
   const registerItem = (index: number, onSelect?: () => void, disabled?: boolean) => {
     itemsMapRef.current.set(index, { onSelect, disabled });
@@ -98,6 +137,9 @@ export function DropdownMenu({
       value={{
         open,
         setOpen,
+        openOnHover,
+        handleMouseEnter,
+        handleMouseLeave,
         triggerRef,
         contentRef,
         triggerRect,
@@ -117,9 +159,20 @@ export function DropdownMenuTrigger({
   asChild,
   children,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
   ...props
 }: WebDropdownMenuTriggerProps) {
-  const { open, setOpen, triggerRef, updateTriggerRect, contentId } = useDropdownMenu();
+  const {
+    open,
+    setOpen,
+    triggerRef,
+    updateTriggerRect,
+    contentId,
+    openOnHover,
+    handleMouseEnter,
+    handleMouseLeave,
+  } = useDropdownMenu();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     updateTriggerRect();
@@ -127,10 +180,32 @@ export function DropdownMenuTrigger({
     onClick?.(e);
   };
 
+  const onEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (openOnHover) handleMouseEnter();
+    onMouseEnter?.(e);
+  };
+
+  const onLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (openOnHover) handleMouseLeave();
+    onMouseLeave?.(e);
+  };
+
   if (asChild && React.isValidElement(children)) {
-    return React.cloneElement(children as React.ReactElement<any>, {
+    const child = children as React.ReactElement<any>;
+    return React.cloneElement(child, {
       ref: triggerRef,
-      onClick: handleClick,
+      onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
+        child.props.onClick?.(e);
+        handleClick(e);
+      },
+      onMouseEnter: (e: React.MouseEvent<HTMLButtonElement>) => {
+        child.props.onMouseEnter?.(e);
+        if (openOnHover) handleMouseEnter();
+      },
+      onMouseLeave: (e: React.MouseEvent<HTMLButtonElement>) => {
+        child.props.onMouseLeave?.(e);
+        if (openOnHover) handleMouseLeave();
+      },
       "aria-haspopup": "menu",
       "aria-expanded": open,
       "aria-controls": open ? contentId : undefined,
@@ -146,6 +221,8 @@ export function DropdownMenuTrigger({
       aria-expanded={open}
       aria-haspopup="menu"
       onClick={handleClick}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
       style={{
         background: "transparent",
         border: "none",
@@ -167,9 +244,23 @@ export function DropdownMenuContent({
   children,
   className,
   style,
+  onMouseEnter,
+  onMouseLeave,
   ...props
 }: WebDropdownMenuContentProps) {
-  const { open, setOpen, contentRef, triggerRef, triggerRect, contentId, activeIndex, setActiveIndex } = useDropdownMenu();
+  const {
+    open,
+    setOpen,
+    contentRef,
+    triggerRef,
+    triggerRect,
+    contentId,
+    activeIndex,
+    setActiveIndex,
+    openOnHover,
+    handleMouseEnter,
+    handleMouseLeave,
+  } = useDropdownMenu();
   const { isMounted, status } = usePresence({ open, durationMs: 180 });
   const [coords, setCoords] = useState<FloatingResult | null>(null);
 
@@ -225,6 +316,14 @@ export function DropdownMenuContent({
       tabIndex={-1}
       {...props}
       className={className}
+      onMouseEnter={(e) => {
+        if (openOnHover) handleMouseEnter();
+        onMouseEnter?.(e);
+      }}
+      onMouseLeave={(e) => {
+        if (openOnHover) handleMouseLeave();
+        onMouseLeave?.(e);
+      }}
       style={{
         position: "fixed",
         top: coords ? coords.y : -9999,

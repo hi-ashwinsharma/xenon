@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
 import {
   Modal,
   Pressable,
@@ -38,6 +38,37 @@ interface NativeSelectContextValue {
   registerItem: (value: string, label: string, disabled: boolean) => void;
 }
 
+function extractSelectItems(children: React.ReactNode): SelectOptionItem[] {
+  const items: SelectOptionItem[] = [];
+
+  function traverse(node: React.ReactNode) {
+    React.Children.forEach(node, (child) => {
+      if (!React.isValidElement(child)) return;
+      const props = child.props as Record<string, unknown> | undefined;
+      if (props && typeof props.value === "string") {
+        const val = props.value;
+        let label = val;
+        if (typeof props.children === "string") {
+          label = props.children;
+        } else if (typeof props.label === "string") {
+          label = props.label;
+        }
+        items.push({
+          value: val,
+          label,
+          disabled: Boolean(props.disabled),
+        });
+      }
+      if (props && "children" in props && props.children) {
+        traverse(props.children as React.ReactNode);
+      }
+    });
+  }
+
+  traverse(children);
+  return items;
+}
+
 const SelectContext = createContext<NativeSelectContextValue | null>(null);
 
 export function useSelect(): NativeSelectContextValue {
@@ -64,14 +95,17 @@ export function Select({
   const value = isControlled ? controlledValue : uncontrolledValue;
 
   const [open, setOpen] = useState<boolean>(false);
-  const [items, setItems] = useState<SelectOptionItem[]>([]);
+  const [registeredItems, setRegisteredItems] = useState<SelectOptionItem[]>([]);
 
-  const registerItem = (val: string, label: string, dis: boolean) => {
-    setItems((prev) => {
-      if (prev.some((item) => item.value === val)) return prev;
-      return [...prev, { value: val, label, disabled: dis }];
+  const registerItem = useCallback((val: string, label: string, dis: boolean) => {
+    setRegisteredItems((prev) => {
+      const existing = prev.find((item) => item.value === val);
+      if (existing && existing.label === label && existing.disabled === dis) {
+        return prev;
+      }
+      return [...prev.filter((item) => item.value !== val), { value: val, label, disabled: dis }];
     });
-  };
+  }, []);
 
   const handleSelect = (nextVal: string) => {
     if (!isControlled) {
@@ -81,12 +115,29 @@ export function Select({
     setOpen(false);
   };
 
-  let selectedLabel: string | undefined;
-  if (options) {
-    selectedLabel = options.find((opt) => opt.value === value)?.label;
-  } else {
-    selectedLabel = items.find((item) => item.value === value)?.label;
-  }
+  const staticItems = useMemo(() => {
+    if (options) {
+      return options.map((opt) => ({
+        value: opt.value,
+        label: opt.label,
+        disabled: Boolean(opt.disabled),
+      }));
+    }
+    return extractSelectItems(children);
+  }, [options, children]);
+
+  const items = useMemo(() => {
+    if (registeredItems.length === 0) return staticItems;
+    const combined = [...staticItems];
+    for (const reg of registeredItems) {
+      if (!combined.some((item) => item.value === reg.value)) {
+        combined.push(reg);
+      }
+    }
+    return combined;
+  }, [staticItems, registeredItems]);
+
+  const selectedLabel = items.find((item) => item.value === value)?.label;
 
   return (
     <SelectContext.Provider
@@ -260,7 +311,7 @@ export function SelectItem({
   React.useEffect(() => {
     const label = typeof children === "string" ? children : value;
     registerItem(value, label, disabled);
-  }, [value, children, disabled]);
+  }, [value, children, disabled, registerItem]);
 
   return (
     <Pressable

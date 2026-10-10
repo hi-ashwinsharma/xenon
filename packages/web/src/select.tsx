@@ -2,9 +2,11 @@
 
 import React, {
   createContext,
+  useCallback,
   useContext,
   useId,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -47,6 +49,37 @@ interface SelectContextValue {
   selectedLabel?: string;
 }
 
+function extractSelectItems(children: React.ReactNode): RegisteredItem[] {
+  const items: RegisteredItem[] = [];
+
+  function traverse(node: React.ReactNode) {
+    React.Children.forEach(node, (child) => {
+      if (!React.isValidElement(child)) return;
+      const props = child.props as Record<string, unknown> | undefined;
+      if (props && typeof props.value === "string") {
+        const val = props.value;
+        let label = val;
+        if (typeof props.children === "string") {
+          label = props.children;
+        } else if (typeof props.label === "string") {
+          label = props.label;
+        }
+        items.push({
+          value: val,
+          label,
+          disabled: Boolean(props.disabled),
+        });
+      }
+      if (props && "children" in props && props.children) {
+        traverse(props.children as React.ReactNode);
+      }
+    });
+  }
+
+  traverse(children);
+  return items;
+}
+
 const SelectContext = createContext<SelectContextValue | null>(null);
 
 export function useSelect(): SelectContextValue {
@@ -81,17 +114,23 @@ export function Select({
   const [triggerRect, setTriggerRect] = useState<Rect | null>(null);
   const contentId = useId();
 
-  const [items, setItems] = useState<RegisteredItem[]>([]);
+  const [registeredItems, setRegisteredItems] = useState<RegisteredItem[]>([]);
 
-  const registerItem = (val: string, label: string, dis: boolean) => {
-    setItems((prev) => {
-      if (prev.some((item) => item.value === val)) return prev;
-      return [...prev, { value: val, label, disabled: dis }];
+  const registerItem = useCallback((val: string, label: string, dis: boolean) => {
+    setRegisteredItems((prev) => {
+      const existing = prev.find((item) => item.value === val);
+      if (existing && existing.label === label && existing.disabled === dis) {
+        return prev;
+      }
+      return [...prev.filter((item) => item.value !== val), { value: val, label, disabled: dis }];
     });
     return () => {
-      setItems((prev) => prev.filter((item) => item.value !== val));
+      setRegisteredItems((prev) => {
+        if (!prev.some((item) => item.value === val)) return prev;
+        return prev.filter((item) => item.value !== val);
+      });
     };
-  };
+  }, []);
 
   const handleSelect = (nextValue: string) => {
     if (!isControlled) {
@@ -101,25 +140,52 @@ export function Select({
     setOpen(false);
   };
 
-  const updateTriggerRect = () => {
+  const updateTriggerRect = useCallback(() => {
     if (triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect();
-      setTriggerRect({
-        x: rect.left,
-        y: rect.top,
-        width: rect.width,
-        height: rect.height,
+      setTriggerRect((prev) => {
+        if (
+          prev &&
+          prev.x === rect.left &&
+          prev.y === rect.top &&
+          prev.width === rect.width &&
+          prev.height === rect.height
+        ) {
+          return prev;
+        }
+        return {
+          x: rect.left,
+          y: rect.top,
+          width: rect.width,
+          height: rect.height,
+        };
       });
     }
-  };
+  }, []);
 
-  // Find label from options shorthand or registered items
-  let selectedLabel: string | undefined;
-  if (options) {
-    selectedLabel = options.find((opt) => opt.value === value)?.label;
-  } else {
-    selectedLabel = items.find((item) => item.value === value)?.label;
-  }
+  const staticItems = useMemo(() => {
+    if (options) {
+      return options.map((opt) => ({
+        value: opt.value,
+        label: opt.label,
+        disabled: Boolean(opt.disabled),
+      }));
+    }
+    return extractSelectItems(children);
+  }, [options, children]);
+
+  const items = useMemo(() => {
+    if (registeredItems.length === 0) return staticItems;
+    const combined = [...staticItems];
+    for (const reg of registeredItems) {
+      if (!combined.some((item) => item.value === reg.value)) {
+        combined.push(reg);
+      }
+    }
+    return combined;
+  }, [staticItems, registeredItems]);
+
+  const selectedLabel = items.find((item) => item.value === value)?.label;
 
   return (
     <SelectContext.Provider
@@ -197,6 +263,15 @@ export function SelectTrigger({
     setOpen(!open);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (disabled) return;
+    if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") {
+      e.preventDefault();
+      updateTriggerRect();
+      setOpen(true);
+    }
+  };
+
   const getHeight = () => {
     switch (size) {
       case "sm":
@@ -220,6 +295,7 @@ export function SelectTrigger({
       className={className}
       disabled={disabled}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -319,7 +395,18 @@ export function SelectContent({
       viewportHeight: window.innerHeight,
     });
 
-    setCoords(result);
+    setCoords((prev) => {
+      if (
+        prev &&
+        prev.x === result.x &&
+        prev.y === result.y &&
+        prev.actualPlacement === result.actualPlacement &&
+        prev.transformOrigin === result.transformOrigin
+      ) {
+        return prev;
+      }
+      return result;
+    });
   }, [isMounted, triggerRect]);
 
   if (!isMounted) return null;

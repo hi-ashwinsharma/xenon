@@ -5,6 +5,8 @@ export interface DropdownMenuProps {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
+  openOnHover?: boolean;
+  hoverDelayMs?: number;
   children: ReactNode;
 }
 
@@ -45,6 +47,7 @@ export interface DropdownMenuSeparatorProps {
 export interface DropdownMenuContextValue {
   open: boolean;
   setOpen: (open: boolean) => void;
+  openOnHover?: boolean;
   triggerRef: React.RefObject<HTMLElement | null>;
   contentRef: React.RefObject<HTMLElement | null>;
   activeIndex: number;

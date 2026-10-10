@@ -40,6 +40,8 @@ export function DropdownMenu({
   open: controlledOpen,
   defaultOpen = false,
   onOpenChange,
+  openOnHover: _openOnHover = false,
+  hoverDelayMs: _hoverDelayMs = 150,
   children,
 }: NativeDropdownMenuProps) {
   const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(defaultOpen);

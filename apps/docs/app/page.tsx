@@ -1713,10 +1713,10 @@ function ShowcaseContent() {
                     shortcut badges, and destructive items.
                   </Text>
 
-                  <div style={{ display: "flex", alignItems: "center", gap: "12px", paddingTop: "8px" }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px", paddingTop: "8px" }}>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="outline">Options Menu</Button>
+                        <Button variant="outline">Click to Open</Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent width={220}>
                         <DropdownMenuGroup label="Design Spec">
@@ -1728,6 +1728,23 @@ function ShowcaseContent() {
                           <DropdownMenuItem shortcut="⌘P">Preferences</DropdownMenuItem>
                           <DropdownMenuItem disabled shortcut="⌘L">Sync Cloud (Pro)</DropdownMenuItem>
                           <DropdownMenuItem destructive shortcut="⌘Q">Sign Out</DropdownMenuItem>
+                        </DropdownMenuGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+
+                    <DropdownMenu openOnHover>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline">Hover to Open</Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent width={220}>
+                        <DropdownMenuGroup label="Quick Actions">
+                          <DropdownMenuItem shortcut="⌘K">Search Actions</DropdownMenuItem>
+                          <DropdownMenuItem shortcut="⇧⌘P">Command Palette</DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuGroup label="View">
+                          <DropdownMenuItem>Zoom to 100%</DropdownMenuItem>
+                          <DropdownMenuItem>Toggle Grid</DropdownMenuItem>
                         </DropdownMenuGroup>
                       </DropdownMenuContent>
                     </DropdownMenu>
