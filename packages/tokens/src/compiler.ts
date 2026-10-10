@@ -3,6 +3,7 @@ import {
   NEUTRAL_COLORS,
   ON_ACCENT_COLOR,
   SEMANTIC_COLORS,
+  WARM_DARK_NEUTRALS,
 } from "./colors";
 import { LIQUID_GLASS_TOKENS } from "./glass";
 import { MOTION_TOKENS } from "./motion";
@@ -94,6 +95,19 @@ export function compileCssVariables(): string {
     lines.push("}");
   }
 
+  // Warm Dark (Claude / Anthropic warm charcoal tone when AMOLED is OFF)
+  lines.push(`\n:root[data-x-theme="dark"][data-x-amoled="false"] {`);
+  lines.push(`  --x-bg: ${WARM_DARK_NEUTRALS.bg};`);
+  lines.push(`  --x-surface: ${WARM_DARK_NEUTRALS.surface};`);
+  lines.push(`  --x-surface-2: ${WARM_DARK_NEUTRALS.surface2};`);
+  lines.push(`  --x-glass-regular-bg: rgba(24, 24, 22, 0.78);`);
+  lines.push(`  --x-glass-clear-bg: rgba(24, 24, 22, 0.46);`);
+  lines.push(`  --x-text: ${WARM_DARK_NEUTRALS.text};`);
+  lines.push(`  --x-text-muted: ${WARM_DARK_NEUTRALS.textMuted};`);
+  lines.push(`  --x-border: ${WARM_DARK_NEUTRALS.border};`);
+  lines.push(`  --x-border-active: ${WARM_DARK_NEUTRALS.borderActive};`);
+  lines.push("}");
+
   for (const [accent, pair] of Object.entries(ACCENT_COLORS)) {
     lines.push(`\n:root[data-x-accent="${accent}"][data-x-theme="dark"] {`);
     lines.push(`  --x-accent: ${pair.dark};`);
@@ -124,8 +138,10 @@ export function compileCssVariables(): string {
 export function compileNativeTokens(
   theme: ResolvedTheme = "dark",
   accent: Accent = "lime",
+  amoled: boolean = true,
 ): CompiledNativeTokens {
-  const neutrals = NEUTRAL_COLORS[theme];
+  const neutrals =
+    theme === "dark" && !amoled ? WARM_DARK_NEUTRALS : NEUTRAL_COLORS[theme];
   const semantics = SEMANTIC_COLORS[theme];
   const accentPair = ACCENT_COLORS[accent];
 

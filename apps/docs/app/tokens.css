@@ -84,6 +84,7 @@
   --x-radius: 16px;
   --x-accent: #D4FF4F;
   --x-accent-lime: #D4FF4F;
+  --x-accent-orange: #FF7E47;
   --x-accent-pink: #FFB3D9;
   --x-accent-blue: #9ED8FF;
   --x-accent-purple: #CDB4FF;
@@ -122,6 +123,18 @@
   --x-info: #1976D2;
 }
 
+:root[data-x-theme="dark"][data-x-amoled="false"] {
+  --x-bg: #181816;
+  --x-surface: #22211F;
+  --x-surface-2: #2C2B28;
+  --x-glass-regular-bg: rgba(24, 24, 22, 0.78);
+  --x-glass-clear-bg: rgba(24, 24, 22, 0.46);
+  --x-text: #EDE8DF;
+  --x-text-muted: #9E9B91;
+  --x-border: rgba(240, 235, 225, 0.10);
+  --x-border-active: rgba(240, 235, 225, 0.20);
+}
+
 :root[data-x-accent="lime"][data-x-theme="dark"] {
   --x-accent: #D4FF4F;
 }
@@ -130,6 +143,16 @@
 }
 :root[data-x-accent="lime"] {
   --x-accent: #D4FF4F;
+}
+
+:root[data-x-accent="orange"][data-x-theme="dark"] {
+  --x-accent: #FF7E47;
+}
+:root[data-x-accent="orange"][data-x-theme="light"] {
+  --x-accent: #D9532F;
+}
+:root[data-x-accent="orange"] {
+  --x-accent: #FF7E47;
 }
 
 :root[data-x-accent="pink"][data-x-theme="dark"] {

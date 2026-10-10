@@ -20,6 +20,7 @@ function DocsLayoutContent({ children }: { children: ReactNode }): ReactElement 
   const [theme, setTheme] = useState<Theme>("dark");
   const [accent, setAccent] = useState<Accent>("lime");
   const [radius, setRadius] = useState<RadiusStop>(3);
+  const [amoled, setAmoled] = useState<boolean>(true);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState<boolean>(false);
 
   // Active item resolution from pathname
@@ -105,6 +106,8 @@ function DocsLayoutContent({ children }: { children: ReactNode }): ReactElement 
       onAccentChange={setAccent}
       radius={radius}
       onRadiusChange={setRadius}
+      amoled={amoled}
+      onAmoledChange={setAmoled}
     >
       <ToastProvider>
         <div

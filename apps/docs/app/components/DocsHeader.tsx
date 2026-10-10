@@ -139,7 +139,7 @@ export function DocsHeader({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent width={140}>
-            {(["lime", "pink", "blue", "purple", "green"] as Accent[]).map((acc) => (
+            {(["lime", "orange", "pink", "blue", "purple", "green"] as Accent[]).map((acc) => (
               <DropdownMenuItem
                 key={acc}
                 onSelect={() => onAccentChange(acc)}
@@ -161,23 +161,40 @@ export function DocsHeader({
           </DropdownMenuContent>
         </DropdownMenu>
 
-        {/* Radius Stop Selector */}
-        <div style={{ width: "230px" }}>
-          <SegmentedControl
-            size="sm"
-            options={[
-              { value: "0", label: "0" },
-              { value: "1", label: "1" },
-              { value: "2", label: "2" },
-              { value: "3", label: "3" },
-              { value: "4", label: "4" },
-              { value: "5", label: "5" },
-              { value: "6", label: "6" },
-            ]}
-            value={radius.toString()}
-            onValueChange={(val: string) => onRadiusChange(Number(val) as RadiusStop)}
-          />
-        </div>
+        {/* Compact Radius Dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="subtle"
+              size="sm"
+              title="Global curvature radius"
+              style={{ fontFamily: "var(--x-font-family-mono)", minWidth: "64px" }}
+            >
+              R{radius}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent width={200}>
+            {([0, 1, 2, 3, 4, 5, 6] as RadiusStop[]).map((stop) => (
+              <DropdownMenuItem
+                key={stop}
+                onSelect={() => onRadiusChange(stop)}
+                onClick={() => onRadiusChange(stop)}
+              >
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: stop === 0 ? "0px" : stop === 6 ? "50%" : "2px",
+                    backgroundColor: radius === stop ? "var(--x-accent)" : "var(--x-border)",
+                    marginRight: "8px",
+                  }}
+                />
+                Stop {stop}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         {/* Theme Switcher */}
         <IconButton

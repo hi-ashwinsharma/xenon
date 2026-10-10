@@ -27,10 +27,24 @@ export const NEUTRAL_COLORS: Readonly<Record<ResolvedTheme, NeutralColors>> = {
   },
 } as const;
 
+export const WARM_DARK_NEUTRALS: NeutralColors = {
+  bg: "#181816",
+  surface: "#22211F",
+  surface2: "#2C2B28",
+  text: "#EDE8DF",
+  textMuted: "#9E9B91",
+  border: "rgba(240, 235, 225, 0.10)",
+  borderActive: "rgba(240, 235, 225, 0.20)",
+};
+
 export const ACCENT_COLORS: Readonly<Record<Accent, AccentColorPair>> = {
   lime: {
     dark: "#D4FF4F",
     light: "#A8D900",
+  },
+  orange: {
+    dark: "#FF7E47",
+    light: "#D9532F",
   },
   pink: {
     dark: "#FFB3D9",

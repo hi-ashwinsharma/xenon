@@ -31,6 +31,9 @@ export function XenonProvider({
   radius: controlledRadius,
   defaultRadius = DEFAULT_RADIUS_STOP,
   onRadiusChange,
+  amoled: controlledAmoled,
+  defaultAmoled = true,
+  onAmoledChange,
   children,
 }: NativeXenonProviderProps): ReactElement {
   const [uncontrolledTheme, setUncontrolledTheme] =
@@ -41,11 +44,15 @@ export function XenonProvider({
   const [uncontrolledRadius, setUncontrolledRadius] = useState<RadiusStop>(
     defaultRadius ?? DEFAULT_RADIUS_STOP,
   );
+  const [uncontrolledAmoled, setUncontrolledAmoled] = useState<boolean>(
+    defaultAmoled ?? true,
+  );
 
   const systemScheme = useColorScheme();
   const theme = controlledTheme ?? uncontrolledTheme;
   const accent = controlledAccent ?? uncontrolledAccent;
   const radius = controlledRadius ?? uncontrolledRadius;
+  const amoled = controlledAmoled ?? uncontrolledAmoled;
 
   const setTheme = useCallback(
     (nextTheme: Theme): void => {
@@ -77,6 +84,16 @@ export function XenonProvider({
     [controlledRadius, onRadiusChange],
   );
 
+  const setAmoled = useCallback(
+    (nextAmoled: boolean): void => {
+      if (controlledAmoled === undefined) {
+        setUncontrolledAmoled(nextAmoled);
+      }
+      onAmoledChange?.(nextAmoled);
+    },
+    [controlledAmoled, onAmoledChange],
+  );
+
   const resolvedTheme: ResolvedTheme =
     theme === "system" ? (systemScheme === "dark" ? "dark" : "light") : theme;
 
@@ -86,11 +103,23 @@ export function XenonProvider({
       resolvedTheme,
       accent,
       radius,
+      amoled,
       setTheme,
       setAccent,
       setRadius,
+      setAmoled,
     }),
-    [theme, resolvedTheme, accent, radius, setTheme, setAccent, setRadius],
+    [
+      theme,
+      resolvedTheme,
+      accent,
+      radius,
+      amoled,
+      setTheme,
+      setAccent,
+      setRadius,
+      setAmoled,
+    ],
   );
 
   return (

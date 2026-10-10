@@ -43,12 +43,22 @@ describe("Token Compiler", () => {
     expect(css).toContain(':root[data-x-theme="light"]');
     expect(css).toContain(`--x-bg: ${NEUTRAL_COLORS.light.bg};`);
 
-    for (const accent of ["lime", "pink", "blue", "purple", "green"] as const) {
+    for (const accent of [
+      "lime",
+      "orange",
+      "pink",
+      "blue",
+      "purple",
+      "green",
+    ] as const) {
       expect(css).toContain(
         `:root[data-x-accent="${accent}"][data-x-theme="dark"]`,
       );
       expect(css).toContain(`--x-accent: ${ACCENT_COLORS[accent].dark};`);
     }
+
+    expect(css).toContain(':root[data-x-theme="dark"][data-x-amoled="false"]');
+    expect(css).toContain("--x-bg: #181816;");
 
     for (let stop = 0; stop <= 6; stop += 1) {
       expect(css).toContain(`:root[data-x-radius="${stop}"]`);

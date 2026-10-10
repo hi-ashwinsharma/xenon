@@ -18,7 +18,7 @@ function LandingPageContent(): ReactElement {
 
   const [accent, setAccent] = useState<Accent>(() => {
     const a = searchParams.get("accent");
-    return a === "lime" || a === "pink" || a === "blue" || a === "purple" || a === "green"
+    return a === "lime" || a === "orange" || a === "pink" || a === "blue" || a === "purple" || a === "green"
       ? (a as Accent)
       : "lime";
   });
@@ -27,6 +27,11 @@ function LandingPageContent(): ReactElement {
     const r = searchParams.get("radius");
     const num = Number(r);
     return !isNaN(num) && num >= 0 && num <= 6 ? (num as RadiusStop) : 3;
+  });
+
+  const [amoled, setAmoled] = useState<boolean>(() => {
+    const am = searchParams.get("amoled");
+    return am !== "false";
   });
 
   // Keep URL query string synchronized in real time
@@ -43,6 +48,11 @@ function LandingPageContent(): ReactElement {
   const handleThemeChange = (nextTheme: Theme) => {
     setTheme(nextTheme);
     updateUrlParams({ theme: nextTheme });
+  };
+
+  const handleAmoledChange = (nextAmoled: boolean) => {
+    setAmoled(nextAmoled);
+    updateUrlParams({ amoled: String(nextAmoled) });
   };
 
   const updateUrlParams = (newParams: Record<string, string>) => {
@@ -62,6 +72,8 @@ function LandingPageContent(): ReactElement {
       onAccentChange={handleAccentChange}
       radius={radius}
       onRadiusChange={handleRadiusChange}
+      amoled={amoled}
+      onAmoledChange={handleAmoledChange}
     >
       <div
         style={{
@@ -80,6 +92,8 @@ function LandingPageContent(): ReactElement {
           onAccentChange={handleAccentChange}
           radius={radius}
           onRadiusChange={handleRadiusChange}
+          amoled={amoled}
+          onAmoledChange={handleAmoledChange}
           activePath="/"
         />
 
@@ -88,8 +102,10 @@ function LandingPageContent(): ReactElement {
             theme={theme}
             accent={accent}
             radius={radius}
+            amoled={amoled}
             onAccentChange={handleAccentChange}
             onRadiusChange={handleRadiusChange}
+            onAmoledChange={handleAmoledChange}
           />
         </main>
       </div>

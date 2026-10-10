@@ -37,6 +37,9 @@ export function XenonProvider({
   radius: controlledRadius,
   defaultRadius = DEFAULT_RADIUS_STOP,
   onRadiusChange,
+  amoled: controlledAmoled,
+  defaultAmoled = true,
+  onAmoledChange,
   children,
 }: WebXenonProviderProps): ReactElement {
   const [uncontrolledTheme, setUncontrolledTheme] =
@@ -49,10 +52,14 @@ export function XenonProvider({
   const [uncontrolledRadius, setUncontrolledRadius] = useState<RadiusStop>(
     defaultRadius ?? DEFAULT_RADIUS_STOP,
   );
+  const [uncontrolledAmoled, setUncontrolledAmoled] = useState<boolean>(
+    defaultAmoled ?? true,
+  );
 
   const theme = controlledTheme ?? uncontrolledTheme;
   const accent = controlledAccent ?? uncontrolledAccent;
   const radius = controlledRadius ?? uncontrolledRadius;
+  const amoled = controlledAmoled ?? uncontrolledAmoled;
 
   const setTheme = useCallback(
     (nextTheme: Theme): void => {
@@ -84,6 +91,16 @@ export function XenonProvider({
     [controlledRadius, onRadiusChange],
   );
 
+  const setAmoled = useCallback(
+    (nextAmoled: boolean): void => {
+      if (controlledAmoled === undefined) {
+        setUncontrolledAmoled(nextAmoled);
+      }
+      onAmoledChange?.(nextAmoled);
+    },
+    [controlledAmoled, onAmoledChange],
+  );
+
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) {
       return;
@@ -110,7 +127,8 @@ export function XenonProvider({
     root.setAttribute("data-x-theme", resolvedTheme);
     root.setAttribute("data-x-accent", accent);
     root.setAttribute("data-x-radius", String(radius));
-  }, [resolvedTheme, accent, radius]);
+    root.setAttribute("data-x-amoled", String(amoled));
+  }, [resolvedTheme, accent, radius, amoled]);
 
   const contextValue: WebXenonContextValue = useMemo(
     () => ({
@@ -118,11 +136,23 @@ export function XenonProvider({
       resolvedTheme,
       accent,
       radius,
+      amoled,
       setTheme,
       setAccent,
       setRadius,
+      setAmoled,
     }),
-    [theme, resolvedTheme, accent, radius, setTheme, setAccent, setRadius],
+    [
+      theme,
+      resolvedTheme,
+      accent,
+      radius,
+      amoled,
+      setTheme,
+      setAccent,
+      setRadius,
+      setAmoled,
+    ],
   );
 
   return (

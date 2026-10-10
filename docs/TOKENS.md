@@ -89,19 +89,20 @@ Nested rule: `inner = max(outer - padding, outer * 0.4)`, never above `outer`. S
 
 Neutrals `(proposed)`:
 
-| Token            | Dark             | Light   |
-| ---------------- | ---------------- | ------- |
-| `--x-bg`         | #000000 (AMOLED) | #FFFFFF |
-| `--x-surface`    | #0A0A0A          | #FAFAFA |
-| `--x-surface-2`  | #111111          | #F4F4F4 |
-| `--x-text`       | #EDEDED          | #0A0A0A |
-| `--x-text-muted` | #A1A1A1          | #5C5C5C |
+| Token            | Dark (AMOLED on) | Dark (AMOLED off / Claude Charcoal) | Light   |
+| ---------------- | ---------------- | ----------------------------------- | ------- |
+| `--x-bg`         | #000000 (AMOLED) | #181816                             | #FFFFFF |
+| `--x-surface`    | #0A0A0A          | #22211F                             | #FAFAFA |
+| `--x-surface-2`  | #111111          | #2C2B28                             | #F4F4F4 |
+| `--x-text`       | #EDEDED          | #EDE8DF                             | #0A0A0A |
+| `--x-text-muted` | #A1A1A1          | #9E9B91                             | #5C5C5C |
 
 Accents `(proposed, contrast to be verified in the tokens implementation step)`:
 
 | Accent | Dark    | Light (slightly deeper) |
 | ------ | ------- | ----------------------- |
 | lime   | #D4FF4F | #A8D900                 |
+| orange | #FF7E47 | #D9532F                 |
 | pink   | #FFB3D9 | #F08BBE                 |
 | blue   | #9ED8FF | #5FB4F0                 |
 | purple | #CDB4FF | #A78BFA                 |

@@ -2,7 +2,13 @@ export type Theme = "dark" | "light" | "system";
 
 export type ResolvedTheme = "dark" | "light";
 
-export type Accent = "lime" | "pink" | "blue" | "purple" | "green";
+export type Accent =
+  | "lime"
+  | "orange"
+  | "pink"
+  | "blue"
+  | "purple"
+  | "green";
 
 export type RadiusStop = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 

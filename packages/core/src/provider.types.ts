@@ -6,9 +6,11 @@ export interface XenonContextValue {
   readonly resolvedTheme: ResolvedTheme;
   readonly accent: Accent;
   readonly radius: RadiusStop;
+  readonly amoled: boolean;
   readonly setTheme: (theme: Theme) => void;
   readonly setAccent: (accent: Accent) => void;
   readonly setRadius: (radius: RadiusStop) => void;
+  readonly setAmoled: (amoled: boolean) => void;
 }
 
 export interface XenonProviderProps {
@@ -21,6 +23,9 @@ export interface XenonProviderProps {
   readonly radius?: RadiusStop;
   readonly defaultRadius?: RadiusStop;
   readonly onRadiusChange?: (radius: RadiusStop) => void;
+  readonly amoled?: boolean;
+  readonly defaultAmoled?: boolean;
+  readonly onAmoledChange?: (amoled: boolean) => void;
   readonly children: ReactNode;
 }
 

@@ -26,6 +26,7 @@ export default function PricingPage(): ReactElement {
   const [theme, setTheme] = useState<Theme>("dark");
   const [accent, setAccent] = useState<Accent>("lime");
   const [radius, setRadius] = useState<RadiusStop>(3);
+  const [amoled, setAmoled] = useState<boolean>(true);
 
   return (
     <XenonProvider
@@ -35,6 +36,8 @@ export default function PricingPage(): ReactElement {
       onAccentChange={setAccent}
       radius={radius}
       onRadiusChange={setRadius}
+      amoled={amoled}
+      onAmoledChange={setAmoled}
     >
       <div
         style={{
@@ -52,6 +55,8 @@ export default function PricingPage(): ReactElement {
           onAccentChange={setAccent}
           radius={radius}
           onRadiusChange={setRadius}
+          amoled={amoled}
+          onAmoledChange={setAmoled}
           activePath="/pricing"
         />
 
