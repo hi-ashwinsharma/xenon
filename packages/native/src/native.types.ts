@@ -1,5 +1,7 @@
 import type { StyleProp, TextStyle, ViewStyle } from "react-native";
 import type {
+  AlertProps as CoreAlertProps,
+  BadgeProps as CoreBadgeProps,
   BreadcrumbItemProps as CoreBreadcrumbItemProps,
   BreadcrumbLinkProps as CoreBreadcrumbLinkProps,
   BreadcrumbListProps as CoreBreadcrumbListProps,
@@ -44,6 +46,7 @@ import type {
   PopoverPlacement as CorePopoverPlacement,
   PopoverProps as CorePopoverProps,
   PopoverTriggerProps as CorePopoverTriggerProps,
+  ProgressProps as CoreProgressProps,
   RadioGroupProps as CoreRadioGroupProps,
   RadioProps as CoreRadioProps,
   SegmentedControlProps as CoreSegmentedControlProps,
@@ -69,7 +72,9 @@ import type {
   SidebarItemProps as CoreSidebarItemProps,
   SidebarNavProps as CoreSidebarNavProps,
   SidebarProps as CoreSidebarProps,
+  SkeletonProps as CoreSkeletonProps,
   SliderProps as CoreSliderProps,
+  SpinnerProps as CoreSpinnerProps,
   StackProps as CoreStackProps,
   SurfaceContextValue as CoreSurfaceContextValue,
   SurfaceProps as CoreSurfaceProps,
@@ -82,6 +87,8 @@ import type {
   TabsTriggerProps as CoreTabsTriggerProps,
   TextareaProps as CoreTextareaProps,
   TextProps as CoreTextProps,
+  ToastProps as CoreToastProps,
+  ToastProviderProps as CoreToastProviderProps,
   ToggleButtonProps as CoreToggleButtonProps,
   TooltipContentProps as CoreTooltipContentProps,
   TooltipPlacement as CoreTooltipPlacement,
@@ -506,7 +513,55 @@ export interface NativeCommandPaletteProps
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export type { ComboboxOption, CommandPaletteItem } from "@xenon/core";
+// --- Feedback (Batch 1) ---
+
+export interface NativeBadgeProps extends Omit<CoreBadgeProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly textStyle?: StyleProp<TextStyle>;
+}
+
+export interface NativeAlertProps extends Omit<CoreAlertProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeProgressProps extends Omit<CoreProgressProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSpinnerProps extends Omit<CoreSpinnerProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSkeletonProps extends Omit<CoreSkeletonProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeToastProps extends Omit<CoreToastProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeToastProviderProps extends CoreToastProviderProps {}
+
+export type {
+  AlertTone,
+  AlertVariant,
+  BadgeSize,
+  BadgeTone,
+  BadgeVariant,
+  ComboboxOption,
+  CommandPaletteItem,
+  ProgressSize,
+  ProgressTone,
+  SkeletonVariant,
+  SpinnerSize,
+  SpinnerTone,
+  ToastAction,
+  ToastItem,
+  ToastOptions,
+  ToastPlacement,
+  ToastTone,
+} from "@xenon/core";
+
 
 
 

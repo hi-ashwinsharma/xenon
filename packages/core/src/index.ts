@@ -200,6 +200,50 @@ export type {
   CommandPaletteProps,
 } from "./command-palette.types";
 
+export type {
+  BadgeProps,
+  BadgeSize,
+  BadgeTone,
+  BadgeVariant,
+} from "./badge.types";
+
+export type {
+  AlertProps,
+  AlertTone,
+  AlertVariant,
+} from "./alert.types";
+
+export type {
+  ProgressProps,
+  ProgressSize,
+  ProgressTone,
+} from "./progress.types";
+
+export type {
+  SpinnerProps,
+  SpinnerSize,
+  SpinnerTone,
+} from "./spinner.types";
+
+export type {
+  SkeletonProps,
+  SkeletonVariant,
+} from "./skeleton.types";
+
+export type {
+  ToastAction,
+  ToastItem,
+  ToastOptions,
+  ToastPlacement,
+  ToastProps,
+  ToastProviderProps,
+  ToastTone,
+} from "./toast.types";
+
+export { toast, type ToastSubscriber } from "./toast-store";
+
+export { clampProgress, formatBadgeCount } from "./feedback.utils";
+
 export { AppRoutes } from "./routes";
 
 export { computeFloatingPlacement } from "./floating";
@@ -214,4 +258,5 @@ export {
   snapToStep,
   valueToPercent,
 } from "./math";
+
 

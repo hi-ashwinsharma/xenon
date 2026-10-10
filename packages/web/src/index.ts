@@ -1,4 +1,6 @@
 export type {
+  WebAlertProps,
+  WebBadgeProps,
   WebBreadcrumbItemProps,
   WebBreadcrumbLinkProps,
   WebBreadcrumbListProps,
@@ -42,6 +44,7 @@ export type {
   WebPopoverContentProps,
   WebPopoverProps,
   WebPopoverTriggerProps,
+  WebProgressProps,
   WebRadioGroupProps,
   WebRadioProps,
   WebRendererConfig,
@@ -65,7 +68,9 @@ export type {
   WebSidebarItemProps,
   WebSidebarNavProps,
   WebSidebarProps,
+  WebSkeletonProps,
   WebSliderProps,
+  WebSpinnerProps,
   WebStackProps,
   WebSurfaceContextValue,
   WebSurfaceProps,
@@ -78,6 +83,8 @@ export type {
   WebTabsTriggerProps,
   WebTextareaProps,
   WebTextProps,
+  WebToastProps,
+  WebToastProviderProps,
   WebToggleButtonProps,
   WebTooltipContentProps,
   WebTooltipProps,
@@ -194,6 +201,13 @@ export {
 
 export { Combobox } from "./combobox";
 export { CommandPalette } from "./command-palette";
+
+export { Badge } from "./badge";
+export { Alert } from "./alert";
+export { Progress } from "./progress";
+export { Spinner } from "./spinner";
+export { Skeleton } from "./skeleton";
+export { Toast, ToastProvider, toast } from "./toast";
 
 export { usePresence } from "./hooks/use-presence";
 export { useFocusTrap } from "./hooks/use-focus-trap";

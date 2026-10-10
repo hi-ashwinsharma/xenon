@@ -4,6 +4,8 @@ import { useState } from "react";
 import { RADIUS_STOPS, type Accent, type RadiusStop, type ResolvedTheme } from "@xenon/tokens";
 import { computeNestedRadius } from "@xenon/core";
 import {
+  Alert,
+  Badge,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
@@ -46,6 +48,7 @@ import {
   PopoverClose,
   PopoverContent,
   PopoverTrigger,
+  Progress,
   Radio,
   RadioGroup,
   SegmentedControl,
@@ -68,7 +71,9 @@ import {
   SidebarHeader,
   SidebarItem,
   SidebarNav,
+  Skeleton,
   Slider,
+  Spinner,
   Stack,
   Surface,
   Switch,
@@ -80,6 +85,9 @@ import {
   TabsTrigger,
   Text,
   Textarea,
+  Toast,
+  ToastProvider,
+  toast,
   ToggleButton,
   Tooltip,
   TooltipContent,
@@ -87,7 +95,7 @@ import {
   XenonProvider,
 } from "@xenon/web";
 
-type ShowcaseDomain = "all" | "actions" | "forms" | "navigation" | "overlays" | "surfaces";
+type ShowcaseDomain = "all" | "actions" | "forms" | "navigation" | "overlays" | "feedback" | "surfaces";
 
 function ShowcaseContent() {
   const [theme, setTheme] = useState<ResolvedTheme>("dark");
@@ -179,15 +187,20 @@ function ShowcaseContent() {
   const accents: Accent[] = ["lime", "pink", "blue", "purple", "green"];
   const radiusStops: RadiusStop[] = [0, 1, 2, 3, 4, 5, 6];
 
+  const [progressVal, setProgressVal] = useState<number>(45);
+  const [alertDismissed, setAlertDismissed] = useState<boolean>(false);
+
   const showActions = activeDomain === "all" || activeDomain === "actions";
   const showForms = activeDomain === "all" || activeDomain === "forms";
   const showNav = activeDomain === "all" || activeDomain === "navigation";
   const showOverlays = activeDomain === "all" || activeDomain === "overlays";
+  const showFeedback = activeDomain === "all" || activeDomain === "feedback";
   const showSurfaces = activeDomain === "all" || activeDomain === "surfaces";
 
   return (
     <XenonProvider accent={accent} radius={radius} theme={theme}>
-      <div
+      <ToastProvider placement="bottom-center">
+        <div
         style={{
           minHeight: "100vh",
           backgroundColor: "var(--x-bg)",
@@ -352,6 +365,7 @@ function ShowcaseContent() {
                     { value: "forms", label: "Forms & Controls" },
                     { value: "navigation", label: "Navigation Chrome" },
                     { value: "overlays", label: "Overlays & Anchors" },
+                    { value: "feedback", label: "Feedback & Status" },
                     { value: "surfaces", label: "Surfaces & Math" },
                   ]}
                   value={activeDomain}
@@ -1881,7 +1895,365 @@ function ShowcaseContent() {
             </section>
           )}
 
-          {/* Section 5: Surfaces & Concentric Geometry (Phase 2A) */}
+          {/* Section 5: Feedback & Status Elements (Phase 5 Batch 1) */}
+          {showFeedback && (
+            <section style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <span
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: 400,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--x-accent)",
+                    fontFamily: "var(--x-font-family-mono, monospace)",
+                  }}
+                >
+                  Section 05 · Feedback & Status
+                </span>
+                <Heading level={2} weight={300}>
+                  Restrained Status, Indicators & Transients
+                </Heading>
+                <Text tone="muted">
+                  Geometric feedback elements crafted strictly with 1px hairlines, pure semantic tones,
+                  pulse shimmer skeletons, and an imperative-ready floating Toast stack.
+                </Text>
+              </div>
+
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))",
+                  gap: "24px",
+                }}
+              >
+                {/* 1. Badges & Status Dots */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Badges & Status Dots
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Pill Capsule
+                    </span>
+                  </div>
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Subtle, outline, and accent tags with dot status indicators and count clamping.
+                  </Text>
+
+                  <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "8px", paddingTop: "8px" }}>
+                    <Badge tone="accent">Accent Tag</Badge>
+                    <Badge tone="neutral">Neutral</Badge>
+                    <Badge tone="info">Info</Badge>
+                    <Badge tone="success">Active</Badge>
+                    <Badge tone="warning">Review</Badge>
+                    <Badge tone="danger">Offline</Badge>
+                  </div>
+
+                  <Divider />
+
+                  <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "8px" }}>
+                    <Badge tone="neutral" variant="outline">Outline</Badge>
+                    <Badge tone="accent" variant="outline">Outline Accent</Badge>
+                    <Badge tone="success" variant="outline">Operational</Badge>
+                    <Badge dot tone="success">Connected</Badge>
+                    <Badge dot tone="danger">Disconnected</Badge>
+                    <Badge dot tone="warning" />
+                  </div>
+
+                  <Divider />
+
+                  <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px" }}>
+                    <Badge count={5} tone="accent" />
+                    <Badge count={42} tone="neutral" />
+                    <Badge count={128} maxCount={99} tone="danger" />
+                  </div>
+                </Surface>
+
+                {/* 2. Semantic Alerts */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Alert Callouts
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Hairline Inset
+                    </span>
+                  </div>
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Semantic status callouts with built-in Phosphor thin icons, description slots, and dismiss triggers.
+                  </Text>
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: "10px", paddingTop: "8px" }}>
+                    <Alert title="Tokens Compiled Successfully" tone="success">
+                      Generated CSS variables and strongly typed native token objects.
+                    </Alert>
+
+                    {!alertDismissed ? (
+                      <Alert
+                        dismissible
+                        onDismiss={() => setAlertDismissed(true)}
+                        title="Disk Space Warning"
+                        tone="warning"
+                      >
+                        Local workspace cache approaching 90% quota limit.
+                      </Alert>
+                    ) : (
+                      <Button onClick={() => setAlertDismissed(false)} size="sm" variant="subtle">
+                        Reset Dismissed Alert
+                      </Button>
+                    )}
+
+                    <Alert
+                      action={
+                        <Button size="sm" variant="outline">
+                          View Diagnostics
+                        </Button>
+                      }
+                      title="Compilation Error"
+                      tone="danger"
+                    >
+                      Syntax error encountered at token parser stage.
+                    </Alert>
+                  </div>
+                </Surface>
+
+                {/* 3. Linear Progress */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Progress Indicators
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      {progressVal}% Fill
+                    </span>
+                  </div>
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Restrained 4px linear progress bars in determinate and sweeping indeterminate modes.
+                  </Text>
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: "16px", paddingTop: "8px" }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", color: "var(--x-text-muted)" }}>
+                        <span>Determinate (Accent)</span>
+                        <span>{progressVal}%</span>
+                      </div>
+                      <Progress tone="accent" value={progressVal} />
+                    </div>
+
+                    <div style={{ display: "flex", gap: "8px" }}>
+                      <Button onClick={() => setProgressVal((v) => Math.max(0, v - 15))} size="sm" variant="outline">
+                        -15%
+                      </Button>
+                      <Button onClick={() => setProgressVal((v) => Math.min(100, v + 15))} size="sm" variant="outline">
+                        +15%
+                      </Button>
+                    </div>
+
+                    <Divider />
+
+                    <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                      <span style={{ fontSize: "12px", color: "var(--x-text-muted)" }}>Indeterminate (Active Job)</span>
+                      <Progress indeterminate tone="accent" />
+                    </div>
+                  </div>
+                </Surface>
+
+                {/* 4. Geometric Spinners & Skeletons */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Loading & Skeletons
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Pulse Shimmer
+                    </span>
+                  </div>
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Continuous hairline spinner rotation and pure opacity pulse placeholder geometry.
+                  </Text>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "24px", paddingTop: "8px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                      <Spinner size="sm" tone="accent" />
+                      <Spinner size="md" tone="accent" />
+                      <Spinner size="lg" tone="accent" />
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                      <Spinner size="md" tone="muted" />
+                      <Spinner size="md" tone="current" />
+                    </div>
+                  </div>
+
+                  <Divider />
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                      <Skeleton height={36} variant="circle" width={36} />
+                      <div style={{ display: "flex", flexDirection: "column", gap: "6px", flex: 1 }}>
+                        <Skeleton height={14} variant="text" width="60%" />
+                        <Skeleton height={12} variant="text" width="40%" />
+                      </div>
+                    </div>
+                    <Skeleton height={48} variant="rect" />
+                  </div>
+                </Surface>
+
+                {/* 5. Toast Notifications (Imperative & Declarative) */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                    gridColumn: "1 / -1",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Toast Notifications
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Imperative & Declarative
+                    </span>
+                  </div>
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Transient notifications managed by the shared ToastStore with spring animation,
+                    auto-dismiss timer, and interactive action buttons.
+                  </Text>
+
+                  <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px", paddingTop: "8px" }}>
+                    <Button
+                      onClick={() =>
+                        toast.success("Tokens Compiled", {
+                          description: "All 7 packages compiled in 143ms",
+                        })
+                      }
+                      variant="outline"
+                    >
+                      Trigger Success Toast
+                    </Button>
+
+                    <Button
+                      onClick={() =>
+                        toast.error("Build Error", {
+                          description: "1 syntax warning in shader module",
+                        })
+                      }
+                      variant="outline"
+                    >
+                      Trigger Error Toast
+                    </Button>
+
+                    <Button
+                      onClick={() =>
+                        toast.info("Update Ready", {
+                          description: "A new design token version is available",
+                          action: { label: "Apply", onClick: () => toast.success("Applied") },
+                        })
+                      }
+                      variant="outline"
+                    >
+                      Trigger Action Toast
+                    </Button>
+
+                    <Button
+                      onClick={() =>
+                        toast.warning("Network Warning", {
+                          description: "Connected with elevated packet latency",
+                        })
+                      }
+                      variant="outline"
+                    >
+                      Trigger Warning Toast
+                    </Button>
+                  </div>
+
+                  <Divider />
+
+                  <Text style={{ fontSize: "12px" }} tone="muted">
+                    Declarative Component Preview:
+                  </Text>
+                  <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+                    <Toast
+                      action={{ label: "View Log", onClick: () => {} }}
+                      description="Declarative component mounted directly in JSX tree"
+                      dismissible={false}
+                      durationMs={0}
+                      open={true}
+                      title="Declarative Toast Instance"
+                      tone="accent"
+                    />
+                  </div>
+                </Surface>
+              </div>
+            </section>
+          )}
+
+          {/* Section 6: Surfaces & Concentric Geometry (Phase 2A) */}
           {showSurfaces && (
             <section style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -2091,6 +2463,7 @@ function ShowcaseContent() {
           )}
         </Stack>
       </div>
+      </ToastProvider>
     </XenonProvider>
   );
 }

@@ -33,7 +33,7 @@ For every component milestone (Phases 2 through 5), implementation **must not be
 - [x] **Phase 1: Monorepo Scaffolding & Shared Token Engine**
 - [x] **Phase 2: Core Primitives & Signature Grouped Controls**
 - [x] **Phase 3: Form Controls & Structural Navigation**
-- [ ] **Phase 4: Overlays & Cross-Platform Behaviors**
+- [x] **Phase 4: Overlays & Cross-Platform Behaviors**
 - [ ] **Phase 5: Feedback & Data Display**
 - [ ] **Phase 6: Documentation & Showcase Platform (`apps/docs`)**
 - [ ] **Phase 7: Community, Discussions & Blog (Firebase)**
@@ -129,17 +129,17 @@ _Goal: Deliver clean input controls and structural navigation chrome._
 
 _Goal: Hand-craft accessible overlay primitives across Web (DOM) and Native (Expo)._
 
-- [ ] **Grilling & Design Session**: Native sheet vs web popover paradigms, backdrop dismiss springs, focus traps.
-- [ ] Shared Core Hooks:
-  - Focus trap, roving focus index, floating anchor positioning, presence/unmount animation coordinator.
-- [ ] Overlays:
+- [x] **Grilling & Design Session**: Native sheet vs web popover paradigms, backdrop dismiss springs, focus traps.
+- [x] Shared Core Hooks:
+  - Focus trap, roving focus index, floating anchor positioning, presence/unmount animation coordinator, click outside.
+- [x] Overlays (Batch 1 & Batch 2):
   - `Popover` (anchored floating panel on web; compact sheet on native).
-  - `Tooltip` (instant hover on web; long-press or accessible hint on native).
+  - `Tooltip` (instant hover on web; accessible press hint on native).
   - `Dialog` (centered modal, backdrop scrim, focus restore).
   - `Sheet` (drawer on web; native gesture-driven bottom sheet with drag handle).
-  - `DropdownMenu` (accessible action menu).
-  - `Select` (anchored listbox on web; bottom picker sheet on native).
-  - `Combobox` (searchable listbox with keyboard navigation).
+  - `DropdownMenu` (accessible action menu with openOnHover, keyboard roving focus, and groups).
+  - `Select` (architectural listbox on web with dynamic radius; bottom picker sheet on native).
+  - `Combobox` (searchable listbox with keyboard navigation and clear trigger).
   - `CommandPalette` (floating quick-search overlay with keyboard shortcut trigger).
 
 ---

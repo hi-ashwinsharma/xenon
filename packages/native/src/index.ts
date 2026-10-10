@@ -1,4 +1,6 @@
 export type {
+  NativeAlertProps,
+  NativeBadgeProps,
   NativeBreadcrumbItemProps,
   NativeBreadcrumbLinkProps,
   NativeBreadcrumbListProps,
@@ -40,6 +42,7 @@ export type {
   NativePopoverContentProps,
   NativePopoverProps,
   NativePopoverTriggerProps,
+  NativeProgressProps,
   NativeRadioGroupProps,
   NativeRadioProps,
   NativeRendererConfig,
@@ -63,7 +66,9 @@ export type {
   NativeSidebarItemProps,
   NativeSidebarNavProps,
   NativeSidebarProps,
+  NativeSkeletonProps,
   NativeSliderProps,
+  NativeSpinnerProps,
   NativeStackProps,
   NativeSurfaceContextValue,
   NativeSurfaceProps,
@@ -76,6 +81,8 @@ export type {
   NativeTabsTriggerProps,
   NativeTextareaProps,
   NativeTextProps,
+  NativeToastProps,
+  NativeToastProviderProps,
   NativeToggleButtonProps,
   NativeTooltipContentProps,
   NativeTooltipProps,
@@ -189,6 +196,13 @@ export {
 } from "./select";
 export { Combobox } from "./combobox";
 export { CommandPalette } from "./command-palette";
+
+export { Badge } from "./badge";
+export { Alert } from "./alert";
+export { Progress } from "./progress";
+export { Spinner } from "./spinner";
+export { Skeleton } from "./skeleton";
+export { Toast, ToastProvider, toast } from "./toast";
 
 export const nativeRendererConfig: {
   readonly platform: "native";
