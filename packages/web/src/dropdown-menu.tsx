@@ -18,7 +18,6 @@ import {
 } from "@xenon/core";
 import { useClickOutside } from "./hooks/use-click-outside";
 import { usePresence } from "./hooks/use-presence";
-import { useRovingFocus } from "./hooks/use-roving-focus";
 import type {
   WebDropdownMenuContentProps,
   WebDropdownMenuGroupProps,
@@ -39,9 +38,8 @@ interface DropdownMenuContextValue {
   triggerRect: Rect | null;
   updateTriggerRect: () => void;
   contentId: string;
-  activeIndex: number;
-  setActiveIndex: (index: number) => void;
-  registerItem: (index: number, onSelect?: () => void, disabled?: boolean) => void;
+  activeId: string | null;
+  setActiveId: (id: string | null) => void;
 }
 
 const DropdownMenuContext = createContext<DropdownMenuContextValue | null>(null);
@@ -71,8 +69,7 @@ export function DropdownMenu({
   const [triggerRect, setTriggerRect] = useState<Rect | null>(null);
   const contentId = useId();
 
-  const [activeIndex, setActiveIndex] = useState<number>(-1);
-  const itemsMapRef = useRef<Map<number, { onSelect?: () => void; disabled?: boolean }>>(new Map());
+  const [activeId, setActiveId] = useState<string | null>(null);
   const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const clearHoverTimer = useCallback(() => {
@@ -82,16 +79,19 @@ export function DropdownMenu({
     }
   }, []);
 
-  const setOpen = useCallback((nextOpen: boolean) => {
-    clearHoverTimer();
-    if (!isControlled) {
-      setUncontrolledOpen(nextOpen);
-    }
-    if (!nextOpen) {
-      setActiveIndex(-1);
-    }
-    onOpenChange?.(nextOpen);
-  }, [clearHoverTimer, isControlled, onOpenChange]);
+  const setOpen = useCallback(
+    (nextOpen: boolean) => {
+      clearHoverTimer();
+      if (!isControlled) {
+        setUncontrolledOpen(nextOpen);
+      }
+      if (!nextOpen) {
+        setActiveId(null);
+      }
+      onOpenChange?.(nextOpen);
+    },
+    [clearHoverTimer, isControlled, onOpenChange],
+  );
 
   const updateTriggerRect = useCallback(() => {
     if (triggerRef.current) {
@@ -128,10 +128,6 @@ export function DropdownMenu({
     };
   }, []);
 
-  const registerItem = (index: number, onSelect?: () => void, disabled?: boolean) => {
-    itemsMapRef.current.set(index, { onSelect, disabled });
-  };
-
   return (
     <DropdownMenuContext.Provider
       value={{
@@ -145,9 +141,8 @@ export function DropdownMenu({
         triggerRect,
         updateTriggerRect,
         contentId,
-        activeIndex,
-        setActiveIndex,
-        registerItem,
+        activeId,
+        setActiveId,
       }}
     >
       {children}
@@ -246,6 +241,7 @@ export function DropdownMenuContent({
   style,
   onMouseEnter,
   onMouseLeave,
+  onKeyDown,
   ...props
 }: WebDropdownMenuContentProps) {
   const {
@@ -255,25 +251,13 @@ export function DropdownMenuContent({
     triggerRef,
     triggerRect,
     contentId,
-    activeIndex,
-    setActiveIndex,
+    setActiveId,
     openOnHover,
     handleMouseEnter,
     handleMouseLeave,
   } = useDropdownMenu();
   const { isMounted, status } = usePresence({ open, durationMs: 180 });
   const [coords, setCoords] = useState<FloatingResult | null>(null);
-
-  // Count items
-  const childrenArray = React.Children.toArray(children);
-  const itemCount = childrenArray.length;
-
-  const { handleKeyDown } = useRovingFocus({
-    enabled: open,
-    itemCount,
-    initialIndex: 0,
-    onEscape: () => setOpen(false),
-  });
 
   useClickOutside({
     enabled: open,
@@ -282,11 +266,77 @@ export function DropdownMenuContent({
     onClickOutside: () => setOpen(false),
   });
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    onKeyDown?.(e);
+    if (e.defaultPrevented) return;
+
+    const elements = contentRef.current
+      ? Array.from(
+          contentRef.current.querySelectorAll<HTMLButtonElement>(
+            '[role="menuitem"]:not([disabled])',
+          ),
+        )
+      : [];
+
+    if (elements.length === 0) return;
+
+    const currentFocused = document.activeElement as HTMLButtonElement | null;
+    const currentIndex = currentFocused ? elements.indexOf(currentFocused) : -1;
+
+    switch (e.key) {
+      case "ArrowDown": {
+        e.preventDefault();
+        const nextIndex =
+          currentIndex === -1 ? 0 : (currentIndex + 1) % elements.length;
+        const nextEl = elements[nextIndex];
+        nextEl?.focus();
+        setActiveId(nextEl?.getAttribute("data-id") || null);
+        break;
+      }
+      case "ArrowUp": {
+        e.preventDefault();
+        const prevIndex =
+          currentIndex === -1
+            ? elements.length - 1
+            : (currentIndex - 1 + elements.length) % elements.length;
+        const prevEl = elements[prevIndex];
+        prevEl?.focus();
+        setActiveId(prevEl?.getAttribute("data-id") || null);
+        break;
+      }
+      case "Home": {
+        e.preventDefault();
+        const firstEl = elements[0];
+        firstEl?.focus();
+        setActiveId(firstEl?.getAttribute("data-id") || null);
+        break;
+      }
+      case "End": {
+        e.preventDefault();
+        const lastEl = elements[elements.length - 1];
+        lastEl?.focus();
+        setActiveId(lastEl?.getAttribute("data-id") || null);
+        break;
+      }
+      case "Escape": {
+        e.preventDefault();
+        setOpen(false);
+        triggerRef.current?.focus();
+        break;
+      }
+      case "Tab": {
+        setOpen(false);
+        break;
+      }
+    }
+  };
+
   useLayoutEffect(() => {
     if (!isMounted || !contentRef.current || !triggerRect) return;
 
     const contentEl = contentRef.current;
-    const floatingWidth = contentEl.offsetWidth || 220;
+    const floatingWidth =
+      contentEl.offsetWidth || (typeof width === "number" ? width : 220);
     const floatingHeight = contentEl.offsetHeight || 160;
 
     const result = computeFloatingPlacement({
@@ -299,8 +349,25 @@ export function DropdownMenuContent({
       viewportHeight: window.innerHeight,
     });
 
-    setCoords(result);
-  }, [isMounted, triggerRect, placement, offset]);
+    setCoords((prev) => {
+      if (
+        prev &&
+        prev.x === result.x &&
+        prev.y === result.y &&
+        prev.actualPlacement === result.actualPlacement &&
+        prev.transformOrigin === result.transformOrigin
+      ) {
+        return prev;
+      }
+      return result;
+    });
+  }, [isMounted, triggerRect, placement, offset, width]);
+
+  useEffect(() => {
+    if (isMounted && open && contentRef.current) {
+      contentRef.current.focus();
+    }
+  }, [isMounted, open]);
 
   if (!isMounted) return null;
 
@@ -351,13 +418,7 @@ export function DropdownMenuContent({
         ...style,
       }}
     >
-      {React.Children.map(children, (child, index) => {
-        if (!React.isValidElement(child)) return child;
-        return React.cloneElement(child as React.ReactElement<any>, {
-          _index: index,
-          _active: activeIndex === index,
-        });
-      })}
+      {children}
     </div>,
     document.body,
   );
@@ -397,11 +458,6 @@ export function DropdownMenuGroup({
   );
 }
 
-export interface InternalDropdownMenuItemProps extends WebDropdownMenuItemProps {
-  _index?: number;
-  _active?: boolean;
-}
-
 export function DropdownMenuItem({
   disabled = false,
   destructive = false,
@@ -411,13 +467,16 @@ export function DropdownMenuItem({
   children,
   className,
   style,
-  _index,
-  _active,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
+  onFocus,
+  onBlur,
   ...props
-}: InternalDropdownMenuItemProps) {
-  const { setOpen, activeIndex, setActiveIndex } = useDropdownMenu();
-  const isHighlighted = _active || (_index !== undefined && activeIndex === _index);
+}: WebDropdownMenuItemProps) {
+  const id = useId();
+  const { setOpen, activeId, setActiveId } = useDropdownMenu();
+  const isHighlighted = activeId === id;
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (disabled) return;
@@ -426,19 +485,48 @@ export function DropdownMenuItem({
     onClick?.(e);
   };
 
+  const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!disabled) {
+      setActiveId(id);
+    }
+    onMouseEnter?.(e);
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (activeId === id) {
+      setActiveId(null);
+    }
+    onMouseLeave?.(e);
+  };
+
+  const handleFocus = (e: React.FocusEvent<HTMLButtonElement>) => {
+    if (!disabled) {
+      setActiveId(id);
+    }
+    onFocus?.(e);
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLButtonElement>) => {
+    if (activeId === id) {
+      setActiveId(null);
+    }
+    onBlur?.(e);
+  };
+
   return (
     <button
+      data-id={id}
       disabled={disabled}
       role="menuitem"
+      tabIndex={-1}
       type="button"
       {...props}
       className={className}
       onClick={handleClick}
-      onMouseEnter={() => {
-        if (!disabled && _index !== undefined) {
-          setActiveIndex(_index);
-        }
-      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
       style={{
         display: "flex",
         alignItems: "center",
