@@ -14,12 +14,12 @@ import {
   SegmentedControl,
   Text,
 } from "@xenon/web";
-import type { Accent, RadiusStop, ResolvedTheme } from "@xenon/tokens";
+import type { Accent, RadiusStop, Theme } from "@xenon/tokens";
 import { MoonIcon, SunIcon } from "./Icons";
 
 interface MarketingNavbarProps {
-  theme: ResolvedTheme;
-  onThemeChange: (theme: ResolvedTheme) => void;
+  theme: Theme;
+  onThemeChange: (theme: Theme) => void;
   accent: Accent;
   onAccentChange: (accent: Accent) => void;
   radius: RadiusStop;
@@ -109,7 +109,11 @@ export function MarketingNavbar({
           </DropdownMenuTrigger>
           <DropdownMenuContent width={140}>
             {(["lime", "pink", "blue", "purple", "green"] as Accent[]).map((acc) => (
-              <DropdownMenuItem key={acc} onClick={() => onAccentChange(acc)}>
+              <DropdownMenuItem
+                key={acc}
+                onSelect={() => onAccentChange(acc)}
+                onClick={() => onAccentChange(acc)}
+              >
                 <span
                   style={{
                     display: "inline-block",
@@ -127,12 +131,16 @@ export function MarketingNavbar({
         </DropdownMenu>
 
         {/* Radius Stop Selector */}
-        <div style={{ width: "160px" }}>
+        <div style={{ width: "230px" }}>
           <SegmentedControl
+            size="sm"
             options={[
               { value: "0", label: "0" },
+              { value: "1", label: "1" },
               { value: "2", label: "2" },
+              { value: "3", label: "3" },
               { value: "4", label: "4" },
+              { value: "5", label: "5" },
               { value: "6", label: "6" },
             ]}
             value={radius.toString()}

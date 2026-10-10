@@ -3,7 +3,7 @@
 import React, { Suspense, useState, type ReactElement } from "react";
 import { useSearchParams } from "next/navigation";
 import { XenonProvider } from "@xenon/web";
-import type { Accent, RadiusStop, ResolvedTheme } from "@xenon/tokens";
+import type { Accent, RadiusStop, Theme } from "@xenon/tokens";
 import { MarketingNavbar } from "./components/MarketingNavbar";
 import { MarketingLanding } from "./components/MarketingLanding";
 
@@ -11,9 +11,9 @@ function LandingPageContent(): ReactElement {
   const searchParams = useSearchParams();
 
   // Initialize from searchParams if present
-  const [theme, setTheme] = useState<ResolvedTheme>(() => {
+  const [theme, setTheme] = useState<Theme>(() => {
     const t = searchParams.get("theme");
-    return t === "light" || t === "dark" ? t : "dark";
+    return t === "light" || t === "dark" || t === "system" ? t : "dark";
   });
 
   const [accent, setAccent] = useState<Accent>(() => {
@@ -40,7 +40,7 @@ function LandingPageContent(): ReactElement {
     updateUrlParams({ radius: String(nextRadius) });
   };
 
-  const handleThemeChange = (nextTheme: ResolvedTheme) => {
+  const handleThemeChange = (nextTheme: Theme) => {
     setTheme(nextTheme);
     updateUrlParams({ theme: nextTheme });
   };
@@ -55,7 +55,14 @@ function LandingPageContent(): ReactElement {
   };
 
   return (
-    <XenonProvider theme={theme} accent={accent} radius={radius}>
+    <XenonProvider
+      theme={theme}
+      onThemeChange={handleThemeChange}
+      accent={accent}
+      onAccentChange={handleAccentChange}
+      radius={radius}
+      onRadiusChange={handleRadiusChange}
+    >
       <div
         style={{
           minHeight: "100vh",

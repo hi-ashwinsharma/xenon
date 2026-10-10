@@ -14,7 +14,7 @@ import {
   Surface,
   Text,
 } from "@xenon/web";
-import type { Accent, RadiusStop, ResolvedTheme } from "@xenon/tokens";
+import type { Accent, RadiusStop, Theme } from "@xenon/tokens";
 import {
   ClownCarVsAccentIllustration,
   EggVsConcentricIllustration,
@@ -24,7 +24,7 @@ import {
 import { CheckIcon, CopyIcon } from "./Icons";
 
 interface MarketingLandingProps {
-  theme: ResolvedTheme;
+  theme?: Theme;
   accent: Accent;
   radius: RadiusStop;
   onAccentChange: (accent: Accent) => void;
@@ -189,7 +189,6 @@ export function MarketingLanding({
             variant="subtle"
             padding={32}
             style={{
-              borderRadius: "var(--x-radius-surface, 16px)",
               border: "1px solid var(--x-border)",
               display: "flex",
               justifyContent: "center",
@@ -216,10 +215,11 @@ export function MarketingLanding({
                 fontFamily: "var(--x-font-family-mono)",
                 fontSize: "14px",
                 padding: "10px 14px",
-                borderRadius: "var(--x-radius-control, 8px)",
+                borderRadius: "var(--x-radius-control, 12px)",
                 backgroundColor: "var(--x-surface-1)",
                 border: "1px solid var(--x-border)",
                 color: "var(--x-accent)",
+                transition: "border-radius var(--x-dur-base) var(--x-ease-standard)",
               }}
             >
               R_child = Math.max(0, R_parent - padding)
@@ -239,6 +239,44 @@ export function MarketingLanding({
                   <Badge tone="accent">Concentric Child: {demoChildRadius}px</Badge>
                 </div>
                 <Slider min={4} max={24} step={2} value={demoPadding} onValueChange={setDemoPadding} />
+              </div>
+
+              {/* Global Realtime Platform Curvature Selector */}
+              <div
+                style={{
+                  marginTop: "8px",
+                  padding: "14px 16px",
+                  borderRadius: "var(--x-radius-control, 12px)",
+                  border: "1px solid var(--x-border)",
+                  backgroundColor: "var(--x-surface-2)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                  transition: "border-radius var(--x-dur-base) var(--x-ease-standard)",
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <Text styleKey="caption1" weight={400} tone="default">
+                    Global Platform Curvature: Stop {radius}
+                  </Text>
+                  <Badge tone="accent" size="sm">
+                    {radius === 0 ? "0px Sharp" : radius === 6 ? "Pill" : `${radius * 4}px Control / ${radius === 1 ? 6 : radius === 2 ? 10 : radius === 3 ? 16 : radius === 4 ? 20 : 24}px Surface`}
+                  </Badge>
+                </div>
+                <SegmentedControl
+                  size="sm"
+                  options={[
+                    { value: "0", label: "0" },
+                    { value: "1", label: "1" },
+                    { value: "2", label: "2" },
+                    { value: "3", label: "3" },
+                    { value: "4", label: "4" },
+                    { value: "5", label: "5" },
+                    { value: "6", label: "6" },
+                  ]}
+                  value={String(radius)}
+                  onValueChange={(val: string) => onRadiusChange(Number(val) as RadiusStop)}
+                />
               </div>
             </div>
           </Stack>
@@ -301,7 +339,6 @@ export function MarketingLanding({
             variant="subtle"
             padding={32}
             style={{
-              borderRadius: "var(--x-radius-surface, 16px)",
               border: "1px solid var(--x-border)",
               display: "flex",
               justifyContent: "center",
@@ -343,7 +380,6 @@ export function MarketingLanding({
             variant="subtle"
             padding={32}
             style={{
-              borderRadius: "var(--x-radius-surface, 16px)",
               border: "1px solid var(--x-border)",
               display: "flex",
               justifyContent: "center",
@@ -454,7 +490,6 @@ export function MarketingLanding({
             variant="subtle"
             padding={32}
             style={{
-              borderRadius: "var(--x-radius-surface, 16px)",
               border: "1px solid var(--x-border)",
               display: "flex",
               justifyContent: "center",

@@ -64,6 +64,8 @@ export function Surface({
       padding: `${padding}px`,
       borderRadius: `${effectiveRadius}px`,
       border: "1px solid var(--x-border)",
+      transition:
+        "border-radius var(--x-dur-base) var(--x-ease-standard), background-color var(--x-dur-base) var(--x-ease-standard), border-color var(--x-dur-base) var(--x-ease-standard)",
       // Publish CSS variables for concentric child nesting
       ["--x-r-parent" as string]: `${effectiveRadius}px`,
       ["--x-pad" as string]: `${padding}px`,

@@ -153,7 +153,7 @@ export function Input({
       opacity: disabled ? 0.45 : 1,
       cursor: disabled ? "not-allowed" : "text",
       transition:
-        "border-color var(--x-dur-fast) var(--x-ease-standard), background-color var(--x-dur-fast) var(--x-ease-standard)",
+        "border-color var(--x-dur-fast) var(--x-ease-standard), background-color var(--x-dur-fast) var(--x-ease-standard), border-radius var(--x-dur-base) var(--x-ease-standard)",
       ...style,
     };
   }, [

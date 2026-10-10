@@ -24,29 +24,58 @@ const XenonContext = createContext<NativeXenonContextValue | null>(null);
 export function XenonProvider({
   theme: controlledTheme,
   defaultTheme = "system",
-  accent: initialAccent = "lime",
-  radius: initialRadius = DEFAULT_RADIUS_STOP,
+  onThemeChange,
+  accent: controlledAccent,
+  defaultAccent = "lime",
+  onAccentChange,
+  radius: controlledRadius,
+  defaultRadius = DEFAULT_RADIUS_STOP,
+  onRadiusChange,
   children,
 }: NativeXenonProviderProps): ReactElement {
   const [uncontrolledTheme, setUncontrolledTheme] =
     useState<Theme>(defaultTheme);
-  const [accent, setAccentState] = useState<Accent>(initialAccent);
-  const [radius, setRadiusState] = useState<RadiusStop>(initialRadius);
+  const [uncontrolledAccent, setUncontrolledAccent] = useState<Accent>(
+    defaultAccent ?? "lime",
+  );
+  const [uncontrolledRadius, setUncontrolledRadius] = useState<RadiusStop>(
+    defaultRadius ?? DEFAULT_RADIUS_STOP,
+  );
 
   const systemScheme = useColorScheme();
   const theme = controlledTheme ?? uncontrolledTheme;
+  const accent = controlledAccent ?? uncontrolledAccent;
+  const radius = controlledRadius ?? uncontrolledRadius;
 
-  const setTheme = useCallback((nextTheme: Theme): void => {
-    setUncontrolledTheme(nextTheme);
-  }, []);
+  const setTheme = useCallback(
+    (nextTheme: Theme): void => {
+      if (controlledTheme === undefined) {
+        setUncontrolledTheme(nextTheme);
+      }
+      onThemeChange?.(nextTheme);
+    },
+    [controlledTheme, onThemeChange],
+  );
 
-  const setAccent = useCallback((nextAccent: Accent): void => {
-    setAccentState(nextAccent);
-  }, []);
+  const setAccent = useCallback(
+    (nextAccent: Accent): void => {
+      if (controlledAccent === undefined) {
+        setUncontrolledAccent(nextAccent);
+      }
+      onAccentChange?.(nextAccent);
+    },
+    [controlledAccent, onAccentChange],
+  );
 
-  const setRadius = useCallback((nextRadius: RadiusStop): void => {
-    setRadiusState(nextRadius);
-  }, []);
+  const setRadius = useCallback(
+    (nextRadius: RadiusStop): void => {
+      if (controlledRadius === undefined) {
+        setUncontrolledRadius(nextRadius);
+      }
+      onRadiusChange?.(nextRadius);
+    },
+    [controlledRadius, onRadiusChange],
+  );
 
   const resolvedTheme: ResolvedTheme =
     theme === "system" ? (systemScheme === "dark" ? "dark" : "light") : theme;

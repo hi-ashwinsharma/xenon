@@ -61,6 +61,16 @@ export function compileCssVariables(): string {
   lines.push(`  --x-glass-regular-blur: ${LIQUID_GLASS_TOKENS.regular.webBlurPx}px;`);
   lines.push(`  --x-glass-clear-blur: ${LIQUID_GLASS_TOKENS.clear.webBlurPx}px;`);
 
+  // Default fallbacks for unhydrated / unscoped states (Stop 3: 16px surface, 12px control per Apple HIG standard)
+  lines.push(`  --x-radius-control: ${RADIUS_STOPS[3].control}px;`);
+  lines.push(`  --x-radius-surface: ${RADIUS_STOPS[3].surface}px;`);
+  lines.push(`  --x-radius-joint: ${RADIUS_STOPS[3].joint}px;`);
+  lines.push(`  --x-radius: ${RADIUS_STOPS[3].surface}px;`);
+  lines.push(`  --x-accent: ${ACCENT_COLORS.lime.dark};`);
+  for (const [acc, pair] of Object.entries(ACCENT_COLORS)) {
+    lines.push(`  --x-accent-${acc}: ${pair.dark};`);
+  }
+
   lines.push("}");
 
   for (const theme of ["dark", "light"] as const) {
@@ -90,6 +100,9 @@ export function compileCssVariables(): string {
     lines.push("}");
     lines.push(`:root[data-x-accent="${accent}"][data-x-theme="light"] {`);
     lines.push(`  --x-accent: ${pair.light};`);
+    lines.push("}");
+    lines.push(`:root[data-x-accent="${accent}"] {`);
+    lines.push(`  --x-accent: ${pair.dark};`);
     lines.push("}");
   }
 

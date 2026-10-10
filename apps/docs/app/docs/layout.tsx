@@ -7,7 +7,7 @@ import {
   ToastProvider,
   XenonProvider,
 } from "@xenon/web";
-import type { Accent, RadiusStop, ResolvedTheme } from "@xenon/tokens";
+import type { Accent, RadiusStop, Theme } from "@xenon/tokens";
 import { COMPONENTS_REGISTRY } from "../docs-data/components-registry";
 import { DocsHeader } from "../components/DocsHeader";
 import { DocsSidebar } from "../components/DocsSidebar";
@@ -17,7 +17,7 @@ function DocsLayoutContent({ children }: { children: ReactNode }): ReactElement 
   const pathname = usePathname();
 
   // Design system state
-  const [theme, setTheme] = useState<ResolvedTheme>("dark");
+  const [theme, setTheme] = useState<Theme>("dark");
   const [accent, setAccent] = useState<Accent>("lime");
   const [radius, setRadius] = useState<RadiusStop>(3);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState<boolean>(false);
@@ -98,7 +98,14 @@ function DocsLayoutContent({ children }: { children: ReactNode }): ReactElement 
   };
 
   return (
-    <XenonProvider theme={theme} accent={accent} radius={radius}>
+    <XenonProvider
+      theme={theme}
+      onThemeChange={setTheme}
+      accent={accent}
+      onAccentChange={setAccent}
+      radius={radius}
+      onRadiusChange={setRadius}
+    >
       <ToastProvider>
         <div
           style={{

@@ -76,7 +76,7 @@ export function ToggleButton({
       userSelect: "none",
       whiteSpace: "nowrap",
       transition:
-        "background-color 160ms ease, border-color 160ms ease, transform 100ms var(--x-spring-soft, cubic-bezier(0.16, 1, 0.3, 1))",
+        "background-color 160ms ease, border-color 160ms ease, transform 100ms var(--x-spring-soft, cubic-bezier(0.16, 1, 0.3, 1)), border-radius var(--x-dur-base) var(--x-ease-standard)",
       ...style,
     };
 

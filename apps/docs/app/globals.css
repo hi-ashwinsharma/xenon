@@ -15,3 +15,11 @@ body {
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
 }
+
+/* Fluid Apple-grade transitions across the whole platform A to Z */
+*, *::before, *::after {
+  transition-property: border-radius, background-color, border-color, color, fill, stroke;
+  transition-duration: var(--x-dur-base, 240ms);
+  transition-timing-function: var(--x-ease-standard, cubic-bezier(0.2, 0, 0, 1));
+}
+

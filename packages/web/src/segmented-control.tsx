@@ -138,6 +138,8 @@ export function SegmentedControl<T extends string = string>({
       opacity: disabled ? 0.45 : 1,
       userSelect: "none",
       fontFamily: "var(--x-font-family)",
+      transition:
+        "border-radius var(--x-dur-base) var(--x-ease-standard), border-color var(--x-dur-base) var(--x-ease-standard), background-color var(--x-dur-base) var(--x-ease-standard)",
       width: fullWidth ? "100%" : undefined,
       ...style,
     };
@@ -171,7 +173,7 @@ export function SegmentedControl<T extends string = string>({
             pointerEvents: "none",
             transform: isPressed ? "scale(0.98)" : "scale(1)",
             transition:
-              "left var(--x-dur-base) var(--x-spring-soft, cubic-bezier(0.16, 1, 0.3, 1)), width var(--x-dur-fast) var(--x-ease-standard), transform var(--x-dur-instant) ease-out",
+              "left var(--x-dur-base) var(--x-spring-soft, cubic-bezier(0.16, 1, 0.3, 1)), width var(--x-dur-fast) var(--x-ease-standard), transform var(--x-dur-instant) ease-out, border-radius var(--x-dur-base) var(--x-ease-standard)",
           }}
         />
       )}

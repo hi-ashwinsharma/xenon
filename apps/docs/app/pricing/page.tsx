@@ -18,17 +18,24 @@ import {
   Text,
   XenonProvider,
 } from "@xenon/web";
-import type { Accent, RadiusStop, ResolvedTheme } from "@xenon/tokens";
+import type { Accent, RadiusStop, Theme } from "@xenon/tokens";
 import { MarketingNavbar } from "../components/MarketingNavbar";
 import { CheckIcon } from "../components/Icons";
 
 export default function PricingPage(): ReactElement {
-  const [theme, setTheme] = useState<ResolvedTheme>("dark");
+  const [theme, setTheme] = useState<Theme>("dark");
   const [accent, setAccent] = useState<Accent>("lime");
   const [radius, setRadius] = useState<RadiusStop>(3);
 
   return (
-    <XenonProvider theme={theme} accent={accent} radius={radius}>
+    <XenonProvider
+      theme={theme}
+      onThemeChange={setTheme}
+      accent={accent}
+      onAccentChange={setAccent}
+      radius={radius}
+      onRadiusChange={setRadius}
+    >
       <div
         style={{
           minHeight: "100vh",

@@ -9,7 +9,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html
+      lang="en"
+      data-x-theme="dark"
+      data-x-accent="lime"
+      data-x-radius="3"
+      suppressHydrationWarning
+      className="h-full antialiased"
+    >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

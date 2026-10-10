@@ -14,7 +14,13 @@ export interface XenonContextValue {
 export interface XenonProviderProps {
   readonly theme?: Theme;
   readonly defaultTheme?: Theme;
+  readonly onThemeChange?: (theme: Theme) => void;
   readonly accent?: Accent;
+  readonly defaultAccent?: Accent;
+  readonly onAccentChange?: (accent: Accent) => void;
   readonly radius?: RadiusStop;
+  readonly defaultRadius?: RadiusStop;
+  readonly onRadiusChange?: (radius: RadiusStop) => void;
   readonly children: ReactNode;
 }
+
