@@ -1,158 +1,99 @@
 "use client";
 
-import React, { useMemo, useState, type ReactElement } from "react";
-import {
-  CommandPalette,
-  ToastProvider,
-  XenonProvider,
-} from "@xenon/web";
+import React, { Suspense, useState, type ReactElement } from "react";
+import { useSearchParams } from "next/navigation";
+import { XenonProvider } from "@xenon/web";
 import type { Accent, RadiusStop, ResolvedTheme } from "@xenon/tokens";
-import { COMPONENTS_REGISTRY } from "./docs-data/components-registry";
-import { DocsHeader } from "./components/DocsHeader";
-import { DocsSidebar } from "./components/DocsSidebar";
-import { ComponentShowcase } from "./components/ComponentShowcase";
-import { GuidelinesViewer } from "./components/GuidelinesViewer";
-import { IntroductionDoc } from "./components/IntroductionDoc";
-import { AllComponentsGallery } from "./components/AllComponentsGallery";
+import { MarketingNavbar } from "./components/MarketingNavbar";
+import { MarketingLanding } from "./components/MarketingLanding";
 
-export default function DocsPage(): ReactElement {
-  // Global design system state
-  const [theme, setTheme] = useState<ResolvedTheme>("dark");
-  const [accent, setAccent] = useState<Accent>("lime");
-  const [radius, setRadius] = useState<RadiusStop>(3);
+function LandingPageContent(): ReactElement {
+  const searchParams = useSearchParams();
 
-  // App navigation state
-  const [activeTab, setActiveTab] = useState<string>("components");
-  const [activeComponentId, setActiveComponentId] = useState<string>("button");
-  const [commandPaletteOpen, setCommandPaletteOpen] = useState<boolean>(false);
+  // Initialize from searchParams if present
+  const [theme, setTheme] = useState<ResolvedTheme>(() => {
+    const t = searchParams.get("theme");
+    return t === "light" || t === "dark" ? t : "dark";
+  });
 
-  // Map registry into CommandPalette items
-  const commandPaletteItems = useMemo(() => {
-    const list = [
-      {
-        id: "intro-cmd",
-        label: "Introduction & Architecture",
-        group: "Getting Started",
-        onSelect: () => {
-          setActiveTab("components");
-          setActiveComponentId("introduction");
-          setCommandPaletteOpen(false);
-        },
-      },
-      {
-        id: "guidelines-cmd",
-        label: "Design Guidelines & Math",
-        group: "Getting Started",
-        onSelect: () => {
-          setActiveTab("guidelines");
-          setCommandPaletteOpen(false);
-        },
-      },
-    ];
+  const [accent, setAccent] = useState<Accent>(() => {
+    const a = searchParams.get("accent");
+    return a === "lime" || a === "pink" || a === "blue" || a === "purple" || a === "green"
+      ? (a as Accent)
+      : "lime";
+  });
 
-    for (const comp of COMPONENTS_REGISTRY) {
-      list.push({
-        id: comp.id,
-        label: comp.name,
-        group: comp.category,
-        onSelect: () => {
-          setActiveTab("components");
-          setActiveComponentId(comp.id);
-          setCommandPaletteOpen(false);
-        },
-      });
-    }
+  const [radius, setRadius] = useState<RadiusStop>(() => {
+    const r = searchParams.get("radius");
+    const num = Number(r);
+    return !isNaN(num) && num >= 0 && num <= 6 ? (num as RadiusStop) : 3;
+  });
 
-    return list;
-  }, []);
+  // Keep URL query string synchronized in real time
+  const handleAccentChange = (nextAccent: Accent) => {
+    setAccent(nextAccent);
+    updateUrlParams({ accent: nextAccent });
+  };
 
-  const selectedEntry = useMemo(() => {
-    return COMPONENTS_REGISTRY.find((c) => c.id === activeComponentId) ?? COMPONENTS_REGISTRY[0];
-  }, [activeComponentId]);
+  const handleRadiusChange = (nextRadius: RadiusStop) => {
+    setRadius(nextRadius);
+    updateUrlParams({ radius: String(nextRadius) });
+  };
 
-  const handleSidebarSelect = (id: string) => {
-    if (id === "guidelines") {
-      setActiveTab("guidelines");
-      setActiveComponentId("guidelines");
-    } else {
-      setActiveTab("components");
-      setActiveComponentId(id);
-    }
+  const handleThemeChange = (nextTheme: ResolvedTheme) => {
+    setTheme(nextTheme);
+    updateUrlParams({ theme: nextTheme });
+  };
+
+  const updateUrlParams = (newParams: Record<string, string>) => {
+    if (typeof window === "undefined") return;
+    const url = new URL(window.location.href);
+    Object.entries(newParams).forEach(([k, v]) => {
+      url.searchParams.set(k, v);
+    });
+    window.history.replaceState({}, "", url.toString());
   };
 
   return (
     <XenonProvider theme={theme} accent={accent} radius={radius}>
-      <ToastProvider>
-        <div
-          style={{
-            minHeight: "100vh",
-            backgroundColor: "var(--x-bg)",
-            color: "var(--x-text)",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          {/* Top Sticky Glass Navigation */}
-          <DocsHeader
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          backgroundColor: "var(--x-bg)",
+          color: "var(--x-text)",
+          transition: "background-color 240ms cubic-bezier(0.2, 0, 0, 1), color 240ms cubic-bezier(0.2, 0, 0, 1)",
+        }}
+      >
+        <MarketingNavbar
+          theme={theme}
+          onThemeChange={handleThemeChange}
+          accent={accent}
+          onAccentChange={handleAccentChange}
+          radius={radius}
+          onRadiusChange={handleRadiusChange}
+          activePath="/"
+        />
+
+        <main style={{ flex: 1 }}>
+          <MarketingLanding
             theme={theme}
-            onThemeChange={setTheme}
             accent={accent}
-            onAccentChange={setAccent}
             radius={radius}
-            onRadiusChange={setRadius}
-            onOpenCommandPalette={() => setCommandPaletteOpen(true)}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
+            onAccentChange={handleAccentChange}
+            onRadiusChange={handleRadiusChange}
           />
-
-          {/* Main Layout Container */}
-          <div style={{ display: "flex", flex: 1, width: "100%", maxWidth: "1440px", margin: "0 auto" }}>
-            {activeTab === "gallery" ? (
-              <main style={{ flex: 1, padding: "40px 32px 80px 32px" }}>
-                <AllComponentsGallery
-                  onSelectComponent={(id) => {
-                    setActiveTab("components");
-                    setActiveComponentId(id);
-                  }}
-                />
-              </main>
-            ) : (
-              <>
-                {/* Left Categorized Sidebar */}
-                <DocsSidebar
-                  activeId={activeTab === "guidelines" ? "guidelines" : activeComponentId}
-                  onSelect={handleSidebarSelect}
-                />
-
-                {/* Right / Center Documentation Content */}
-                <main
-                  style={{
-                    flex: 1,
-                    padding: "48px 48px 96px 48px",
-                    overflowX: "hidden",
-                  }}
-                >
-                  {activeTab === "guidelines" || activeComponentId === "guidelines" ? (
-                    <GuidelinesViewer />
-                  ) : activeComponentId === "introduction" ? (
-                    <IntroductionDoc />
-                  ) : (
-                    <ComponentShowcase entry={selectedEntry} />
-                  )}
-                </main>
-              </>
-            )}
-          </div>
-
-          {/* Global ⌘K Command Palette */}
-          <CommandPalette
-            open={commandPaletteOpen}
-            onOpenChange={setCommandPaletteOpen}
-            items={commandPaletteItems}
-            placeholder="Search components, tokens, or guidelines..."
-          />
-        </div>
-      </ToastProvider>
+        </main>
+      </div>
     </XenonProvider>
+  );
+}
+
+export default function RootLandingPage(): ReactElement {
+  return (
+    <Suspense fallback={<div style={{ minHeight: "100vh", backgroundColor: "#000000" }} />}>
+      <LandingPageContent />
+    </Suspense>
   );
 }
