@@ -15,6 +15,10 @@ import type {
   ButtonGroupProps as CoreButtonGroupProps,
   ButtonProps as CoreButtonProps,
   CheckboxProps as CoreCheckboxProps,
+  ComboboxOption as CoreComboboxOption,
+  ComboboxProps as CoreComboboxProps,
+  CommandPaletteItem as CoreCommandPaletteItem,
+  CommandPaletteProps as CoreCommandPaletteProps,
   DialogCloseProps as CoreDialogCloseProps,
   DialogContentProps as CoreDialogContentProps,
   DialogDescriptionProps as CoreDialogDescriptionProps,
@@ -24,6 +28,12 @@ import type {
   DialogTitleProps as CoreDialogTitleProps,
   DialogTriggerProps as CoreDialogTriggerProps,
   DividerProps as CoreDividerProps,
+  DropdownMenuContentProps as CoreDropdownMenuContentProps,
+  DropdownMenuGroupProps as CoreDropdownMenuGroupProps,
+  DropdownMenuItemProps as CoreDropdownMenuItemProps,
+  DropdownMenuProps as CoreDropdownMenuProps,
+  DropdownMenuSeparatorProps as CoreDropdownMenuSeparatorProps,
+  DropdownMenuTriggerProps as CoreDropdownMenuTriggerProps,
   FieldProps as CoreFieldProps,
   GlassBarProps as CoreGlassBarProps,
   GroupProps as CoreGroupProps,
@@ -43,6 +53,12 @@ import type {
   RadioGroupProps as CoreRadioGroupProps,
   RadioProps as CoreRadioProps,
   SegmentedControlProps as CoreSegmentedControlProps,
+  SelectContentProps as CoreSelectContentProps,
+  SelectItemProps as CoreSelectItemProps,
+  SelectOption as CoreSelectOption,
+  SelectProps as CoreSelectProps,
+  SelectSize as CoreSelectSize,
+  SelectTriggerProps as CoreSelectTriggerProps,
   SheetCloseProps as CoreSheetCloseProps,
   SheetContentProps as CoreSheetContentProps,
   SheetDescriptionProps as CoreSheetDescriptionProps,
@@ -490,4 +506,76 @@ export interface WebSheetCloseProps
   children: React.ReactNode;
 }
 
+// --- Overlays (Batch 2) ---
 
+export interface WebDropdownMenuProps extends CoreDropdownMenuProps {}
+
+export interface WebDropdownMenuTriggerProps
+  extends
+    Omit<CoreDropdownMenuTriggerProps, "children">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+  children: React.ReactNode;
+}
+
+export interface WebDropdownMenuContentProps
+  extends
+    Omit<CoreDropdownMenuContentProps, "className" | "style">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebDropdownMenuGroupProps
+  extends
+    Omit<CoreDropdownMenuGroupProps, "className" | "style">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebDropdownMenuItemProps
+  extends
+    Omit<CoreDropdownMenuItemProps, "className" | "style">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "onSelect"> {
+  children: React.ReactNode;
+}
+
+export interface WebDropdownMenuSeparatorProps
+  extends
+    Omit<CoreDropdownMenuSeparatorProps, "className" | "style">,
+    HTMLAttributes<HTMLHRElement> {}
+
+export interface WebSelectProps
+  extends
+    Omit<CoreSelectProps, "className" | "style">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children" | "defaultValue"> {}
+
+export interface WebSelectTriggerProps
+  extends
+    Omit<CoreSelectTriggerProps, "className" | "style">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+  children?: React.ReactNode;
+}
+
+export interface WebSelectContentProps
+  extends
+    Omit<CoreSelectContentProps, "className" | "style">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebSelectItemProps
+  extends
+    Omit<CoreSelectItemProps, "className" | "style">,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "value"> {
+  children: React.ReactNode;
+}
+
+export interface WebComboboxProps
+  extends
+    Omit<CoreComboboxProps, "className" | "style">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children" | "defaultValue"> {}
+
+export interface WebCommandPaletteProps
+  extends
+    Omit<CoreCommandPaletteProps, "className" | "style">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export type {
+  ComboboxOption,
+  CommandPaletteItem,
+  DropdownMenuItemProps,
+  SelectOption,
+} from "@xenon/core";

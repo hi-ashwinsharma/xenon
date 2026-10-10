@@ -168,6 +168,38 @@ export type {
   SheetTriggerProps,
 } from "./sheet.types";
 
+export type {
+  DropdownMenuContentProps,
+  DropdownMenuContextValue,
+  DropdownMenuGroupProps,
+  DropdownMenuItemProps,
+  DropdownMenuProps,
+  DropdownMenuSeparatorProps,
+  DropdownMenuTriggerProps,
+} from "./dropdown-menu.types";
+
+export type {
+  SelectContentProps,
+  SelectContextValue,
+  SelectItemProps,
+  SelectOption,
+  SelectProps,
+  SelectSize,
+  SelectTriggerProps,
+} from "./select.types";
+
+export type {
+  ComboboxContextValue,
+  ComboboxOption,
+  ComboboxProps,
+} from "./combobox.types";
+
+export type {
+  CommandPaletteContextValue,
+  CommandPaletteItem,
+  CommandPaletteProps,
+} from "./command-palette.types";
+
 export { AppRoutes } from "./routes";
 
 export { computeFloatingPlacement } from "./floating";

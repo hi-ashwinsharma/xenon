@@ -9,6 +9,10 @@ import type {
   ButtonGroupProps as CoreButtonGroupProps,
   ButtonProps as CoreButtonProps,
   CheckboxProps as CoreCheckboxProps,
+  ComboboxOption as CoreComboboxOption,
+  ComboboxProps as CoreComboboxProps,
+  CommandPaletteItem as CoreCommandPaletteItem,
+  CommandPaletteProps as CoreCommandPaletteProps,
   DialogCloseProps as CoreDialogCloseProps,
   DialogContentProps as CoreDialogContentProps,
   DialogDescriptionProps as CoreDialogDescriptionProps,
@@ -18,6 +22,12 @@ import type {
   DialogTitleProps as CoreDialogTitleProps,
   DialogTriggerProps as CoreDialogTriggerProps,
   DividerProps as CoreDividerProps,
+  DropdownMenuContentProps as CoreDropdownMenuContentProps,
+  DropdownMenuGroupProps as CoreDropdownMenuGroupProps,
+  DropdownMenuItemProps as CoreDropdownMenuItemProps,
+  DropdownMenuProps as CoreDropdownMenuProps,
+  DropdownMenuSeparatorProps as CoreDropdownMenuSeparatorProps,
+  DropdownMenuTriggerProps as CoreDropdownMenuTriggerProps,
   FieldProps as CoreFieldProps,
   GlassBarProps as CoreGlassBarProps,
   GroupProps as CoreGroupProps,
@@ -37,6 +47,12 @@ import type {
   RadioGroupProps as CoreRadioGroupProps,
   RadioProps as CoreRadioProps,
   SegmentedControlProps as CoreSegmentedControlProps,
+  SelectContentProps as CoreSelectContentProps,
+  SelectItemProps as CoreSelectItemProps,
+  SelectOption as CoreSelectOption,
+  SelectProps as CoreSelectProps,
+  SelectSize as CoreSelectSize,
+  SelectTriggerProps as CoreSelectTriggerProps,
   SheetCloseProps as CoreSheetCloseProps,
   SheetContentProps as CoreSheetContentProps,
   SheetDescriptionProps as CoreSheetDescriptionProps,
@@ -431,5 +447,66 @@ export interface NativeSheetFooterProps extends CoreSheetFooterProps {
 export interface NativeSheetCloseProps extends CoreSheetCloseProps {
   readonly style?: StyleProp<ViewStyle>;
 }
+
+// --- Overlays (Batch 2) ---
+
+export interface NativeDropdownMenuProps extends CoreDropdownMenuProps {}
+
+export interface NativeDropdownMenuTriggerProps extends CoreDropdownMenuTriggerProps {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeDropdownMenuContentProps
+  extends Omit<CoreDropdownMenuContentProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeDropdownMenuGroupProps
+  extends Omit<CoreDropdownMenuGroupProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeDropdownMenuItemProps
+  extends Omit<CoreDropdownMenuItemProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeDropdownMenuSeparatorProps
+  extends Omit<CoreDropdownMenuSeparatorProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSelectProps
+  extends Omit<CoreSelectProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSelectTriggerProps
+  extends Omit<CoreSelectTriggerProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSelectContentProps
+  extends Omit<CoreSelectContentProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSelectItemProps
+  extends Omit<CoreSelectItemProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeComboboxProps
+  extends Omit<CoreComboboxProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeCommandPaletteProps
+  extends Omit<CoreCommandPaletteProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export type { ComboboxOption, CommandPaletteItem } from "@xenon/core";
+
 
 

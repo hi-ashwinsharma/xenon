@@ -13,6 +13,9 @@ import {
   Button,
   ButtonGroup,
   Checkbox,
+  Combobox,
+  CommandPalette,
+  type CommandPaletteItem,
   Dialog,
   DialogClose,
   DialogContent,
@@ -22,6 +25,12 @@ import {
   DialogTitle,
   DialogTrigger,
   Divider,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
   Field,
   GlassBar,
   Group,
@@ -40,6 +49,10 @@ import {
   Radio,
   RadioGroup,
   SegmentedControl,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
   Sheet,
   SheetClose,
   SheetContent,
@@ -103,6 +116,65 @@ function ShowcaseContent() {
   const [tabBarVariant, setTabBarVariant] = useState<"floating" | "docked">("floating");
   const [activePage, setActivePage] = useState<number>(3);
   const [paginationCompact, setPaginationCompact] = useState<boolean>(false);
+
+  // Overlay batch 2 interactive state
+  const [selectedSelectVal, setSelectedSelectVal] = useState<string>("hig");
+  const [selectedComboboxVal, setSelectedComboboxVal] = useState<string>("next");
+  const [commandOpen, setCommandOpen] = useState<boolean>(false);
+
+  const paletteCommands: CommandPaletteItem[] = [
+    {
+      id: "toggle-theme",
+      label: "Toggle Theme (Dark / Light)",
+      group: "Preferences",
+      shortcut: "⌘T",
+      onSelect: () => setTheme((t) => (t === "dark" ? "light" : "dark")),
+    },
+    {
+      id: "accent-lime",
+      label: "Set Accent to Lime",
+      group: "Accents",
+      onSelect: () => setAccent("lime"),
+    },
+    {
+      id: "accent-pink",
+      label: "Set Accent to Pink",
+      group: "Accents",
+      onSelect: () => setAccent("pink"),
+    },
+    {
+      id: "accent-blue",
+      label: "Set Accent to Blue",
+      group: "Accents",
+      onSelect: () => setAccent("blue"),
+    },
+    {
+      id: "radius-pill",
+      label: "Switch Radius Stop to 6 (Pill)",
+      group: "Geometry",
+      shortcut: "⌘6",
+      onSelect: () => setRadius(6),
+    },
+    {
+      id: "radius-arch",
+      label: "Switch Radius Stop to 2 (Architectural)",
+      group: "Geometry",
+      shortcut: "⌘2",
+      onSelect: () => setRadius(2),
+    },
+    {
+      id: "filter-all",
+      label: "Show All Component Modules",
+      group: "Navigation",
+      onSelect: () => setActiveDomain("all"),
+    },
+    {
+      id: "filter-overlays",
+      label: "Focus on Overlays & Anchors",
+      group: "Navigation",
+      onSelect: () => setActiveDomain("overlays"),
+    },
+  ];
 
   const accents: Accent[] = ["lime", "pink", "blue", "purple", "green"];
   const radiusStops: RadiusStop[] = [0, 1, 2, 3, 4, 5, 6];
@@ -1609,6 +1681,183 @@ function ShowcaseContent() {
                         </SheetFooter>
                       </SheetContent>
                     </Sheet>
+                  </div>
+                </Surface>
+
+                {/* 5. Liquid Glass DropdownMenu with Keyboard Roving Focus */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Dropdown Menu
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Roving Focus
+                    </span>
+                  </div>
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Anchored Liquid Glass menu with keyboard navigation (↑ ↓, Home, End, Enter),
+                    shortcut badges, and destructive items.
+                  </Text>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", paddingTop: "8px" }}>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline">Options Menu</Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent width={220}>
+                        <DropdownMenuGroup label="Design Spec">
+                          <DropdownMenuItem shortcut="⌘S">Save Spec</DropdownMenuItem>
+                          <DropdownMenuItem shortcut="⌘E">Export Tokens</DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuGroup label="Settings">
+                          <DropdownMenuItem shortcut="⌘P">Preferences</DropdownMenuItem>
+                          <DropdownMenuItem disabled shortcut="⌘L">Sync Cloud (Pro)</DropdownMenuItem>
+                          <DropdownMenuItem destructive shortcut="⌘Q">Sign Out</DropdownMenuItem>
+                        </DropdownMenuGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </Surface>
+
+                {/* 6. Architectural Select */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Architectural Select
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Stop {radius} Dynamic
+                    </span>
+                  </div>
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Architectural trigger dynamically matching the global radius stop token
+                    with anchored Liquid Glass listbox and Phosphor check indicators.
+                  </Text>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", paddingTop: "8px" }}>
+                    <Select onValueChange={setSelectedSelectVal} value={selectedSelectVal}>
+                      <SelectTrigger placeholder="Choose preset..." style={{ minWidth: "220px" }} />
+                      <SelectContent>
+                        <SelectItem value="hig">Apple HIG Baseline</SelectItem>
+                        <SelectItem value="concentric">Concentric Radii</SelectItem>
+                        <SelectItem value="glass">Liquid Glass Blur</SelectItem>
+                        <SelectItem disabled value="shadows">Drop Shadows (Banned)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </Surface>
+
+                {/* 7. Searchable Combobox */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Filterable Combobox
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Instant Search
+                    </span>
+                  </div>
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Inline searchable input with Phosphor MagnifyingGlass icon, live clear trigger,
+                    and empty result states.
+                  </Text>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", paddingTop: "8px" }}>
+                    <Combobox
+                      onValueChange={setSelectedComboboxVal}
+                      options={[
+                        { value: "next", label: "Next.js App Router" },
+                        { value: "expo", label: "Expo React Native" },
+                        { value: "vitest", label: "Vitest Test Runner" },
+                        { value: "turbopack", label: "Turbopack Engine" },
+                      ]}
+                      placeholder="Select target framework..."
+                      value={selectedComboboxVal}
+                    />
+                  </div>
+                </Surface>
+
+                {/* 8. Spotlight Command Palette */}
+                <Surface
+                  padding={24}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                    backgroundColor: "var(--x-surface)",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Heading level={3} weight={400}>
+                      Spotlight Console
+                    </Heading>
+                    <span
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--x-accent)",
+                        fontFamily: "var(--x-font-family-mono, monospace)",
+                      }}
+                    >
+                      Global ⌘K
+                    </span>
+                  </div>
+                  <Text style={{ fontSize: "13px" }} tone="muted">
+                    Full-canvas Liquid Glass blur scrim with centered floating search card,
+                    command groups, and global ⌘K keyboard shortcut.
+                  </Text>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", paddingTop: "8px" }}>
+                    <Button onClick={() => setCommandOpen(true)} variant="glass">
+                      Open Command Palette (⌘K)
+                    </Button>
+                    <CommandPalette
+                      items={paletteCommands}
+                      onOpenChange={setCommandOpen}
+                      open={commandOpen}
+                    />
                   </div>
                 </Surface>
               </div>

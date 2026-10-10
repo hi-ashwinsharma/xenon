@@ -7,7 +7,11 @@ export type {
   WebBreadcrumbSeparatorProps,
   WebButtonGroupProps,
   WebButtonProps,
+  ComboboxOption,
+  CommandPaletteItem,
   WebCheckboxProps,
+  WebComboboxProps,
+  WebCommandPaletteProps,
   WebDialogCloseProps,
   WebDialogContentProps,
   WebDialogDescriptionProps,
@@ -17,6 +21,12 @@ export type {
   WebDialogTitleProps,
   WebDialogTriggerProps,
   WebDividerProps,
+  WebDropdownMenuContentProps,
+  WebDropdownMenuGroupProps,
+  WebDropdownMenuItemProps,
+  WebDropdownMenuProps,
+  WebDropdownMenuSeparatorProps,
+  WebDropdownMenuTriggerProps,
   WebFieldProps,
   WebGlassBarProps,
   WebGroupProps,
@@ -36,6 +46,10 @@ export type {
   WebRadioProps,
   WebRendererConfig,
   WebSegmentedControlProps,
+  WebSelectContentProps,
+  WebSelectItemProps,
+  WebSelectProps,
+  WebSelectTriggerProps,
   WebSheetCloseProps,
   WebSheetContentProps,
   WebSheetDescriptionProps,
@@ -160,9 +174,31 @@ export {
   useSheet,
 } from "./sheet";
 
+export {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  useDropdownMenu,
+} from "./dropdown-menu";
+
+export {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  useSelect,
+} from "./select";
+
+export { Combobox } from "./combobox";
+export { CommandPalette } from "./command-palette";
+
 export { usePresence } from "./hooks/use-presence";
 export { useFocusTrap } from "./hooks/use-focus-trap";
 export { useClickOutside } from "./hooks/use-click-outside";
+export { useRovingFocus } from "./hooks/use-roving-focus";
 
 export const webRendererConfig = {
   platform: "web",

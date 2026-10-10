@@ -8,6 +8,8 @@ export type {
   NativeButtonGroupProps,
   NativeButtonProps,
   NativeCheckboxProps,
+  NativeComboboxProps,
+  NativeCommandPaletteProps,
   NativeDialogCloseProps,
   NativeDialogContentProps,
   NativeDialogDescriptionProps,
@@ -17,6 +19,12 @@ export type {
   NativeDialogTitleProps,
   NativeDialogTriggerProps,
   NativeDividerProps,
+  NativeDropdownMenuContentProps,
+  NativeDropdownMenuGroupProps,
+  NativeDropdownMenuItemProps,
+  NativeDropdownMenuProps,
+  NativeDropdownMenuSeparatorProps,
+  NativeDropdownMenuTriggerProps,
   NativeFieldProps,
   NativeGlassBarProps,
   NativeGroupProps,
@@ -36,6 +44,10 @@ export type {
   NativeRadioProps,
   NativeRendererConfig,
   NativeSegmentedControlProps,
+  NativeSelectContentProps,
+  NativeSelectItemProps,
+  NativeSelectProps,
+  NativeSelectTriggerProps,
   NativeSheetCloseProps,
   NativeSheetContentProps,
   NativeSheetDescriptionProps,
@@ -159,6 +171,24 @@ export {
   SheetClose,
   useSheet,
 } from "./sheet";
+export {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  useDropdownMenu,
+} from "./dropdown-menu";
+export {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  useSelect,
+} from "./select";
+export { Combobox } from "./combobox";
+export { CommandPalette } from "./command-palette";
 
 export const nativeRendererConfig: {
   readonly platform: "native";
