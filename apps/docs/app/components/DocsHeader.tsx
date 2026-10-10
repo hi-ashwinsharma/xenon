@@ -1,6 +1,7 @@
 "use client";
 
 import React, { type ReactElement } from "react";
+import Link from "next/link";
 import {
   Badge,
   Button,
@@ -56,9 +57,16 @@ export function DocsHeader({
     >
       {/* Brand & Mode Navigation */}
       <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
-        <div
-          style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}
-          onClick={() => onTabChange("components")}
+        <Link
+          href="/"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            textDecoration: "none",
+            color: "inherit",
+            cursor: "pointer",
+          }}
         >
           <Text styleKey="title3" weight={400} style={{ letterSpacing: "-0.02em" }}>
             Xenon
@@ -66,7 +74,7 @@ export function DocsHeader({
           <Badge tone="accent" size="sm">
             v0.1.0
           </Badge>
-        </div>
+        </Link>
 
         <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
           <Button
