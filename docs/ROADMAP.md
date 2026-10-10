@@ -35,7 +35,7 @@ For every component milestone (Phases 2 through 5), implementation **must not be
 - [x] **Phase 3: Form Controls & Structural Navigation**
 - [x] **Phase 4: Overlays & Cross-Platform Behaviors**
 - [x] **Phase 5: Feedback & Data Display**
-- [ ] **Phase 6: Documentation & Showcase Platform (`apps/docs`)**
+- [x] **Phase 6: Documentation & Showcase Platform (`apps/docs`)**
 - [ ] **Phase 7: Community, Discussions & Blog (Firebase)**
 
 ---
@@ -167,7 +167,7 @@ _Goal: High-density and clean data presentation components._
 
 _Goal: Build the public face of Xenon on Next.js._
 
-- [ ] Sparse, typographically led **Landing Page**:
+- [x] Sparse, typographically led **Landing Page**:
   - Hero with Geist display type and interactive live component sandbox.
   - Interactive signature features:
     - Live 7-stage radius slider demonstration.
@@ -175,12 +175,12 @@ _Goal: Build the public face of Xenon on Next.js._
     - Liquid Glass live scroll preview.
     - Acid accent palette switcher (lime, pink, blue, purple, green).
     - Grouped control anatomy visualizer (pill edges vs inner joints).
-- [ ] **Component Catalog**:
+- [x] **Component Catalog**:
   - Real-time search with `CommandPalette`.
   - Component playgrounds with live props customization.
   - Side-by-side Web vs React Native code snippets.
   - Built-in accessibility audit badges.
-- [ ] **Guidelines Viewer**:
+- [x] **Guidelines Viewer**:
   - Interactive representations of spacing scales, typography rules, and shape math.
 
 ---
