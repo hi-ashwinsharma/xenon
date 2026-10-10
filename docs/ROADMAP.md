@@ -36,7 +36,8 @@ For every component milestone (Phases 2 through 5), implementation **must not be
 - [x] **Phase 4: Overlays & Cross-Platform Behaviors**
 - [x] **Phase 5: Feedback & Data Display**
 - [x] **Phase 6: Documentation & Showcase Platform (`apps/docs`)**
-- [ ] **Phase 7: Community, Discussions & Blog (Firebase)**
+- [ ] **Phase 7: Marketing Landing Platform & RESTful Pricing (`/`, `/pricing`)**
+- [ ] **Phase 8: Community, Discussions & Blog (Firebase)**
 
 ---
 
@@ -185,10 +186,35 @@ _Goal: Build the public face of Xenon on Next.js._
 
 ---
 
-### Phase 7: Community, Discussions & Blog (Firebase)
+### Phase 7: Marketing Landing Platform & RESTful Pricing (`/`, `/pricing`)
 
-_Goal: Community engagement layer._
+_Goal: High-impact, human, calm marketing experience and transparent pricing._
+
+- [ ] Sparse, peaceful **Marketing Landing Page (`/`)**:
+  - One idea per viewport calm scroll.
+  - Wry, authentic human & AI developer storytelling ("Friday night egg modal").
+  - Effortless `npx xenon init` quick-start command.
+  - 4 Minimalist line-based technical blueprint illustrations (ink + active acid accent):
+    1. Concentricity vs Egg Mode ($R_{\text{child}} = \max(0, R_{\text{parent}} - p)$)
+    2. Hairline Precision vs Muddy Shadows (1px edge vs fuzzy box-shadow)
+    3. Fluid Kinematics vs Jarring Snap (Apple damped spring curve vs square jump)
+    4. Single Accent Isolation vs Clown Car (90% neutral canvas with 1 purposeful spark)
+  - Real-time global accent and radius ripple animation affecting the entire platform A to Z.
+- [ ] **Transparent RESTful Pricing Page (`/pricing`)**:
+  - $0 Free forever for Students, Open Source contributors, and personal builders worldwide.
+  - $5 / month Pro tier for production apps and startups.
+  - Custom Enterprise tier.
+- [ ] **Full RESTful Routing (`/docs/*`)**:
+  - Dedicated documentation sub-routes (`/docs`, `/docs/components`, `/docs/components/[slug]`, `/docs/guidelines`).
+  - Bidirectional URL state synchronization (`?theme=...&accent=...&radius=...&variant=...`).
+
+---
+
+### Phase 8: Community, Discussions & Blog (Firebase)
+
+_Goal: Community engagement and technical retrospectives layer._
 
 - [ ] Firebase Authentication (sign in for discussions and comments).
 - [ ] Blog engine for releases and design rationale.
 - [ ] Discussion board / component feedback forum.
+
