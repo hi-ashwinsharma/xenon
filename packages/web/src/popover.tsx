@@ -217,11 +217,11 @@ export function PopoverContent({
         boxSizing: "border-box",
         zIndex: 999,
         // Material: Liquid Glass (regular blur) with 1px hairline border
-        backgroundColor: "var(--x-glass-regular-tint)",
-        backdropFilter: "blur(var(--x-glass-regular-blur))",
-        WebkitBackdropFilter: "blur(var(--x-glass-regular-blur))",
+        backgroundColor: "var(--x-glass-regular-bg, var(--x-surface-2))",
+        backdropFilter: "blur(var(--x-glass-regular-blur, 20px))",
+        WebkitBackdropFilter: "blur(var(--x-glass-regular-blur, 20px))",
         border: "1px solid var(--x-border)",
-        borderRadius: "var(--x-radius-surface, 12px)",
+        borderRadius: "min(var(--x-radius-surface, 16px), 16px)",
         padding: "16px",
         color: "var(--x-text)",
         // Hero transform kinematics: scale from trigger coordinates

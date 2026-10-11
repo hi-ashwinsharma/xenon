@@ -12,6 +12,8 @@ Xenon is a quiet UI kit. It earns trust through geometry, restraint and negative
 6. **Pill-first controls.** Buttons and inputs are pills at the pill radius stop. Groups use pill outer edges and small inner joints.
 7. **Apple-grade motion.** Fluid and seamless: no UI state change is ever snappy or abrupt. Brief, purposeful, cancelable, and always reduced-motion safe.
 8. **One accent.** One acid accent at a time, chosen globally. Everything else is neutral.
+9. **The Design of Everyday Things (Norman Invariant).** Grounded in cognitive ergonomics: affordances, signifiers (e.g. animated rotating chevrons on disclosure triggers), mapping, feedback, conceptual models, constraints, and discoverability. A human or AI must never guess whether an element is interactive or what state it controls.
+10. **Apple-grade restraint & anti-bloat.** Ruthless reduction. Floating surfaces, popovers, and dialogs must never be overfilled with redundant widgets, duplicate controls, or decorative preview boxes. Quiet, focused, purposeful simplicity over complexity.
 
 ## Banned patterns
 
@@ -31,6 +33,9 @@ Xenon is a quiet UI kit. It earns trust through geometry, restraint and negative
 | Instant or snappy UI transitions, uncoordinated `hidden` / `display: none`               | Apple-grade fluid transitions (physics springs, easing)|
 | Mixed icon sets or icon weights                                                          | Phosphor `thin` via `Icon`                           |
 | Backdrop blur and glassmorphism in the static content layer (cards, inputs, page canvas) | Opaque surfaces (`--x-surface`)                      |
+| Overfilling popovers/surfaces with redundant widgets, duplicate controls, or preview boxes | Compact, quiet, single-purpose controls (Apple reduction)|
+| Interactive disclosure triggers without visual signifiers (e.g. naked text without chevron)| Animated Phosphor CaretDown indicator (0° closed, 180° open)|
+| Slicing sub-sections/chapters inside a single act with decorative dividers | Preserve Gestalt continuity: Dividers strictly separate macro Acts; use proximity & negative space inside an act |
 
 ## Liquid Glass: the floating layer exception
 

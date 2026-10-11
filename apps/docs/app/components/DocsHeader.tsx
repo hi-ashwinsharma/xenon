@@ -11,7 +11,6 @@ import {
   DropdownMenuTrigger,
   GlassBar,
   IconButton,
-  SegmentedControl,
   Text,
 } from "@xenon/web";
 import type { Accent, RadiusStop, Theme } from "@xenon/tokens";

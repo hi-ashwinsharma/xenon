@@ -59,7 +59,7 @@ import {
   Text,
   Textarea,
 } from "@xenon/web";
-import type { ButtonVariant } from "@xenon/core";
+import type { ButtonSize, ButtonVariant, InputSize } from "@xenon/core";
 import { SlidersIcon } from "./Icons";
 
 interface LivePreviewProps {
@@ -92,16 +92,16 @@ export function ComponentLivePreview({
         <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
           <Button
             variant={variant as ButtonVariant}
-            size={size as any}
+            size={size as ButtonSize}
             disabled={disabled}
             loading={loading}
           >
             {label || "Confirm Action"}
           </Button>
-          <Button variant="outline" size={size as any} disabled={disabled}>
+          <Button variant="outline" size={size as ButtonSize} disabled={disabled}>
             Outline
           </Button>
-          <Button variant="subtle" size={size as any} disabled={disabled}>
+          <Button variant="subtle" size={size as ButtonSize} disabled={disabled}>
             Subtle
           </Button>
         </div>
@@ -113,15 +113,15 @@ export function ComponentLivePreview({
           <IconButton
             ariaLabel="Custom Controls"
             variant={variant as ButtonVariant}
-            size={size as any}
+            size={size as ButtonSize}
             disabled={disabled}
           >
             <SlidersIcon size={size === "lg" ? "md" : "sm"} />
           </IconButton>
-          <IconButton ariaLabel="Action Subtle" variant="subtle" size={size as any}>
+          <IconButton ariaLabel="Action Subtle" variant="subtle" size={size as ButtonSize}>
             <SlidersIcon size={size === "lg" ? "md" : "sm"} />
           </IconButton>
-          <IconButton ariaLabel="Action Ghost" variant="ghost" size={size as any}>
+          <IconButton ariaLabel="Action Ghost" variant="ghost" size={size as ButtonSize}>
             <SlidersIcon size={size === "lg" ? "md" : "sm"} />
           </IconButton>
         </div>
@@ -130,9 +130,9 @@ export function ComponentLivePreview({
     case "button-group":
       return (
         <ButtonGroup>
-          <Button variant="outline" size={size as any}>Cut</Button>
-          <Button variant="outline" size={size as any}>Copy</Button>
-          <Button variant="outline" size={size as any}>Paste</Button>
+          <Button variant="outline" size={size as ButtonSize}>Cut</Button>
+          <Button variant="outline" size={size as ButtonSize}>Copy</Button>
+          <Button variant="outline" size={size as ButtonSize}>Paste</Button>
         </ButtonGroup>
       );
 
@@ -174,7 +174,7 @@ export function ComponentLivePreview({
         <div style={{ width: "100%", maxWidth: "360px" }}>
           <Input
             placeholder={label || "Type here..."}
-            size={size as any}
+            size={size as InputSize}
             disabled={disabled}
             clearable
           />
@@ -478,7 +478,7 @@ export function ComponentLivePreview({
 
     default:
       return (
-        <Button variant={variant as ButtonVariant} size={size as any} disabled={disabled}>
+        <Button variant={variant as ButtonVariant} size={size as ButtonSize} disabled={disabled}>
           {label || "Interactive Component"}
         </Button>
       );

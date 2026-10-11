@@ -47,3 +47,24 @@
 3. Respect `prefers-reduced-motion`, `prefers-contrast`, `prefers-color-scheme`, and user font size.
 4. Do not trap keyboard focus except in modal dialogs.
 5. Touch, pointer and keyboard are equal citizens.
+
+## The Design of Everyday Things (Norman Principles)
+
+All Xenon components strictly adhere to Don Norman's cognitive design framework:
+
+1. **Affordances & Signifiers**:
+   - Every clickable, draggable, or expandable element must visually signal its affordance.
+   - Disclosure and dropdown triggers must feature an animated Phosphor `thin` chevron (`CaretDown`) that rotates smoothly on open/close (`0deg` closed, `180deg` open). Naked labels without signifiers are banned for disclosures.
+2. **Apple-grade Restraint & Anti-Bloat**:
+   - Never overfill popovers or dialogs with redundant controls, duplicated buttons, or unnecessary preview boxes.
+   - If a slider or segmented control already manipulates a property, do not stack duplicate button rows or extraneous decorative containers below it. Ruthless reduction produces calm elegance.
+3. **Feedback & Realtime Indication**:
+   - Every input change provides instant, tactile feedback (<100ms).
+   - Selection controls communicate state directly through the control itself and clear metric readouts.
+4. **Natural Mapping**:
+   - Controls follow natural spatial progression: stepped sliders progress left-to-right from minimum to maximum, incrementing logically.
+5. **Physical & Logical Constraints**:
+   - Prevent user error by constraining options to valid discrete states (e.g., 7 discrete radius stops 0–6 rather than arbitrary fractional inputs; clamped popup surfaces to prevent corner clipping).
+6. **Conceptual Clarity & Discoverability**:
+   - The interface must communicate its state clearly at all times, ensuring both humans and AI agents share an accurate, transparent conceptual model.
+

@@ -103,6 +103,7 @@ function LandingPageContent(): ReactElement {
             accent={accent}
             radius={radius}
             amoled={amoled}
+            onThemeChange={handleThemeChange}
             onAccentChange={handleAccentChange}
             onRadiusChange={handleRadiusChange}
             onAmoledChange={handleAmoledChange}

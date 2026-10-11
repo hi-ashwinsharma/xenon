@@ -11,13 +11,13 @@ import {
   Terminal,
   Check,
   CaretRight,
+  CaretDown,
   BookOpen,
   Sparkle,
   ArrowRight,
   Copy,
   ShieldCheck,
   Cpu,
-  Sparkle as Wand,
   Lightning,
 } from "@phosphor-icons/react";
 import { Icon } from "@xenon/web";
@@ -96,6 +96,14 @@ export function CaretRightIcon({ size = "sm", color }: IconWrapperProps): ReactE
   return (
     <Icon size={size} color={color} weight="thin">
       <CaretRight />
+    </Icon>
+  );
+}
+
+export function CaretDownIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+  return (
+    <Icon size={size} color={color} weight="thin">
+      <CaretDown />
     </Icon>
   );
 }

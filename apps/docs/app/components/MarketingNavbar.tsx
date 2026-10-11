@@ -1,20 +1,19 @@
 "use client";
 
-import React, { type ReactElement } from "react";
+import React, { useEffect, useState, type ReactElement } from "react";
 import Link from "next/link";
 import {
   Badge,
   Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  GlassBar,
   IconButton,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Slider,
   Text,
 } from "@xenon/web";
 import type { Accent, RadiusStop, Theme } from "@xenon/tokens";
-import { MoonIcon, SunIcon } from "./Icons";
+import { CaretDownIcon, MoonIcon, SunIcon } from "./Icons";
 
 interface MarketingNavbarProps {
   theme: Theme;
@@ -37,14 +36,14 @@ const ACCENT_LIST: Array<{ key: Accent; label: string; color: string }> = [
   { key: "green", label: "Green", color: "#9BFFB8" },
 ];
 
-const RADIUS_LABELS: Record<RadiusStop, string> = {
-  0: "Stop 0 · Sharp (0px)",
-  1: "Stop 1 · Subtle (4px)",
-  2: "Stop 2 · Compact (8px)",
-  3: "Stop 3 · Apple Standard (12px)",
-  4: "Stop 4 · Soft (16px)",
-  5: "Stop 5 · Rounded (20px)",
-  6: "Stop 6 · Pill (Capsule)",
+const RADIUS_SHORT_LABELS: Record<RadiusStop, string> = {
+  0: "Sharp · 0px",
+  1: "Subtle · 4px",
+  2: "Compact · 8px",
+  3: "Standard · 12px",
+  4: "Soft · 16px",
+  5: "Rounded · 20px",
+  6: "Pill · Capsule",
 };
 
 export function MarketingNavbar({
@@ -58,188 +57,366 @@ export function MarketingNavbar({
   onAmoledChange,
   activePath = "/",
 }: MarketingNavbarProps): ReactElement {
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [radiusOpen, setRadiusOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    let rafId: number | null = null;
+    const handleScroll = () => {
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        const scrolled = window.scrollY > 16;
+        setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
+        rafId = null;
+      });
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  // When pill is chosen (radius === 6), fully pill-shaped (9999px stadium capsule)
+  const targetRadius = radius === 6 ? "9999px" : "var(--x-radius-surface, 16px)";
+  const currentRadius = isScrolled ? targetRadius : "0px";
+
   return (
-    <GlassBar
-      bordered
+    <div
       style={{
         position: "sticky",
         top: 0,
         zIndex: 50,
-        height: "64px",
+        width: "100%",
         display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0 28px",
-        borderBottom: "1px solid var(--x-border)",
-        transition:
-          "border-color var(--x-dur-base) ease, background-color var(--x-dur-base) ease",
+        justifyContent: "center",
+        pointerEvents: "none",
       }}
     >
-      {/* Brand & Nav Links */}
-      <div style={{ display: "flex", alignItems: "center", gap: "28px" }}>
-        <Link
-          href="/"
-          style={{
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            color: "inherit",
-          }}
-        >
-          <Text styleKey="title3" weight={400} tone="default" style={{ letterSpacing: "-0.02em" }}>
-            Xenon
-          </Text>
-          <Badge tone="accent" size="sm">
-            v1.0
-          </Badge>
-        </Link>
-
-        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <Link href="/docs/components" style={{ textDecoration: "none" }}>
-            <Button variant={activePath.includes("/components") ? "subtle" : "ghost"} size="sm">
-              Components
-            </Button>
-          </Link>
-          <Link href="/docs/guidelines" style={{ textDecoration: "none" }}>
-            <Button variant={activePath.includes("/guidelines") ? "subtle" : "ghost"} size="sm">
-              Guidelines
-            </Button>
-          </Link>
-          <Link href="/pricing" style={{ textDecoration: "none" }}>
-            <Button variant={activePath === "/pricing" ? "subtle" : "ghost"} size="sm">
-              Pricing
-            </Button>
-          </Link>
-          <Link href="/docs" style={{ textDecoration: "none" }}>
-            <Button variant={activePath === "/docs" ? "subtle" : "ghost"} size="sm">
-              Docs
-            </Button>
-          </Link>
-        </div>
-      </div>
-
-      {/* Global Realtime Appearance Controls (Non-overlapping, Apple-grade UX) */}
-      <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "nowrap" }}>
-        {/* Tactile Accent Swatches (Single-click macOS style) */}
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            padding: "4px 8px",
-            borderRadius: "var(--x-radius-control, 9999px)",
-            backgroundColor: "var(--x-surface-2)",
-            border: "1px solid var(--x-border)",
-          }}
-          title="Select accent color"
-        >
-          {ACCENT_LIST.map((item) => {
-            const isActive = accent === item.key;
-            return (
-              <button
-                key={item.key}
-                type="button"
-                onClick={() => onAccentChange(item.key)}
-                aria-label={`Select ${item.label} accent`}
-                style={{
-                  width: "14px",
-                  height: "14px",
-                  borderRadius: "50%",
-                  backgroundColor: item.color,
-                  border: "none",
-                  cursor: "pointer",
-                  padding: 0,
-                  outline: isActive ? "2px solid var(--x-accent)" : "none",
-                  outlineOffset: "2px",
-                  transform: isActive ? "scale(1.15)" : "scale(1)",
-                  transition: "transform 140ms ease, outline 140ms ease",
-                }}
-              />
-            );
-          })}
-        </div>
-
-        {/* Compact Radius Dropdown */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="subtle"
-              size="sm"
-              title="Global curvature radius"
-              style={{ fontFamily: "var(--x-font-family-mono)", minWidth: "64px" }}
-            >
-              R{radius}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent width={200}>
-            {([0, 1, 2, 3, 4, 5, 6] as RadiusStop[]).map((stop) => (
-              <DropdownMenuItem
-                key={stop}
-                onSelect={() => onRadiusChange(stop)}
-                onClick={() => onRadiusChange(stop)}
-              >
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: "8px",
-                    height: "8px",
-                    borderRadius: stop === 0 ? "0px" : stop === 6 ? "50%" : "2px",
-                    backgroundColor: radius === stop ? "var(--x-accent)" : "var(--x-border)",
-                    marginRight: "8px",
-                  }}
-                />
-                {RADIUS_LABELS[stop]}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        {/* AMOLED / Claude Warm Dark Mode Switcher (Visible in dark mode) */}
-        {theme !== "light" && onAmoledChange && (
-          <Button
-            variant={amoled ? "subtle" : "ghost"}
-            size="sm"
-            onClick={() => onAmoledChange(!amoled)}
-            title={amoled ? "AMOLED Pitch Black (Active) · Click for Claude Warm Charcoal" : "Claude Warm Charcoal (Active) · Click for AMOLED Pitch Black"}
+      <header
+        data-x-scrolled={isScrolled ? "true" : "false"}
+        style={{
+          pointerEvents: "auto",
+          width: isScrolled ? "calc(100% - 32px)" : "100%",
+          maxWidth: isScrolled ? "1240px" : "100%",
+          marginTop: isScrolled ? "14px" : "0px",
+          height: isScrolled ? "58px" : "64px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: isScrolled ? "0 22px" : "0 32px",
+          backgroundColor: "var(--x-glass-regular-bg)",
+          backdropFilter: "blur(var(--x-glass-regular-blur, 20px))",
+          WebkitBackdropFilter: "blur(var(--x-glass-regular-blur, 20px))",
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: isScrolled
+            ? "var(--x-border)"
+            : "transparent transparent var(--x-border) transparent",
+          borderRadius: currentRadius,
+          boxSizing: "border-box",
+          transition:
+            "width 320ms cubic-bezier(0.2, 0, 0, 1), max-width 320ms cubic-bezier(0.2, 0, 0, 1), margin-top 320ms cubic-bezier(0.2, 0, 0, 1), height 320ms cubic-bezier(0.2, 0, 0, 1), padding 320ms cubic-bezier(0.2, 0, 0, 1), border-radius 320ms cubic-bezier(0.2, 0, 0, 1), border-color 320ms cubic-bezier(0.2, 0, 0, 1), background-color 320ms cubic-bezier(0.2, 0, 0, 1)",
+        }}
+      >
+        {/* Brand & Nav Links */}
+        <div style={{ display: "flex", alignItems: "center", gap: "28px" }}>
+          <Link
+            href="/"
             style={{
-              fontSize: "12px",
-              fontFamily: "var(--x-font-family-mono)",
-              paddingLeft: "10px",
-              paddingRight: "10px",
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              color: "inherit",
             }}
           >
-            <span
+            <Text styleKey="title3" weight={400} tone="default" style={{ letterSpacing: "-0.02em" }}>
+              Xenon
+            </Text>
+            <Badge tone="accent" size="sm">
+              v1.0
+            </Badge>
+          </Link>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <Link href="/docs/components" style={{ textDecoration: "none" }}>
+              <Button variant={activePath.includes("/components") ? "subtle" : "ghost"} size="sm">
+                Components
+              </Button>
+            </Link>
+            <Link href="/docs/guidelines" style={{ textDecoration: "none" }}>
+              <Button variant={activePath.includes("/guidelines") ? "subtle" : "ghost"} size="sm">
+                Guidelines
+              </Button>
+            </Link>
+            <Link href="/pricing" style={{ textDecoration: "none" }}>
+              <Button variant={activePath === "/pricing" ? "subtle" : "ghost"} size="sm">
+                Pricing
+              </Button>
+            </Link>
+            <Link href="/docs" style={{ textDecoration: "none" }}>
+              <Button variant={activePath === "/docs" ? "subtle" : "ghost"} size="sm">
+                Docs
+              </Button>
+            </Link>
+          </div>
+        </div>
+
+        {/* Global Realtime Appearance Controls (Non-overlapping, Apple-grade UX) */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "nowrap" }}>
+          {/* Shared Pill: Tactile Accent Swatches + Hairline Separator + Anchored Radius Dropdown */}
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              height: "32px",
+              borderRadius: "9999px",
+              backgroundColor: "var(--x-surface-2)",
+              border: "1px solid var(--x-border)",
+              padding: "0 4px 0 10px",
+              boxSizing: "border-box",
+              transition: "border-color var(--x-dur-fast) ease",
+            }}
+            title="Theme accent and curvature controls"
+          >
+            {/* Accent Swatches */}
+            <div
               style={{
-                width: "6px",
-                height: "6px",
-                borderRadius: "50%",
-                backgroundColor: amoled ? "var(--x-accent)" : "var(--x-text-muted)",
-                marginRight: "6px",
-                display: "inline-block",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "7px",
+              }}
+            >
+              {ACCENT_LIST.map((item) => {
+                const isActive = accent === item.key;
+                return (
+                  <button
+                    key={item.key}
+                    type="button"
+                    onClick={() => onAccentChange(item.key)}
+                    aria-label={`Select ${item.label} accent`}
+                    title={`${item.label} accent`}
+                    style={{
+                      width: "14px",
+                      height: "14px",
+                      borderRadius: "50%",
+                      backgroundColor: item.color,
+                      border: "none",
+                      cursor: "pointer",
+                      padding: 0,
+                      outline: isActive ? "2px solid var(--x-accent)" : "none",
+                      outlineOffset: "2px",
+                      transform: isActive ? "scale(1.15)" : "scale(1)",
+                      transition:
+                        "transform 140ms cubic-bezier(0.2, 0, 0, 1), outline 140ms ease",
+                      display: "block",
+                    }}
+                  />
+                );
+              })}
+            </div>
+
+            {/* Hairline Separator */}
+            <div
+              aria-hidden="true"
+              style={{
+                width: "1px",
+                height: "16px",
+                backgroundColor: "var(--x-border)",
+                margin: "0 8px",
+                flexShrink: 0,
               }}
             />
-            {amoled ? "OLED" : "Warm"}
-          </Button>
-        )}
 
-        {/* Theme Switcher */}
-        <IconButton
-          ariaLabel="Toggle theme"
-          variant="subtle"
-          size="sm"
-          onClick={() => onThemeChange(theme === "dark" ? "light" : "dark")}
-        >
-          {theme === "dark" ? <SunIcon size="sm" /> : <MoonIcon size="sm" />}
-        </IconButton>
+            {/* Anchored Stepped Radius Slider Popover */}
+            <Popover open={radiusOpen} onOpenChange={setRadiusOpen}>
+              <PopoverTrigger asChild>
+                <button
+                  type="button"
+                  title="Global curvature radius"
+                  aria-label="Adjust global curvature radius"
+                  style={{
+                    height: "24px",
+                    padding: "0 6px 0 8px",
+                    borderRadius: "9999px",
+                    border: "none",
+                    backgroundColor: radiusOpen ? "var(--x-surface)" : "transparent",
+                    color: "var(--x-text)",
+                    fontFamily: "var(--x-font-family-mono)",
+                    fontSize: "12px",
+                    fontWeight: 400,
+                    cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "4px",
+                    letterSpacing: "-0.01em",
+                    transition:
+                      "background-color var(--x-dur-fast) ease, color var(--x-dur-fast) ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!radiusOpen) e.currentTarget.style.backgroundColor = "var(--x-surface)";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!radiusOpen) e.currentTarget.style.backgroundColor = "transparent";
+                  }}
+                >
+                  <span>R{radius}</span>
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      transform: radiusOpen ? "rotate(180deg)" : "rotate(0deg)",
+                      transition: "transform 200ms cubic-bezier(0.2, 0, 0, 1)",
+                      color: "var(--x-text-muted)",
+                    }}
+                  >
+                    <CaretDownIcon size={12} />
+                  </span>
+                </button>
+              </PopoverTrigger>
+              <PopoverContent width={210} placement="bottom-end" style={{ padding: "12px 14px" }}>
+                {/* Minimal Header Row: Label & Active Metric */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginBottom: "8px",
+                  }}
+                >
+                  <Text
+                    styleKey="caption1"
+                    tone="muted"
+                    weight={400}
+                    style={{ fontSize: "11px", letterSpacing: "0.02em" }}
+                  >
+                    Radius
+                  </Text>
+                  <span
+                    style={{
+                      fontSize: "12px",
+                      fontFamily: "var(--x-font-family-mono)",
+                      color: "var(--x-accent)",
+                    }}
+                  >
+                    {RADIUS_SHORT_LABELS[radius]}
+                  </span>
+                </div>
 
-        {/* Launch Docs CTA */}
-        <Link href="/docs" style={{ textDecoration: "none" }}>
-          <Button variant="filled" size="sm">
-            Docs →
-          </Button>
-        </Link>
-      </div>
-    </GlassBar>
+                {/* Stepped Slider with Tick Notches */}
+                <div style={{ position: "relative" }}>
+                  <Slider
+                    min={0}
+                    max={6}
+                    step={1}
+                    size="sm"
+                    value={radius}
+                    onValueChange={(val) => onRadiusChange(val as RadiusStop)}
+                    aria-label="Adjust global radius stop"
+                  />
+
+                  {/* Discrete Stop Ticks */}
+                  <div
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: 0,
+                      right: 0,
+                      transform: "translateY(-50%)",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      padding: "0 6px",
+                      pointerEvents: "none",
+                    }}
+                  >
+                    {([0, 1, 2, 3, 4, 5, 6] as RadiusStop[]).map((stop) => (
+                      <div
+                        key={stop}
+                        style={{
+                          width: "2px",
+                          height: "6px",
+                          borderRadius: "1px",
+                          backgroundColor: stop <= radius ? "var(--x-accent)" : "var(--x-border)",
+                          opacity: stop === radius ? 1 : 0.6,
+                          transition: "background-color 140ms ease",
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Minimal Boundary Guides */}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: "6px",
+                    fontSize: "10px",
+                    fontFamily: "var(--x-font-family-mono)",
+                    color: "var(--x-text-muted)",
+                    padding: "0 2px",
+                    userSelect: "none",
+                  }}
+                >
+                  <span>0 · Sharp</span>
+                  <span>6 · Pill</span>
+                </div>
+              </PopoverContent>
+            </Popover>
+          </div>
+
+          {/* AMOLED / Claude Warm Dark Mode Switcher (Visible in dark mode) */}
+          {theme !== "light" && onAmoledChange && (
+            <Button
+              variant={amoled ? "subtle" : "ghost"}
+              size="sm"
+              onClick={() => onAmoledChange(!amoled)}
+              title={amoled ? "AMOLED Pitch Black (Active) · Click for Claude Warm Charcoal" : "Claude Warm Charcoal (Active) · Click for AMOLED Pitch Black"}
+              style={{
+                fontSize: "12px",
+                fontFamily: "var(--x-font-family-mono)",
+                paddingLeft: "10px",
+                paddingRight: "10px",
+              }}
+            >
+              <span
+                style={{
+                  width: "6px",
+                  height: "6px",
+                  borderRadius: "50%",
+                  backgroundColor: amoled ? "var(--x-accent)" : "var(--x-text-muted)",
+                  marginRight: "6px",
+                  display: "inline-block",
+                }}
+              />
+              {amoled ? "OLED" : "Warm"}
+            </Button>
+          )}
+
+          {/* Theme Switcher */}
+          <IconButton
+            ariaLabel="Toggle theme"
+            variant="subtle"
+            size="sm"
+            onClick={() => onThemeChange(theme === "dark" ? "light" : "dark")}
+          >
+            {theme === "dark" ? <SunIcon size="sm" /> : <MoonIcon size="sm" />}
+          </IconButton>
+
+          {/* Launch Docs CTA */}
+          <Link href="/docs" style={{ textDecoration: "none" }}>
+            <Button variant="filled" size="sm">
+              Docs →
+            </Button>
+          </Link>
+        </div>
+      </header>
+    </div>
   );
 }
