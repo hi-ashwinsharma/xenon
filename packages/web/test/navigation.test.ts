@@ -214,7 +214,11 @@ describe("@xenon/web Navigation Controls", () => {
           createElement(
             BreadcrumbItem,
             null,
-            createElement(BreadcrumbLink, { href: "/components" }, "Components"),
+            createElement(
+              BreadcrumbLink,
+              { href: "/components" },
+              "Components",
+            ),
           ),
           createElement(BreadcrumbSeparator),
           createElement(

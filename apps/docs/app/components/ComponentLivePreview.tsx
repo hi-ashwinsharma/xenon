@@ -172,7 +172,13 @@ export function ComponentLivePreview({
 
     case "icon-button":
       return (
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <IconButton
             ariaLabel="Custom Controls"
             variant={variant as ButtonVariant}
@@ -187,7 +193,11 @@ export function ComponentLivePreview({
 
     case "button-group":
       return (
-        <ButtonGroup variant={variant as ButtonVariant} size={size as ButtonSize} disabled={disabled}>
+        <ButtonGroup
+          variant={variant as ButtonVariant}
+          size={size as ButtonSize}
+          disabled={disabled}
+        >
           <Button>Cut</Button>
           <Button>Copy</Button>
           <Button>Paste</Button>
@@ -199,15 +209,24 @@ export function ComponentLivePreview({
         <Surface
           variant={variant as SurfaceVariant}
           padding={padding}
-          style={{ width: "100%", maxWidth: "420px", border: "1px solid var(--x-border)" }}
+          style={{
+            width: "100%",
+            maxWidth: "420px",
+            border: "1px solid var(--x-border)",
+          }}
         >
           <Stack gap={12}>
-            <Heading level={4} weight={400}>Concentric Surface Level</Heading>
+            <Heading level={4} weight={400}>
+              Concentric Surface Level
+            </Heading>
             <Text styleKey="body" tone="muted">
-              Inner radius calculates as R_parent - padding = {Math.max(0, 16 - padding)}px.
+              Inner radius calculates as R_parent - padding ={" "}
+              {Math.max(0, 16 - padding)}px.
             </Text>
             <div>
-              <Button size="sm" variant="accent">Accent Action</Button>
+              <Button size="sm" variant="accent">
+                Accent Action
+              </Button>
             </div>
           </Stack>
         </Surface>
@@ -216,11 +235,20 @@ export function ComponentLivePreview({
     case "typography":
       return (
         <Stack gap={16} style={{ width: "100%", maxWidth: "480px" }}>
-          <Heading level={2} weight={weight as FontWeight} tone={tone as TextTone}>
+          <Heading
+            level={2}
+            weight={weight as FontWeight}
+            tone={tone as TextTone}
+          >
             Geist Minimalist Heading
           </Heading>
-          <Text styleKey={styleKey as TextStyleKey} tone={tone as TextTone} weight={weight as FontWeight}>
-            Body copy uses strict weights 200, 300, and 400. Font weights of 500 and higher are strictly banned in Xenon.
+          <Text
+            styleKey={styleKey as TextStyleKey}
+            tone={tone as TextTone}
+            weight={weight as FontWeight}
+          >
+            Body copy uses strict weights 200, 300, and 400. Font weights of 500
+            and higher are strictly banned in Xenon.
           </Text>
           <Text styleKey="caption1" tone="muted">
             Caption metadata rendered with tabular figures.
@@ -247,10 +275,16 @@ export function ComponentLivePreview({
           <Field
             label="Workspace Identifier"
             helpText="Must be globally unique"
-            error={invalid ? "Workspace identifier is already taken" : undefined}
+            error={
+              invalid ? "Workspace identifier is already taken" : undefined
+            }
             optional={disabled}
           >
-            <Input placeholder="my-team-workspace" size="md" disabled={disabled} />
+            <Input
+              placeholder="my-team-workspace"
+              size="md"
+              disabled={disabled}
+            />
           </Field>
         </div>
       );
@@ -270,7 +304,13 @@ export function ComponentLivePreview({
 
     case "checkbox":
       return (
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Checkbox
             label={label || "Enforce mathematical concentric radii"}
             checked={checked}
@@ -297,7 +337,15 @@ export function ComponentLivePreview({
       return (
         <div style={{ width: "100%", maxWidth: "360px" }}>
           <Stack gap={8}>
-            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", fontFamily: "var(--x-font-family-mono)", color: "var(--x-text-muted)" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                fontSize: "12px",
+                fontFamily: "var(--x-font-family-mono)",
+                color: "var(--x-text-muted)",
+              }}
+            >
               <span>Value</span>
               <span style={{ color: "var(--x-accent)" }}>{sliderVal}</span>
             </div>
@@ -333,9 +381,18 @@ export function ComponentLivePreview({
       return (
         <div style={{ width: "100%", maxWidth: "480px" }}>
           <Navbar bordered style={{ position: "relative" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
               <Text weight={400}>Xenon System</Text>
-              <Button size="sm" variant="accent">Connect</Button>
+              <Button size="sm" variant="accent">
+                Connect
+              </Button>
             </div>
           </Navbar>
         </div>
@@ -344,7 +401,11 @@ export function ComponentLivePreview({
     case "sidebar":
       return (
         <div style={{ width: "240px" }}>
-          <Sidebar variant={variant as "docked" | "floating"} bordered style={{ height: "auto" }}>
+          <Sidebar
+            variant={variant as "docked" | "floating"}
+            bordered
+            style={{ height: "auto" }}
+          >
             <SidebarGroup label="Documentation">
               <SidebarItem active>Overview</SidebarItem>
               <SidebarItem>Guidelines</SidebarItem>
@@ -365,13 +426,19 @@ export function ComponentLivePreview({
               <TabsTrigger value="tokens">Tokens</TabsTrigger>
             </TabsList>
             <TabsContent value="overview">
-              <Text styleKey="body" tone="muted">Zero gradients. Zero drop-shadows.</Text>
+              <Text styleKey="body" tone="muted">
+                Zero gradients. Zero drop-shadows.
+              </Text>
             </TabsContent>
             <TabsContent value="architecture">
-              <Text styleKey="body" tone="muted">Multi-package monorepo with web and native renderers.</Text>
+              <Text styleKey="body" tone="muted">
+                Multi-package monorepo with web and native renderers.
+              </Text>
             </TabsContent>
             <TabsContent value="tokens">
-              <Text styleKey="body" tone="muted">Discrete 7-stop radius scale with hairline borders.</Text>
+              <Text styleKey="body" tone="muted">
+                Discrete 7-stop radius scale with hairline borders.
+              </Text>
             </TabsContent>
           </Tabs>
         </div>
@@ -389,10 +456,20 @@ export function ComponentLivePreview({
             </DialogHeader>
             <Stack gap={12}>
               <Text styleKey="body">
-                Centered overlay with backdrop blur scrim and Apple-grade fluid spring dismissal.
+                Centered overlay with backdrop blur scrim and Apple-grade fluid
+                spring dismissal.
               </Text>
-              <div style={{ display: "flex", justifyContent: "flex-end", gap: "8px", marginTop: "12px" }}>
-                <Button size="sm" variant="accent">Acknowledge</Button>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  gap: "8px",
+                  marginTop: "12px",
+                }}
+              >
+                <Button size="sm" variant="accent">
+                  Acknowledge
+                </Button>
               </div>
             </Stack>
           </DialogContent>
@@ -410,7 +487,8 @@ export function ComponentLivePreview({
               <SheetTitle>Drawer Specification</SheetTitle>
             </SheetHeader>
             <Text styleKey="body" tone="muted">
-              Slide-over drawer on desktop web; gesture-driven drag sheet on Expo React Native.
+              Slide-over drawer on desktop web; gesture-driven drag sheet on
+              Expo React Native.
             </Text>
           </SheetContent>
         </Sheet>
@@ -435,7 +513,12 @@ export function ComponentLivePreview({
     case "select":
       return (
         <div style={{ width: "240px" }}>
-          <Select value={selectVal} onValueChange={setSelectVal} size={size as SelectSize} disabled={disabled}>
+          <Select
+            value={selectVal}
+            onValueChange={setSelectVal}
+            size={size as SelectSize}
+            disabled={disabled}
+          >
             <SelectTrigger />
             <SelectContent>
               <SelectItem value="starter">Starter Architecture</SelectItem>
@@ -455,7 +538,13 @@ export function ComponentLivePreview({
 
     case "badge":
       return (
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Badge
             tone={tone as BadgeTone}
             variant={variant as BadgeVariant}
@@ -476,7 +565,8 @@ export function ComponentLivePreview({
             title={`${tone.charAt(0).toUpperCase() + tone.slice(1)} Notification`}
             dismissible={dismissible}
           >
-            All dividers and borders must strictly measure 1px across desktop and mobile.
+            All dividers and borders must strictly measure 1px across desktop
+            and mobile.
           </Alert>
         </div>
       );
@@ -484,7 +574,11 @@ export function ComponentLivePreview({
     case "table":
       return (
         <div style={{ width: "100%", maxWidth: fullWidth ? "100%" : "480px" }}>
-          <Table variant={variant as TableVariant} size={size as TableSize} fullWidth={fullWidth}>
+          <Table
+            variant={variant as TableVariant}
+            size={size as TableSize}
+            fullWidth={fullWidth}
+          >
             <TableHeader>
               <TableRow>
                 <TableHead>Property</TableHead>
@@ -515,13 +609,16 @@ export function ComponentLivePreview({
             <AccordionItem value="item-1">
               <AccordionTrigger>Why are shadows banned?</AccordionTrigger>
               <AccordionContent>
-                Depth in Xenon comes purely from 1px hairline edges and stepped surface tones, avoiding faux skeuomorphic blurring.
+                Depth in Xenon comes purely from 1px hairline edges and stepped
+                surface tones, avoiding faux skeuomorphic blurring.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
               <AccordionTrigger>What is Liquid Glass?</AccordionTrigger>
               <AccordionContent>
-                Liquid Glass is reserved exclusively for floating and overlay layers (Navbar, Popover, Dialog, Sheet), preserving background spatial orientation.
+                Liquid Glass is reserved exclusively for floating and overlay
+                layers (Navbar, Popover, Dialog, Sheet), preserving background
+                spatial orientation.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -535,7 +632,11 @@ export function ComponentLivePreview({
             name="Dieter Rams"
             size={size as AvatarSize}
             shape={shape as AvatarShape}
-            status={avatarStatus !== "none" ? (avatarStatus as AvatarStatus) : undefined}
+            status={
+              avatarStatus !== "none"
+                ? (avatarStatus as AvatarStatus)
+                : undefined
+            }
           />
           <AvatarGroup max={3} size={size as AvatarSize}>
             <Avatar name="Jony Ive" shape={shape as AvatarShape} />
@@ -561,7 +662,11 @@ export function ComponentLivePreview({
 
     default:
       return (
-        <Button variant={variant as ButtonVariant} size={size as ButtonSize} disabled={disabled}>
+        <Button
+          variant={variant as ButtonVariant}
+          size={size as ButtonSize}
+          disabled={disabled}
+        >
           {label || "Interactive Component"}
         </Button>
       );

@@ -217,4 +217,3 @@ _Goal: Community engagement and technical retrospectives layer._
 - [ ] Firebase Authentication (sign in for discussions and comments).
 - [ ] Blog engine for releases and design rationale.
 - [ ] Discussion board / component feedback forum.
-

@@ -30,7 +30,9 @@ export function Combobox({
   fullWidth = false,
   style,
 }: NativeComboboxProps) {
-  const [uncontrolledValue, setUncontrolledValue] = useState<string | undefined>(defaultValue);
+  const [uncontrolledValue, setUncontrolledValue] = useState<
+    string | undefined
+  >(defaultValue);
   const isControlled = controlledValue !== undefined;
   const value = isControlled ? controlledValue : uncontrolledValue;
 

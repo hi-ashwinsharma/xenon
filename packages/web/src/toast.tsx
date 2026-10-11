@@ -8,34 +8,79 @@ import type { WebToastProps, WebToastProviderProps } from "./web.types";
 
 const toneIcons = {
   success: (
-    <svg fill="none" height="16" stroke="#30d158" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
+    <svg
+      fill="none"
+      height="16"
+      stroke="#30d158"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.25"
+      viewBox="0 0 16 16"
+      width="16"
+    >
       <circle cx="8" cy="8" r="6.5" />
       <polyline points="5.5 8 7 9.5 10.5 6.5" />
     </svg>
   ),
   danger: (
-    <svg fill="none" height="16" stroke="#ff453a" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
+    <svg
+      fill="none"
+      height="16"
+      stroke="#ff453a"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.25"
+      viewBox="0 0 16 16"
+      width="16"
+    >
       <circle cx="8" cy="8" r="6.5" />
       <line x1="8" x2="8" y1="5.5" y2="8.5" />
       <line x1="8" x2="8.01" y1="10.5" y2="10.5" />
     </svg>
   ),
   warning: (
-    <svg fill="none" height="16" stroke="#ffd60a" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
+    <svg
+      fill="none"
+      height="16"
+      stroke="#ffd60a"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.25"
+      viewBox="0 0 16 16"
+      width="16"
+    >
       <polygon points="8 2 1.5 14 14.5 14" />
       <line x1="8" x2="8" y1="6" y2="9.5" />
       <line x1="8" x2="8.01" y1="12" y2="12" />
     </svg>
   ),
   info: (
-    <svg fill="none" height="16" stroke="#64d2ff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
+    <svg
+      fill="none"
+      height="16"
+      stroke="#64d2ff"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.25"
+      viewBox="0 0 16 16"
+      width="16"
+    >
       <circle cx="8" cy="8" r="6.5" />
       <line x1="8" x2="8" y1="11" y2="8" />
       <line x1="8" x2="8.01" y1="5.5" y2="5.5" />
     </svg>
   ),
   accent: (
-    <svg fill="none" height="16" stroke="var(--x-accent)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="16">
+    <svg
+      fill="none"
+      height="16"
+      stroke="var(--x-accent)"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.25"
+      viewBox="0 0 16 16"
+      width="16"
+    >
       <circle cx="8" cy="8" r="6.5" />
       <polyline points="5.5 8 7 9.5 10.5 6.5" />
     </svg>
@@ -94,7 +139,8 @@ export function Toast({
   if (!isMounted) return null;
 
   const isEntered = status === "entered";
-  const defaultIcon = tone !== "neutral" ? toneIcons[tone as keyof typeof toneIcons] : null;
+  const defaultIcon =
+    tone !== "neutral" ? toneIcons[tone as keyof typeof toneIcons] : null;
   const renderedIcon = icon !== undefined ? icon : defaultIcon;
 
   return (
@@ -119,7 +165,9 @@ export function Toast({
         borderRadius: "var(--x-radius-control, 12px)",
         color: "var(--x-text)",
         boxSizing: "border-box",
-        transform: isEntered ? "translateY(0) scale(1)" : "translateY(12px) scale(0.96)",
+        transform: isEntered
+          ? "translateY(0) scale(1)"
+          : "translateY(12px) scale(0.96)",
         opacity: isEntered ? 1 : 0,
         transition:
           "transform 220ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms ease-out",
@@ -127,7 +175,15 @@ export function Toast({
         ...style,
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "10px", flex: 1, minWidth: 0 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          flex: 1,
+          minWidth: 0,
+        }}
+      >
         {renderedIcon && (
           <span style={{ display: "inline-flex", flexShrink: 0 }}>
             {renderedIcon}
@@ -207,7 +263,16 @@ export function Toast({
           }}
           type="button"
         >
-          <svg fill="none" height="12" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" viewBox="0 0 16 16" width="12">
+          <svg
+            fill="none"
+            height="12"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.25"
+            viewBox="0 0 16 16"
+            width="12"
+          >
             <line x1="4" x2="12" y1="4" y2="12" />
             <line x1="12" x2="4" y1="4" y2="12" />
           </svg>

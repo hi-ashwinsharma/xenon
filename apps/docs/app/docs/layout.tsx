@@ -1,11 +1,20 @@
 "use client";
 
-import React, { Suspense, useMemo, type ReactElement, type ReactNode } from "react";
+import React, {
+  Suspense,
+  useMemo,
+  type ReactElement,
+  type ReactNode,
+} from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { MarketingNavbar } from "../components/MarketingNavbar";
 import { DocsSidebar } from "../components/DocsSidebar";
 
-function DocsLayoutContent({ children }: { children: ReactNode }): ReactElement {
+function DocsLayoutContent({
+  children,
+}: {
+  children: ReactNode;
+}): ReactElement {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -58,7 +67,9 @@ function DocsLayoutContent({ children }: { children: ReactNode }): ReactElement 
         }}
       >
         {isGallery ? (
-          <main style={{ flex: 1, padding: "40px 32px 80px 32px" }}>{children}</main>
+          <main style={{ flex: 1, padding: "40px 32px 80px 32px" }}>
+            {children}
+          </main>
         ) : (
           <>
             <DocsSidebar activeId={activeId} onSelect={handleSidebarSelect} />
@@ -78,9 +89,17 @@ function DocsLayoutContent({ children }: { children: ReactNode }): ReactElement 
   );
 }
 
-export default function DocsLayout({ children }: { children: ReactNode }): ReactElement {
+export default function DocsLayout({
+  children,
+}: {
+  children: ReactNode;
+}): ReactElement {
   return (
-    <Suspense fallback={<div style={{ minHeight: "100vh", backgroundColor: "#000000" }} />}>
+    <Suspense
+      fallback={
+        <div style={{ minHeight: "100vh", backgroundColor: "#000000" }} />
+      }
+    >
       <DocsLayoutContent>{children}</DocsLayoutContent>
     </Suspense>
   );

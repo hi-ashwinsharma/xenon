@@ -47,7 +47,8 @@ export function Tabs({
   style,
   ...restProps
 }: NativeTabsProps): ReactElement {
-  const [uncontrolledValue, setUncontrolledValue] = useState<string>(defaultValue);
+  const [uncontrolledValue, setUncontrolledValue] =
+    useState<string>(defaultValue);
 
   const isControlled = controlledValue !== undefined;
   const activeValue = isControlled ? controlledValue : uncontrolledValue;
@@ -187,8 +188,12 @@ export function TabsTrigger({
               paddingHorizontal: nativeTokens.space[4],
               borderRadius: 9999,
               borderWidth: isActive ? StyleSheet.hairlineWidth : 0,
-              borderColor: isActive ? nativeTokens.colors.border : "transparent",
-              backgroundColor: isActive ? nativeTokens.colors.surface : "transparent",
+              borderColor: isActive
+                ? nativeTokens.colors.border
+                : "transparent",
+              backgroundColor: isActive
+                ? nativeTokens.colors.surface
+                : "transparent",
               opacity: disabled ? 0.38 : 1,
               transform: [{ scale: pressed && !disabled ? 0.98 : 1 }],
             }
@@ -198,7 +203,9 @@ export function TabsTrigger({
               justifyContent: "center",
               paddingVertical: nativeTokens.space[3],
               borderBottomWidth: isActive ? 2 : 0,
-              borderBottomColor: isActive ? nativeTokens.colors.accent : "transparent",
+              borderBottomColor: isActive
+                ? nativeTokens.colors.accent
+                : "transparent",
               marginBottom: -StyleSheet.hairlineWidth,
               opacity: disabled ? 0.38 : 1,
               transform: [{ scale: pressed && !disabled ? 0.98 : 1 }],
@@ -208,14 +215,14 @@ export function TabsTrigger({
       {...restProps}
     >
       {icon && (
-        <View style={{ marginRight: nativeTokens.space[2] }}>
-          {icon}
-        </View>
+        <View style={{ marginRight: nativeTokens.space[2] }}>{icon}</View>
       )}
       <Text
         style={{
           fontSize: isPill ? 13 : 14,
-          color: isActive ? nativeTokens.colors.text : nativeTokens.colors.textMuted,
+          color: isActive
+            ? nativeTokens.colors.text
+            : nativeTokens.colors.textMuted,
           fontWeight: isActive ? "400" : "300",
         }}
       >

@@ -1,20 +1,12 @@
 "use client";
 
-import React, {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useClickOutside } from "./hooks/use-click-outside";
 import { useFocusTrap } from "./hooks/use-focus-trap";
 import { usePresence } from "./hooks/use-presence";
 import { useRovingFocus } from "./hooks/use-roving-focus";
-import type {
-  CommandPaletteItem,
-  WebCommandPaletteProps,
-} from "./web.types";
+import type { CommandPaletteItem, WebCommandPaletteProps } from "./web.types";
 
 export function CommandPalette({
   open: controlledOpen,
@@ -28,7 +20,8 @@ export function CommandPalette({
   style,
   ...props
 }: WebCommandPaletteProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(defaultOpen);
+  const [uncontrolledOpen, setUncontrolledOpen] =
+    useState<boolean>(defaultOpen);
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
 
@@ -62,22 +55,23 @@ export function CommandPalette({
 
   // Filter items
   const filteredItems = query.trim()
-    ? items.filter((item) =>
-        item.label.toLowerCase().includes(query.toLowerCase()) ||
-        (item.group && item.group.toLowerCase().includes(query.toLowerCase())),
+    ? items.filter(
+        (item) =>
+          item.label.toLowerCase().includes(query.toLowerCase()) ||
+          (item.group &&
+            item.group.toLowerCase().includes(query.toLowerCase())),
       )
     : items;
 
   // Group items
-  const groupedItems = filteredItems.reduce<Record<string, CommandPaletteItem[]>>(
-    (acc, item) => {
-      const groupName = item.group || "General";
-      if (!acc[groupName]) acc[groupName] = [];
-      acc[groupName].push(item);
-      return acc;
-    },
-    {},
-  );
+  const groupedItems = filteredItems.reduce<
+    Record<string, CommandPaletteItem[]>
+  >((acc, item) => {
+    const groupName = item.group || "General";
+    if (!acc[groupName]) acc[groupName] = [];
+    acc[groupName].push(item);
+    return acc;
+  }, {});
 
   const flatItems: CommandPaletteItem[] = [];
   Object.values(groupedItems).forEach((groupList) => {
@@ -165,7 +159,9 @@ export function CommandPalette({
           color: "var(--x-text)",
           boxSizing: "border-box",
           transformOrigin: "center top",
-          transform: isEntered ? "scale(1) translateY(0)" : "scale(0.96) translateY(-8px)",
+          transform: isEntered
+            ? "scale(1) translateY(0)"
+            : "scale(0.96) translateY(-8px)",
           opacity: isEntered ? 1 : 0,
           transition:
             "transform 200ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms ease-out",
@@ -184,7 +180,9 @@ export function CommandPalette({
           }}
         >
           {/* Phosphor MagnifyingGlass Thin Icon */}
-          <span style={{ color: "var(--x-text-muted)", display: "inline-flex" }}>
+          <span
+            style={{ color: "var(--x-text-muted)", display: "inline-flex" }}
+          >
             <svg
               fill="none"
               height="18"
@@ -262,7 +260,10 @@ export function CommandPalette({
             </div>
           ) : (
             Object.entries(groupedItems).map(([groupName, groupList]) => (
-              <div key={groupName} style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+              <div
+                key={groupName}
+                style={{ display: "flex", flexDirection: "column", gap: "2px" }}
+              >
                 <span
                   style={{
                     fontSize: "11px",
@@ -278,7 +279,9 @@ export function CommandPalette({
                 </span>
 
                 {groupList.map((item) => {
-                  const itemIndex = flatItems.findIndex((fi) => fi.id === item.id);
+                  const itemIndex = flatItems.findIndex(
+                    (fi) => fi.id === item.id,
+                  );
                   const isHighlighted = activeIndex === itemIndex;
 
                   return (
@@ -303,8 +306,12 @@ export function CommandPalette({
                         padding: "8px 12px",
                         borderRadius: "var(--x-radius-joint, 8px)",
                         border: "none",
-                        background: isHighlighted ? "var(--x-surface-2)" : "transparent",
-                        color: item.disabled ? "var(--x-text-muted)" : "var(--x-text)",
+                        background: isHighlighted
+                          ? "var(--x-surface-2)"
+                          : "transparent",
+                        color: item.disabled
+                          ? "var(--x-text-muted)"
+                          : "var(--x-text)",
                         opacity: item.disabled ? 0.45 : 1,
                         cursor: item.disabled ? "not-allowed" : "pointer",
                         fontSize: "0.875rem",
@@ -316,9 +323,17 @@ export function CommandPalette({
                       }}
                       type="button"
                     >
-                      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "10px",
+                        }}
+                      >
                         {item.icon && (
-                          <span style={{ display: "inline-flex", opacity: 0.85 }}>
+                          <span
+                            style={{ display: "inline-flex", opacity: 0.85 }}
+                          >
                             {item.icon}
                           </span>
                         )}

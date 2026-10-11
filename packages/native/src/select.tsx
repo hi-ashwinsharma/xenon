@@ -1,11 +1,11 @@
-import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
-import {
-  Modal,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
+import { Modal, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import {
   DEFAULT_RADIUS_STOP,
   compileNativeTokens,
@@ -90,22 +90,32 @@ export function Select({
   children,
   style,
 }: NativeSelectProps) {
-  const [uncontrolledValue, setUncontrolledValue] = useState<string | undefined>(defaultValue);
+  const [uncontrolledValue, setUncontrolledValue] = useState<
+    string | undefined
+  >(defaultValue);
   const isControlled = controlledValue !== undefined;
   const value = isControlled ? controlledValue : uncontrolledValue;
 
   const [open, setOpen] = useState<boolean>(false);
-  const [registeredItems, setRegisteredItems] = useState<SelectOptionItem[]>([]);
+  const [registeredItems, setRegisteredItems] = useState<SelectOptionItem[]>(
+    [],
+  );
 
-  const registerItem = useCallback((val: string, label: string, dis: boolean) => {
-    setRegisteredItems((prev) => {
-      const existing = prev.find((item) => item.value === val);
-      if (existing && existing.label === label && existing.disabled === dis) {
-        return prev;
-      }
-      return [...prev.filter((item) => item.value !== val), { value: val, label, disabled: dis }];
-    });
-  }, []);
+  const registerItem = useCallback(
+    (val: string, label: string, dis: boolean) => {
+      setRegisteredItems((prev) => {
+        const existing = prev.find((item) => item.value === val);
+        if (existing && existing.label === label && existing.disabled === dis) {
+          return prev;
+        }
+        return [
+          ...prev.filter((item) => item.value !== val),
+          { value: val, label, disabled: dis },
+        ];
+      });
+    },
+    [],
+  );
 
   const handleSelect = (nextVal: string) => {
     if (!isControlled) {
@@ -231,10 +241,7 @@ export function SelectTrigger({
   );
 }
 
-export function SelectContent({
-  children,
-  style,
-}: NativeSelectContentProps) {
+export function SelectContent({ children, style }: NativeSelectContentProps) {
   const { open, setOpen } = useSelect();
 
   let resolvedTheme: ResolvedTheme = "dark";

@@ -1,6 +1,11 @@
 "use client";
 
-import React, { useState, useMemo, type ReactElement, type CSSProperties } from "react";
+import React, {
+  useState,
+  useMemo,
+  type ReactElement,
+  type CSSProperties,
+} from "react";
 import {
   Alert,
   Badge,
@@ -36,7 +41,9 @@ interface ComponentShowcaseProps {
   entry: ComponentDocEntry;
 }
 
-export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactElement {
+export function ComponentShowcase({
+  entry,
+}: ComponentShowcaseProps): ReactElement {
   // Tailored interactive property states initialized based on component type
   const [variant, setVariant] = useState<string>(() => {
     if (entry.id === "badge" || entry.id === "alert") return "subtle";
@@ -47,7 +54,9 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
     if (entry.id === "surface") return "subtle";
     return "filled";
   });
-  const [tone, setTone] = useState<string>(entry.id === "alert" ? "info" : "accent");
+  const [tone, setTone] = useState<string>(
+    entry.id === "alert" ? "info" : "accent",
+  );
   const [size, setSize] = useState<string>("md");
   const [disabled, setDisabled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -125,7 +134,9 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
         return `<Switch ${props.join(" ")} />`;
       }
       case "checkbox": {
-        const props: string[] = [`label="Enforce mathematical concentric radii"`];
+        const props: string[] = [
+          `label="Enforce mathematical concentric radii"`,
+        ];
         if (size !== "md") props.push(`size="${size}"`);
         if (indeterminate) props.push("indeterminate");
         else props.push(`checked={${checked}}`);
@@ -133,7 +144,12 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
         return `<Checkbox ${props.join(" ")} />`;
       }
       case "slider": {
-        const props: string[] = [`min={0}`, `max={6}`, `step={1}`, `value={${sliderVal}}`];
+        const props: string[] = [
+          `min={0}`,
+          `max={6}`,
+          `step={1}`,
+          `value={${sliderVal}}`,
+        ];
         if (size !== "md") props.push(`size="${size}"`);
         if (disabled) props.push("disabled");
         return `<Slider ${props.join(" ")} />`;
@@ -147,14 +163,20 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
         return `<Input ${props.join(" ")} />`;
       }
       case "textarea": {
-        const props: string[] = [`placeholder="Architectural notes..."`, `rows={${rows}}`];
+        const props: string[] = [
+          `placeholder="Architectural notes..."`,
+          `rows={${rows}}`,
+        ];
         if (size !== "md") props.push(`size="${size}"`);
         if (invalid) props.push("invalid");
         if (disabled) props.push("disabled");
         return `<Textarea ${props.join(" ")} />`;
       }
       case "field": {
-        const props: string[] = [`label="Workspace ID"`, `helpText="Must be globally unique"`];
+        const props: string[] = [
+          `label="Workspace ID"`,
+          `helpText="Must be globally unique"`,
+        ];
         if (invalid) props.push(`error="Identifier is already taken"`);
         return `<Field ${props.join(" ")}>\n  <Input placeholder="my-team" size="md"${disabled ? " disabled" : ""} />\n</Field>`;
       }
@@ -189,7 +211,10 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
         return `<Accordion type="single" variant="${variant}">\n  <AccordionItem value="1">\n    <AccordionTrigger>Why are shadows banned?</AccordionTrigger>\n    <AccordionContent>Depth comes from 1px hairlines and surface tone.</AccordionContent>\n  </AccordionItem>\n</Accordion>`;
       }
       case "codeblock": {
-        const props: string[] = [`code="const xenon = true;"`, `language="typescript"`];
+        const props: string[] = [
+          `code="const xenon = true;"`,
+          `language="typescript"`,
+        ];
         if (variant !== "default") props.push(`variant="${variant}"`);
         if (lineNumbers) props.push("showLineNumbers");
         if (copyable) props.push("copyable");
@@ -297,11 +322,24 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
           {entry.name}
         </Heading>
 
-        <Text styleKey="body" tone="muted" weight={300} style={{ fontSize: "16px", lineHeight: "1.6" }}>
+        <Text
+          styleKey="body"
+          tone="muted"
+          weight={300}
+          style={{ fontSize: "16px", lineHeight: "1.6" }}
+        >
           {entry.description}
         </Text>
 
-        <div style={{ display: "flex", gap: "8px", alignItems: "center", marginTop: "4px", flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "8px",
+            alignItems: "center",
+            marginTop: "4px",
+            flexWrap: "wrap",
+          }}
+        >
           <Badge tone="accent">v1.0.0</Badge>
           <Badge tone="neutral">Web: React DOM</Badge>
           <Badge tone="neutral">Native: Expo</Badge>
@@ -317,7 +355,8 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
           Installation
         </Heading>
         <Text styleKey="caption1" tone="muted">
-          Install using your package manager or scaffold directly via the Xenon CLI.
+          Install using your package manager or scaffold directly via the Xenon
+          CLI.
         </Text>
 
         <div style={{ width: "280px", marginBottom: "8px" }}>
@@ -348,7 +387,8 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
             Interactive Playground
           </Heading>
           <Text styleKey="caption1" tone="muted">
-            Configure {entry.name} properties live with Apple-grade fluid transitions and concentric geometry.
+            Configure {entry.name} properties live with Apple-grade fluid
+            transitions and concentric geometry.
           </Text>
         </div>
 
@@ -387,7 +427,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
             >
               {/* Button Variant Picker */}
               {entry.id === "button" && (
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
                   <span style={labelStyle}>Variant</span>
                   <SegmentedControl
                     size="sm"
@@ -407,7 +453,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
 
               {/* IconButton Variant Picker */}
               {entry.id === "icon-button" && (
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
                   <span style={labelStyle}>Variant</span>
                   <SegmentedControl
                     size="sm"
@@ -426,7 +478,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
 
               {/* ButtonGroup Variant Picker */}
               {entry.id === "button-group" && (
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
                   <span style={labelStyle}>Variant</span>
                   <SegmentedControl
                     size="sm"
@@ -444,7 +502,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
               {/* Badge Tone & Variant Pickers */}
               {entry.id === "badge" && (
                 <>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
                     <span style={labelStyle}>Tone</span>
                     <SegmentedControl
                       size="sm"
@@ -460,7 +524,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
                       onValueChange={setTone}
                     />
                   </div>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
                     <span style={labelStyle}>Variant</span>
                     <SegmentedControl
                       size="sm"
@@ -479,7 +549,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
               {/* Alert Tone & Variant Pickers */}
               {entry.id === "alert" && (
                 <>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
                     <span style={labelStyle}>Tone</span>
                     <SegmentedControl
                       size="sm"
@@ -494,7 +570,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
                       onValueChange={setTone}
                     />
                   </div>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
                     <span style={labelStyle}>Variant</span>
                     <SegmentedControl
                       size="sm"
@@ -512,7 +594,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
 
               {/* Tabs Variant Picker */}
               {entry.id === "tabs" && (
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
                   <span style={labelStyle}>Variant</span>
                   <SegmentedControl
                     size="sm"
@@ -528,7 +616,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
 
               {/* Accordion Variant Picker */}
               {entry.id === "accordion" && (
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
                   <span style={labelStyle}>Variant</span>
                   <SegmentedControl
                     size="sm"
@@ -546,7 +640,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
               {/* Surface Variant & Padding Pickers */}
               {entry.id === "surface" && (
                 <>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
                     <span style={labelStyle}>Variant</span>
                     <SegmentedControl
                       size="sm"
@@ -559,7 +659,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
                       onValueChange={setVariant}
                     />
                   </div>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
                     <span style={labelStyle}>Padding</span>
                     <SegmentedControl
                       size="sm"
@@ -577,7 +683,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
 
               {/* Table Variant Picker */}
               {entry.id === "table" && (
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
                   <span style={labelStyle}>Variant</span>
                   <SegmentedControl
                     size="sm"
@@ -596,7 +708,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
               {/* Avatar Shape & Status Pickers */}
               {entry.id === "avatar" && (
                 <>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
                     <span style={labelStyle}>Shape</span>
                     <SegmentedControl
                       size="sm"
@@ -608,7 +726,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
                       onValueChange={setShape}
                     />
                   </div>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
                     <span style={labelStyle}>Status</span>
                     <SegmentedControl
                       size="sm"
@@ -627,7 +751,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
 
               {/* CodeBlock Variant Picker */}
               {entry.id === "codeblock" && (
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
                   <span style={labelStyle}>Variant</span>
                   <SegmentedControl
                     size="sm"
@@ -644,7 +774,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
 
               {/* Sheet Side Picker */}
               {entry.id === "sheet" && (
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
                   <span style={labelStyle}>Side</span>
                   <SegmentedControl
                     size="sm"
@@ -662,7 +798,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
 
               {/* Sidebar Variant Picker */}
               {entry.id === "sidebar" && (
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
                   <span style={labelStyle}>Variant</span>
                   <SegmentedControl
                     size="sm"
@@ -679,7 +821,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
               {/* Typography Scale & Tone Pickers */}
               {entry.id === "typography" && (
                 <>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
                     <span style={labelStyle}>Scale</span>
                     <SegmentedControl
                       size="sm"
@@ -693,7 +841,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
                       onValueChange={setStyleKey}
                     />
                   </div>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
                     <span style={labelStyle}>Tone</span>
                     <SegmentedControl
                       size="sm"
@@ -707,7 +861,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
                       onValueChange={setTone}
                     />
                   </div>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
                     <span style={labelStyle}>Weight</span>
                     <SegmentedControl
                       size="sm"
@@ -740,7 +900,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
                 "avatar",
                 "dialog",
               ].includes(entry.id) && (
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
                   <span style={labelStyle}>Size</span>
                   <SegmentedControl
                     size="sm"
@@ -771,7 +937,13 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
 
               {/* Textarea Rows Picker */}
               {entry.id === "textarea" && (
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
                   <span style={labelStyle}>Rows</span>
                   <SegmentedControl
                     size="sm"
@@ -788,7 +960,14 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
             </div>
 
             {/* Toggle Switches */}
-            <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+                flexWrap: "wrap",
+              }}
+            >
               {/* Disabled Switch */}
               {[
                 "button",
@@ -967,7 +1146,11 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
               backgroundColor: "var(--x-surface)",
             }}
           >
-            <Text styleKey="caption1" tone="muted" style={{ fontFamily: "var(--x-font-family-mono)" }}>
+            <Text
+              styleKey="caption1"
+              tone="muted"
+              style={{ fontFamily: "var(--x-font-family-mono)" }}
+            >
               Active JSX: {dynamicWebSnippet.replace(/\n\s*/g, " ")}
             </Text>
           </div>
@@ -1041,15 +1224,30 @@ export function ComponentShowcase({ entry }: ComponentShowcaseProps): ReactEleme
                     {p.name}
                   </span>
                   {p.required && (
-                    <Badge tone="accent" size="sm" style={{ marginLeft: "6px" }}>
+                    <Badge
+                      tone="accent"
+                      size="sm"
+                      style={{ marginLeft: "6px" }}
+                    >
                       req
                     </Badge>
                   )}
                 </TableCell>
-                <TableCell style={{ fontFamily: "var(--x-font-family-mono)", fontSize: "12px", color: "var(--x-text-muted)" }}>
+                <TableCell
+                  style={{
+                    fontFamily: "var(--x-font-family-mono)",
+                    fontSize: "12px",
+                    color: "var(--x-text-muted)",
+                  }}
+                >
                   {p.type}
                 </TableCell>
-                <TableCell style={{ fontFamily: "var(--x-font-family-mono)", fontSize: "12px" }}>
+                <TableCell
+                  style={{
+                    fontFamily: "var(--x-font-family-mono)",
+                    fontSize: "12px",
+                  }}
+                >
                   {p.defaultValue ?? "—"}
                 </TableCell>
                 <TableCell style={{ fontSize: "13px", color: "var(--x-text)" }}>

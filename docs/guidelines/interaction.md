@@ -67,4 +67,3 @@ All Xenon components strictly adhere to Don Norman's cognitive design framework:
    - Prevent user error by constraining options to valid discrete states (e.g., 7 discrete radius stops 0–6 rather than arbitrary fractional inputs; clamped popup surfaces to prevent corner clipping).
 6. **Conceptual Clarity & Discoverability**:
    - The interface must communicate its state clearly at all times, ensuring both humans and AI agents share an accurate, transparent conceptual model.
-

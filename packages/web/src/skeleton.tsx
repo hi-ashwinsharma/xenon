@@ -48,7 +48,9 @@ export function Skeleton({
           height: resolvedHeight ?? "20px",
           backgroundColor: "var(--x-surface-2)",
           borderRadius: resolvedRadius,
-          animation: animate ? "x-skeleton-pulse 1.8s ease-in-out infinite" : "none",
+          animation: animate
+            ? "x-skeleton-pulse 1.8s ease-in-out infinite"
+            : "none",
           boxSizing: "border-box",
           ...style,
         }}

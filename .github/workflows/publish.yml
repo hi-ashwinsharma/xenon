@@ -1,0 +1,76 @@
+name: Publish to GitHub Packages
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag or Version to publish (e.g. latest or beta)"
+        required: false
+        default: "latest"
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@hi-ashwinsharma"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check code formatting
+        run: pnpm format:check
+
+      - name: Run lint
+        run: pnpm lint
+
+      - name: Run typecheck
+        run: pnpm typecheck
+
+      - name: Run test suite
+        run: pnpm test
+
+      - name: Build packages and docs
+        run: pnpm build
+
+      - name: Prepare packages for GitHub Packages
+        run: node scripts/prepare-github-publish.mjs
+        env:
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+
+      - name: Publish @hi-ashwinsharma/tokens
+        run: pnpm --filter "./packages/tokens" publish --no-git-checks --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish @hi-ashwinsharma/core
+        run: pnpm --filter "./packages/core" publish --no-git-checks --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish @hi-ashwinsharma/web
+        run: pnpm --filter "./packages/web" publish --no-git-checks --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

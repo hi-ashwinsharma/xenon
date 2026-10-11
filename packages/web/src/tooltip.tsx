@@ -49,7 +49,8 @@ export function Tooltip({
   delayMs = 250,
   children,
 }: WebTooltipProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(defaultOpen);
+  const [uncontrolledOpen, setUncontrolledOpen] =
+    useState<boolean>(defaultOpen);
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
 
@@ -100,12 +101,16 @@ export function TooltipTrigger({
   children,
   ...props
 }: WebTooltipTriggerProps) {
-  const { setOpen, triggerRef, updateTriggerRect, delayMs, tooltipId } = useTooltip();
+  const { setOpen, triggerRef, updateTriggerRect, delayMs, tooltipId } =
+    useTooltip();
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleMouseEnter = () => {
     // Only trigger hover on devices that support hover
-    if (typeof window !== "undefined" && !window.matchMedia("(hover: hover)").matches) {
+    if (
+      typeof window !== "undefined" &&
+      !window.matchMedia("(hover: hover)").matches
+    ) {
       return;
     }
     updateTriggerRect();

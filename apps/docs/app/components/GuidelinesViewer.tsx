@@ -32,8 +32,14 @@ export function GuidelinesViewer(): ReactElement {
         <Heading level={1} weight={200}>
           Design Guidelines & Mathematics
         </Heading>
-        <Text styleKey="body" tone="muted" weight={300} style={{ fontSize: "16px" }}>
-          Core geometric invariants, concentric mathematics, and typography rules that define Xenon.
+        <Text
+          styleKey="body"
+          tone="muted"
+          weight={300}
+          style={{ fontSize: "16px" }}
+        >
+          Core geometric invariants, concentric mathematics, and typography
+          rules that define Xenon.
         </Text>
       </Stack>
 
@@ -45,7 +51,9 @@ export function GuidelinesViewer(): ReactElement {
           1. Concentric Radius Geometry
         </Heading>
         <Text styleKey="body" tone="default" weight={300}>
-          Nested rounded surfaces must never use the same corner radius as their container. Doing so makes inner elements look optically alien and bloated. Xenon strictly enforces the concentric formula:
+          Nested rounded surfaces must never use the same corner radius as their
+          container. Doing so makes inner elements look optically alien and
+          bloated. Xenon strictly enforces the concentric formula:
         </Text>
 
         <CodeBlock
@@ -65,17 +73,43 @@ export function GuidelinesViewer(): ReactElement {
             border: "1px solid var(--x-border)",
           }}
         >
-          <div style={{ display: "flex", gap: "24px", alignItems: "center", marginBottom: "20px", flexWrap: "wrap" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "24px",
+              alignItems: "center",
+              marginBottom: "20px",
+              flexWrap: "wrap",
+            }}
+          >
             <div style={{ minWidth: "200px" }}>
-              <Text styleKey="caption1" tone="muted">Parent Radius: {parentRadius}px</Text>
-              <Slider min={8} max={48} step={2} value={parentRadius} onValueChange={setParentRadius} />
+              <Text styleKey="caption1" tone="muted">
+                Parent Radius: {parentRadius}px
+              </Text>
+              <Slider
+                min={8}
+                max={48}
+                step={2}
+                value={parentRadius}
+                onValueChange={setParentRadius}
+              />
             </div>
             <div style={{ minWidth: "200px" }}>
-              <Text styleKey="caption1" tone="muted">Padding Inset: {padding}px</Text>
-              <Slider min={4} max={32} step={2} value={padding} onValueChange={setPadding} />
+              <Text styleKey="caption1" tone="muted">
+                Padding Inset: {padding}px
+              </Text>
+              <Slider
+                min={4}
+                max={32}
+                step={2}
+                value={padding}
+                onValueChange={setPadding}
+              />
             </div>
             <div>
-              <Badge tone="accent">Child Radius = {calculatedChildRadius}px</Badge>
+              <Badge tone="accent">
+                Child Radius = {calculatedChildRadius}px
+              </Badge>
             </div>
           </div>
 
@@ -116,7 +150,8 @@ export function GuidelinesViewer(): ReactElement {
           2. Discrete 7-Stop Radius Scale
         </Heading>
         <Text styleKey="body" tone="default" weight={300}>
-          Radii are not arbitrary numbers. They are bound to a strict 7-stop scale where controls and surfaces scale synchronously:
+          Radii are not arbitrary numbers. They are bound to a strict 7-stop
+          scale where controls and surfaces scale synchronously:
         </Text>
 
         <Table variant="bordered" fullWidth>
@@ -189,23 +224,53 @@ export function GuidelinesViewer(): ReactElement {
           3. Typography & Weight Invariant
         </Heading>
         <Text styleKey="body" tone="default" weight={300}>
-          Xenon strictly bans font weights of 500 or higher. Hierarchy is conveyed through size scale, tracking, and optical tone, creating a refined, calm visual atmosphere.
+          Xenon strictly bans font weights of 500 or higher. Hierarchy is
+          conveyed through size scale, tracking, and optical tone, creating a
+          refined, calm visual atmosphere.
         </Text>
 
-        <Surface variant="subtle" padding={16} style={{ border: "1px solid var(--x-border)" }}>
+        <Surface
+          variant="subtle"
+          padding={16}
+          style={{ border: "1px solid var(--x-border)" }}
+        >
           <Stack gap={12}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <Text styleKey="title3" weight={200}>Weight 200: Display Headings</Text>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Text styleKey="title3" weight={200}>
+                Weight 200: Display Headings
+              </Text>
               <Badge tone="neutral">font-weight: 200</Badge>
             </div>
             <Divider />
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <Text styleKey="title3" weight={300}>Weight 300: Section Headings & Body</Text>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Text styleKey="title3" weight={300}>
+                Weight 300: Section Headings & Body
+              </Text>
               <Badge tone="neutral">font-weight: 300</Badge>
             </div>
             <Divider />
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <Text styleKey="title3" weight={400}>Weight 400: Button Labels & Strong Text</Text>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Text styleKey="title3" weight={400}>
+                Weight 400: Button Labels & Strong Text
+              </Text>
               <Badge tone="neutral">font-weight: 400</Badge>
             </div>
           </Stack>
@@ -214,7 +279,9 @@ export function GuidelinesViewer(): ReactElement {
 
       {/* 4. Motion Invariant */}
       <Alert tone="info" title="Zero Instant/Snappy Transitions">
-        Every visual state change in Xenon glides through Apple-grade fluid curves (280ms cubic-bezier or physics springs). Instant snapping and uncoordinated display: none are strictly banned.
+        Every visual state change in Xenon glides through Apple-grade fluid
+        curves (280ms cubic-bezier or physics springs). Instant snapping and
+        uncoordinated display: none are strictly banned.
       </Alert>
     </Stack>
   );

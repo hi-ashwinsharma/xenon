@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { createElement } from "react";
-import { Button, Field, Input, InputGroup, SegmentedControl, Textarea } from "../src/index";
+import {
+  Button,
+  Field,
+  Input,
+  InputGroup,
+  SegmentedControl,
+  Textarea,
+} from "../src/index";
 
 describe("@xenon/web Form Controls", () => {
   describe("Input", () => {

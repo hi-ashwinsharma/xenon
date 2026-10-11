@@ -45,7 +45,8 @@ export function Sheet({
   onOpenChange,
   children,
 }: WebSheetProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(defaultOpen);
+  const [uncontrolledOpen, setUncontrolledOpen] =
+    useState<boolean>(defaultOpen);
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
 

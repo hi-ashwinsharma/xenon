@@ -11,11 +11,7 @@ import React, {
   type ReactNode,
 } from "react";
 import { useRouter } from "next/navigation";
-import {
-  CommandPalette,
-  ToastProvider,
-  XenonProvider,
-} from "@xenon/web";
+import { CommandPalette, ToastProvider, XenonProvider } from "@xenon/web";
 import type { Accent, RadiusStop, Theme } from "@xenon/tokens";
 import { COMPONENTS_REGISTRY } from "../docs-data/components-registry";
 
@@ -42,9 +38,20 @@ export function useDocsTheme(): XenonDocsContextValue {
   return context;
 }
 
-const VALID_ACCENTS: Accent[] = ["lime", "orange", "blue", "pink", "purple", "green"];
+const VALID_ACCENTS: Accent[] = [
+  "lime",
+  "orange",
+  "blue",
+  "pink",
+  "purple",
+  "green",
+];
 
-export function XenonDocsProvider({ children }: { children: ReactNode }): ReactElement {
+export function XenonDocsProvider({
+  children,
+}: {
+  children: ReactNode;
+}): ReactElement {
   const router = useRouter();
 
   const [theme, setThemeState] = useState<Theme>("dark");
@@ -71,9 +78,17 @@ export function XenonDocsProvider({ children }: { children: ReactNode }): ReactE
       const savedAmoled = localStorage.getItem("xenon-amoled");
 
       // Theme
-      if (urlTheme === "light" || urlTheme === "dark" || urlTheme === "system") {
+      if (
+        urlTheme === "light" ||
+        urlTheme === "dark" ||
+        urlTheme === "system"
+      ) {
         setThemeState(urlTheme);
-      } else if (savedTheme === "light" || savedTheme === "dark" || savedTheme === "system") {
+      } else if (
+        savedTheme === "light" ||
+        savedTheme === "dark" ||
+        savedTheme === "system"
+      ) {
         setThemeState(savedTheme);
       }
 
@@ -217,7 +232,17 @@ export function XenonDocsProvider({ children }: { children: ReactNode }): ReactE
       commandPaletteOpen,
       setCommandPaletteOpen,
     }),
-    [theme, setTheme, accent, setAccent, radius, setRadius, amoled, setAmoled, commandPaletteOpen],
+    [
+      theme,
+      setTheme,
+      accent,
+      setAccent,
+      radius,
+      setRadius,
+      amoled,
+      setAmoled,
+      commandPaletteOpen,
+    ],
   );
 
   return (

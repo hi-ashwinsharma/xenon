@@ -17,25 +17,25 @@ Xenon is a quiet UI kit. It earns trust through geometry, restraint and negative
 
 ## Banned patterns
 
-| Banned                                                                                   | Use instead                                          |
-| ---------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| `linear-gradient`, `radial-gradient`, `conic-gradient`, gradient text, mesh blobs        | Flat surface tones                                   |
-| `box-shadow`, `drop-shadow`, `text-shadow`, glow, ring-as-shadow                         | 1px hairline border, surface tone step               |
-| Emoji and emoji-like glyphs                                                              | Phosphor Thin icons                                  |
-| Card inside card                                                                         | Divider, spacing, or a header row inside one surface |
-| Font weight 500 or higher                                                                | Size and color for hierarchy                         |
-| Raw hex, raw px, raw ms, raw easing in components                                        | Tokens                                               |
-| Hardcoded `border-radius: 9999px` on large surfaces                                      | Radius tokens with surface cap                       |
-| Pure-white text on AMOLED black for body copy                                            | `--x-text` (softened)                                |
-| Multiple accents on one screen for decoration                                            | One accent, semantic colors only for status          |
-| Heavy borders (2px+), dashed borders for decoration                                      | 1px hairline                                         |
-| Decorative animation, parallax, looping motion                                           | Purposeful feedback only                             |
-| Instant or snappy UI transitions, uncoordinated `hidden` / `display: none`               | Apple-grade fluid transitions (physics springs, easing)|
-| Mixed icon sets or icon weights                                                          | Phosphor `thin` via `Icon`                           |
-| Backdrop blur and glassmorphism in the static content layer (cards, inputs, page canvas) | Opaque surfaces (`--x-surface`)                      |
-| Overfilling popovers/surfaces with redundant widgets, duplicate controls, or preview boxes | Compact, quiet, single-purpose controls (Apple reduction)|
-| Interactive disclosure triggers without visual signifiers (e.g. naked text without chevron)| Animated Phosphor CaretDown indicator (0° closed, 180° open)|
-| Slicing sub-sections/chapters inside a single act with decorative dividers | Preserve Gestalt continuity: Dividers strictly separate macro Acts; use proximity & negative space inside an act |
+| Banned                                                                                      | Use instead                                                                                                      |
+| ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `linear-gradient`, `radial-gradient`, `conic-gradient`, gradient text, mesh blobs           | Flat surface tones                                                                                               |
+| `box-shadow`, `drop-shadow`, `text-shadow`, glow, ring-as-shadow                            | 1px hairline border, surface tone step                                                                           |
+| Emoji and emoji-like glyphs                                                                 | Phosphor Thin icons                                                                                              |
+| Card inside card                                                                            | Divider, spacing, or a header row inside one surface                                                             |
+| Font weight 500 or higher                                                                   | Size and color for hierarchy                                                                                     |
+| Raw hex, raw px, raw ms, raw easing in components                                           | Tokens                                                                                                           |
+| Hardcoded `border-radius: 9999px` on large surfaces                                         | Radius tokens with surface cap                                                                                   |
+| Pure-white text on AMOLED black for body copy                                               | `--x-text` (softened)                                                                                            |
+| Multiple accents on one screen for decoration                                               | One accent, semantic colors only for status                                                                      |
+| Heavy borders (2px+), dashed borders for decoration                                         | 1px hairline                                                                                                     |
+| Decorative animation, parallax, looping motion                                              | Purposeful feedback only                                                                                         |
+| Instant or snappy UI transitions, uncoordinated `hidden` / `display: none`                  | Apple-grade fluid transitions (physics springs, easing)                                                          |
+| Mixed icon sets or icon weights                                                             | Phosphor `thin` via `Icon`                                                                                       |
+| Backdrop blur and glassmorphism in the static content layer (cards, inputs, page canvas)    | Opaque surfaces (`--x-surface`)                                                                                  |
+| Overfilling popovers/surfaces with redundant widgets, duplicate controls, or preview boxes  | Compact, quiet, single-purpose controls (Apple reduction)                                                        |
+| Interactive disclosure triggers without visual signifiers (e.g. naked text without chevron) | Animated Phosphor CaretDown indicator (0° closed, 180° open)                                                     |
+| Slicing sub-sections/chapters inside a single act with decorative dividers                  | Preserve Gestalt continuity: Dividers strictly separate macro Acts; use proximity & negative space inside an act |
 
 ## Liquid Glass: the floating layer exception
 
@@ -58,7 +58,7 @@ Blur is allowed exclusively as **Liquid Glass** on floating and overlay elements
 
 ## Overlay Architecture: Anchored Pop-Overs & Hero Kinematics
 
-Xenon departs from legacy desktop UI libraries by **abolishing disruptive, view-blocking centered modal dialogs** for common contextual actions. 
+Xenon departs from legacy desktop UI libraries by **abolishing disruptive, view-blocking centered modal dialogs** for common contextual actions.
 
 1. **Anchored Pop-Overs on Web**:
    - Contextual actions, selectors, and disclosures open as **anchored pop-overs** physically tethered to their trigger element rather than blocking the entire screen.

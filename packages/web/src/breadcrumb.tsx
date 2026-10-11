@@ -52,7 +52,12 @@ export function BreadcrumbList({
   };
 
   return (
-    <ol className={className} data-x-breadcrumb-list="" style={listStyle} {...restProps}>
+    <ol
+      className={className}
+      data-x-breadcrumb-list=""
+      style={listStyle}
+      {...restProps}
+    >
       {children}
     </ol>
   );
@@ -75,7 +80,12 @@ export function BreadcrumbItem({
   };
 
   return (
-    <li className={className} data-x-breadcrumb-item="" style={itemStyle} {...restProps}>
+    <li
+      className={className}
+      data-x-breadcrumb-item=""
+      style={itemStyle}
+      {...restProps}
+    >
       {children}
     </li>
   );

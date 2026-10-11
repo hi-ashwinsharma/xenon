@@ -49,7 +49,11 @@ function LandingPageContent(): ReactElement {
 
 export default function LandingPage(): ReactElement {
   return (
-    <Suspense fallback={<div style={{ minHeight: "100vh", backgroundColor: "#000000" }} />}>
+    <Suspense
+      fallback={
+        <div style={{ minHeight: "100vh", backgroundColor: "#000000" }} />
+      }
+    >
       <LandingPageContent />
     </Suspense>
   );

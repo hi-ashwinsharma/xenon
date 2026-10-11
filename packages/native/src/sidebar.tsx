@@ -1,9 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useMemo,
-  type ReactElement,
-} from "react";
+import { createContext, useContext, useMemo, type ReactElement } from "react";
 import {
   Pressable,
   ScrollView,
@@ -94,7 +89,11 @@ export function Sidebar({
       width: currentWidth,
       borderWidth: bordered ? StyleSheet.hairlineWidth : 0,
       borderColor: nativeTokens.colors.border,
-      borderRightWidth: separator ? StyleSheet.hairlineWidth : bordered ? StyleSheet.hairlineWidth : 0,
+      borderRightWidth: separator
+        ? StyleSheet.hairlineWidth
+        : bordered
+          ? StyleSheet.hairlineWidth
+          : 0,
       borderRightColor: nativeTokens.colors.border,
       overflow: "hidden",
       ...(isFloating
@@ -288,7 +287,13 @@ export function SidebarGroup({
             paddingBottom: nativeTokens.space[1],
           }}
         >
-          <Text style={{ fontSize: 11, letterSpacing: 0.6, color: nativeTokens.colors.textMuted }}>
+          <Text
+            style={{
+              fontSize: 11,
+              letterSpacing: 0.6,
+              color: nativeTokens.colors.textMuted,
+            }}
+          >
             {label}
           </Text>
         </View>
@@ -341,7 +346,9 @@ export function SidebarItem({
           height: 36,
           paddingHorizontal: collapsed ? 0 : nativeTokens.space[3],
           borderRadius: 6,
-          backgroundColor: active ? nativeTokens.colors.surface2 : "transparent",
+          backgroundColor: active
+            ? nativeTokens.colors.surface2
+            : "transparent",
           opacity: disabled ? 0.38 : 1,
           transform: [{ scale: pressed && !disabled ? 0.98 : 1 }],
         },
@@ -366,7 +373,9 @@ export function SidebarItem({
           <Text
             style={{
               fontSize: 14,
-              color: active ? nativeTokens.colors.text : nativeTokens.colors.textMuted,
+              color: active
+                ? nativeTokens.colors.text
+                : nativeTokens.colors.textMuted,
               fontWeight: active ? "400" : "300",
             }}
           >
@@ -376,9 +385,7 @@ export function SidebarItem({
       )}
 
       {!collapsed && badge && (
-        <View style={{ marginLeft: nativeTokens.space[2] }}>
-          {badge}
-        </View>
+        <View style={{ marginLeft: nativeTokens.space[2] }}>{badge}</View>
       )}
 
       {!collapsed && shortcut && (
@@ -431,7 +438,9 @@ export function SidebarFooter({
           flexDirection: "row",
           alignItems: "center",
           justifyContent: collapsed ? "center" : "flex-start",
-          paddingVertical: collapsed ? nativeTokens.space[2] : nativeTokens.space[2],
+          paddingVertical: collapsed
+            ? nativeTokens.space[2]
+            : nativeTokens.space[2],
           paddingHorizontal: collapsed ? 0 : nativeTokens.space[4],
         },
         style,

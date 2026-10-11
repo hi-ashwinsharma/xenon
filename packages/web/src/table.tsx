@@ -31,7 +31,10 @@ const TableContext = createContext<TableContextValue>({
   size: "md",
 });
 
-const sizePaddings: Record<TableSize, { y: number; x: number; fontSize: string }> = {
+const sizePaddings: Record<
+  TableSize,
+  { y: number; x: number; fontSize: string }
+> = {
   sm: { y: 8, x: 12, fontSize: "12px" },
   md: { y: 12, x: 16, fontSize: "14px" },
   lg: { y: 16, x: 20, fontSize: "15px" },
@@ -51,16 +54,16 @@ export const Table = forwardRef<HTMLTableElement, WebTableProps>(function Table(
 ): ReactElement {
   const contextValue = useMemo(() => ({ variant, size }), [variant, size]);
 
-    const isOuterBordered = variant === "bordered" || variant === "default";
-    const containerStyle: CSSProperties = {
-      position: "relative",
-      width: fullWidth ? "100%" : "auto",
-      overflowX: "auto",
-      WebkitOverflowScrolling: "touch",
-      borderRadius: "var(--x-radius-surface, 16px)",
-      border: isOuterBordered ? "1px solid var(--x-border)" : undefined,
-      overflow: "hidden",
-    };
+  const isOuterBordered = variant === "bordered" || variant === "default";
+  const containerStyle: CSSProperties = {
+    position: "relative",
+    width: fullWidth ? "100%" : "auto",
+    overflowX: "auto",
+    WebkitOverflowScrolling: "touch",
+    borderRadius: "var(--x-radius-surface, 16px)",
+    border: isOuterBordered ? "1px solid var(--x-border)" : undefined,
+    overflow: "hidden",
+  };
 
   const tableStyle: CSSProperties = {
     width: "100%",
@@ -74,7 +77,12 @@ export const Table = forwardRef<HTMLTableElement, WebTableProps>(function Table(
   return (
     <TableContext.Provider value={contextValue}>
       <div style={containerStyle}>
-        <table ref={ref} style={tableStyle} className={className} {...restProps}>
+        <table
+          ref={ref}
+          style={tableStyle}
+          className={className}
+          {...restProps}
+        >
           {children}
         </table>
       </div>
@@ -82,26 +90,34 @@ export const Table = forwardRef<HTMLTableElement, WebTableProps>(function Table(
   );
 });
 
-export const TableHeader = forwardRef<HTMLTableSectionElement, WebTableHeaderProps>(
-  function TableHeader({ children, style, className, ...restProps }, ref): ReactElement {
-    const { variant } = useContext(TableContext);
+export const TableHeader = forwardRef<
+  HTMLTableSectionElement,
+  WebTableHeaderProps
+>(function TableHeader(
+  { children, style, className, ...restProps },
+  ref,
+): ReactElement {
+  const { variant } = useContext(TableContext);
 
-    const headerStyle: CSSProperties = {
-      borderBottom: "1px solid var(--x-border)",
-      backgroundColor: variant === "subtle" ? "var(--x-surface-1)" : "transparent",
-      ...style,
-    };
+  const headerStyle: CSSProperties = {
+    borderBottom: "1px solid var(--x-border)",
+    backgroundColor:
+      variant === "subtle" ? "var(--x-surface-1)" : "transparent",
+    ...style,
+  };
 
-    return (
-      <thead ref={ref} style={headerStyle} className={className} {...restProps}>
-        {children}
-      </thead>
-    );
-  },
-);
+  return (
+    <thead ref={ref} style={headerStyle} className={className} {...restProps}>
+      {children}
+    </thead>
+  );
+});
 
 export const TableBody = forwardRef<HTMLTableSectionElement, WebTableBodyProps>(
-  function TableBody({ children, style, className, ...restProps }, ref): ReactElement {
+  function TableBody(
+    { children, style, className, ...restProps },
+    ref,
+  ): ReactElement {
     return (
       <tbody ref={ref} style={style} className={className} {...restProps}>
         {children}
@@ -110,37 +126,48 @@ export const TableBody = forwardRef<HTMLTableSectionElement, WebTableBodyProps>(
   },
 );
 
-export const TableFooter = forwardRef<HTMLTableSectionElement, WebTableFooterProps>(
-  function TableFooter({ children, style, className, ...restProps }, ref): ReactElement {
-    const footerStyle: CSSProperties = {
-      borderTop: "1px solid var(--x-border)",
-      backgroundColor: "var(--x-surface-1)",
-      color: "var(--x-text-secondary)",
-      ...style,
-    };
+export const TableFooter = forwardRef<
+  HTMLTableSectionElement,
+  WebTableFooterProps
+>(function TableFooter(
+  { children, style, className, ...restProps },
+  ref,
+): ReactElement {
+  const footerStyle: CSSProperties = {
+    borderTop: "1px solid var(--x-border)",
+    backgroundColor: "var(--x-surface-1)",
+    color: "var(--x-text-secondary)",
+    ...style,
+  };
 
-    return (
-      <tfoot ref={ref} style={footerStyle} className={className} {...restProps}>
-        {children}
-      </tfoot>
-    );
-  },
-);
+  return (
+    <tfoot ref={ref} style={footerStyle} className={className} {...restProps}>
+      {children}
+    </tfoot>
+  );
+});
 
 export const TableRow = forwardRef<HTMLTableRowElement, WebTableRowProps>(
   function TableRow(
-    { selected, interactive, onClick, children, style, className, ...restProps },
+    {
+      selected,
+      interactive,
+      onClick,
+      children,
+      style,
+      className,
+      ...restProps
+    },
     ref,
   ): ReactElement {
     const { variant } = useContext(TableContext);
 
     const rowStyle: CSSProperties = {
       borderBottom: "1px solid var(--x-border)",
-      transition: "background-color var(--x-motion-duration-fast) var(--x-motion-ease-out)",
+      transition:
+        "background-color var(--x-motion-duration-fast) var(--x-motion-ease-out)",
       cursor: interactive || onClick ? "pointer" : "default",
-      backgroundColor: selected
-        ? "rgba(194, 255, 11, 0.08)"
-        : undefined,
+      backgroundColor: selected ? "rgba(194, 255, 11, 0.08)" : undefined,
       ...style,
     };
 
@@ -197,7 +224,8 @@ export const TableCell = forwardRef<HTMLTableCellElement, WebTableCellProps>(
       padding: `${metrics.y}px ${metrics.x}px`,
       textAlign: align,
       color: "var(--x-text)",
-      fontVariantNumeric: numeric || align === "right" ? "tabular-nums" : undefined,
+      fontVariantNumeric:
+        numeric || align === "right" ? "tabular-nums" : undefined,
       ...style,
     };
 
@@ -209,23 +237,32 @@ export const TableCell = forwardRef<HTMLTableCellElement, WebTableCellProps>(
   },
 );
 
-export const TableCaption = forwardRef<HTMLTableCaptionElement, WebTableCaptionProps>(
-  function TableCaption({ children, style, className, ...restProps }, ref): ReactElement {
-    const captionStyle: CSSProperties = {
-      marginTop: "8px",
-      fontSize: "12px",
-      color: "var(--x-text-muted)",
-      textAlign: "center",
-      ...style,
-    };
+export const TableCaption = forwardRef<
+  HTMLTableCaptionElement,
+  WebTableCaptionProps
+>(function TableCaption(
+  { children, style, className, ...restProps },
+  ref,
+): ReactElement {
+  const captionStyle: CSSProperties = {
+    marginTop: "8px",
+    fontSize: "12px",
+    color: "var(--x-text-muted)",
+    textAlign: "center",
+    ...style,
+  };
 
-    return (
-      <caption ref={ref} style={captionStyle} className={className} {...restProps}>
-        {children}
-      </caption>
-    );
-  },
-);
+  return (
+    <caption
+      ref={ref}
+      style={captionStyle}
+      className={className}
+      {...restProps}
+    >
+      {children}
+    </caption>
+  );
+});
 
 export function DataTable<T>({
   columns,
@@ -241,16 +278,18 @@ export function DataTable<T>({
   ...restProps
 }: WebDataTableProps<T>): ReactElement {
   return (
-    <Table variant={variant} size={size} style={style} className={className} {...restProps}>
+    <Table
+      variant={variant}
+      size={size}
+      style={style}
+      className={className}
+      {...restProps}
+    >
       {caption && <TableCaption>{caption}</TableCaption>}
       <TableHeader>
         <TableRow>
           {columns.map((col) => (
-            <TableHead
-              key={col.key}
-              align={col.align}
-              width={col.width}
-            >
+            <TableHead key={col.key} align={col.align} width={col.width}>
               {col.header}
             </TableHead>
           ))}
@@ -279,7 +318,9 @@ export function DataTable<T>({
               {columns.map((col) => {
                 const cellContent = col.accessor
                   ? col.accessor(item, index)
-                  : (item as Record<string, unknown>)[col.key] as React.ReactNode;
+                  : ((item as Record<string, unknown>)[
+                      col.key
+                    ] as React.ReactNode);
 
                 return (
                   <TableCell

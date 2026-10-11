@@ -8,11 +8,7 @@ import React, {
   type CSSProperties,
   type ReactElement,
 } from "react";
-import {
-  tokenizeCode,
-  type CodeToken,
-  type CodeTokenType,
-} from "@xenon/core";
+import { tokenizeCode, type CodeToken, type CodeTokenType } from "@xenon/core";
 import type { WebCodeBlockProps } from "./web.types";
 
 function CopyIcon({ style }: { readonly style?: CSSProperties }): ReactElement {
@@ -34,7 +30,11 @@ function CopyIcon({ style }: { readonly style?: CSSProperties }): ReactElement {
   );
 }
 
-function CheckIcon({ style }: { readonly style?: CSSProperties }): ReactElement {
+function CheckIcon({
+  style,
+}: {
+  readonly style?: CSSProperties;
+}): ReactElement {
   return (
     <svg
       fill="none"
@@ -111,7 +111,8 @@ export const CodeBlock = forwardRef<HTMLDivElement, WebCodeBlockProps>(
       border: variant !== "minimal" ? "1px solid var(--x-border)" : undefined,
       borderRadius: variant !== "minimal" ? "var(--x-radius)" : undefined,
       overflow: "hidden",
-      fontFamily: "var(--x-font-family-mono, ui-monospace, SFMono-Regular, Menlo, monospace)",
+      fontFamily:
+        "var(--x-font-family-mono, ui-monospace, SFMono-Regular, Menlo, monospace)",
       fontSize: "13px",
       lineHeight: 1.6,
       ...style,
@@ -139,7 +140,8 @@ export const CodeBlock = forwardRef<HTMLDivElement, WebCodeBlockProps>(
       backgroundColor: "transparent",
       color: copied ? "var(--x-accent)" : "var(--x-text-muted)",
       cursor: "pointer",
-      transition: "color var(--x-motion-duration-fast) var(--x-motion-ease-out)",
+      transition:
+        "color var(--x-motion-duration-fast) var(--x-motion-ease-out)",
     };
 
     const codeWrapperStyle: CSSProperties = {
@@ -152,7 +154,12 @@ export const CodeBlock = forwardRef<HTMLDivElement, WebCodeBlockProps>(
     const isCustomNode = !Array.isArray(tokenizedLines);
 
     return (
-      <div ref={ref} style={containerStyle} className={className} {...restProps}>
+      <div
+        ref={ref}
+        style={containerStyle}
+        className={className}
+        {...restProps}
+      >
         {showHeader && (
           <div style={headerStyle}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -195,47 +202,45 @@ export const CodeBlock = forwardRef<HTMLDivElement, WebCodeBlockProps>(
 
         <pre style={codeWrapperStyle}>
           <code>
-            {isCustomNode ? (
-              (tokenizedLines as React.ReactNode)
-            ) : (
-              (tokenizedLines as readonly (readonly CodeToken[])[]).map(
-                (line, lineIndex) => (
-                  <div
-                    key={lineIndex}
-                    style={{
-                      display: "flex",
-                      minHeight: "1.6em",
-                    }}
-                  >
-                    {showLineNumbers && (
-                      <span
-                        style={{
-                          width: "32px",
-                          textAlign: "right",
-                          marginRight: "16px",
-                          color: "var(--x-text-muted)",
-                          userSelect: "none",
-                          fontVariantNumeric: "tabular-nums",
-                          flexShrink: 0,
-                        }}
-                      >
-                        {lineIndex + 1}
-                      </span>
-                    )}
-                    <span style={{ flex: 1, whiteSpace: "pre" }}>
-                      {line.map((token, tokenIndex) => (
+            {isCustomNode
+              ? (tokenizedLines as React.ReactNode)
+              : (tokenizedLines as readonly (readonly CodeToken[])[]).map(
+                  (line, lineIndex) => (
+                    <div
+                      key={lineIndex}
+                      style={{
+                        display: "flex",
+                        minHeight: "1.6em",
+                      }}
+                    >
+                      {showLineNumbers && (
                         <span
-                          key={tokenIndex}
-                          style={tokenColors[token.type] ?? tokenColors.plain}
+                          style={{
+                            width: "32px",
+                            textAlign: "right",
+                            marginRight: "16px",
+                            color: "var(--x-text-muted)",
+                            userSelect: "none",
+                            fontVariantNumeric: "tabular-nums",
+                            flexShrink: 0,
+                          }}
                         >
-                          {token.content}
+                          {lineIndex + 1}
                         </span>
-                      ))}
-                    </span>
-                  </div>
-                ),
-              )
-            )}
+                      )}
+                      <span style={{ flex: 1, whiteSpace: "pre" }}>
+                        {line.map((token, tokenIndex) => (
+                          <span
+                            key={tokenIndex}
+                            style={tokenColors[token.type] ?? tokenColors.plain}
+                          >
+                            {token.content}
+                          </span>
+                        ))}
+                      </span>
+                    </div>
+                  ),
+                )}
           </code>
         </pre>
       </div>

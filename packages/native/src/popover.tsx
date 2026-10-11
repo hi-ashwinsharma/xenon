@@ -1,9 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
-import {
-  Modal,
-  Pressable,
-  StyleSheet,
-} from "react-native";
+import { Modal, Pressable, StyleSheet } from "react-native";
 import {
   compileNativeTokens,
   type Accent,
@@ -38,7 +34,8 @@ export function Popover({
   onOpenChange,
   children,
 }: NativePopoverProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(defaultOpen);
+  const [uncontrolledOpen, setUncontrolledOpen] =
+    useState<boolean>(defaultOpen);
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
 
@@ -76,10 +73,7 @@ export function PopoverTrigger({
   );
 }
 
-export function PopoverContent({
-  children,
-  style,
-}: NativePopoverContentProps) {
+export function PopoverContent({ children, style }: NativePopoverContentProps) {
   const { open, setOpen } = usePopover();
 
   let resolvedTheme: ResolvedTheme = "dark";
@@ -104,10 +98,7 @@ export function PopoverContent({
       transparent
       visible={open}
     >
-      <Pressable
-        onPress={() => setOpen(false)}
-        style={styles.scrim}
-      >
+      <Pressable onPress={() => setOpen(false)} style={styles.scrim}>
         <Pressable
           onPress={(e) => e.stopPropagation()}
           style={[

@@ -143,9 +143,16 @@ export const Avatar = forwardRef<HTMLSpanElement, WebAvatarProps>(
     }
 
     return (
-      <span ref={ref} style={containerStyle} className={className} {...restProps}>
+      <span
+        ref={ref}
+        style={containerStyle}
+        className={className}
+        {...restProps}
+      >
         {content}
-        {status && <span style={statusStyle} aria-label={`Status: ${status}`} />}
+        {status && (
+          <span style={statusStyle} aria-label={`Status: ${status}`} />
+        )}
       </span>
     );
   },

@@ -28,7 +28,10 @@ export function Breadcrumb({
   ...restProps
 }: NativeBreadcrumbProps): ReactElement {
   return (
-    <View style={[{ flexDirection: "row", alignItems: "center" }, style]} {...restProps}>
+    <View
+      style={[{ flexDirection: "row", alignItems: "center" }, style]}
+      {...restProps}
+    >
       {children}
     </View>
   );
@@ -139,7 +142,9 @@ export function BreadcrumbLink({
           style={[
             {
               fontSize: 13,
-              color: pressed ? nativeTokens.colors.text : nativeTokens.colors.textMuted,
+              color: pressed
+                ? nativeTokens.colors.text
+                : nativeTokens.colors.textMuted,
               fontWeight: "300",
             },
             style,

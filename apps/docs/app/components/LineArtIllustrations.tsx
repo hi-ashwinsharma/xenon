@@ -43,7 +43,9 @@ function PanelCaptions({
       }}
     >
       <p style={{ ...baseStyle, color: "var(--x-text-muted)" }}>{left}</p>
-      <p style={{ ...baseStyle, color: "var(--x-text)", fontWeight: 400 }}>{right}</p>
+      <p style={{ ...baseStyle, color: "var(--x-text)", fontWeight: 400 }}>
+        {right}
+      </p>
     </div>
   );
 }
@@ -70,14 +72,30 @@ export function EggVsConcentricIllustration({
 
   /* Card geometry — panels are 260 × 185 inside a 720 × 270 canvas */
   const LO = { x: 45, y: 42, w: 260, h: 185 }; /* left outer */
-  const LI = { x: LO.x + P, y: LO.y + P, w: LO.w - 2 * P, h: LO.h - 2 * P }; /* left inner */
+  const LI = {
+    x: LO.x + P,
+    y: LO.y + P,
+    w: LO.w - 2 * P,
+    h: LO.h - 2 * P,
+  }; /* left inner */
   const RO = { x: 415, y: 42, w: 260, h: 185 }; /* right outer */
-  const RI = { x: RO.x + P, y: RO.y + P, w: RO.w - 2 * P, h: RO.h - 2 * P }; /* right inner */
+  const RI = {
+    x: RO.x + P,
+    y: RO.y + P,
+    w: RO.w - 2 * P,
+    h: RO.h - 2 * P,
+  }; /* right inner */
 
   /* Corner centres — the emotional core of the illustration */
   const LOc = { cx: LO.x + R, cy: LO.y + R }; /* left outer corner centre */
-  const LIc = { cx: LI.x + Rchild_wrong, cy: LI.y + Rchild_wrong }; /* left inner centre (displaced) */
-  const ROc = { cx: RO.x + R, cy: RO.y + R }; /* right outer corner centre = right inner centre (shared!) */
+  const LIc = {
+    cx: LI.x + Rchild_wrong,
+    cy: LI.y + Rchild_wrong,
+  }; /* left inner centre (displaced) */
+  const ROc = {
+    cx: RO.x + R,
+    cy: RO.y + R,
+  }; /* right outer corner centre = right inner centre (shared!) */
 
   /* Outer corner arc endpoints (top-left arc: from top-edge to left-edge) */
   const LOarcStart = { x: LO.x + R, y: LO.y };
@@ -105,21 +123,39 @@ export function EggVsConcentricIllustration({
       tl.fromTo(
         ".e1-outer",
         { strokeDashoffset: 950, opacity: 0.2 },
-        { strokeDashoffset: 0, opacity: 1, duration: 0.9, stagger: 0.04, ease: "power2.out" },
+        {
+          strokeDashoffset: 0,
+          opacity: 1,
+          duration: 0.9,
+          stagger: 0.04,
+          ease: "power2.out",
+        },
         0,
       )
         /* Inner cards appear after frames */
         .fromTo(
           ".e1-inner",
           { strokeDashoffset: 850, opacity: 0 },
-          { strokeDashoffset: 0, opacity: 1, duration: 0.75, stagger: 0.04, ease: "power2.out" },
+          {
+            strokeDashoffset: 0,
+            opacity: 1,
+            duration: 0.75,
+            stagger: 0.04,
+            ease: "power2.out",
+          },
           0.25,
         )
         /* Corner arc highlights */
         .fromTo(
           ".e1-arc",
           { strokeDashoffset: 180, opacity: 0 },
-          { strokeDashoffset: 0, opacity: 1, duration: 0.55, stagger: 0.06, ease: "power2.out" },
+          {
+            strokeDashoffset: 0,
+            opacity: 1,
+            duration: 0.55,
+            stagger: 0.06,
+            ease: "power2.out",
+          },
           0.5,
         )
         /* Centre dots pop in */
@@ -133,7 +169,12 @@ export function EggVsConcentricIllustration({
         .fromTo(
           ".e1-vec",
           { strokeDashoffset: 60, opacity: 0 },
-          { strokeDashoffset: 0, opacity: 1, duration: 0.4, ease: "power1.out" },
+          {
+            strokeDashoffset: 0,
+            opacity: 1,
+            duration: 0.4,
+            ease: "power1.out",
+          },
           0.75,
         );
 
@@ -411,13 +452,30 @@ export function MudVsHairlineIllustration({
         .fromTo(
           ".m2-contour",
           { opacity: 0, strokeDashoffset: 350 },
-          { opacity: 1, strokeDashoffset: 0, stagger: 0.08, duration: 0.7, ease: "power1.out" },
+          {
+            opacity: 1,
+            strokeDashoffset: 0,
+            stagger: 0.08,
+            duration: 0.7,
+            ease: "power1.out",
+          },
           0.15,
         )
         .fromTo(
           ".m2-bleed",
-          { opacity: 0, scale: 0.9, transformBox: "fill-box", transformOrigin: "center" },
-          { opacity: 1, scale: 1, stagger: 0.06, duration: 0.5, ease: "power2.out" },
+          {
+            opacity: 0,
+            scale: 0.9,
+            transformBox: "fill-box",
+            transformOrigin: "center",
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            stagger: 0.06,
+            duration: 0.5,
+            ease: "power2.out",
+          },
           0.3,
         )
         .fromTo(
@@ -430,13 +488,24 @@ export function MudVsHairlineIllustration({
         .fromTo(
           ".m2-step",
           { strokeDashoffset: 400, opacity: 0 },
-          { strokeDashoffset: 0, opacity: 1, duration: 0.75, ease: "power2.out" },
+          {
+            strokeDashoffset: 0,
+            opacity: 1,
+            duration: 0.75,
+            ease: "power2.out",
+          },
           0.2,
         )
         .fromTo(
           ".m2-caliper",
           { strokeDashoffset: 80, opacity: 0 },
-          { strokeDashoffset: 0, opacity: 1, stagger: 0.06, duration: 0.45, ease: "power1.out" },
+          {
+            strokeDashoffset: 0,
+            opacity: 1,
+            stagger: 0.06,
+            duration: 0.45,
+            ease: "power1.out",
+          },
           0.5,
         );
 
@@ -574,8 +643,24 @@ export function MudVsHairlineIllustration({
           opacity="0.7"
           className="m2-bleed"
         />
-        <line x1="135" y1="112" x2="135" y2="124" stroke="#FF453A" strokeWidth="1" className="m2-bleed" />
-        <line x1="225" y1="112" x2="225" y2="124" stroke="#FF453A" strokeWidth="1" className="m2-bleed" />
+        <line
+          x1="135"
+          y1="112"
+          x2="135"
+          y2="124"
+          stroke="#FF453A"
+          strokeWidth="1"
+          className="m2-bleed"
+        />
+        <line
+          x1="225"
+          y1="112"
+          x2="225"
+          y2="124"
+          stroke="#FF453A"
+          strokeWidth="1"
+          className="m2-bleed"
+        />
 
         {/* ── RIGHT: 1.00PX DIRAC VECTOR STEP & CALIPER ── */}
 
@@ -664,13 +749,53 @@ export function MudVsHairlineIllustration({
           strokeWidth="1"
           className="m2-caliper"
         />
-        <line x1="531" y1="48" x2="527" y2="52" stroke="var(--x-accent)" strokeWidth="1" className="m2-caliper" />
-        <line x1="531" y1="56" x2="527" y2="52" stroke="var(--x-accent)" strokeWidth="1" className="m2-caliper" />
-        <line x1="549" y1="48" x2="553" y2="52" stroke="var(--x-accent)" strokeWidth="1" className="m2-caliper" />
-        <line x1="549" y1="56" x2="553" y2="52" stroke="var(--x-accent)" strokeWidth="1" className="m2-caliper" />
+        <line
+          x1="531"
+          y1="48"
+          x2="527"
+          y2="52"
+          stroke="var(--x-accent)"
+          strokeWidth="1"
+          className="m2-caliper"
+        />
+        <line
+          x1="531"
+          y1="56"
+          x2="527"
+          y2="52"
+          stroke="var(--x-accent)"
+          strokeWidth="1"
+          className="m2-caliper"
+        />
+        <line
+          x1="549"
+          y1="48"
+          x2="553"
+          y2="52"
+          stroke="var(--x-accent)"
+          strokeWidth="1"
+          className="m2-caliper"
+        />
+        <line
+          x1="549"
+          y1="56"
+          x2="553"
+          y2="52"
+          stroke="var(--x-accent)"
+          strokeWidth="1"
+          className="m2-caliper"
+        />
 
         {/* Caliper 45° witness tick mark */}
-        <line x1="536" y1="56" x2="544" y2="48" stroke="var(--x-accent)" strokeWidth="1" className="m2-caliper" />
+        <line
+          x1="536"
+          y1="56"
+          x2="544"
+          y2="48"
+          stroke="var(--x-accent)"
+          strokeWidth="1"
+          className="m2-caliper"
+        />
 
         {/* Vertex beacon and living pulse ring */}
         <circle
@@ -683,8 +808,20 @@ export function MudVsHairlineIllustration({
           opacity="0.35"
           className="m2-pulse"
         />
-        <circle cx="540" cy="75" r="3.5" fill="var(--x-accent)" className="m2-dot" />
-        <circle cx="540" cy="165" r="3.5" fill="var(--x-text-muted)" className="m2-dot" />
+        <circle
+          cx="540"
+          cy="75"
+          r="3.5"
+          fill="var(--x-accent)"
+          className="m2-dot"
+        />
+        <circle
+          cx="540"
+          cy="165"
+          r="3.5"
+          fill="var(--x-text-muted)"
+          className="m2-dot"
+        />
       </svg>
 
       <PanelCaptions
@@ -741,20 +878,36 @@ export function JoltVsButterIllustration({
         .fromTo(
           ".j3-cliff",
           { strokeDashoffset: 350, opacity: 0 },
-          { strokeDashoffset: 0, opacity: 1, duration: 0.45, ease: "power1.inOut" },
+          {
+            strokeDashoffset: 0,
+            opacity: 1,
+            duration: 0.45,
+            ease: "power1.inOut",
+          },
           0.2,
         )
         /* Fracture shear marks appear */
         .fromTo(
           ".j3-fracture",
           { opacity: 0, scale: 0 },
-          { opacity: 1, scale: 1, stagger: 0.05, duration: 0.35, ease: "power2.out" },
+          {
+            opacity: 1,
+            scale: 1,
+            stagger: 0.05,
+            duration: 0.35,
+            ease: "power2.out",
+          },
           0.4,
         )
         /* Shockwave pulse at fracture point */
         .fromTo(
           ".j3-shock",
-          { scale: 0.5, opacity: 1, transformBox: "fill-box", transformOrigin: "center" },
+          {
+            scale: 0.5,
+            opacity: 1,
+            transformBox: "fill-box",
+            transformOrigin: "center",
+          },
           { scale: 2.4, opacity: 0, duration: 0.5, ease: "power2.out" },
           0.45,
         )
@@ -762,7 +915,12 @@ export function JoltVsButterIllustration({
         .fromTo(
           ".j3-envelope",
           { strokeDashoffset: 300, opacity: 0 },
-          { strokeDashoffset: 0, opacity: 0.35, duration: 0.6, ease: "power1.out" },
+          {
+            strokeDashoffset: 0,
+            opacity: 0.35,
+            duration: 0.6,
+            ease: "power1.out",
+          },
           0.2,
         )
         /* Spring waveform draws across time */
@@ -775,8 +933,20 @@ export function JoltVsButterIllustration({
         /* Equilibrium puck rides spring to rest */
         .fromTo(
           ".j3-puck",
-          { x: -160, y: 50, scale: 0.5, transformBox: "fill-box", transformOrigin: "center" },
-          { x: 0, y: 0, scale: 1, duration: 1.15, ease: "elastic.out(1, 0.45)" },
+          {
+            x: -160,
+            y: 50,
+            scale: 0.5,
+            transformBox: "fill-box",
+            transformOrigin: "center",
+          },
+          {
+            x: 0,
+            y: 0,
+            scale: 1,
+            duration: 1.15,
+            ease: "elastic.out(1, 0.45)",
+          },
           0.35,
         );
 
@@ -866,13 +1036,44 @@ export function JoltVsButterIllustration({
         />
 
         {/* Shear fracture tick marks along the instantaneous vertical cut */}
-        <line x1="168" y1="145" x2="182" y2="135" stroke="#FF453A" strokeWidth="1.2" className="j3-fracture" />
-        <line x1="168" y1="120" x2="182" y2="110" stroke="#FF453A" strokeWidth="1.2" className="j3-fracture" />
-        <line x1="168" y1="95" x2="182" y2="85" stroke="#FF453A" strokeWidth="1.2" className="j3-fracture" />
+        <line
+          x1="168"
+          y1="145"
+          x2="182"
+          y2="135"
+          stroke="#FF453A"
+          strokeWidth="1.2"
+          className="j3-fracture"
+        />
+        <line
+          x1="168"
+          y1="120"
+          x2="182"
+          y2="110"
+          stroke="#FF453A"
+          strokeWidth="1.2"
+          className="j3-fracture"
+        />
+        <line
+          x1="168"
+          y1="95"
+          x2="182"
+          y2="85"
+          stroke="#FF453A"
+          strokeWidth="1.2"
+          className="j3-fracture"
+        />
 
         {/* Impact corner vertex and shockwave ring */}
         <circle cx="175" cy="70" r="4.5" fill="#FF453A" className="j3-cliff" />
-        <circle cx="175" cy="170" r="3.5" fill="#FF453A" opacity="0.6" className="j3-cliff" />
+        <circle
+          cx="175"
+          cy="170"
+          r="3.5"
+          fill="#FF453A"
+          opacity="0.6"
+          className="j3-cliff"
+        />
         <circle
           cx="175"
           cy="70"
@@ -941,13 +1142,45 @@ export function JoltVsButterIllustration({
         />
 
         {/* Tangent guide ticks showing smooth, continuous acceleration */}
-        <line x1="475" y1="58" x2="475" y2="72" stroke="var(--x-accent)" strokeWidth="0.75" opacity="0.4" />
-        <line x1="525" y1="178" x2="525" y2="192" stroke="var(--x-accent)" strokeWidth="0.75" opacity="0.4" />
-        <line x1="575" y1="98" x2="575" y2="112" stroke="var(--x-accent)" strokeWidth="0.75" opacity="0.4" />
+        <line
+          x1="475"
+          y1="58"
+          x2="475"
+          y2="72"
+          stroke="var(--x-accent)"
+          strokeWidth="0.75"
+          opacity="0.4"
+        />
+        <line
+          x1="525"
+          y1="178"
+          x2="525"
+          y2="192"
+          stroke="var(--x-accent)"
+          strokeWidth="0.75"
+          opacity="0.4"
+        />
+        <line
+          x1="575"
+          y1="98"
+          x2="575"
+          y2="112"
+          stroke="var(--x-accent)"
+          strokeWidth="0.75"
+          opacity="0.4"
+        />
 
         {/* Settling kinetic puck at resting equilibrium */}
         <g className="j3-puck" transform="translate(650, 135)">
-          <circle cx="0" cy="0" r="10" fill="none" stroke="var(--x-accent)" strokeWidth="0.85" opacity="0.35" />
+          <circle
+            cx="0"
+            cy="0"
+            r="10"
+            fill="none"
+            stroke="var(--x-accent)"
+            strokeWidth="0.85"
+            opacity="0.35"
+          />
           <circle cx="0" cy="0" r="5" fill="var(--x-accent)" />
         </g>
       </svg>
@@ -968,7 +1201,9 @@ export function JoltVsButterIllustration({
            one calibrated concentric target reticle and laser vector lock.
    Zero text inside SVG. Captions rendered in HTML below.
 ───────────────────────────────────────────────────────────────────────────── */
-export function ClownCarVsAccentIllustration({ className }: LineArtProps): ReactElement {
+export function ClownCarVsAccentIllustration({
+  className,
+}: LineArtProps): ReactElement {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   useGSAP(
@@ -993,20 +1228,42 @@ export function ClownCarVsAccentIllustration({ className }: LineArtProps): React
         /* Left: Polar rings & divergent vectors trace */
         .fromTo(
           ".c4-polar",
-          { opacity: 0, scale: 0.7, transformBox: "fill-box", transformOrigin: "center" },
-          { opacity: 1, scale: 1, stagger: 0.06, duration: 0.5, ease: "power2.out" },
+          {
+            opacity: 0,
+            scale: 0.7,
+            transformBox: "fill-box",
+            transformOrigin: "center",
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            stagger: 0.06,
+            duration: 0.5,
+            ease: "power2.out",
+          },
           0.15,
         )
         .fromTo(
           ".c4-scatter",
           { strokeDashoffset: 120, opacity: 0 },
-          { strokeDashoffset: 0, opacity: 0.85, stagger: 0.05, duration: 0.45, ease: "power1.out" },
+          {
+            strokeDashoffset: 0,
+            opacity: 0.85,
+            stagger: 0.05,
+            duration: 0.45,
+            ease: "power1.out",
+          },
           0.3,
         )
         .fromTo(
           ".c4-saccade",
           { strokeDashoffset: 350, opacity: 0 },
-          { strokeDashoffset: 0, opacity: 0.6, duration: 0.6, ease: "power2.inOut" },
+          {
+            strokeDashoffset: 0,
+            opacity: 0.6,
+            duration: 0.6,
+            ease: "power2.inOut",
+          },
           0.45,
         )
         /* Right: Calm grid & singular target reticle lock in */
@@ -1019,13 +1276,29 @@ export function ClownCarVsAccentIllustration({ className }: LineArtProps): React
         .fromTo(
           ".c4-laser",
           { strokeDashoffset: 200, opacity: 0 },
-          { strokeDashoffset: 0, opacity: 1, duration: 0.65, ease: "power2.out" },
+          {
+            strokeDashoffset: 0,
+            opacity: 1,
+            duration: 0.65,
+            ease: "power2.out",
+          },
           0.35,
         )
         .fromTo(
           ".c4-target",
-          { scale: 0, opacity: 0, transformBox: "fill-box", transformOrigin: "center" },
-          { scale: 1, opacity: 1, stagger: 0.08, duration: 0.45, ease: "back.out(2)" },
+          {
+            scale: 0,
+            opacity: 0,
+            transformBox: "fill-box",
+            transformOrigin: "center",
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            stagger: 0.08,
+            duration: 0.45,
+            ease: "back.out(2)",
+          },
           0.5,
         );
 
@@ -1085,21 +1358,118 @@ export function ClownCarVsAccentIllustration({ className }: LineArtProps): React
         />
 
         {/* Polar radar concentric range rings */}
-        <circle cx="180" cy="130" r="26" stroke="var(--x-border)" strokeWidth="0.8" strokeDasharray="3 5" className="c4-polar" fill="none" />
-        <circle cx="180" cy="130" r="56" stroke="var(--x-border)" strokeWidth="0.8" strokeDasharray="3 5" className="c4-polar" fill="none" />
-        <circle cx="180" cy="130" r="82" stroke="var(--x-border)" strokeWidth="0.8" strokeDasharray="3 5" className="c4-polar" fill="none" />
+        <circle
+          cx="180"
+          cy="130"
+          r="26"
+          stroke="var(--x-border)"
+          strokeWidth="0.8"
+          strokeDasharray="3 5"
+          className="c4-polar"
+          fill="none"
+        />
+        <circle
+          cx="180"
+          cy="130"
+          r="56"
+          stroke="var(--x-border)"
+          strokeWidth="0.8"
+          strokeDasharray="3 5"
+          className="c4-polar"
+          fill="none"
+        />
+        <circle
+          cx="180"
+          cy="130"
+          r="82"
+          stroke="var(--x-border)"
+          strokeWidth="0.8"
+          strokeDasharray="3 5"
+          className="c4-polar"
+          fill="none"
+        />
 
         {/* Crosshair reference axes */}
-        <line x1="98" y1="130" x2="262" y2="130" stroke="var(--x-border)" strokeWidth="0.75" opacity="0.4" />
-        <line x1="180" y1="48" x2="180" y2="212" stroke="var(--x-border)" strokeWidth="0.75" opacity="0.4" />
+        <line
+          x1="98"
+          y1="130"
+          x2="262"
+          y2="130"
+          stroke="var(--x-border)"
+          strokeWidth="0.75"
+          opacity="0.4"
+        />
+        <line
+          x1="180"
+          y1="48"
+          x2="180"
+          y2="212"
+          stroke="var(--x-border)"
+          strokeWidth="0.75"
+          opacity="0.4"
+        />
 
         {/* 6 divergent conflicting attention vectors */}
-        <line x1="180" y1="130" x2="245" y2="85" stroke="#FF453A" strokeWidth="1.4" strokeDasharray="120" className="c4-scatter" />
-        <line x1="180" y1="130" x2="235" y2="175" stroke="#FF453A" strokeWidth="1.4" strokeDasharray="120" className="c4-scatter" />
-        <line x1="180" y1="130" x2="125" y2="185" stroke="#FF453A" strokeWidth="1.4" strokeDasharray="120" className="c4-scatter" />
-        <line x1="180" y1="130" x2="105" y2="105" stroke="#FF453A" strokeWidth="1.4" strokeDasharray="120" className="c4-scatter" />
-        <line x1="180" y1="130" x2="155" y2="55" stroke="#FF453A" strokeWidth="1.4" strokeDasharray="120" className="c4-scatter" />
-        <line x1="180" y1="130" x2="215" y2="50" stroke="#FF453A" strokeWidth="1.4" strokeDasharray="120" className="c4-scatter" />
+        <line
+          x1="180"
+          y1="130"
+          x2="245"
+          y2="85"
+          stroke="#FF453A"
+          strokeWidth="1.4"
+          strokeDasharray="120"
+          className="c4-scatter"
+        />
+        <line
+          x1="180"
+          y1="130"
+          x2="235"
+          y2="175"
+          stroke="#FF453A"
+          strokeWidth="1.4"
+          strokeDasharray="120"
+          className="c4-scatter"
+        />
+        <line
+          x1="180"
+          y1="130"
+          x2="125"
+          y2="185"
+          stroke="#FF453A"
+          strokeWidth="1.4"
+          strokeDasharray="120"
+          className="c4-scatter"
+        />
+        <line
+          x1="180"
+          y1="130"
+          x2="105"
+          y2="105"
+          stroke="#FF453A"
+          strokeWidth="1.4"
+          strokeDasharray="120"
+          className="c4-scatter"
+        />
+        <line
+          x1="180"
+          y1="130"
+          x2="155"
+          y2="55"
+          stroke="#FF453A"
+          strokeWidth="1.4"
+          strokeDasharray="120"
+          className="c4-scatter"
+        />
+        <line
+          x1="180"
+          y1="130"
+          x2="215"
+          y2="50"
+          stroke="#FF453A"
+          strokeWidth="1.4"
+          strokeDasharray="120"
+          className="c4-scatter"
+        />
 
         {/* Divergent focal endpoints */}
         <circle cx="245" cy="85" r="3.5" fill="#FF453A" className="c4-polar" />
@@ -1121,7 +1491,13 @@ export function ClownCarVsAccentIllustration({ className }: LineArtProps): React
         />
 
         {/* Center ocular confusion dot */}
-        <circle cx="180" cy="130" r="3" fill="var(--x-text-muted)" opacity="0.6" />
+        <circle
+          cx="180"
+          cy="130"
+          r="3"
+          fill="var(--x-text-muted)"
+          opacity="0.6"
+        />
 
         {/* ── RIGHT: COHERENT FOCAL VECTOR & CONCENTRIC RETICLE ── */}
 
@@ -1142,16 +1518,88 @@ export function ClownCarVsAccentIllustration({ className }: LineArtProps): React
 
         {/* Calm orthogonal engineering grid (90% neutral architecture) */}
         <g className="c4-grid">
-          <line x1="435" y1="70" x2="645" y2="70" stroke="var(--x-border)" strokeWidth="0.65" opacity="0.4" />
-          <line x1="435" y1="100" x2="645" y2="100" stroke="var(--x-border)" strokeWidth="0.65" opacity="0.4" />
-          <line x1="435" y1="130" x2="645" y2="130" stroke="var(--x-border)" strokeWidth="0.65" opacity="0.4" />
-          <line x1="435" y1="160" x2="645" y2="160" stroke="var(--x-border)" strokeWidth="0.65" opacity="0.4" />
-          <line x1="435" y1="190" x2="645" y2="190" stroke="var(--x-border)" strokeWidth="0.65" opacity="0.4" />
+          <line
+            x1="435"
+            y1="70"
+            x2="645"
+            y2="70"
+            stroke="var(--x-border)"
+            strokeWidth="0.65"
+            opacity="0.4"
+          />
+          <line
+            x1="435"
+            y1="100"
+            x2="645"
+            y2="100"
+            stroke="var(--x-border)"
+            strokeWidth="0.65"
+            opacity="0.4"
+          />
+          <line
+            x1="435"
+            y1="130"
+            x2="645"
+            y2="130"
+            stroke="var(--x-border)"
+            strokeWidth="0.65"
+            opacity="0.4"
+          />
+          <line
+            x1="435"
+            y1="160"
+            x2="645"
+            y2="160"
+            stroke="var(--x-border)"
+            strokeWidth="0.65"
+            opacity="0.4"
+          />
+          <line
+            x1="435"
+            y1="190"
+            x2="645"
+            y2="190"
+            stroke="var(--x-border)"
+            strokeWidth="0.65"
+            opacity="0.4"
+          />
 
-          <line x1="465" y1="50" x2="465" y2="210" stroke="var(--x-border)" strokeWidth="0.65" opacity="0.4" />
-          <line x1="510" y1="50" x2="510" y2="210" stroke="var(--x-border)" strokeWidth="0.65" opacity="0.4" />
-          <line x1="555" y1="50" x2="555" y2="210" stroke="var(--x-border)" strokeWidth="0.65" opacity="0.4" />
-          <line x1="600" y1="50" x2="600" y2="210" stroke="var(--x-border)" strokeWidth="0.65" opacity="0.4" />
+          <line
+            x1="465"
+            y1="50"
+            x2="465"
+            y2="210"
+            stroke="var(--x-border)"
+            strokeWidth="0.65"
+            opacity="0.4"
+          />
+          <line
+            x1="510"
+            y1="50"
+            x2="510"
+            y2="210"
+            stroke="var(--x-border)"
+            strokeWidth="0.65"
+            opacity="0.4"
+          />
+          <line
+            x1="555"
+            y1="50"
+            x2="555"
+            y2="210"
+            stroke="var(--x-border)"
+            strokeWidth="0.65"
+            opacity="0.4"
+          />
+          <line
+            x1="600"
+            y1="50"
+            x2="600"
+            y2="210"
+            stroke="var(--x-border)"
+            strokeWidth="0.65"
+            opacity="0.4"
+          />
         </g>
 
         {/* Directed linear focal vector */}
@@ -1167,8 +1615,28 @@ export function ClownCarVsAccentIllustration({ className }: LineArtProps): React
         />
 
         {/* Collimated parallel focus ray bounds */}
-        <line x1="455" y1="122" x2="570" y2="122" stroke="var(--x-accent)" strokeWidth="0.75" strokeDasharray="3 4" opacity="0.4" className="c4-laser" />
-        <line x1="455" y1="138" x2="570" y2="138" stroke="var(--x-accent)" strokeWidth="0.75" strokeDasharray="3 4" opacity="0.4" className="c4-laser" />
+        <line
+          x1="455"
+          y1="122"
+          x2="570"
+          y2="122"
+          stroke="var(--x-accent)"
+          strokeWidth="0.75"
+          strokeDasharray="3 4"
+          opacity="0.4"
+          className="c4-laser"
+        />
+        <line
+          x1="455"
+          y1="138"
+          x2="570"
+          y2="138"
+          stroke="var(--x-accent)"
+          strokeWidth="0.75"
+          strokeDasharray="3 4"
+          opacity="0.4"
+          className="c4-laser"
+        />
 
         {/* Calibrated concentric optical target lock at (585, 130) */}
         <circle
@@ -1193,10 +1661,42 @@ export function ClownCarVsAccentIllustration({ className }: LineArtProps): React
         />
 
         {/* Target crosshair tick marks */}
-        <line x1="585" y1="88" x2="585" y2="98" stroke="var(--x-accent)" strokeWidth="1" className="c4-target" />
-        <line x1="585" y1="162" x2="585" y2="172" stroke="var(--x-accent)" strokeWidth="1" className="c4-target" />
-        <line x1="543" y1="130" x2="553" y2="130" stroke="var(--x-accent)" strokeWidth="1" className="c4-target" />
-        <line x1="617" y1="130" x2="627" y2="130" stroke="var(--x-accent)" strokeWidth="1" className="c4-target" />
+        <line
+          x1="585"
+          y1="88"
+          x2="585"
+          y2="98"
+          stroke="var(--x-accent)"
+          strokeWidth="1"
+          className="c4-target"
+        />
+        <line
+          x1="585"
+          y1="162"
+          x2="585"
+          y2="172"
+          stroke="var(--x-accent)"
+          strokeWidth="1"
+          className="c4-target"
+        />
+        <line
+          x1="543"
+          y1="130"
+          x2="553"
+          y2="130"
+          stroke="var(--x-accent)"
+          strokeWidth="1"
+          className="c4-target"
+        />
+        <line
+          x1="617"
+          y1="130"
+          x2="627"
+          y2="130"
+          stroke="var(--x-accent)"
+          strokeWidth="1"
+          className="c4-target"
+        />
 
         {/* Living laser target-lock pulse wave */}
         <circle
@@ -1211,8 +1711,20 @@ export function ClownCarVsAccentIllustration({ className }: LineArtProps): React
         />
 
         {/* Singular laser focal beacon */}
-        <circle cx="585" cy="130" r="4.5" fill="var(--x-accent)" className="c4-target" />
-        <circle cx="440" cy="130" r="3" fill="var(--x-text-muted)" className="c4-target" />
+        <circle
+          cx="585"
+          cy="130"
+          r="4.5"
+          fill="var(--x-accent)"
+          className="c4-target"
+        />
+        <circle
+          cx="440"
+          cy="130"
+          r="3"
+          fill="var(--x-text-muted)"
+          className="c4-target"
+        />
       </svg>
 
       <PanelCaptions

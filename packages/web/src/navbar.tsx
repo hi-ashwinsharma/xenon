@@ -44,12 +44,8 @@ export function Navbar({
     zIndex: 100,
     width: "100%",
     boxSizing: "border-box",
-    backgroundColor: isScrolled
-      ? "var(--x-glass-regular-bg)"
-      : "transparent",
-    backdropFilter: isScrolled
-      ? "blur(var(--x-glass-regular-blur))"
-      : "none",
+    backgroundColor: isScrolled ? "var(--x-glass-regular-bg)" : "transparent",
+    backdropFilter: isScrolled ? "blur(var(--x-glass-regular-blur))" : "none",
     WebkitBackdropFilter: isScrolled
       ? "blur(var(--x-glass-regular-blur))"
       : "none",

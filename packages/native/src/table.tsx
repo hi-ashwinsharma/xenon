@@ -1,14 +1,5 @@
-import React, {
-  createContext,
-  useContext,
-  useMemo,
-} from "react";
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import React, { createContext, useContext, useMemo } from "react";
+import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import {
   DEFAULT_RADIUS_STOP,
   compileNativeTokens,
@@ -41,7 +32,10 @@ const TableContext = createContext<TableContextValue>({
   size: "md",
 });
 
-const sizeMetrics: Record<TableSize, { py: number; px: number; minHeight: number }> = {
+const sizeMetrics: Record<
+  TableSize,
+  { py: number; px: number; minHeight: number }
+> = {
   sm: { py: 8, px: 12, minHeight: 36 },
   md: { py: 12, px: 16, minHeight: 44 },
   lg: { py: 16, px: 20, minHeight: 52 },
@@ -206,7 +200,11 @@ export function TableHead({
           paddingHorizontal: metrics.px,
           minHeight: metrics.minHeight,
           justifyContent,
-          width: width ? (typeof width === "number" ? width : undefined) : undefined,
+          width: width
+            ? typeof width === "number"
+              ? width
+              : undefined
+            : undefined,
         },
         style,
       ]}
@@ -313,11 +311,7 @@ export function DataTable<T>({
       <TableHeader>
         <TableRow>
           {columns.map((col) => (
-            <TableHead
-              key={col.key}
-              align={col.align}
-              width={col.width}
-            >
+            <TableHead key={col.key} align={col.align} width={col.width}>
               {col.header}
             </TableHead>
           ))}
@@ -328,12 +322,18 @@ export function DataTable<T>({
           <TableRow>
             <View style={styles.emptyContainer}>
               {typeof emptyContent === "string" ? (
-                <Text styleKey="subhead" style={{ color: tokens.colors.textMuted }}>
+                <Text
+                  styleKey="subhead"
+                  style={{ color: tokens.colors.textMuted }}
+                >
                   {emptyContent}
                 </Text>
               ) : (
                 (emptyContent ?? (
-                  <Text styleKey="subhead" style={{ color: tokens.colors.textMuted }}>
+                  <Text
+                    styleKey="subhead"
+                    style={{ color: tokens.colors.textMuted }}
+                  >
                     No data available
                   </Text>
                 ))
@@ -350,13 +350,12 @@ export function DataTable<T>({
               {columns.map((col) => {
                 const cellContent = col.accessor
                   ? col.accessor(item, index)
-                  : (item as Record<string, unknown>)[col.key] as React.ReactNode;
+                  : ((item as Record<string, unknown>)[
+                      col.key
+                    ] as React.ReactNode);
 
                 return (
-                  <TableCell
-                    key={col.key}
-                    align={col.align}
-                  >
+                  <TableCell key={col.key} align={col.align}>
                     {cellContent}
                   </TableCell>
                 );

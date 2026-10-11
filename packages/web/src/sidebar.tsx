@@ -64,7 +64,11 @@ export function Sidebar({
     overflow: "hidden",
     userSelect: "none",
     border: bordered ? "1px solid var(--x-border)" : "none",
-    borderRight: separator ? "1px solid var(--x-border)" : bordered ? undefined : "none",
+    borderRight: separator
+      ? "1px solid var(--x-border)"
+      : bordered
+        ? undefined
+        : "none",
     ...(isFloating
       ? {
           height: "calc(100% - 24px)",
@@ -76,7 +80,9 @@ export function Sidebar({
               ? "var(--x-surface)"
               : "transparent",
           backdropFilter: glass ? "blur(var(--x-glass-regular-blur))" : "none",
-          WebkitBackdropFilter: glass ? "blur(var(--x-glass-regular-blur))" : "none",
+          WebkitBackdropFilter: glass
+            ? "blur(var(--x-glass-regular-blur))"
+            : "none",
         }
       : {
           height: "100%",
@@ -156,7 +162,14 @@ export function SidebarDivider({
     ...style,
   };
 
-  return <div aria-hidden="true" className={className} style={dividerStyle} {...restProps} />;
+  return (
+    <div
+      aria-hidden="true"
+      className={className}
+      style={dividerStyle}
+      {...restProps}
+    />
+  );
 }
 
 export function SidebarNav({
@@ -379,7 +392,9 @@ export function SidebarFooter({
     display: "flex",
     alignItems: "center",
     justifyContent: collapsed ? "center" : "flex-start",
-    padding: collapsed ? "var(--x-space-2, 8px) 0" : "var(--x-space-2, 8px) var(--x-space-4, 16px)",
+    padding: collapsed
+      ? "var(--x-space-2, 8px) 0"
+      : "var(--x-space-2, 8px) var(--x-space-4, 16px)",
     boxSizing: "border-box",
     flexShrink: 0,
     ...style,

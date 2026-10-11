@@ -102,7 +102,10 @@ export function Badge({
         color: textColor,
         fontSize,
         fontWeight: 400,
-        fontFamily: count !== undefined ? "var(--x-font-family-mono, monospace)" : "inherit",
+        fontFamily:
+          count !== undefined
+            ? "var(--x-font-family-mono, monospace)"
+            : "inherit",
         letterSpacing: count !== undefined ? "0.02em" : "-0.01em",
         lineHeight: 1,
         whiteSpace: "nowrap",
@@ -126,7 +129,9 @@ export function Badge({
         />
       )}
 
-      {icon && <span style={{ display: "inline-flex", flexShrink: 0 }}>{icon}</span>}
+      {icon && (
+        <span style={{ display: "inline-flex", flexShrink: 0 }}>{icon}</span>
+      )}
 
       {content && <span>{content}</span>}
     </span>

@@ -104,7 +104,9 @@ export function Select({
   children,
   ...props
 }: WebSelectProps) {
-  const [uncontrolledValue, setUncontrolledValue] = useState<string | undefined>(defaultValue);
+  const [uncontrolledValue, setUncontrolledValue] = useState<
+    string | undefined
+  >(defaultValue);
   const isControlled = controlledValue !== undefined;
   const value = isControlled ? controlledValue : uncontrolledValue;
 
@@ -116,21 +118,27 @@ export function Select({
 
   const [registeredItems, setRegisteredItems] = useState<RegisteredItem[]>([]);
 
-  const registerItem = useCallback((val: string, label: string, dis: boolean) => {
-    setRegisteredItems((prev) => {
-      const existing = prev.find((item) => item.value === val);
-      if (existing && existing.label === label && existing.disabled === dis) {
-        return prev;
-      }
-      return [...prev.filter((item) => item.value !== val), { value: val, label, disabled: dis }];
-    });
-    return () => {
+  const registerItem = useCallback(
+    (val: string, label: string, dis: boolean) => {
       setRegisteredItems((prev) => {
-        if (!prev.some((item) => item.value === val)) return prev;
-        return prev.filter((item) => item.value !== val);
+        const existing = prev.find((item) => item.value === val);
+        if (existing && existing.label === label && existing.disabled === dis) {
+          return prev;
+        }
+        return [
+          ...prev.filter((item) => item.value !== val),
+          { value: val, label, disabled: dis },
+        ];
       });
-    };
-  }, []);
+      return () => {
+        setRegisteredItems((prev) => {
+          if (!prev.some((item) => item.value === val)) return prev;
+          return prev.filter((item) => item.value !== val);
+        });
+      };
+    },
+    [],
+  );
 
   const handleSelect = (nextValue: string) => {
     if (!isControlled) {
@@ -320,7 +328,13 @@ export function SelectTrigger({
         ...style,
       }}
     >
-      <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+      <span
+        style={{
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+        }}
+      >
         {children ?? (selectedLabel || placeholder)}
       </span>
 
@@ -357,7 +371,8 @@ export function SelectContent({
   style,
   ...props
 }: WebSelectContentProps) {
-  const { open, setOpen, contentRef, triggerRef, triggerRect, contentId } = useSelect();
+  const { open, setOpen, contentRef, triggerRef, triggerRect, contentId } =
+    useSelect();
   const { isMounted, status } = usePresence({ open, durationMs: 180 });
   const [coords, setCoords] = useState<FloatingResult | null>(null);
 

@@ -207,11 +207,7 @@ export type {
   BadgeVariant,
 } from "./badge.types";
 
-export type {
-  AlertProps,
-  AlertTone,
-  AlertVariant,
-} from "./alert.types";
+export type { AlertProps, AlertTone, AlertVariant } from "./alert.types";
 
 export type {
   ProgressProps,
@@ -219,16 +215,9 @@ export type {
   ProgressTone,
 } from "./progress.types";
 
-export type {
-  SpinnerProps,
-  SpinnerSize,
-  SpinnerTone,
-} from "./spinner.types";
+export type { SpinnerProps, SpinnerSize, SpinnerTone } from "./spinner.types";
 
-export type {
-  SkeletonProps,
-  SkeletonVariant,
-} from "./skeleton.types";
+export type { SkeletonProps, SkeletonVariant } from "./skeleton.types";
 
 export type {
   ToastAction,
@@ -307,5 +296,3 @@ export {
   tokenizeLine,
   type ResolvedAvatarMetrics,
 } from "./data-display.utils";
-
-

@@ -148,7 +148,9 @@ export function Input({
       outline: "none",
       paddingLeft: prefix ? "10px" : `${baseHorizontalPadding}px`,
       paddingRight:
-        suffix || clearable || shortcutKey ? "8px" : `${baseHorizontalPadding}px`,
+        suffix || clearable || shortcutKey
+          ? "8px"
+          : `${baseHorizontalPadding}px`,
       gap: "8px",
       opacity: disabled ? 0.45 : 1,
       cursor: disabled ? "not-allowed" : "text",
@@ -262,9 +264,7 @@ export function Input({
             height: "20px",
             padding: 0,
             cursor: "pointer",
-            color: isClearHovered
-              ? "var(--x-text)"
-              : "var(--x-text-muted)",
+            color: isClearHovered ? "var(--x-text)" : "var(--x-text-muted)",
             transform: isClearPressed ? "scale(0.88)" : "scale(1)",
             transition:
               "background-color var(--x-dur-instant) ease, transform var(--x-dur-instant) ease, color var(--x-dur-instant) ease",

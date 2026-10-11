@@ -1,0 +1,5 @@
+# Xenon GitHub Packages Configuration
+# Place this in your consumer project's root as .npmrc
+
+@hi-ashwinsharma:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}

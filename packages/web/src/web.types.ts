@@ -612,9 +612,7 @@ export interface WebCommandPaletteProps
 // --- Feedback (Batch 1) ---
 
 export interface WebBadgeProps
-  extends
-    Omit<CoreBadgeProps, "className">,
-    HTMLAttributes<HTMLSpanElement> {}
+  extends Omit<CoreBadgeProps, "className">, HTMLAttributes<HTMLSpanElement> {}
 
 export interface WebAlertProps
   extends

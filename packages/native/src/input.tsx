@@ -109,9 +109,7 @@ export function Input({
 
   const height = CONTROL_HEIGHTS[size];
   const borderRadius =
-    variant === "search"
-      ? height / 2
-      : getArchitecturalRadius(size, radius);
+    variant === "search" ? height / 2 : getArchitecturalRadius(size, radius);
   const baseHorizontalPadding = getHorizontalPadding(size);
 
   const handleChangeText = useCallback(
@@ -156,7 +154,8 @@ export function Input({
       borderWidth: isFocused ? 1 : StyleSheet.hairlineWidth,
       borderColor,
       paddingLeft: prefix ? 10 : baseHorizontalPadding,
-      paddingRight: suffix || clearable || shortcutKey ? 8 : baseHorizontalPadding,
+      paddingRight:
+        suffix || clearable || shortcutKey ? 8 : baseHorizontalPadding,
       opacity: disabled ? 0.45 : 1,
     };
   }, [
@@ -230,7 +229,14 @@ export function Input({
             transform: [{ scale: pressed ? 0.88 : 1 }],
           })}
         >
-          <View style={{ width: 10, height: 10, alignItems: "center", justifyContent: "center" }}>
+          <View
+            style={{
+              width: 10,
+              height: 10,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <View
               style={{
                 position: "absolute",
@@ -264,7 +270,10 @@ export function Input({
             borderColor: nativeTokens.colors.border,
           }}
         >
-          <Text styleKey="caption2" style={{ color: nativeTokens.colors.textMuted, fontSize: 10 }}>
+          <Text
+            styleKey="caption2"
+            style={{ color: nativeTokens.colors.textMuted, fontSize: 10 }}
+          >
             {shortcutKey}
           </Text>
         </View>

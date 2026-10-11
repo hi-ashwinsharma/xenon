@@ -24,7 +24,8 @@ export function useFocusTrap({
   useEffect(() => {
     if (!active) return;
 
-    previousActiveElementRef.current = document.activeElement as HTMLElement | null;
+    previousActiveElementRef.current =
+      document.activeElement as HTMLElement | null;
 
     const container = containerRef.current;
     if (!container) return;
@@ -61,12 +62,18 @@ export function useFocusTrap({
       const lastElement = focusables[focusables.length - 1];
 
       if (event.shiftKey) {
-        if (document.activeElement === firstElement || !container.contains(document.activeElement)) {
+        if (
+          document.activeElement === firstElement ||
+          !container.contains(document.activeElement)
+        ) {
           event.preventDefault();
           lastElement.focus();
         }
       } else {
-        if (document.activeElement === lastElement || !container.contains(document.activeElement)) {
+        if (
+          document.activeElement === lastElement ||
+          !container.contains(document.activeElement)
+        ) {
           event.preventDefault();
           firstElement.focus();
         }
@@ -77,7 +84,10 @@ export function useFocusTrap({
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      if (previousActiveElementRef.current && typeof previousActiveElementRef.current.focus === "function") {
+      if (
+        previousActiveElementRef.current &&
+        typeof previousActiveElementRef.current.focus === "function"
+      ) {
         previousActiveElementRef.current.focus();
       }
     };

@@ -2,10 +2,11 @@
 @import "./tokens.css";
 
 :root {
-  --x-font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+  --x-font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
     "Segoe UI", Roboto, sans-serif;
-  --x-font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
-    monospace;
+  --x-font-family-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 }
 
 body {
@@ -17,10 +18,16 @@ body {
 }
 
 /* Fluid Apple-grade transitions across the whole platform A to Z */
-*, *::before, *::after {
-  transition-property: border-radius, background-color, border-color, color, fill, stroke;
+*,
+*::before,
+*::after {
+  transition-property:
+    border-radius, background-color, border-color, color, fill, stroke;
   transition-duration: var(--x-dur-base, 240ms);
-  transition-timing-function: var(--x-ease-standard, cubic-bezier(0.2, 0, 0, 1));
+  transition-timing-function: var(
+    --x-ease-standard,
+    cubic-bezier(0.2, 0, 0, 1)
+  );
 }
 
 /* Hero full-bleed extended component tapestry */
@@ -92,5 +99,3 @@ body {
     display: none !important;
   }
 }
-
-

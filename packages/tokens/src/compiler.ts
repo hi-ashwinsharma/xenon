@@ -59,8 +59,12 @@ export function compileCssVariables(): string {
     lines.push(`  --x-text-${token.name}-weight: ${token.weight};`);
   }
 
-  lines.push(`  --x-glass-regular-blur: ${LIQUID_GLASS_TOKENS.regular.webBlurPx}px;`);
-  lines.push(`  --x-glass-clear-blur: ${LIQUID_GLASS_TOKENS.clear.webBlurPx}px;`);
+  lines.push(
+    `  --x-glass-regular-blur: ${LIQUID_GLASS_TOKENS.regular.webBlurPx}px;`,
+  );
+  lines.push(
+    `  --x-glass-clear-blur: ${LIQUID_GLASS_TOKENS.clear.webBlurPx}px;`,
+  );
 
   // Default fallbacks for unhydrated / unscoped states (Stop 3: 16px surface, 12px control per Apple HIG standard)
   lines.push(`  --x-radius-control: ${RADIUS_STOPS[3].control}px;`);
@@ -82,8 +86,12 @@ export function compileCssVariables(): string {
     lines.push(`  --x-bg: ${neutrals.bg};`);
     lines.push(`  --x-surface: ${neutrals.surface};`);
     lines.push(`  --x-surface-2: ${neutrals.surface2};`);
-    lines.push(`  --x-glass-regular-bg: ${theme === "dark" ? glassTheme.regular.darkTint : glassTheme.regular.lightTint};`);
-    lines.push(`  --x-glass-clear-bg: ${theme === "dark" ? glassTheme.clear.darkTint : glassTheme.clear.lightTint};`);
+    lines.push(
+      `  --x-glass-regular-bg: ${theme === "dark" ? glassTheme.regular.darkTint : glassTheme.regular.lightTint};`,
+    );
+    lines.push(
+      `  --x-glass-clear-bg: ${theme === "dark" ? glassTheme.clear.darkTint : glassTheme.clear.lightTint};`,
+    );
     lines.push(`  --x-text: ${neutrals.text};`);
     lines.push(`  --x-text-muted: ${neutrals.textMuted};`);
     lines.push(`  --x-border: ${neutrals.border};`);

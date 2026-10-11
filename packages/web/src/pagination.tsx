@@ -58,7 +58,11 @@ export function Pagination({
   const canPrev = page > 1 && !disabled;
   const canNext = page < totalPages && !disabled;
 
-  const buttonBaseStyle = (isActive: boolean, isDisabled: boolean, key: string): CSSProperties => ({
+  const buttonBaseStyle = (
+    isActive: boolean,
+    isDisabled: boolean,
+    key: string,
+  ): CSSProperties => ({
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
@@ -184,7 +188,8 @@ export function Pagination({
               onMouseDown={() => setPressedKey(key)}
               onMouseEnter={(e) => {
                 if (!isCurrent && !disabled) {
-                  e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.04)";
+                  e.currentTarget.style.backgroundColor =
+                    "rgba(255, 255, 255, 0.04)";
                   e.currentTarget.style.color = "var(--x-text)";
                 }
               }}

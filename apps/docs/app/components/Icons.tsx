@@ -28,7 +28,10 @@ interface IconWrapperProps {
   color?: string;
 }
 
-export function MagnifyingGlassIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function MagnifyingGlassIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <MagnifyingGlass />
@@ -36,7 +39,10 @@ export function MagnifyingGlassIcon({ size = "sm", color }: IconWrapperProps): R
   );
 }
 
-export function CommandIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function CommandIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <Command />
@@ -44,7 +50,10 @@ export function CommandIcon({ size = "sm", color }: IconWrapperProps): ReactElem
   );
 }
 
-export function SunIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function SunIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <Sun />
@@ -52,7 +61,10 @@ export function SunIcon({ size = "sm", color }: IconWrapperProps): ReactElement 
   );
 }
 
-export function MoonIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function MoonIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <Moon />
@@ -60,7 +72,10 @@ export function MoonIcon({ size = "sm", color }: IconWrapperProps): ReactElement
   );
 }
 
-export function CubeIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function CubeIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <Cube />
@@ -68,7 +83,10 @@ export function CubeIcon({ size = "sm", color }: IconWrapperProps): ReactElement
   );
 }
 
-export function SlidersIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function SlidersIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <Sliders />
@@ -76,7 +94,10 @@ export function SlidersIcon({ size = "sm", color }: IconWrapperProps): ReactElem
   );
 }
 
-export function TerminalIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function TerminalIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <Terminal />
@@ -84,7 +105,10 @@ export function TerminalIcon({ size = "sm", color }: IconWrapperProps): ReactEle
   );
 }
 
-export function CheckIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function CheckIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <Check />
@@ -92,7 +116,10 @@ export function CheckIcon({ size = "sm", color }: IconWrapperProps): ReactElemen
   );
 }
 
-export function CaretRightIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function CaretRightIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <CaretRight />
@@ -100,7 +127,10 @@ export function CaretRightIcon({ size = "sm", color }: IconWrapperProps): ReactE
   );
 }
 
-export function CaretDownIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function CaretDownIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <CaretDown />
@@ -108,7 +138,10 @@ export function CaretDownIcon({ size = "sm", color }: IconWrapperProps): ReactEl
   );
 }
 
-export function BookOpenIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function BookOpenIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <BookOpen />
@@ -116,7 +149,10 @@ export function BookOpenIcon({ size = "sm", color }: IconWrapperProps): ReactEle
   );
 }
 
-export function SparkleIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function SparkleIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <Sparkle />
@@ -124,7 +160,10 @@ export function SparkleIcon({ size = "sm", color }: IconWrapperProps): ReactElem
   );
 }
 
-export function ArrowRightIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function ArrowRightIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <ArrowRight />
@@ -132,7 +171,10 @@ export function ArrowRightIcon({ size = "sm", color }: IconWrapperProps): ReactE
   );
 }
 
-export function CopyIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function CopyIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <Copy />
@@ -140,7 +182,10 @@ export function CopyIcon({ size = "sm", color }: IconWrapperProps): ReactElement
   );
 }
 
-export function ShieldCheckIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function ShieldCheckIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <ShieldCheck />
@@ -148,7 +193,10 @@ export function ShieldCheckIcon({ size = "sm", color }: IconWrapperProps): React
   );
 }
 
-export function CpuIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function CpuIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <Cpu />
@@ -156,7 +204,10 @@ export function CpuIcon({ size = "sm", color }: IconWrapperProps): ReactElement 
   );
 }
 
-export function LightningIcon({ size = "sm", color }: IconWrapperProps): ReactElement {
+export function LightningIcon({
+  size = "sm",
+  color,
+}: IconWrapperProps): ReactElement {
   return (
     <Icon size={size} color={color} weight="thin">
       <Lightning />

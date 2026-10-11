@@ -1,10 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
-import {
-  Modal,
-  Pressable,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Modal, Pressable, StyleSheet, View } from "react-native";
 import {
   compileNativeTokens,
   type Accent,
@@ -39,7 +34,8 @@ export function Tooltip({
   onOpenChange,
   children,
 }: NativeTooltipProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(defaultOpen);
+  const [uncontrolledOpen, setUncontrolledOpen] =
+    useState<boolean>(defaultOpen);
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
 
@@ -77,10 +73,7 @@ export function TooltipTrigger({
   );
 }
 
-export function TooltipContent({
-  children,
-  style,
-}: NativeTooltipContentProps) {
+export function TooltipContent({ children, style }: NativeTooltipContentProps) {
   const { open, setOpen } = useTooltip();
 
   let resolvedTheme: ResolvedTheme = "dark";

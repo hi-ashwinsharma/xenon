@@ -39,7 +39,7 @@ Xenon is a closed-source, minimalistic UI kit for **web (React DOM) and React Na
 - Absolute type safety: never use `any` or loose `unknown`. Every prop, function, hook, ref, event handler, and callback must have explicit, exhaustive types. Types live in dedicated `*.types.ts` files, never in `.tsx` components.
 - Routes come from the central route constants, never string literals.
 - Before authoring any component, execute the **Component Innovation & Grilling Protocol** (`docs/ROADMAP.md`): brainstorm micro-interactions, distinct geometry, and Apple-grade precision via `ask_question`. Never output generic boilerplate, unstyled placeholders, or legacy UI patterns.
-- The Design of Everyday Things (Norman Invariant): Every component, control, disclosure, and interactive surface must strictly embody Don Norman's 7 fundamental principles of design (*The Design of Everyday Things*):
+- The Design of Everyday Things (Norman Invariant): Every component, control, disclosure, and interactive surface must strictly embody Don Norman's 7 fundamental principles of design (_The Design of Everyday Things_):
   1. Affordances: Physical and perceived possibilities for action must be unambiguous.
   2. Signifiers: Interactive capabilities must be explicitly communicated (e.g., interactive disclosure triggers must always feature animated rotating carets/chevrons; clear touch targets and visual states). Never leave an interactive element looking like static display text.
   3. Mapping: Spatial and conceptual controls must map directly to their real-world outcome (e.g., stepped sliders arranged in natural directional sequence).

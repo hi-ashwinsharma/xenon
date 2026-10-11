@@ -54,7 +54,8 @@ export function Popover({
   onOpenChange,
   children,
 }: WebPopoverProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(defaultOpen);
+  const [uncontrolledOpen, setUncontrolledOpen] =
+    useState<boolean>(defaultOpen);
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
 
@@ -105,7 +106,8 @@ export function PopoverTrigger({
   onClick,
   ...props
 }: WebPopoverTriggerProps) {
-  const { open, setOpen, triggerRef, updateTriggerRect, contentId } = usePopover();
+  const { open, setOpen, triggerRef, updateTriggerRect, contentId } =
+    usePopover();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     updateTriggerRect();
@@ -155,7 +157,8 @@ export function PopoverContent({
   style,
   ...props
 }: WebPopoverContentProps) {
-  const { open, setOpen, contentRef, triggerRef, triggerRect, contentId } = usePopover();
+  const { open, setOpen, contentRef, triggerRef, triggerRect, contentId } =
+    usePopover();
   const { isMounted, status } = usePresence({ open, durationMs: 180 });
   const [coords, setCoords] = useState<FloatingResult | null>(null);
 

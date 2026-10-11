@@ -106,7 +106,8 @@ export function Badge({
             width: dotSize,
             height: dotSize,
             borderRadius: dotSize / 2,
-            backgroundColor: tone === "accent" ? tokens.colors.accent : colors.dot,
+            backgroundColor:
+              tone === "accent" ? tokens.colors.accent : colors.dot,
           },
           style,
         ]}
@@ -136,7 +137,8 @@ export function Badge({
               width: isSm ? 5 : 6,
               height: isSm ? 5 : 6,
               borderRadius: isSm ? 2.5 : 3,
-              backgroundColor: tone === "accent" ? tokens.colors.accent : colors.dot,
+              backgroundColor:
+                tone === "accent" ? tokens.colors.accent : colors.dot,
             },
           ]}
         />

@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 
-export type ToastTone = "neutral" | "accent" | "success" | "warning" | "danger" | "info";
-export type ToastPlacement = "bottom-center" | "bottom-end" | "top-center" | "top-end";
+export type ToastTone =
+  "neutral" | "accent" | "success" | "warning" | "danger" | "info";
+export type ToastPlacement =
+  "bottom-center" | "bottom-end" | "top-center" | "top-end";
 
 export interface ToastAction {
   label: string;

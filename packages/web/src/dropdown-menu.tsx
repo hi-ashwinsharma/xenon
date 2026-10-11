@@ -42,7 +42,9 @@ interface DropdownMenuContextValue {
   setActiveId: (id: string | null) => void;
 }
 
-const DropdownMenuContext = createContext<DropdownMenuContextValue | null>(null);
+const DropdownMenuContext = createContext<DropdownMenuContextValue | null>(
+  null,
+);
 
 export function useDropdownMenu(): DropdownMenuContextValue {
   const context = useContext(DropdownMenuContext);
@@ -60,7 +62,8 @@ export function DropdownMenu({
   hoverDelayMs = 150,
   children,
 }: WebDropdownMenuProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(defaultOpen);
+  const [uncontrolledOpen, setUncontrolledOpen] =
+    useState<boolean>(defaultOpen);
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
 
@@ -553,7 +556,9 @@ export function DropdownMenuItem({
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-        {icon && <span style={{ display: "inline-flex", opacity: 0.85 }}>{icon}</span>}
+        {icon && (
+          <span style={{ display: "inline-flex", opacity: 0.85 }}>{icon}</span>
+        )}
         <span>{children}</span>
       </div>
 

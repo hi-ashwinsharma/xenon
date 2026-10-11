@@ -95,7 +95,8 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
   // In docs routes, the bar is permanently demarcated; on marketing pages it engages on scroll
   const isDocs =
     activePath.startsWith("/docs") ||
-    (typeof window !== "undefined" && window.location.pathname.startsWith("/docs"));
+    (typeof window !== "undefined" &&
+      window.location.pathname.startsWith("/docs"));
 
   return (
     <header
@@ -113,7 +114,9 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
         justifyContent: "center",
         padding: "0 32px",
         backgroundColor:
-          isDocs || isScrolled ? "var(--x-glass-regular-bg)" : "rgba(0, 0, 0, 0)",
+          isDocs || isScrolled
+            ? "var(--x-glass-regular-bg)"
+            : "rgba(0, 0, 0, 0)",
         backdropFilter:
           isDocs || isScrolled
             ? "blur(var(--x-glass-regular-blur, 20px))"
@@ -133,27 +136,32 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
       {/* Inner Content Wrapper: 1440px in docs to match docs grid, 1240px in marketing */}
       <div
         style={{
-            width: "100%",
-            maxWidth: isDocs ? "1440px" : "1240px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            boxSizing: "border-box",
-          }}
-        >
-          {/* Brand & Nav Links */}
-          <div style={{ display: "flex", alignItems: "center", gap: "28px" }}>
-            <Link
-              href="/"
-              style={{
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                color: "inherit",
-              }}
+          width: "100%",
+          maxWidth: isDocs ? "1440px" : "1240px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          boxSizing: "border-box",
+        }}
+      >
+        {/* Brand & Nav Links */}
+        <div style={{ display: "flex", alignItems: "center", gap: "28px" }}>
+          <Link
+            href="/"
+            style={{
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              color: "inherit",
+            }}
+          >
+            <Text
+              styleKey="title3"
+              weight={400}
+              tone="default"
+              style={{ letterSpacing: "-0.02em" }}
             >
-            <Text styleKey="title3" weight={400} tone="default" style={{ letterSpacing: "-0.02em" }}>
               Xenon
             </Text>
             <Badge tone="accent" size="sm">
@@ -163,22 +171,38 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
 
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <Link href="/docs/components" style={{ textDecoration: "none" }}>
-              <Button variant={activePath.includes("/components") ? "subtle" : "ghost"} size="sm">
+              <Button
+                variant={
+                  activePath.includes("/components") ? "subtle" : "ghost"
+                }
+                size="sm"
+              >
                 Components
               </Button>
             </Link>
             <Link href="/docs/guidelines" style={{ textDecoration: "none" }}>
-              <Button variant={activePath.includes("/guidelines") ? "subtle" : "ghost"} size="sm">
+              <Button
+                variant={
+                  activePath.includes("/guidelines") ? "subtle" : "ghost"
+                }
+                size="sm"
+              >
                 Guidelines
               </Button>
             </Link>
             <Link href="/pricing" style={{ textDecoration: "none" }}>
-              <Button variant={activePath === "/pricing" ? "subtle" : "ghost"} size="sm">
+              <Button
+                variant={activePath === "/pricing" ? "subtle" : "ghost"}
+                size="sm"
+              >
                 Pricing
               </Button>
             </Link>
             <Link href="/docs" style={{ textDecoration: "none" }}>
-              <Button variant={activePath === "/docs" ? "subtle" : "ghost"} size="sm">
+              <Button
+                variant={activePath === "/docs" ? "subtle" : "ghost"}
+                size="sm"
+              >
                 Docs
               </Button>
             </Link>
@@ -186,7 +210,14 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
         </div>
 
         {/* Global Realtime Appearance Controls (Non-overlapping, Apple-grade UX) */}
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "nowrap" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            flexWrap: "nowrap",
+          }}
+        >
           {/* Shared Pill: Tactile Accent Swatches + Hairline Separator + Anchored Radius Dropdown */}
           <div
             style={{
@@ -263,7 +294,9 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
                     padding: "0 6px 0 8px",
                     borderRadius: "9999px",
                     border: "none",
-                    backgroundColor: radiusOpen ? "var(--x-surface)" : "transparent",
+                    backgroundColor: radiusOpen
+                      ? "var(--x-surface)"
+                      : "transparent",
                     color: "var(--x-text)",
                     fontFamily: "var(--x-font-family-mono)",
                     fontSize: "12px",
@@ -278,10 +311,13 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
                       "background-color var(--x-dur-fast) ease, color var(--x-dur-fast) ease",
                   }}
                   onMouseEnter={(e) => {
-                    if (!radiusOpen) e.currentTarget.style.backgroundColor = "var(--x-surface)";
+                    if (!radiusOpen)
+                      e.currentTarget.style.backgroundColor =
+                        "var(--x-surface)";
                   }}
                   onMouseLeave={(e) => {
-                    if (!radiusOpen) e.currentTarget.style.backgroundColor = "transparent";
+                    if (!radiusOpen)
+                      e.currentTarget.style.backgroundColor = "transparent";
                   }}
                 >
                   <span>R{radius}</span>
@@ -299,7 +335,11 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
                   </span>
                 </button>
               </PopoverTrigger>
-              <PopoverContent width={210} placement="bottom-end" style={{ padding: "12px 14px" }}>
+              <PopoverContent
+                width={210}
+                placement="bottom-end"
+                style={{ padding: "12px 14px" }}
+              >
                 {/* Minimal Header Row: Label & Active Metric */}
                 <div
                   style={{
@@ -362,7 +402,10 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
                           width: "2px",
                           height: "6px",
                           borderRadius: "1px",
-                          backgroundColor: stop <= radius ? "var(--x-accent)" : "var(--x-border)",
+                          backgroundColor:
+                            stop <= radius
+                              ? "var(--x-accent)"
+                              : "var(--x-border)",
                           opacity: stop === radius ? 1 : 0.6,
                           transition: "background-color 140ms ease",
                         }}
@@ -397,7 +440,11 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
               variant={amoled ? "subtle" : "ghost"}
               size="sm"
               onClick={() => onAmoledChange(!amoled)}
-              title={amoled ? "AMOLED Pitch Black (Active) · Click for Claude Warm Charcoal" : "Claude Warm Charcoal (Active) · Click for AMOLED Pitch Black"}
+              title={
+                amoled
+                  ? "AMOLED Pitch Black (Active) · Click for Claude Warm Charcoal"
+                  : "Claude Warm Charcoal (Active) · Click for AMOLED Pitch Black"
+              }
               style={{
                 fontSize: "12px",
                 fontFamily: "var(--x-font-family-mono)",
@@ -410,7 +457,9 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
                   width: "6px",
                   height: "6px",
                   borderRadius: "50%",
-                  backgroundColor: amoled ? "var(--x-accent)" : "var(--x-text-muted)",
+                  backgroundColor: amoled
+                    ? "var(--x-accent)"
+                    : "var(--x-text-muted)",
                   marginRight: "6px",
                   display: "inline-block",
                 }}

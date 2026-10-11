@@ -1,10 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
-import {
-  Modal,
-  Pressable,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Modal, Pressable, StyleSheet, View } from "react-native";
 import {
   compileNativeTokens,
   type Accent,
@@ -26,7 +21,8 @@ interface NativeDropdownMenuContextValue {
   setOpen: (open: boolean) => void;
 }
 
-const DropdownMenuContext = createContext<NativeDropdownMenuContextValue | null>(null);
+const DropdownMenuContext =
+  createContext<NativeDropdownMenuContextValue | null>(null);
 
 export function useDropdownMenu(): NativeDropdownMenuContextValue {
   const context = useContext(DropdownMenuContext);
@@ -44,7 +40,8 @@ export function DropdownMenu({
   hoverDelayMs: _hoverDelayMs = 150,
   children,
 }: NativeDropdownMenuProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(defaultOpen);
+  const [uncontrolledOpen, setUncontrolledOpen] =
+    useState<boolean>(defaultOpen);
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
 

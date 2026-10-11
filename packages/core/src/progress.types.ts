@@ -1,5 +1,6 @@
 export type ProgressSize = "sm" | "md";
-export type ProgressTone = "accent" | "neutral" | "success" | "warning" | "danger";
+export type ProgressTone =
+  "accent" | "neutral" | "success" | "warning" | "danger";
 
 export interface ProgressProps {
   value?: number;

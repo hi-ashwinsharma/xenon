@@ -113,9 +113,7 @@ export function Checkbox({
           ? "var(--x-border-active)"
           : "var(--x-border)",
     backgroundColor:
-      isChecked || indeterminate
-        ? "var(--x-accent)"
-        : "var(--x-surface-2)",
+      isChecked || indeterminate ? "var(--x-accent)" : "var(--x-surface-2)",
     color: "var(--x-on-accent)",
     flexShrink: 0,
     marginTop: description ? "2px" : 0,

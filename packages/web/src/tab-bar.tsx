@@ -1,12 +1,5 @@
-import {
-  useState,
-  type CSSProperties,
-  type ReactElement,
-} from "react";
-import type {
-  WebTabBarItemProps,
-  WebTabBarProps,
-} from "./web.types";
+import { useState, type CSSProperties, type ReactElement } from "react";
+import type { WebTabBarItemProps, WebTabBarProps } from "./web.types";
 
 export function TabBar({
   variant = "floating",
@@ -27,7 +20,8 @@ export function TabBar({
     boxSizing: "border-box",
     ...(isFloating
       ? {
-          bottom: "calc(var(--x-space-5, 24px) + env(safe-area-inset-bottom, 0px))",
+          bottom:
+            "calc(var(--x-space-5, 24px) + env(safe-area-inset-bottom, 0px))",
           left: "50%",
           transform: "translateX(-50%)",
           borderRadius: "9999px",
@@ -49,7 +43,8 @@ export function TabBar({
           backdropFilter: "blur(var(--x-glass-regular-blur))",
           WebkitBackdropFilter: "blur(var(--x-glass-regular-blur))",
           paddingTop: "var(--x-space-2, 8px)",
-          paddingBottom: "calc(var(--x-space-2, 8px) + env(safe-area-inset-bottom, 0px))",
+          paddingBottom:
+            "calc(var(--x-space-2, 8px) + env(safe-area-inset-bottom, 0px))",
           paddingLeft: "var(--x-space-4, 16px)",
           paddingRight: "var(--x-space-4, 16px)",
         }),

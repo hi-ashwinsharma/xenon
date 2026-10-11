@@ -270,13 +270,16 @@ export interface NativeSliderProps extends Omit<CoreSliderProps, "className"> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeSegmentedControlProps<T extends string = string>
-  extends Omit<CoreSegmentedControlProps<T>, "className"> {
+export interface NativeSegmentedControlProps<
+  T extends string = string,
+> extends Omit<CoreSegmentedControlProps<T>, "className"> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeTextareaProps
-  extends Omit<CoreTextareaProps, "className" | "onChange"> {
+export interface NativeTextareaProps extends Omit<
+  CoreTextareaProps,
+  "className" | "onChange"
+> {
   readonly style?: StyleProp<ViewStyle>;
   readonly inputStyle?: StyleProp<TextStyle>;
   readonly onChangeText?: (text: string) => void;
@@ -286,65 +289,86 @@ export interface NativeNavbarProps extends Omit<CoreNavbarProps, "className"> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeGlassBarProps
-  extends Omit<CoreGlassBarProps, "className"> {
+export interface NativeGlassBarProps extends Omit<
+  CoreGlassBarProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeSidebarProps
-  extends Omit<CoreSidebarProps, "className"> {
+export interface NativeSidebarProps extends Omit<
+  CoreSidebarProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeSidebarHeaderProps
-  extends Omit<CoreSidebarHeaderProps, "className"> {
+export interface NativeSidebarHeaderProps extends Omit<
+  CoreSidebarHeaderProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeSidebarNavProps
-  extends Omit<CoreSidebarNavProps, "className"> {
+export interface NativeSidebarNavProps extends Omit<
+  CoreSidebarNavProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeSidebarDividerProps
-  extends Omit<CoreSidebarDividerProps, "className"> {
+export interface NativeSidebarDividerProps extends Omit<
+  CoreSidebarDividerProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeSidebarGroupProps
-  extends Omit<CoreSidebarGroupProps, "className"> {
+export interface NativeSidebarGroupProps extends Omit<
+  CoreSidebarGroupProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeSidebarItemProps
-  extends Omit<CoreSidebarItemProps, "className" | "onClick"> {
-  readonly style?: StyleProp<ViewStyle>;
-  readonly onPress?: () => void;
-}
-
-export interface NativeSidebarFooterProps
-  extends Omit<CoreSidebarFooterProps, "className"> {
-  readonly style?: StyleProp<ViewStyle>;
-}
-
-export interface NativeTabsProps
-  extends Omit<CoreTabsProps, "className"> {
-  readonly style?: StyleProp<ViewStyle>;
-}
-
-export interface NativeTabsListProps
-  extends Omit<CoreTabsListProps, "className"> {
-  readonly style?: StyleProp<ViewStyle>;
-}
-
-export interface NativeTabsTriggerProps
-  extends Omit<CoreTabsTriggerProps, "className"> {
+export interface NativeSidebarItemProps extends Omit<
+  CoreSidebarItemProps,
+  "className" | "onClick"
+> {
   readonly style?: StyleProp<ViewStyle>;
   readonly onPress?: () => void;
 }
 
-export interface NativeTabsContentProps
-  extends Omit<CoreTabsContentProps, "className"> {
+export interface NativeSidebarFooterProps extends Omit<
+  CoreSidebarFooterProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTabsProps extends Omit<CoreTabsProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTabsListProps extends Omit<
+  CoreTabsListProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTabsTriggerProps extends Omit<
+  CoreTabsTriggerProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly onPress?: () => void;
+}
+
+export interface NativeTabsContentProps extends Omit<
+  CoreTabsContentProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
@@ -352,45 +376,61 @@ export interface NativeTabBarProps extends Omit<CoreTabBarProps, "className"> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeTabBarItemProps
-  extends Omit<CoreTabBarItemProps, "className" | "onClick"> {
+export interface NativeTabBarItemProps extends Omit<
+  CoreTabBarItemProps,
+  "className" | "onClick"
+> {
   readonly style?: StyleProp<ViewStyle>;
   readonly onPress?: () => void;
 }
 
-export interface NativeBreadcrumbProps
-  extends Omit<CoreBreadcrumbProps, "className"> {
+export interface NativeBreadcrumbProps extends Omit<
+  CoreBreadcrumbProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeBreadcrumbListProps
-  extends Omit<CoreBreadcrumbListProps, "className"> {
+export interface NativeBreadcrumbListProps extends Omit<
+  CoreBreadcrumbListProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeBreadcrumbItemProps
-  extends Omit<CoreBreadcrumbItemProps, "className"> {
+export interface NativeBreadcrumbItemProps extends Omit<
+  CoreBreadcrumbItemProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeBreadcrumbLinkProps
-  extends Omit<CoreBreadcrumbLinkProps, "className" | "onClick"> {
+export interface NativeBreadcrumbLinkProps extends Omit<
+  CoreBreadcrumbLinkProps,
+  "className" | "onClick"
+> {
   readonly style?: StyleProp<TextStyle>;
   readonly onPress?: () => void;
 }
 
-export interface NativeBreadcrumbPageProps
-  extends Omit<CoreBreadcrumbPageProps, "className"> {
+export interface NativeBreadcrumbPageProps extends Omit<
+  CoreBreadcrumbPageProps,
+  "className"
+> {
   readonly style?: StyleProp<TextStyle>;
 }
 
-export interface NativeBreadcrumbSeparatorProps
-  extends Omit<CoreBreadcrumbSeparatorProps, "className"> {
+export interface NativeBreadcrumbSeparatorProps extends Omit<
+  CoreBreadcrumbSeparatorProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativePaginationProps
-  extends Omit<CorePaginationProps, "className"> {
+export interface NativePaginationProps extends Omit<
+  CorePaginationProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
@@ -402,8 +442,10 @@ export interface NativePopoverTriggerProps extends CorePopoverTriggerProps {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativePopoverContentProps
-  extends Omit<CorePopoverContentProps, "className"> {
+export interface NativePopoverContentProps extends Omit<
+  CorePopoverContentProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
@@ -417,8 +459,10 @@ export interface NativeTooltipTriggerProps extends CoreTooltipTriggerProps {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeTooltipContentProps
-  extends Omit<CoreTooltipContentProps, "className"> {
+export interface NativeTooltipContentProps extends Omit<
+  CoreTooltipContentProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
@@ -428,8 +472,10 @@ export interface NativeDialogTriggerProps extends CoreDialogTriggerProps {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeDialogContentProps
-  extends Omit<CoreDialogContentProps, "className"> {
+export interface NativeDialogContentProps extends Omit<
+  CoreDialogContentProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
@@ -459,8 +505,10 @@ export interface NativeSheetTriggerProps extends CoreSheetTriggerProps {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeSheetContentProps
-  extends Omit<CoreSheetContentProps, "className"> {
+export interface NativeSheetContentProps extends Omit<
+  CoreSheetContentProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
@@ -492,53 +540,70 @@ export interface NativeDropdownMenuTriggerProps extends CoreDropdownMenuTriggerP
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeDropdownMenuContentProps
-  extends Omit<CoreDropdownMenuContentProps, "className"> {
+export interface NativeDropdownMenuContentProps extends Omit<
+  CoreDropdownMenuContentProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeDropdownMenuGroupProps
-  extends Omit<CoreDropdownMenuGroupProps, "className"> {
+export interface NativeDropdownMenuGroupProps extends Omit<
+  CoreDropdownMenuGroupProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeDropdownMenuItemProps
-  extends Omit<CoreDropdownMenuItemProps, "className"> {
+export interface NativeDropdownMenuItemProps extends Omit<
+  CoreDropdownMenuItemProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeDropdownMenuSeparatorProps
-  extends Omit<CoreDropdownMenuSeparatorProps, "className"> {
+export interface NativeDropdownMenuSeparatorProps extends Omit<
+  CoreDropdownMenuSeparatorProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeSelectProps
-  extends Omit<CoreSelectProps, "className"> {
+export interface NativeSelectProps extends Omit<CoreSelectProps, "className"> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeSelectTriggerProps
-  extends Omit<CoreSelectTriggerProps, "className"> {
+export interface NativeSelectTriggerProps extends Omit<
+  CoreSelectTriggerProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeSelectContentProps
-  extends Omit<CoreSelectContentProps, "className"> {
+export interface NativeSelectContentProps extends Omit<
+  CoreSelectContentProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeSelectItemProps
-  extends Omit<CoreSelectItemProps, "className"> {
+export interface NativeSelectItemProps extends Omit<
+  CoreSelectItemProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeComboboxProps
-  extends Omit<CoreComboboxProps, "className"> {
+export interface NativeComboboxProps extends Omit<
+  CoreComboboxProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeCommandPaletteProps
-  extends Omit<CoreCommandPaletteProps, "className"> {
+export interface NativeCommandPaletteProps extends Omit<
+  CoreCommandPaletteProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
@@ -553,15 +618,24 @@ export interface NativeAlertProps extends Omit<CoreAlertProps, "className"> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeProgressProps extends Omit<CoreProgressProps, "className"> {
+export interface NativeProgressProps extends Omit<
+  CoreProgressProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeSpinnerProps extends Omit<CoreSpinnerProps, "className"> {
+export interface NativeSpinnerProps extends Omit<
+  CoreSpinnerProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeSkeletonProps extends Omit<CoreSkeletonProps, "className"> {
+export interface NativeSkeletonProps extends Omit<
+  CoreSkeletonProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
@@ -577,84 +651,111 @@ export interface NativeTableProps extends Omit<CoreTableProps, "className"> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeTableHeaderProps
-  extends Omit<CoreTableHeaderProps, "className"> {
+export interface NativeTableHeaderProps extends Omit<
+  CoreTableHeaderProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeTableBodyProps
-  extends Omit<CoreTableBodyProps, "className"> {
+export interface NativeTableBodyProps extends Omit<
+  CoreTableBodyProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeTableFooterProps
-  extends Omit<CoreTableFooterProps, "className"> {
+export interface NativeTableFooterProps extends Omit<
+  CoreTableFooterProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeTableRowProps
-  extends Omit<CoreTableRowProps, "className" | "onClick"> {
+export interface NativeTableRowProps extends Omit<
+  CoreTableRowProps,
+  "className" | "onClick"
+> {
   readonly style?: StyleProp<ViewStyle>;
   readonly onPress?: () => void;
 }
 
-export interface NativeTableHeadProps
-  extends Omit<CoreTableHeadProps, "className"> {
+export interface NativeTableHeadProps extends Omit<
+  CoreTableHeadProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
   readonly textStyle?: StyleProp<TextStyle>;
 }
 
-export interface NativeTableCellProps
-  extends Omit<CoreTableCellProps, "className"> {
+export interface NativeTableCellProps extends Omit<
+  CoreTableCellProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
   readonly textStyle?: StyleProp<TextStyle>;
 }
 
-export interface NativeTableCaptionProps
-  extends Omit<CoreTableCaptionProps, "className"> {
+export interface NativeTableCaptionProps extends Omit<
+  CoreTableCaptionProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
   readonly textStyle?: StyleProp<TextStyle>;
 }
 
-export interface NativeDataTableProps<T>
-  extends Omit<CoreDataTableProps<T>, "className"> {
+export interface NativeDataTableProps<T> extends Omit<
+  CoreDataTableProps<T>,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeAccordionProps
-  extends Omit<CoreAccordionProps, "className"> {
+export interface NativeAccordionProps extends Omit<
+  CoreAccordionProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeAccordionItemProps
-  extends Omit<CoreAccordionItemProps, "className"> {
+export interface NativeAccordionItemProps extends Omit<
+  CoreAccordionItemProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeAccordionTriggerProps
-  extends Omit<CoreAccordionTriggerProps, "className"> {
-  readonly style?: StyleProp<ViewStyle>;
-  readonly textStyle?: StyleProp<TextStyle>;
-}
-
-export interface NativeAccordionContentProps
-  extends Omit<CoreAccordionContentProps, "className"> {
-  readonly style?: StyleProp<ViewStyle>;
-}
-
-export interface NativeAvatarProps
-  extends Omit<CoreAvatarProps, "className"> {
+export interface NativeAccordionTriggerProps extends Omit<
+  CoreAccordionTriggerProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
   readonly textStyle?: StyleProp<TextStyle>;
 }
 
-export interface NativeAvatarGroupProps
-  extends Omit<CoreAvatarGroupProps, "className"> {
+export interface NativeAccordionContentProps extends Omit<
+  CoreAccordionContentProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeCodeBlockProps
-  extends Omit<CoreCodeBlockProps, "className"> {
+export interface NativeAvatarProps extends Omit<CoreAvatarProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly textStyle?: StyleProp<TextStyle>;
+}
+
+export interface NativeAvatarGroupProps extends Omit<
+  CoreAvatarGroupProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeCodeBlockProps extends Omit<
+  CoreCodeBlockProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 
@@ -690,8 +791,3 @@ export type {
   ToastPlacement,
   ToastTone,
 } from "@xenon/core";
-
-
-
-
-

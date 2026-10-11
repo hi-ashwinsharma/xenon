@@ -1,11 +1,6 @@
 "use client";
 
-import React, {
-  useId,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useId, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
   computeFloatingPlacement,
@@ -33,7 +28,9 @@ export function Combobox({
   style,
   ...props
 }: WebComboboxProps) {
-  const [uncontrolledValue, setUncontrolledValue] = useState<string | undefined>(defaultValue);
+  const [uncontrolledValue, setUncontrolledValue] = useState<
+    string | undefined
+  >(defaultValue);
   const isControlled = controlledValue !== undefined;
   const value = isControlled ? controlledValue : uncontrolledValue;
 

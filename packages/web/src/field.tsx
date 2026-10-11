@@ -88,7 +88,13 @@ export function Field({
               >
                 <circle cx="8" cy="8" r="6.25" />
                 <line x1="8" x2="8" y1="5" y2="8" />
-                <circle cx="8" cy="11" fill="currentColor" r="0.6" stroke="none" />
+                <circle
+                  cx="8"
+                  cy="11"
+                  fill="currentColor"
+                  r="0.6"
+                  stroke="none"
+                />
               </svg>
             </span>
           )}

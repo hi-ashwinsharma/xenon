@@ -37,7 +37,9 @@ interface AccordionItemContextValue {
   readonly triggerId: string;
 }
 
-const AccordionItemContext = createContext<AccordionItemContextValue | null>(null);
+const AccordionItemContext = createContext<AccordionItemContextValue | null>(
+  null,
+);
 
 function CaretDownIcon({
   style,
@@ -143,7 +145,8 @@ export const Accordion = forwardRef<HTMLDivElement, WebAccordionProps>(
       display: "flex",
       flexDirection: "column",
       gap: variant === "separated" ? "8px" : 0,
-      borderRadius: variant === "bordered" ? "var(--x-radius-surface, 16px)" : undefined,
+      borderRadius:
+        variant === "bordered" ? "var(--x-radius-surface, 16px)" : undefined,
       border: variant === "bordered" ? "1px solid var(--x-border)" : undefined,
       overflow: variant === "bordered" ? "hidden" : undefined,
       ...style,
@@ -151,7 +154,12 @@ export const Accordion = forwardRef<HTMLDivElement, WebAccordionProps>(
 
     return (
       <AccordionContext.Provider value={contextValue}>
-        <div ref={ref} style={containerStyle} className={className} {...restProps}>
+        <div
+          ref={ref}
+          style={containerStyle}
+          className={className}
+          {...restProps}
+        >
           {children}
         </div>
       </AccordionContext.Provider>
@@ -169,7 +177,9 @@ export const AccordionItem = forwardRef<HTMLDivElement, WebAccordionItemProps>(
     const contentId = `accordion-content-${id}`;
     const triggerId = `accordion-trigger-${id}`;
 
-    const isExpanded = rootContext ? rootContext.expandedValues.has(value) : false;
+    const isExpanded = rootContext
+      ? rootContext.expandedValues.has(value)
+      : false;
 
     const itemContext = useMemo<AccordionItemContextValue>(
       () => ({
@@ -189,9 +199,11 @@ export const AccordionItem = forwardRef<HTMLDivElement, WebAccordionItemProps>(
         variant === "default" || variant === "bordered"
           ? "1px solid var(--x-border)"
           : undefined,
-      borderRadius: variant === "separated" ? "var(--x-radius-surface, 16px)" : undefined,
+      borderRadius:
+        variant === "separated" ? "var(--x-radius-surface, 16px)" : undefined,
       border: variant === "separated" ? "1px solid var(--x-border)" : undefined,
-      backgroundColor: variant === "separated" ? "var(--x-surface-1)" : "transparent",
+      backgroundColor:
+        variant === "separated" ? "var(--x-surface-1)" : "transparent",
       overflow: "hidden",
       ...style,
     };
@@ -224,7 +236,9 @@ export const AccordionTrigger = forwardRef<
   const itemContext = useContext(AccordionItemContext);
 
   if (!rootContext || !itemContext) {
-    throw new Error("AccordionTrigger must be used within an Accordion and AccordionItem");
+    throw new Error(
+      "AccordionTrigger must be used within an Accordion and AccordionItem",
+    );
   }
 
   const isDisabled = itemDisabledOverride ?? itemContext.disabled;

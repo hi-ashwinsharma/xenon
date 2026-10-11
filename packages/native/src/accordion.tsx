@@ -56,7 +56,9 @@ interface AccordionItemContextValue {
   readonly isExpanded: boolean;
 }
 
-const AccordionItemContext = createContext<AccordionItemContextValue | null>(null);
+const AccordionItemContext = createContext<AccordionItemContextValue | null>(
+  null,
+);
 
 function CaretDownIcon({
   color,
@@ -223,7 +225,9 @@ export function AccordionItem({
 }: NativeAccordionItemProps) {
   const { tokens, radius } = useAccordionTokens();
   const rootContext = useContext(AccordionContext);
-  const isExpanded = rootContext ? rootContext.expandedValues.has(value) : false;
+  const isExpanded = rootContext
+    ? rootContext.expandedValues.has(value)
+    : false;
 
   const itemContext = useMemo<AccordionItemContextValue>(
     () => ({

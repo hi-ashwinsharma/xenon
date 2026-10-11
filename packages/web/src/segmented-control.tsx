@@ -34,7 +34,9 @@ export function SegmentedControl<T extends string = string>({
   const generatedId = useId();
   const isControlled = controlledValue !== undefined;
   const initialValue = defaultValue ?? options[0]?.value;
-  const [internalValue, setInternalValue] = useState<T | undefined>(initialValue);
+  const [internalValue, setInternalValue] = useState<T | undefined>(
+    initialValue,
+  );
   const selectedValue = isControlled ? controlledValue : internalValue;
 
   const [indicatorStyle, setIndicatorStyle] = useState<{
@@ -200,7 +202,9 @@ export function SegmentedControl<T extends string = string>({
             key={option.value}
             onClick={() => handleSelect(option.value)}
             onMouseDown={() => !isItemDisabled && setIsPressed(true)}
-            onMouseEnter={() => !isItemDisabled && setHoveredValue(option.value)}
+            onMouseEnter={() =>
+              !isItemDisabled && setHoveredValue(option.value)
+            }
             onMouseLeave={() => {
               setHoveredValue(null);
               setIsPressed(false);
@@ -222,8 +226,10 @@ export function SegmentedControl<T extends string = string>({
               alignItems: "center",
               justifyContent: "center",
               gap: "6px",
-              paddingLeft: size === "sm" ? "10px" : size === "lg" ? "18px" : "14px",
-              paddingRight: size === "sm" ? "10px" : size === "lg" ? "18px" : "14px",
+              paddingLeft:
+                size === "sm" ? "10px" : size === "lg" ? "18px" : "14px",
+              paddingRight:
+                size === "sm" ? "10px" : size === "lg" ? "18px" : "14px",
               height: "100%",
               borderRadius: `${innerRadius}px`,
               border: "none",
@@ -237,7 +243,11 @@ export function SegmentedControl<T extends string = string>({
                   : "var(--x-text-muted)",
               fontFamily: "inherit",
               fontSize:
-                size === "sm" ? "0.8125rem" : size === "lg" ? "1rem" : "0.875rem",
+                size === "sm"
+                  ? "0.8125rem"
+                  : size === "lg"
+                    ? "1rem"
+                    : "0.875rem",
               fontWeight: 400,
               cursor: isItemDisabled ? "not-allowed" : "pointer",
               outline: "none",

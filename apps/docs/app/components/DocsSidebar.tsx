@@ -1,6 +1,13 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useRef, useState, type ReactElement } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactElement,
+} from "react";
 import {
   Input,
   Sidebar,
@@ -16,14 +23,23 @@ interface DocsSidebarProps {
   onSelect: (id: string) => void;
 }
 
-export function DocsSidebar({ activeId, onSelect }: DocsSidebarProps): ReactElement {
+export function DocsSidebar({
+  activeId,
+  onSelect,
+}: DocsSidebarProps): ReactElement {
   const [filter, setFilter] = useState<string>("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollTop, setCanScrollTop] = useState<boolean>(false);
   const [canScrollBottom, setCanScrollBottom] = useState<boolean>(false);
 
   const categories = useMemo(() => {
-    const list: Array<"Primitives" | "Form Controls" | "Navigation" | "Overlays" | "Feedback & Data Display"> = [
+    const list: Array<
+      | "Primitives"
+      | "Form Controls"
+      | "Navigation"
+      | "Overlays"
+      | "Feedback & Data Display"
+    > = [
       "Primitives",
       "Form Controls",
       "Navigation",
@@ -175,7 +191,9 @@ export function DocsSidebar({ activeId, onSelect }: DocsSidebarProps): ReactElem
 
           {/* Component Categories */}
           {categories.map((category) => {
-            const items = filteredItems.filter((item) => item.category === category);
+            const items = filteredItems.filter(
+              (item) => item.category === category,
+            );
             if (items.length === 0) return null;
 
             return (

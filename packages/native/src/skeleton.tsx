@@ -62,7 +62,8 @@ export function Skeleton({
 
   if (variant === "text") {
     resolvedHeight = height ?? 14;
-    resolvedRadius = typeof radius === "number" ? radius : tokens.radius[radiusStop].joint;
+    resolvedRadius =
+      typeof radius === "number" ? radius : tokens.radius[radiusStop].joint;
   } else if (variant === "circle") {
     resolvedHeight = height ?? 36;
     resolvedWidth = width ?? resolvedHeight;

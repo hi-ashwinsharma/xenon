@@ -31,7 +31,10 @@ export function useRovingFocus({
     if (enabled) {
       // Find first non-disabled item
       let firstValid = initialIndex;
-      while (disabledIndices.includes(firstValid) && firstValid < itemCount - 1) {
+      while (
+        disabledIndices.includes(firstValid) &&
+        firstValid < itemCount - 1
+      ) {
         firstValid++;
       }
       setActiveIndex(firstValid);

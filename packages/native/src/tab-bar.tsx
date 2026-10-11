@@ -1,10 +1,5 @@
 import { useMemo, type ReactElement } from "react";
-import {
-  Pressable,
-  StyleSheet,
-  View,
-  type ViewStyle,
-} from "react-native";
+import { Pressable, StyleSheet, View, type ViewStyle } from "react-native";
 import {
   compileNativeTokens,
   type Accent,
@@ -12,10 +7,7 @@ import {
 } from "@xenon/tokens";
 import { useXenon } from "./provider";
 import { Text } from "./text";
-import type {
-  NativeTabBarItemProps,
-  NativeTabBarProps,
-} from "./native.types";
+import type { NativeTabBarItemProps, NativeTabBarProps } from "./native.types";
 
 export function TabBar({
   variant = "floating",
@@ -152,7 +144,9 @@ export function TabBarItem({
         <Text
           style={{
             fontSize: 11,
-            color: active ? nativeTokens.colors.text : nativeTokens.colors.textMuted,
+            color: active
+              ? nativeTokens.colors.text
+              : nativeTokens.colors.textMuted,
             fontWeight: active ? "400" : "300",
             marginTop: 2,
           }}

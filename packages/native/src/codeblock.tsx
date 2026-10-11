@@ -1,10 +1,5 @@
 import React, { useMemo, useState } from "react";
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import {
   DEFAULT_RADIUS_STOP,
   compileNativeTokens,
@@ -12,11 +7,7 @@ import {
   type RadiusStop,
   type ResolvedTheme,
 } from "@xenon/tokens";
-import {
-  tokenizeCode,
-  type CodeToken,
-  type CodeTokenType,
-} from "@xenon/core";
+import { tokenizeCode, type CodeToken, type CodeTokenType } from "@xenon/core";
 import { useXenon } from "./provider";
 import { Text } from "./text";
 import type { NativeCodeBlockProps } from "./native.types";
@@ -92,11 +83,14 @@ export function CodeBlock({
         styles.container,
         {
           backgroundColor: tokens.colors.surface,
-          borderRadius: variant !== "minimal" ? tokens.radius[radius].control : 0,
+          borderRadius:
+            variant !== "minimal" ? tokens.radius[radius].control : 0,
           borderWidth: variant !== "minimal" ? StyleSheet.hairlineWidth : 0,
           borderColor: tokens.colors.border,
         },
-        maxHeight ? { maxHeight: typeof maxHeight === "number" ? maxHeight : undefined } : undefined,
+        maxHeight
+          ? { maxHeight: typeof maxHeight === "number" ? maxHeight : undefined }
+          : undefined,
         style,
       ]}
     >
@@ -113,7 +107,11 @@ export function CodeBlock({
         >
           <View style={styles.headerTitleGroup}>
             {headerLabel && (
-              <Text styleKey="footnote" weight={400} style={{ color: tokens.colors.text }}>
+              <Text
+                styleKey="footnote"
+                weight={400}
+                style={{ color: tokens.colors.text }}
+              >
                 {headerLabel}
               </Text>
             )}
@@ -154,7 +152,9 @@ export function CodeBlock({
               <Text
                 styleKey="caption2"
                 style={{
-                  color: copied ? tokens.colors.accent : tokens.colors.textMuted,
+                  color: copied
+                    ? tokens.colors.accent
+                    : tokens.colors.textMuted,
                   fontSize: 10,
                 }}
               >
@@ -171,41 +171,40 @@ export function CodeBlock({
         contentContainerStyle={styles.scrollContent}
       >
         <View style={styles.codeBody}>
-          {isCustomNode ? (
-            (tokenizedLines as React.ReactNode)
-          ) : (
-            (tokenizedLines as readonly (readonly CodeToken[])[]).map(
-              (line, lineIndex) => (
-                <View key={lineIndex} style={styles.line}>
-                  {showLineNumbers && (
-                    <Text
-                      styleKey="caption1"
-                      style={[
-                        styles.lineNumber,
-                        { color: tokens.colors.textMuted },
-                      ]}
-                    >
-                      {String(lineIndex + 1)}
-                    </Text>
-                  )}
-                  <View style={styles.tokensRow}>
-                    {line.map((token, tokenIndex) => (
+          {isCustomNode
+            ? (tokenizedLines as React.ReactNode)
+            : (tokenizedLines as readonly (readonly CodeToken[])[]).map(
+                (line, lineIndex) => (
+                  <View key={lineIndex} style={styles.line}>
+                    {showLineNumbers && (
                       <Text
-                        key={tokenIndex}
-                        styleKey="footnote"
-                        style={{
-                          color: tokenColorMap[token.type] ?? tokens.colors.text,
-                          fontFamily: "monospace",
-                        }}
+                        styleKey="caption1"
+                        style={[
+                          styles.lineNumber,
+                          { color: tokens.colors.textMuted },
+                        ]}
                       >
-                        {token.content}
+                        {String(lineIndex + 1)}
                       </Text>
-                    ))}
+                    )}
+                    <View style={styles.tokensRow}>
+                      {line.map((token, tokenIndex) => (
+                        <Text
+                          key={tokenIndex}
+                          styleKey="footnote"
+                          style={{
+                            color:
+                              tokenColorMap[token.type] ?? tokens.colors.text,
+                            fontFamily: "monospace",
+                          }}
+                        >
+                          {token.content}
+                        </Text>
+                      ))}
+                    </View>
                   </View>
-                </View>
-              ),
-            )
-          )}
+                ),
+              )}
         </View>
       </ScrollView>
     </View>

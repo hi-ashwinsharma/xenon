@@ -26,7 +26,11 @@ describe("@xenon/web Feedback Components (Phase 5 Batch 1)", () => {
     });
 
     it("supports dot status indicator badge", () => {
-      const badge = createElement(Badge, { dot: true, tone: "success" }, "Operational");
+      const badge = createElement(
+        Badge,
+        { dot: true, tone: "success" },
+        "Operational",
+      );
       expect(badge.props.dot).toBe(true);
       expect(badge.props.tone).toBe("success");
     });
@@ -52,7 +56,11 @@ describe("@xenon/web Feedback Components (Phase 5 Batch 1)", () => {
 
   describe("Progress", () => {
     it("creates determinate progress bar with value and size", () => {
-      const progress = createElement(Progress, { value: 65, size: "sm", tone: "accent" });
+      const progress = createElement(Progress, {
+        value: 65,
+        size: "sm",
+        tone: "accent",
+      });
       expect(progress.props.value).toBe(65);
       expect(progress.props.size).toBe("sm");
       expect(progress.props.tone).toBe("accent");
@@ -66,7 +74,11 @@ describe("@xenon/web Feedback Components (Phase 5 Batch 1)", () => {
 
   describe("Spinner", () => {
     it("creates rotating loading spinner with accessible label", () => {
-      const spinner = createElement(Spinner, { size: "lg", tone: "accent", label: "Syncing..." });
+      const spinner = createElement(Spinner, {
+        size: "lg",
+        tone: "accent",
+        label: "Syncing...",
+      });
       expect(spinner.props.size).toBe("lg");
       expect(spinner.props.tone).toBe("accent");
       expect(spinner.props.label).toBe("Syncing...");
@@ -101,7 +113,11 @@ describe("@xenon/web Feedback Components (Phase 5 Batch 1)", () => {
     });
 
     it("supports ToastProvider and imperative toast methods", () => {
-      const provider = createElement(ToastProvider, { placement: "bottom-center" }, null);
+      const provider = createElement(
+        ToastProvider,
+        { placement: "bottom-center" },
+        null,
+      );
       expect(provider.props.placement).toBe("bottom-center");
 
       const id = toast.info("Build in progress");

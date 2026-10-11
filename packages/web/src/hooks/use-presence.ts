@@ -20,7 +20,9 @@ export function usePresence({
   durationMs = 200,
 }: UsePresenceOptions): UsePresenceReturn {
   const [isMounted, setIsMounted] = useState<boolean>(open);
-  const [status, setStatus] = useState<PresenceStatus>(open ? "entered" : "exited");
+  const [status, setStatus] = useState<PresenceStatus>(
+    open ? "entered" : "exited",
+  );
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout> | undefined;

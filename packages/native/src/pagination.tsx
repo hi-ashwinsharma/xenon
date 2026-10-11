@@ -1,10 +1,5 @@
 import { useMemo, type ReactElement } from "react";
-import {
-  Pressable,
-  StyleSheet,
-  View,
-  type ViewStyle,
-} from "react-native";
+import { Pressable, StyleSheet, View, type ViewStyle } from "react-native";
 import {
   compileNativeTokens,
   type Accent,
@@ -147,9 +142,30 @@ export function Pagination({
                   gap: 2,
                 }}
               >
-                <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: nativeTokens.colors.textMuted }} />
-                <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: nativeTokens.colors.textMuted }} />
-                <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: nativeTokens.colors.textMuted }} />
+                <View
+                  style={{
+                    width: 2,
+                    height: 2,
+                    borderRadius: 1,
+                    backgroundColor: nativeTokens.colors.textMuted,
+                  }}
+                />
+                <View
+                  style={{
+                    width: 2,
+                    height: 2,
+                    borderRadius: 1,
+                    backgroundColor: nativeTokens.colors.textMuted,
+                  }}
+                />
+                <View
+                  style={{
+                    width: 2,
+                    height: 2,
+                    borderRadius: 1,
+                    backgroundColor: nativeTokens.colors.textMuted,
+                  }}
+                />
               </View>
             );
           }
@@ -177,8 +193,12 @@ export function Pagination({
                   paddingHorizontal: 8,
                   borderRadius: 9999,
                   borderWidth: isCurrent ? StyleSheet.hairlineWidth : 0,
-                  borderColor: isCurrent ? nativeTokens.colors.border : "transparent",
-                  backgroundColor: isCurrent ? nativeTokens.colors.surface2 : "transparent",
+                  borderColor: isCurrent
+                    ? nativeTokens.colors.border
+                    : "transparent",
+                  backgroundColor: isCurrent
+                    ? nativeTokens.colors.surface2
+                    : "transparent",
                   opacity: disabled ? 0.35 : 1,
                   transform: [{ scale: pressed && !disabled ? 0.94 : 1 }],
                 },
@@ -187,7 +207,9 @@ export function Pagination({
               <Text
                 style={{
                   fontSize: 13,
-                  color: isCurrent ? nativeTokens.colors.text : nativeTokens.colors.textMuted,
+                  color: isCurrent
+                    ? nativeTokens.colors.text
+                    : nativeTokens.colors.textMuted,
                   fontWeight: isCurrent ? "400" : "300",
                 }}
               >

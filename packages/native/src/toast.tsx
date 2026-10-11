@@ -1,10 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import {
-  Animated,
-  Pressable,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Animated, Pressable, StyleSheet, View } from "react-native";
 import {
   DEFAULT_RADIUS_STOP,
   compileNativeTokens,
@@ -15,7 +10,10 @@ import {
 import { toast, type ToastItem } from "@xenon/core";
 import { useXenon } from "./provider";
 import { Text } from "./text";
-import type { NativeToastProps, NativeToastProviderProps } from "./native.types";
+import type {
+  NativeToastProps,
+  NativeToastProviderProps,
+} from "./native.types";
 
 const toneColors = {
   success: "#30d158",
@@ -104,7 +102,8 @@ export function Toast({
     onDismiss?.();
   };
 
-  const indicatorColor = tone === "accent" ? tokens.colors.accent : toneColors[tone];
+  const indicatorColor =
+    tone === "accent" ? tokens.colors.accent : toneColors[tone];
 
   return (
     <Animated.View
@@ -126,10 +125,7 @@ export function Toast({
           <View style={styles.iconContainer}>{icon}</View>
         ) : (
           <View
-            style={[
-              styles.indicatorDot,
-              { backgroundColor: indicatorColor },
-            ]}
+            style={[styles.indicatorDot, { backgroundColor: indicatorColor }]}
           />
         )}
 
@@ -164,12 +160,13 @@ export function Toast({
             action.onClick();
             handleDismiss();
           }}
-          style={[
-            styles.actionButton,
-            { borderColor: tokens.colors.border },
-          ]}
+          style={[styles.actionButton, { borderColor: tokens.colors.border }]}
         >
-          <Text styleKey="caption1" style={{ color: tokens.colors.text }} weight={400}>
+          <Text
+            styleKey="caption1"
+            style={{ color: tokens.colors.text }}
+            weight={400}
+          >
             {action.label}
           </Text>
         </Pressable>

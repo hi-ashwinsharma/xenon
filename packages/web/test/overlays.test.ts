@@ -105,7 +105,11 @@ describe("@xenon/web Overlay Primitives (Batch 1)", () => {
             SheetHeader,
             null,
             createElement(SheetTitle, null, "Filter Options"),
-            createElement(SheetDescription, null, "Adjust your view preferences"),
+            createElement(
+              SheetDescription,
+              null,
+              "Adjust your view preferences",
+            ),
           ),
           createElement(
             SheetFooter,

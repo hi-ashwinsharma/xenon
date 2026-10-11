@@ -17,8 +17,16 @@ interface AllComponentsGalleryProps {
   onSelectComponent: (id: string) => void;
 }
 
-export function AllComponentsGallery({ onSelectComponent }: AllComponentsGalleryProps): ReactElement {
-  const categories: Array<"Primitives" | "Form Controls" | "Navigation" | "Overlays" | "Feedback & Data Display"> = [
+export function AllComponentsGallery({
+  onSelectComponent,
+}: AllComponentsGalleryProps): ReactElement {
+  const categories: Array<
+    | "Primitives"
+    | "Form Controls"
+    | "Navigation"
+    | "Overlays"
+    | "Feedback & Data Display"
+  > = [
     "Primitives",
     "Form Controls",
     "Navigation",
@@ -33,7 +41,8 @@ export function AllComponentsGallery({ onSelectComponent }: AllComponentsGallery
           Component Gallery
         </Heading>
         <Text styleKey="body" tone="muted" weight={300}>
-          Comprehensive overview of all v1 components. Click any card to inspect full props and code snippets.
+          Comprehensive overview of all v1 components. Click any card to inspect
+          full props and code snippets.
         </Text>
       </Stack>
 

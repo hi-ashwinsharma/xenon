@@ -28,4 +28,3 @@ export interface XenonProviderProps {
   readonly onAmoledChange?: (amoled: boolean) => void;
   readonly children: ReactNode;
 }
-

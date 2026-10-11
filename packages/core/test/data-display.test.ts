@@ -37,9 +37,15 @@ describe("Data Display Utilities", () => {
       const line = 'const name = "xenon";';
       const tokens = tokenizeLine(line);
 
-      expect(tokens.some((t) => t.type === "keyword" && t.content === "const")).toBe(true);
-      expect(tokens.some((t) => t.type === "string" && t.content === '"xenon"')).toBe(true);
-      expect(tokens.some((t) => t.type === "operator" && t.content === "=")).toBe(true);
+      expect(
+        tokens.some((t) => t.type === "keyword" && t.content === "const"),
+      ).toBe(true);
+      expect(
+        tokens.some((t) => t.type === "string" && t.content === '"xenon"'),
+      ).toBe(true);
+      expect(
+        tokens.some((t) => t.type === "operator" && t.content === "="),
+      ).toBe(true);
     });
 
     it("tokenizes comments accurately", () => {
@@ -49,11 +55,15 @@ describe("Data Display Utilities", () => {
     });
 
     it("tokenizes multi-line code into lines of tokens", () => {
-      const code = 'function add(a, b) {\n  return a + b;\n}';
+      const code = "function add(a, b) {\n  return a + b;\n}";
       const lines = tokenizeCode(code, "typescript");
       expect(lines).toHaveLength(3);
-      expect(lines[0].some((t) => t.type === "keyword" && t.content === "function")).toBe(true);
-      expect(lines[1].some((t) => t.type === "keyword" && t.content === "return")).toBe(true);
+      expect(
+        lines[0].some((t) => t.type === "keyword" && t.content === "function"),
+      ).toBe(true);
+      expect(
+        lines[1].some((t) => t.type === "keyword" && t.content === "return"),
+      ).toBe(true);
     });
   });
 });

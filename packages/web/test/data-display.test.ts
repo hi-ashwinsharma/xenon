@@ -54,9 +54,16 @@ describe("@xenon/web Data Display Components (Phase 5 Batch 2)", () => {
         { key: "id", header: "ID", numeric: true },
         { key: "name", header: "Name" },
       ];
-      const data = [{ id: 1, name: "Alpha" }, { id: 2, name: "Beta" }];
+      const data = [
+        { id: 1, name: "Alpha" },
+        { id: 2, name: "Beta" },
+      ];
 
-      const dt = createElement(DataTable, { columns, data, variant: "striped" });
+      const dt = createElement(DataTable, {
+        columns,
+        data,
+        variant: "striped",
+      });
       expect(dt.props.columns).toHaveLength(2);
       expect(dt.props.data).toHaveLength(2);
       expect(dt.props.variant).toBe("striped");
@@ -111,7 +118,7 @@ describe("@xenon/web Data Display Components (Phase 5 Batch 2)", () => {
 
   describe("CodeBlock", () => {
     it("creates code block with syntax highlighting and copy button", () => {
-      const code = 'const x = 42;\nconsole.log(x);';
+      const code = "const x = 42;\nconsole.log(x);";
       const block = createElement(CodeBlock, {
         code,
         language: "typescript",

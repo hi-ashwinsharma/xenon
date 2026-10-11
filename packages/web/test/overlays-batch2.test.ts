@@ -39,7 +39,11 @@ describe("@xenon/web Overlay Primitives (Batch 2)", () => {
         DropdownMenu,
         { openOnHover: true, hoverDelayMs: 200 },
         createElement(DropdownMenuTrigger, null, "Hover Me"),
-        createElement(DropdownMenuContent, null, createElement(DropdownMenuItem, null, "Item")),
+        createElement(
+          DropdownMenuContent,
+          null,
+          createElement(DropdownMenuItem, null, "Item"),
+        ),
       );
 
       expect(menu.props.openOnHover).toBe(true);
@@ -49,16 +53,13 @@ describe("@xenon/web Overlay Primitives (Batch 2)", () => {
 
   describe("Select", () => {
     it("creates select tree with dynamic radius support", () => {
-      const select = createElement(
-        Select,
-        {
-          defaultValue: "apple",
-          options: [
-            { value: "apple", label: "Apple HIG" },
-            { value: "xenon", label: "Xenon Core" },
-          ],
-        },
-      );
+      const select = createElement(Select, {
+        defaultValue: "apple",
+        options: [
+          { value: "apple", label: "Apple HIG" },
+          { value: "xenon", label: "Xenon Core" },
+        ],
+      });
 
       expect(select.props.defaultValue).toBe("apple");
       expect(select.props.options).toHaveLength(2);
@@ -102,7 +103,12 @@ describe("@xenon/web Overlay Primitives (Batch 2)", () => {
       const palette = createElement(CommandPalette, {
         defaultOpen: false,
         items: [
-          { id: "1", label: "Go to Components", group: "Navigation", shortcut: "G C" },
+          {
+            id: "1",
+            label: "Go to Components",
+            group: "Navigation",
+            shortcut: "G C",
+          },
           { id: "2", label: "Toggle Theme", group: "Actions", shortcut: "⌘T" },
         ],
       });

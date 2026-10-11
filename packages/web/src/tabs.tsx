@@ -37,7 +37,8 @@ export function Tabs({
   style,
   ...restProps
 }: WebTabsProps): ReactElement {
-  const [uncontrolledValue, setUncontrolledValue] = useState<string>(defaultValue);
+  const [uncontrolledValue, setUncontrolledValue] =
+    useState<string>(defaultValue);
 
   const isControlled = controlledValue !== undefined;
   const activeValue = isControlled ? controlledValue : uncontrolledValue;

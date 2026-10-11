@@ -168,12 +168,7 @@ export {
   PopoverClose,
   usePopover,
 } from "./popover";
-export {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  useTooltip,
-} from "./tooltip";
+export { Tooltip, TooltipTrigger, TooltipContent, useTooltip } from "./tooltip";
 export {
   Dialog,
   DialogTrigger,
@@ -252,4 +247,3 @@ export const nativeRendererConfig: {
   platform: "native",
   ready: true,
 } as const;
-

@@ -1,10 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
-import {
-  Modal,
-  Pressable,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Modal, Pressable, StyleSheet, View } from "react-native";
 import {
   compileNativeTokens,
   type Accent,
@@ -45,7 +40,8 @@ export function Sheet({
   onOpenChange,
   children,
 }: NativeSheetProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(defaultOpen);
+  const [uncontrolledOpen, setUncontrolledOpen] =
+    useState<boolean>(defaultOpen);
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
 
@@ -142,17 +138,11 @@ export function SheetContent({
   );
 }
 
-export function SheetHeader({
-  children,
-  style,
-}: NativeSheetHeaderProps) {
+export function SheetHeader({ children, style }: NativeSheetHeaderProps) {
   return <View style={[styles.header, style]}>{children}</View>;
 }
 
-export function SheetTitle({
-  children,
-  style,
-}: NativeSheetTitleProps) {
+export function SheetTitle({ children, style }: NativeSheetTitleProps) {
   if (typeof children === "string") {
     return (
       <Heading level={3} style={style} weight={400}>
@@ -177,10 +167,7 @@ export function SheetDescription({
   return <>{children}</>;
 }
 
-export function SheetFooter({
-  children,
-  style,
-}: NativeSheetFooterProps) {
+export function SheetFooter({ children, style }: NativeSheetFooterProps) {
   return <View style={[styles.footer, style]}>{children}</View>;
 }
 

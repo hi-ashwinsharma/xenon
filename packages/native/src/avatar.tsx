@@ -7,11 +7,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import {
-  Image,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import {
   DEFAULT_RADIUS_STOP,
   compileNativeTokens,

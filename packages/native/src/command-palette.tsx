@@ -17,9 +17,7 @@ import {
 import type { CommandPaletteItem } from "@xenon/core";
 import { useXenon } from "./provider";
 import { Text } from "./text";
-import type {
-  NativeCommandPaletteProps,
-} from "./native.types";
+import type { NativeCommandPaletteProps } from "./native.types";
 
 export function CommandPalette({
   open: controlledOpen,
@@ -31,7 +29,8 @@ export function CommandPalette({
   children,
   style,
 }: NativeCommandPaletteProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(defaultOpen);
+  const [uncontrolledOpen, setUncontrolledOpen] =
+    useState<boolean>(defaultOpen);
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
 
@@ -63,21 +62,22 @@ export function CommandPalette({
   };
 
   const filteredItems = query.trim()
-    ? items.filter((item) =>
-        item.label.toLowerCase().includes(query.toLowerCase()) ||
-        (item.group && item.group.toLowerCase().includes(query.toLowerCase())),
+    ? items.filter(
+        (item) =>
+          item.label.toLowerCase().includes(query.toLowerCase()) ||
+          (item.group &&
+            item.group.toLowerCase().includes(query.toLowerCase())),
       )
     : items;
 
-  const groupedItems = filteredItems.reduce<Record<string, CommandPaletteItem[]>>(
-    (acc, item) => {
-      const groupName = item.group || "General";
-      if (!acc[groupName]) acc[groupName] = [];
-      acc[groupName].push(item);
-      return acc;
-    },
-    {},
-  );
+  const groupedItems = filteredItems.reduce<
+    Record<string, CommandPaletteItem[]>
+  >((acc, item) => {
+    const groupName = item.group || "General";
+    if (!acc[groupName]) acc[groupName] = [];
+    acc[groupName].push(item);
+    return acc;
+  }, {});
 
   return (
     <>

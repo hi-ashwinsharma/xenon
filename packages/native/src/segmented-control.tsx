@@ -1,9 +1,4 @@
-import {
-  useCallback,
-  useMemo,
-  useState,
-  type ReactElement,
-} from "react";
+import { useCallback, useMemo, useState, type ReactElement } from "react";
 import {
   Pressable,
   StyleSheet,
@@ -38,7 +33,9 @@ export function SegmentedControl<T extends string = string>({
 }: NativeSegmentedControlProps<T>): ReactElement {
   const isControlled = controlledValue !== undefined;
   const initialValue = defaultValue ?? options[0]?.value;
-  const [internalValue, setInternalValue] = useState<T | undefined>(initialValue);
+  const [internalValue, setInternalValue] = useState<T | undefined>(
+    initialValue,
+  );
   const selectedValue = isControlled ? controlledValue : internalValue;
 
   const [itemLayouts, setItemLayouts] = useState<
@@ -132,7 +129,10 @@ export function SegmentedControl<T extends string = string>({
         return (
           <Pressable
             accessibilityRole="tab"
-            accessibilityState={{ selected: isSelected, disabled: isItemDisabled }}
+            accessibilityState={{
+              selected: isSelected,
+              disabled: isItemDisabled,
+            }}
             disabled={isItemDisabled}
             key={option.value}
             onLayout={(e) => handleItemLayout(option.value, e)}

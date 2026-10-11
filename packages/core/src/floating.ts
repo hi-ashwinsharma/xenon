@@ -59,7 +59,10 @@ export function computeFloatingPlacement({
       if (y + floatingHeight > viewportHeight - boundaryPadding) {
         // Flip to top
         const flippedY = triggerRect.y - floatingHeight - offset;
-        if (flippedY >= boundaryPadding || triggerRect.y > viewportHeight - (triggerRect.y + triggerRect.height)) {
+        if (
+          flippedY >= boundaryPadding ||
+          triggerRect.y > viewportHeight - (triggerRect.y + triggerRect.height)
+        ) {
           y = flippedY;
           primaryPlacement = "top";
         }

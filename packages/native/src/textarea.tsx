@@ -1,9 +1,4 @@
-import {
-  useCallback,
-  useMemo,
-  useState,
-  type ReactElement,
-} from "react";
+import { useCallback, useMemo, useState, type ReactElement } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -134,7 +129,9 @@ export function Textarea({
               fontSize: 11,
             }}
           >
-            {maxLength ? `${currentLength} / ${maxLength}` : String(currentLength)}
+            {maxLength
+              ? `${currentLength} / ${maxLength}`
+              : String(currentLength)}
           </Text>
         </View>
       )}

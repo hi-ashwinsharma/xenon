@@ -105,18 +105,8 @@ export function tokenizeLine(line: string): CodeToken[] {
   let match: RegExpExecArray | null;
 
   while ((match = TOKEN_REGEX.exec(line)) !== null) {
-    const [
-      full,
-      comment,
-      str,
-      num,
-      tag,
-      fn,
-      word,
-      punct,
-      whitespace,
-      other,
-    ] = match;
+    const [full, comment, str, num, tag, fn, word, punct, whitespace, other] =
+      match;
 
     if (comment) {
       tokens.push({ type: "comment", content: comment });
@@ -158,10 +148,7 @@ export function tokenizeLine(line: string): CodeToken[] {
   return tokens;
 }
 
-export function tokenizeCode(
-  code: string,
-  _language?: string,
-): CodeToken[][] {
+export function tokenizeCode(code: string, _language?: string): CodeToken[][] {
   const lines = code.split("\n");
   return lines.map((line) => tokenizeLine(line));
 }

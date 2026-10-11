@@ -191,7 +191,7 @@ export function Radio({
         {
           transform: [
             {
-              scale: pressed && !isDisabled ? (isTile ? 0.98 : 0.90) : 1,
+              scale: pressed && !isDisabled ? (isTile ? 0.98 : 0.9) : 1,
             },
           ],
         },
@@ -201,7 +201,13 @@ export function Radio({
       <View style={ringStyle}>{isSelected && <View style={dotStyle} />}</View>
 
       {(label || description) && (
-        <View style={{ flex: isTile ? 1 : undefined, flexDirection: "column", gap: 2 }}>
+        <View
+          style={{
+            flex: isTile ? 1 : undefined,
+            flexDirection: "column",
+            gap: 2,
+          }}
+        >
           {label && (
             <Text
               style={
