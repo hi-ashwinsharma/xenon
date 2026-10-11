@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { RootLayoutProps } from "./layout.types";
+import { XenonDocsProvider } from "./providers/XenonDocsProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +18,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       suppressHydrationWarning
       className="h-full antialiased"
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <XenonDocsProvider>{children}</XenonDocsProvider>
+      </body>
     </html>
   );
 }

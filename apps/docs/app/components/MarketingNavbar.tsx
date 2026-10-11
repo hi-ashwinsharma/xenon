@@ -13,18 +13,20 @@ import {
   Text,
 } from "@xenon/web";
 import type { Accent, RadiusStop, Theme } from "@xenon/tokens";
-import { CaretDownIcon, MoonIcon, SunIcon } from "./Icons";
+import { useDocsTheme } from "../providers/XenonDocsProvider";
+import { CaretDownIcon, MagnifyingGlassIcon, MoonIcon, SunIcon } from "./Icons";
 
-interface MarketingNavbarProps {
-  theme: Theme;
-  onThemeChange: (theme: Theme) => void;
-  accent: Accent;
-  onAccentChange: (accent: Accent) => void;
-  radius: RadiusStop;
-  onRadiusChange: (radius: RadiusStop) => void;
+export interface MarketingNavbarProps {
+  theme?: Theme;
+  onThemeChange?: (theme: Theme) => void;
+  accent?: Accent;
+  onAccentChange?: (accent: Accent) => void;
+  radius?: RadiusStop;
+  onRadiusChange?: (radius: RadiusStop) => void;
   amoled?: boolean;
   onAmoledChange?: (amoled: boolean) => void;
   activePath?: string;
+  onOpenCommandPalette?: () => void;
 }
 
 const ACCENT_LIST: Array<{ key: Accent; label: string; color: string }> = [
@@ -46,17 +48,21 @@ const RADIUS_SHORT_LABELS: Record<RadiusStop, string> = {
   6: "Pill · Capsule",
 };
 
-export function MarketingNavbar({
-  theme,
-  onThemeChange,
-  accent,
-  onAccentChange,
-  radius,
-  onRadiusChange,
-  amoled = true,
-  onAmoledChange,
-  activePath = "/",
-}: MarketingNavbarProps): ReactElement {
+export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
+  const docsTheme = useDocsTheme();
+
+  const theme = props.theme ?? docsTheme.theme;
+  const onThemeChange = props.onThemeChange ?? docsTheme.setTheme;
+  const accent = props.accent ?? docsTheme.accent;
+  const onAccentChange = props.onAccentChange ?? docsTheme.setAccent;
+  const radius = props.radius ?? docsTheme.radius;
+  const onRadiusChange = props.onRadiusChange ?? docsTheme.setRadius;
+  const amoled = props.amoled ?? docsTheme.amoled;
+  const onAmoledChange = props.onAmoledChange ?? docsTheme.setAmoled;
+  const activePath = props.activePath ?? "/";
+  const onOpenCommandPalette =
+    props.onOpenCommandPalette ?? (() => docsTheme.setCommandPaletteOpen(true));
+
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [radiusOpen, setRadiusOpen] = useState<boolean>(false);
 
@@ -65,8 +71,13 @@ export function MarketingNavbar({
     const handleScroll = () => {
       if (rafId !== null) return;
       rafId = window.requestAnimationFrame(() => {
-        const scrolled = window.scrollY > 16;
-        setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
+        // Hysteresis threshold prevents jitter: scroll down past 24px activates pill; scroll up past 10px reverts to edge
+        const currentY = window.scrollY;
+        setIsScrolled((prev) => {
+          if (!prev && currentY > 24) return true;
+          if (prev && currentY < 10) return false;
+          return prev;
+        });
         rafId = null;
       });
     };
@@ -105,34 +116,44 @@ export function MarketingNavbar({
           height: isScrolled ? "58px" : "64px",
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "center",
           padding: isScrolled ? "0 22px" : "0 32px",
-          backgroundColor: "var(--x-glass-regular-bg)",
-          backdropFilter: "blur(var(--x-glass-regular-blur, 20px))",
-          WebkitBackdropFilter: "blur(var(--x-glass-regular-blur, 20px))",
+          backgroundColor: isScrolled ? "var(--x-glass-regular-bg)" : "rgba(0, 0, 0, 0)",
+          backdropFilter: isScrolled ? "blur(var(--x-glass-regular-blur, 20px))" : "blur(0px)",
+          WebkitBackdropFilter: isScrolled ? "blur(var(--x-glass-regular-blur, 20px))" : "blur(0px)",
           borderWidth: "1px",
           borderStyle: "solid",
-          borderColor: isScrolled
-            ? "var(--x-border)"
-            : "transparent transparent var(--x-border) transparent",
+          borderColor: isScrolled ? "var(--x-border)" : "transparent",
           borderRadius: currentRadius,
           boxSizing: "border-box",
+          willChange: "transform, width, max-width, margin-top, border-radius, background-color, border-color",
           transition:
-            "width 320ms cubic-bezier(0.2, 0, 0, 1), max-width 320ms cubic-bezier(0.2, 0, 0, 1), margin-top 320ms cubic-bezier(0.2, 0, 0, 1), height 320ms cubic-bezier(0.2, 0, 0, 1), padding 320ms cubic-bezier(0.2, 0, 0, 1), border-radius 320ms cubic-bezier(0.2, 0, 0, 1), border-color 320ms cubic-bezier(0.2, 0, 0, 1), background-color 320ms cubic-bezier(0.2, 0, 0, 1)",
+            "width 480ms cubic-bezier(0.16, 1, 0.3, 1), max-width 480ms cubic-bezier(0.16, 1, 0.3, 1), margin-top 480ms cubic-bezier(0.16, 1, 0.3, 1), height 480ms cubic-bezier(0.16, 1, 0.3, 1), padding 480ms cubic-bezier(0.16, 1, 0.3, 1), border-radius 480ms cubic-bezier(0.16, 1, 0.3, 1), border-color 380ms ease, background-color 380ms ease, backdrop-filter 380ms ease, -webkit-backdrop-filter 380ms ease",
         }}
       >
-        {/* Brand & Nav Links */}
-        <div style={{ display: "flex", alignItems: "center", gap: "28px" }}>
-          <Link
-            href="/"
-            style={{
-              textDecoration: "none",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              color: "inherit",
-            }}
-          >
+        {/* Inner Content Wrapper constrained to 1240px max-width */}
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "1240px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            boxSizing: "border-box",
+          }}
+        >
+          {/* Brand & Nav Links */}
+          <div style={{ display: "flex", alignItems: "center", gap: "28px" }}>
+            <Link
+              href="/"
+              style={{
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                color: "inherit",
+              }}
+            >
             <Text styleKey="title3" weight={400} tone="default" style={{ letterSpacing: "-0.02em" }}>
               Xenon
             </Text>
@@ -399,6 +420,43 @@ export function MarketingNavbar({
             </Button>
           )}
 
+          {/* Global ⌘K Command Palette Search Trigger */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onOpenCommandPalette}
+            style={{
+              height: "32px",
+              padding: "0 10px",
+              borderRadius: "9999px",
+              borderColor: "var(--x-border)",
+              backgroundColor: "var(--x-surface-2)",
+              color: "var(--x-text-muted)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              cursor: "pointer",
+            }}
+            title="Search documentation and components (⌘K)"
+            aria-label="Search documentation"
+          >
+            <MagnifyingGlassIcon size="sm" />
+            <span style={{ fontSize: "12px", fontWeight: 400 }}>Search</span>
+            <span
+              style={{
+                fontSize: "10px",
+                fontFamily: "var(--x-font-family-mono)",
+                padding: "1px 5px",
+                borderRadius: "4px",
+                backgroundColor: "var(--x-surface)",
+                border: "1px solid var(--x-border)",
+                color: "var(--x-text-muted)",
+              }}
+            >
+              ⌘K
+            </span>
+          </Button>
+
           {/* Theme Switcher */}
           <IconButton
             ariaLabel="Toggle theme"
@@ -409,14 +467,17 @@ export function MarketingNavbar({
             {theme === "dark" ? <SunIcon size="sm" /> : <MoonIcon size="sm" />}
           </IconButton>
 
-          {/* Launch Docs CTA */}
-          <Link href="/docs" style={{ textDecoration: "none" }}>
-            <Button variant="filled" size="sm">
-              Docs →
-            </Button>
-          </Link>
+          {/* Launch Docs CTA (only on marketing pages, omitted on docs to prevent redundancy) */}
+          {!activePath.startsWith("/docs") && (
+            <Link href="/docs" style={{ textDecoration: "none" }}>
+              <Button variant="filled" size="sm">
+                Docs →
+              </Button>
+            </Link>
+          )}
         </div>
-      </header>
-    </div>
+      </div>
+    </header>
+  </div>
   );
 }

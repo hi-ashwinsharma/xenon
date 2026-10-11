@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, type ReactElement } from "react";
+import React, { type ReactElement } from "react";
 import Link from "next/link";
 import {
   Badge,
@@ -16,49 +16,25 @@ import {
   TableHeader,
   TableRow,
   Text,
-  XenonProvider,
 } from "@xenon/web";
-import type { Accent, RadiusStop, Theme } from "@xenon/tokens";
+import { useDocsTheme } from "../providers/XenonDocsProvider";
 import { MarketingNavbar } from "../components/MarketingNavbar";
 import { CheckIcon } from "../components/Icons";
 
 export default function PricingPage(): ReactElement {
-  const [theme, setTheme] = useState<Theme>("dark");
-  const [accent, setAccent] = useState<Accent>("lime");
-  const [radius, setRadius] = useState<RadiusStop>(3);
-  const [amoled, setAmoled] = useState<boolean>(true);
-
   return (
-    <XenonProvider
-      theme={theme}
-      onThemeChange={setTheme}
-      accent={accent}
-      onAccentChange={setAccent}
-      radius={radius}
-      onRadiusChange={setRadius}
-      amoled={amoled}
-      onAmoledChange={setAmoled}
+    <div
+      style={{
+        minHeight: "100vh",
+        backgroundColor: "var(--x-bg)",
+        color: "var(--x-text)",
+        display: "flex",
+        flexDirection: "column",
+        transition:
+          "background-color 240ms cubic-bezier(0.2, 0, 0, 1), color 240ms cubic-bezier(0.2, 0, 0, 1)",
+      }}
     >
-      <div
-        style={{
-          minHeight: "100vh",
-          backgroundColor: "var(--x-bg)",
-          color: "var(--x-text)",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <MarketingNavbar
-          theme={theme}
-          onThemeChange={setTheme}
-          accent={accent}
-          onAccentChange={setAccent}
-          radius={radius}
-          onRadiusChange={setRadius}
-          amoled={amoled}
-          onAmoledChange={setAmoled}
-          activePath="/pricing"
-        />
+      <MarketingNavbar activePath="/pricing" />
 
         <main
           style={{
@@ -319,7 +295,6 @@ export default function PricingPage(): ReactElement {
           </Stack>
         </main>
       </div>
-    </XenonProvider>
   );
 }
 

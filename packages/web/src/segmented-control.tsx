@@ -86,7 +86,17 @@ export function SegmentedControl<T extends string = string>({
 
   useEffect(() => {
     window.addEventListener("resize", updateIndicator);
-    return () => window.removeEventListener("resize", updateIndicator);
+    if (!containerRef.current || typeof ResizeObserver === "undefined") {
+      return () => window.removeEventListener("resize", updateIndicator);
+    }
+    const observer = new ResizeObserver(() => {
+      updateIndicator();
+    });
+    observer.observe(containerRef.current);
+    return () => {
+      window.removeEventListener("resize", updateIndicator);
+      observer.disconnect();
+    };
   }, [updateIndicator]);
 
   const handleSelect = (val: T): void => {
@@ -212,8 +222,8 @@ export function SegmentedControl<T extends string = string>({
               alignItems: "center",
               justifyContent: "center",
               gap: "6px",
-              paddingLeft: "14px",
-              paddingRight: "14px",
+              paddingLeft: size === "sm" ? "10px" : size === "lg" ? "18px" : "14px",
+              paddingRight: size === "sm" ? "10px" : size === "lg" ? "18px" : "14px",
               height: "100%",
               borderRadius: `${innerRadius}px`,
               border: "none",

@@ -354,7 +354,7 @@ export function MarketingLanding({
                 </span>
               </div>
 
-              <Link href="/docs/components" style={{ textDecoration: "none" }}>
+              <Link href="/docs" style={{ textDecoration: "none" }}>
                 <Button variant="filled" size="md">
                   Browse Registry →
                 </Button>

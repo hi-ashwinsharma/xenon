@@ -30,19 +30,20 @@ export const COMPONENTS_REGISTRY: ComponentDocEntry[] = [
     cliInstall: "npx xenon add button",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "variant", type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'subtle' | 'glass'", defaultValue: "'primary'", description: "Visual hierarchy and surface style." },
+      { name: "variant", type: "'accent' | 'filled' | 'subtle' | 'outline' | 'ghost' | 'glass'", defaultValue: "'filled'", description: "Visual hierarchy and surface style." },
       { name: "size", type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: "Touch target and padding scale." },
+      { name: "glassType", type: "'regular' | 'clear'", defaultValue: "'regular'", description: "Liquid Glass material type when variant='glass'." },
       { name: "disabled", type: "boolean", defaultValue: "false", description: "Disables interaction with 40% opacity." },
       { name: "loading", type: "boolean", defaultValue: "false", description: "Displays loading spinner and sets aria-busy." },
       { name: "fullWidth", type: "boolean", defaultValue: "false", description: "Expands button width to 100% of container." },
-      { name: "leftIcon", type: "ReactNode", defaultValue: "undefined", description: "Phosphor Thin icon placed before text." },
-      { name: "rightIcon", type: "ReactNode", defaultValue: "undefined", description: "Phosphor Thin icon placed after text." },
+      { name: "onClick", type: "(event: MouseEvent<HTMLButtonElement>) => void", description: "Click event handler." },
+      { name: "children", type: "ReactNode", description: "Button content." },
     ],
     webUsage: `import { Button } from "@xenon/web";
 
 export function Example() {
   return (
-    <Button variant="primary" size="md">
+    <Button variant="accent" size="md">
       Confirm Action
     </Button>
   );
@@ -51,7 +52,7 @@ export function Example() {
 
 export function Example() {
   return (
-    <Button variant="primary" size="md">
+    <Button variant="accent" size="md">
       Confirm Action
     </Button>
   );
@@ -67,17 +68,22 @@ export function Example() {
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
       { name: "ariaLabel", type: "string", required: true, description: "Mandatory accessible description for screen readers." },
-      { name: "variant", type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'subtle' | 'glass'", defaultValue: "'subtle'", description: "Surface styling." },
+      { name: "variant", type: "'accent' | 'filled' | 'subtle' | 'outline' | 'ghost' | 'glass'", defaultValue: "'subtle'", description: "Surface styling." },
       { name: "size", type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: "Icon and target dimension." },
+      { name: "glassType", type: "'regular' | 'clear'", defaultValue: "'regular'", description: "Liquid Glass material type when variant='glass'." },
       { name: "disabled", type: "boolean", defaultValue: "false", description: "Disables button interactions." },
+      { name: "loading", type: "boolean", defaultValue: "false", description: "Displays loading spinner." },
+      { name: "onClick", type: "(event: MouseEvent<HTMLButtonElement>) => void", description: "Click event handler." },
+      { name: "children", type: "ReactNode", description: "Phosphor Thin icon element." },
     ],
     webUsage: `import { IconButton, Icon } from "@xenon/web";
+import { Gear } from "@phosphor-icons/react";
 
 export function Example() {
   return (
     <IconButton ariaLabel="Settings" variant="subtle" size="md">
       <Icon size="sm">
-        <GearIcon />
+        <Gear />
       </Icon>
     </IconButton>
   );
@@ -103,18 +109,19 @@ export function Example() {
     cliInstall: "npx xenon add button-group",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "orientation", type: "'horizontal' | 'vertical'", defaultValue: "'horizontal'", description: "Layout alignment." },
-      { name: "attached", type: "boolean", defaultValue: "true", description: "Whether borders merge with internal dividers." },
-      { name: "variant", type: "ButtonVariant", defaultValue: "'outline'", description: "Default variant passed to children." },
+      { name: "variant", type: "'accent' | 'filled' | 'subtle' | 'outline' | 'ghost' | 'glass'", defaultValue: "'outline'", description: "Default variant passed to children." },
+      { name: "size", type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: "Default button size." },
+      { name: "disabled", type: "boolean", defaultValue: "false", description: "Disables all child buttons." },
+      { name: "children", type: "ReactNode", description: "Button elements." },
     ],
     webUsage: `import { ButtonGroup, Button } from "@xenon/web";
 
 export function Example() {
   return (
-    <ButtonGroup orientation="horizontal">
-      <Button variant="outline">Copy</Button>
-      <Button variant="outline">Cut</Button>
-      <Button variant="outline">Paste</Button>
+    <ButtonGroup variant="outline" size="sm">
+      <Button>Cut</Button>
+      <Button>Copy</Button>
+      <Button>Paste</Button>
     </ButtonGroup>
   );
 }`,
@@ -122,10 +129,10 @@ export function Example() {
 
 export function Example() {
   return (
-    <ButtonGroup orientation="horizontal">
-      <Button variant="outline">Copy</Button>
-      <Button variant="outline">Cut</Button>
-      <Button variant="outline">Paste</Button>
+    <ButtonGroup variant="outline" size="sm">
+      <Button>Cut</Button>
+      <Button>Copy</Button>
+      <Button>Paste</Button>
     </ButtonGroup>
   );
 }`,
@@ -139,16 +146,17 @@ export function Example() {
     cliInstall: "npx xenon add surface",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "level", type: "0 | 1 | 2", defaultValue: "0", description: "Background surface tone step." },
-      { name: "glass", type: "'regular' | 'clear' | boolean", defaultValue: "false", description: "Liquid Glass material for floating layers." },
-      { name: "bordered", type: "boolean", defaultValue: "true", description: "1px crisp hairline perimeter border." },
-      { name: "padding", type: "SpaceToken | number", defaultValue: "'md'", description: "Internal content inset." },
+      { name: "variant", type: "'default' | 'subtle' | 'glass'", defaultValue: "'default'", description: "Background surface tone and treatment." },
+      { name: "glassType", type: "'regular' | 'clear'", defaultValue: "'regular'", description: "Liquid Glass material for floating layers." },
+      { name: "radius", type: "RadiusStop | number", defaultValue: "inherit", description: "Explicit corner radius override (clamped)." },
+      { name: "padding", type: "number", defaultValue: "24", description: "Internal content inset in pixels." },
+      { name: "children", type: "ReactNode", description: "Surface content." },
     ],
     webUsage: `import { Surface, Text } from "@xenon/web";
 
 export function Example() {
   return (
-    <Surface level={1} padding="lg">
+    <Surface variant="subtle" padding={24}>
       <Text>Concentric surface layer</Text>
     </Surface>
   );
@@ -157,7 +165,7 @@ export function Example() {
 
 export function Example() {
   return (
-    <Surface level={1} padding="lg">
+    <Surface variant="subtle" padding={24}>
       <Text>Concentric surface layer</Text>
     </Surface>
   );
@@ -172,10 +180,13 @@ export function Example() {
     cliInstall: "npx xenon add typography",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "level", type: "1 | 2 | 3 | 4 | 5 | 6", defaultValue: "1", description: "Heading visual and semantic scale level." },
-      { name: "size", type: "TypeScaleToken", defaultValue: "'body'", description: "Text size token (caption, body, callout, title)." },
-      { name: "weight", type: "200 | 300 | 400", defaultValue: "300", description: "Font weight (weights >= 500 are banned)." },
-      { name: "color", type: "'default' | 'muted' | 'accent'", defaultValue: "'default'", description: "Color token tone." },
+      { name: "styleKey", type: "'display' | 'largeTitle' | 'title1' | 'title2' | 'title3' | 'headline' | 'body' | 'callout' | 'subhead' | 'footnote' | 'caption1' | 'caption2'", defaultValue: "'body'", description: "Apple HIG typography scale tier." },
+      { name: "weight", type: "200 | 300 | 400", defaultValue: "300", description: "Font weight (weights >= 500 are banned in Xenon)." },
+      { name: "tone", type: "'default' | 'muted' | 'accent' | 'danger' | 'warning' | 'success' | 'info'", defaultValue: "'default'", description: "Color token tone." },
+      { name: "align", type: "'left' | 'center' | 'right'", defaultValue: "'left'", description: "Text alignment." },
+      { name: "tabular", type: "boolean", defaultValue: "false", description: "Enables tabular mono digits for numbers." },
+      { name: "truncate", type: "boolean", defaultValue: "false", description: "Truncates overflow with ellipsis." },
+      { name: "as", type: "'p' | 'span' | 'div' | 'label'", defaultValue: "'p'", description: "Underlying HTML element tag for Text." },
     ],
     webUsage: `import { Heading, Text } from "@xenon/web";
 
@@ -183,7 +194,7 @@ export function Example() {
   return (
     <>
       <Heading level={1} weight={200}>Minimalist Architecture</Heading>
-      <Text size="body" color="muted">Geist typography with negative space.</Text>
+      <Text styleKey="body" tone="muted" weight={300}>Geist typography with negative space.</Text>
     </>
   );
 }`,
@@ -193,7 +204,7 @@ export function Example() {
   return (
     <>
       <Heading level={1} weight={200}>Minimalist Architecture</Heading>
-      <Text size="body" color="muted">Geist typography with negative space.</Text>
+      <Text styleKey="body" tone="muted" weight={300}>Geist typography with negative space.</Text>
     </>
   );
 }`,
@@ -209,12 +220,16 @@ export function Example() {
     cliInstall: "npx xenon add input",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "placeholder", type: "string", defaultValue: "''", description: "Subtle ghost prompt text." },
       { name: "size", type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: "Height and typography scale." },
+      { name: "variant", type: "'default' | 'search'", defaultValue: "'default'", description: "Field variant style." },
+      { name: "placeholder", type: "string", defaultValue: "''", description: "Subtle ghost prompt text." },
       { name: "disabled", type: "boolean", defaultValue: "false", description: "Disables interaction." },
       { name: "clearable", type: "boolean", defaultValue: "false", description: "Shows clear trigger on text presence." },
+      { name: "invalid", type: "boolean", defaultValue: "false", description: "Highlights 1px boundary in danger tone." },
+      { name: "surface", type: "'surface' | 'subtle'", defaultValue: "'subtle'", description: "Background surface tone." },
       { name: "prefix", type: "ReactNode", defaultValue: "undefined", description: "Icon or badge inside left boundary." },
       { name: "suffix", type: "ReactNode", defaultValue: "undefined", description: "Icon or shortcut badge inside right boundary." },
+      { name: "shortcutKey", type: "string", description: "Keyboard shortcut hint badge displayed on right." },
     ],
     webUsage: `import { Input } from "@xenon/web";
 
@@ -236,17 +251,19 @@ export function Example() {
     cliInstall: "npx xenon add field",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "label", type: "string", required: true, description: "Persistent top label." },
-      { name: "description", type: "string", defaultValue: "undefined", description: "Supporting helper guidance text." },
-      { name: "error", type: "string", defaultValue: "undefined", description: "Error message with Phosphor WarningCircle indicator." },
-      { name: "required", type: "boolean", defaultValue: "false", description: "Displays subtle required tag." },
+      { name: "label", type: "string", required: true, description: "Persistent top label text." },
+      { name: "helpText", type: "string", description: "Supporting helper guidance text." },
+      { name: "error", type: "string", description: "Error message displayed in danger tone." },
+      { name: "optional", type: "boolean", defaultValue: "false", description: "Displays subtle optional indicator tag." },
+      { name: "htmlFor", type: "string", description: "Associated control ID for accessible binding." },
+      { name: "children", type: "ReactNode", description: "Form control element." },
     ],
     webUsage: `import { Field, Input } from "@xenon/web";
 
 export function Example() {
   return (
-    <Field label="Domain Name" description="Enter your custom subdomain">
-      <Input placeholder="workspace.xenon.design" />
+    <Field label="Domain Name" helpText="Enter your custom subdomain">
+      <Input placeholder="workspace.xenon.design" size="md" />
     </Field>
   );
 }`,
@@ -254,8 +271,8 @@ export function Example() {
 
 export function Example() {
   return (
-    <Field label="Domain Name" description="Enter your custom subdomain">
-      <Input placeholder="workspace.xenon.design" />
+    <Field label="Domain Name" helpText="Enter your custom subdomain">
+      <Input placeholder="workspace.xenon.design" size="md" />
     </Field>
   );
 }`,
@@ -269,9 +286,12 @@ export function Example() {
     cliInstall: "npx xenon add textarea",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
+      { name: "size", type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: "Dimension and typography scale." },
       { name: "rows", type: "number", defaultValue: "3", description: "Initial visible line count." },
-      { name: "maxLength", type: "number", defaultValue: "undefined", description: "Enforces max character limit with live counter." },
-      { name: "resize", type: "'none' | 'vertical'", defaultValue: "'vertical'", description: "Resize direction constraints." },
+      { name: "placeholder", type: "string", description: "Ghost prompt text." },
+      { name: "disabled", type: "boolean", defaultValue: "false", description: "Disables interaction." },
+      { name: "invalid", type: "boolean", defaultValue: "false", description: "Danger error state." },
+      { name: "maxLength", type: "number", description: "Enforces max character limit with live counter." },
     ],
     webUsage: `import { Textarea } from "@xenon/web";
 
@@ -293,9 +313,14 @@ export function Example() {
     cliInstall: "npx xenon add checkbox",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "checked", type: "boolean | 'indeterminate'", defaultValue: "false", description: "Current checked state." },
-      { name: "label", type: "string", defaultValue: "undefined", description: "Optional attached label text." },
+      { name: "checked", type: "boolean", defaultValue: "false", description: "Current checked state." },
+      { name: "indeterminate", type: "boolean", defaultValue: "false", description: "Indeterminate visual state (renders horizontal line)." },
+      { name: "onCheckedChange", type: "(checked: boolean) => void", description: "Callback fired when checked state toggles." },
+      { name: "size", type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: "Box dimension: sm (16px), md (20px), lg (24px)." },
       { name: "disabled", type: "boolean", defaultValue: "false", description: "Disables interaction." },
+      { name: "error", type: "boolean", defaultValue: "false", description: "Invalid / error state." },
+      { name: "label", type: "ReactNode", description: "Accessible text label placed adjacent to indicator." },
+      { name: "description", type: "ReactNode", description: "Secondary supporting text placed beneath label." },
     ],
     webUsage: `import { Checkbox } from "@xenon/web";
 
@@ -317,10 +342,12 @@ export function Example() {
     cliInstall: "npx xenon add switch",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "checked", type: "boolean", defaultValue: "false", description: "Toggle state." },
-      { name: "onChange", type: "(checked: boolean) => void", description: "State change callback." },
-      { name: "label", type: "string", defaultValue: "undefined", description: "Associated label text." },
-      { name: "size", type: "'sm' | 'md'", defaultValue: "'md'", description: "Toggle dimension scale." },
+      { name: "checked", type: "boolean", defaultValue: "false", description: "Controlled on/off state." },
+      { name: "onCheckedChange", type: "(checked: boolean) => void", description: "Callback fired when toggle state changes." },
+      { name: "size", type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: "Size tier: sm (36x20), md (46x26), lg (56x32)." },
+      { name: "disabled", type: "boolean", defaultValue: "false", description: "Disabled interaction state." },
+      { name: "label", type: "ReactNode", description: "Accessible text label placed adjacent to switch." },
+      { name: "description", type: "ReactNode", description: "Supporting subtext." },
     ],
     webUsage: `import { Switch } from "@xenon/web";
 
@@ -342,20 +369,24 @@ export function Example() {
     cliInstall: "npx xenon add slider",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "value", type: "number", defaultValue: "0", description: "Controlled current value." },
-      { name: "min", type: "number", defaultValue: "0", description: "Minimum bounds." },
-      { name: "max", type: "number", defaultValue: "100", description: "Maximum bounds." },
-      { name: "step", type: "number", defaultValue: "1", description: "Discrete snap interval." },
+      { name: "value", type: "number", defaultValue: "0", description: "Controlled current numeric value." },
+      { name: "min", type: "number", defaultValue: "0", description: "Minimum permitted value." },
+      { name: "max", type: "number", defaultValue: "100", description: "Maximum permitted value." },
+      { name: "step", type: "number", defaultValue: "1", description: "Discrete snap interval step." },
+      { name: "size", type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: "Track thickness and thumb scale." },
+      { name: "disabled", type: "boolean", defaultValue: "false", description: "Disables interaction." },
+      { name: "onValueChange", type: "(value: number) => void", description: "Fired during live drag or keyboard interaction." },
+      { name: "onValueCommit", type: "(value: number) => void", description: "Fired when interaction commits (release)." },
     ],
     webUsage: `import { Slider } from "@xenon/web";
 
 export function Example() {
-  return <Slider min={0} max={6} step={1} defaultValue={4} />;
+  return <Slider min={0} max={6} step={1} defaultValue={3} size="md" />;
 }`,
     nativeUsage: `import { Slider } from "@xenon/native";
 
 export function Example() {
-  return <Slider min={0} max={6} step={1} defaultValue={4} />;
+  return <Slider min={0} max={6} step={1} defaultValue={3} size="md" />;
 }`,
   },
   {
@@ -367,20 +398,23 @@ export function Example() {
     cliInstall: "npx xenon add segmented-control",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "items", type: "Array<{ value: string; label: string }>", required: true, description: "Option segments list." },
-      { name: "value", type: "string", description: "Active selected segment value." },
-      { name: "onChange", type: "(val: string) => void", description: "Selection change handler." },
+      { name: "options", type: "Array<{ value: string; label: ReactNode; disabled?: boolean }>", required: true, description: "Array of segment options." },
+      { name: "value", type: "string", description: "Controlled selected option value." },
+      { name: "onValueChange", type: "(val: string) => void", description: "Selection change handler." },
+      { name: "size", type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: "Control height and typography scale." },
+      { name: "disabled", type: "boolean", defaultValue: "false", description: "Disables entire segmented group." },
     ],
     webUsage: `import { SegmentedControl } from "@xenon/web";
 
 export function Example() {
   return (
     <SegmentedControl
-      items={[
+      options={[
         { value: "preview", label: "Preview" },
         { value: "code", label: "Code" },
       ]}
       defaultValue="preview"
+      size="md"
     />
   );
 }`,
@@ -389,11 +423,12 @@ export function Example() {
 export function Example() {
   return (
     <SegmentedControl
-      items={[
+      options={[
         { value: "preview", label: "Preview" },
         { value: "code", label: "Code" },
       ]}
       defaultValue="preview"
+      size="md"
     />
   );
 }`,
@@ -409,9 +444,11 @@ export function Example() {
     cliInstall: "npx xenon add navbar",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "fixed", type: "boolean", defaultValue: "true", description: "Pinned to top viewport." },
       { name: "bordered", type: "boolean", defaultValue: "true", description: "1px bottom hairline boundary." },
-      { name: "glass", type: "boolean", defaultValue: "true", description: "Liquid Glass background material." },
+      { name: "fixed", type: "boolean", defaultValue: "false", description: "Pinned to top viewport." },
+      { name: "glass", type: "boolean", defaultValue: "false", description: "Liquid Glass background material." },
+      { name: "glassType", type: "'regular' | 'clear'", defaultValue: "'regular'", description: "Material blur and opacity variant." },
+      { name: "children", type: "ReactNode", description: "Navbar content." },
     ],
     webUsage: `import { GlassBar, Text } from "@xenon/web";
 
@@ -441,15 +478,18 @@ export function Example() {
     cliInstall: "npx xenon add sidebar",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "variant", type: "'floating' | 'docked'", defaultValue: "'docked'", description: "Display style." },
+      { name: "variant", type: "'floating' | 'docked'", defaultValue: "'docked'", description: "Display style and layout pinning." },
+      { name: "bordered", type: "boolean", defaultValue: "true", description: "1px perimeter hairline boundary." },
+      { name: "collapsible", type: "'rail' | 'offcanvas' | 'none'", defaultValue: "'rail'", description: "Collapse behavior mode." },
       { name: "collapsed", type: "boolean", defaultValue: "false", description: "Narrow icon rail state." },
-      { name: "bordered", type: "boolean", defaultValue: "false", description: "Outer border toggle (disabled by default)." },
+      { name: "onCollapsedChange", type: "(collapsed: boolean) => void", description: "Collapse state change callback." },
+      { name: "children", type: "ReactNode", description: "Sidebar items and groups." },
     ],
     webUsage: `import { Sidebar, SidebarGroup, SidebarItem, SidebarDivider } from "@xenon/web";
 
 export function Example() {
   return (
-    <Sidebar>
+    <Sidebar variant="docked">
       <SidebarGroup label="Components">
         <SidebarItem active>Button</SidebarItem>
         <SidebarItem>Input</SidebarItem>
@@ -462,7 +502,7 @@ export function Example() {
 
 export function Example() {
   return (
-    <Sidebar>
+    <Sidebar variant="docked">
       <SidebarGroup label="Components">
         <SidebarItem active>Button</SidebarItem>
         <SidebarItem>Input</SidebarItem>
@@ -480,14 +520,17 @@ export function Example() {
     cliInstall: "npx xenon add tabs",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "defaultValue", type: "string", required: true, description: "Initial active tab value." },
-      { name: "variant", type: "'capsule' | 'underline'", defaultValue: "'capsule'", description: "Indicator aesthetic." },
+      { name: "variant", type: "'pill' | 'underline'", defaultValue: "'pill'", description: "Active indicator style: 'pill' capsule or 'underline' 1px hairline." },
+      { name: "defaultValue", type: "string", description: "Uncontrolled initial active tab value." },
+      { name: "value", type: "string", description: "Controlled active tab value." },
+      { name: "onValueChange", type: "(value: string) => void", description: "Callback fired when active tab changes." },
+      { name: "children", type: "ReactNode", description: "TabsList and TabsContent elements." },
     ],
     webUsage: `import { Tabs, TabsList, TabsTrigger, TabsContent } from "@xenon/web";
 
 export function Example() {
   return (
-    <Tabs defaultValue="account">
+    <Tabs defaultValue="account" variant="pill">
       <TabsList>
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="security">Security</TabsTrigger>
@@ -500,7 +543,7 @@ export function Example() {
 
 export function Example() {
   return (
-    <Tabs defaultValue="account">
+    <Tabs defaultValue="account" variant="pill">
       <TabsList>
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="security">Security</TabsTrigger>
@@ -522,7 +565,9 @@ export function Example() {
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
       { name: "open", type: "boolean", description: "Controlled visibility state." },
+      { name: "defaultOpen", type: "boolean", defaultValue: "false", description: "Default visibility for uncontrolled usage." },
       { name: "onOpenChange", type: "(open: boolean) => void", description: "Open state change handler." },
+      { name: "children", type: "ReactNode", description: "DialogTrigger and DialogContent elements." },
     ],
     webUsage: `import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Button } from "@xenon/web";
 
@@ -530,7 +575,7 @@ export function Example() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Open Modal</Button>
+        <Button variant="filled">Open Modal</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -547,7 +592,7 @@ export function Example() {
   return (
     <Dialog>
       <DialogTrigger>
-        <Button>Open Modal</Button>
+        <Button variant="filled">Open Modal</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -567,7 +612,11 @@ export function Example() {
     cliInstall: "npx xenon add sheet",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "side", type: "'left' | 'right' | 'top' | 'bottom'", defaultValue: "'right'", description: "Drawer slide direction." },
+      { name: "side", type: "'bottom' | 'right' | 'left' | 'top'", defaultValue: "'right'", description: "Drawer slide direction." },
+      { name: "open", type: "boolean", description: "Controlled open state." },
+      { name: "defaultOpen", type: "boolean", defaultValue: "false", description: "Initial open state." },
+      { name: "onOpenChange", type: "(open: boolean) => void", description: "Open state change callback." },
+      { name: "children", type: "ReactNode", description: "SheetTrigger and SheetContent elements." },
     ],
     webUsage: `import { Sheet, SheetTrigger, SheetContent, Button } from "@xenon/web";
 
@@ -575,7 +624,7 @@ export function Example() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button>Open Sheet</Button>
+        <Button variant="outline">Open Sheet</Button>
       </SheetTrigger>
       <SheetContent side="right">
         <h3>Workspace Details</h3>
@@ -589,7 +638,7 @@ export function Example() {
   return (
     <Sheet>
       <SheetTrigger>
-        <Button>Open Sheet</Button>
+        <Button variant="outline">Open Sheet</Button>
       </SheetTrigger>
       <SheetContent side="bottom">
         <Text>Native Drag Sheet</Text>
@@ -607,7 +656,11 @@ export function Example() {
     cliInstall: "npx xenon add dropdown-menu",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
+      { name: "open", type: "boolean", description: "Controlled open state." },
+      { name: "defaultOpen", type: "boolean", defaultValue: "false", description: "Initial open state." },
+      { name: "onOpenChange", type: "(open: boolean) => void", description: "Open change handler." },
       { name: "openOnHover", type: "boolean", defaultValue: "false", description: "Opens dropdown on pointer hover." },
+      { name: "children", type: "ReactNode", description: "DropdownMenuTrigger and DropdownMenuContent elements." },
     ],
     webUsage: `import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, Button } from "@xenon/web";
 
@@ -648,14 +701,19 @@ export function Example() {
     cliInstall: "npx xenon add select",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "placeholder", type: "string", defaultValue: "'Select option...'", description: "Default prompt label." },
+      { name: "value", type: "string", description: "Controlled active selected option value." },
       { name: "defaultValue", type: "string", description: "Initial selected option value." },
+      { name: "onValueChange", type: "(value: string) => void", description: "Callback fired when option is chosen." },
+      { name: "size", type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: "Trigger height and typography scale." },
+      { name: "disabled", type: "boolean", defaultValue: "false", description: "Disables interaction." },
+      { name: "placeholder", type: "string", defaultValue: "'Select option...'", description: "Prompt label when nothing selected." },
+      { name: "children", type: "ReactNode", description: "SelectTrigger and SelectContent elements." },
     ],
     webUsage: `import { Select, SelectTrigger, SelectContent, SelectItem } from "@xenon/web";
 
 export function Example() {
   return (
-    <Select defaultValue="pro">
+    <Select defaultValue="pro" size="md">
       <SelectTrigger />
       <SelectContent>
         <SelectItem value="starter">Starter Plan</SelectItem>
@@ -668,7 +726,7 @@ export function Example() {
 
 export function Example() {
   return (
-    <Select defaultValue="pro">
+    <Select defaultValue="pro" size="md">
       <SelectTrigger />
       <SelectContent>
         <SelectItem value="starter">Starter Plan</SelectItem>
@@ -688,8 +746,9 @@ export function Example() {
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
       { name: "open", type: "boolean", required: true, description: "Controlled visibility state." },
-      { name: "onClose", type: "() => void", required: true, description: "Dismissal handler." },
+      { name: "onOpenChange", type: "(open: boolean) => void", required: true, description: "Open state change handler." },
       { name: "items", type: "CommandPaletteItem[]", required: true, description: "Searchable action items list." },
+      { name: "placeholder", type: "string", defaultValue: "'Search...'", description: "Input placeholder prompt." },
     ],
     webUsage: `import { CommandPalette } from "@xenon/web";
 
@@ -697,10 +756,10 @@ export function Example() {
   return (
     <CommandPalette
       open={isOpen}
-      onClose={() => setOpen(false)}
+      onOpenChange={setOpen}
       items={[
-        { id: "1", title: "Button", category: "Primitives" },
-        { id: "2", title: "Select", category: "Overlays" },
+        { id: "1", label: "Button", group: "Primitives" },
+        { id: "2", label: "Select", group: "Overlays" },
       ]}
     />
   );
@@ -711,9 +770,9 @@ export function Example() {
   return (
     <CommandPalette
       open={isOpen}
-      onClose={() => setOpen(false)}
+      onOpenChange={setOpen}
       items={[
-        { id: "1", title: "Button", category: "Primitives" },
+        { id: "1", label: "Button", group: "Primitives" },
       ]}
     />
   );
@@ -730,19 +789,23 @@ export function Example() {
     cliInstall: "npx xenon add badge",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "variant", type: "'accent' | 'neutral' | 'success' | 'warning' | 'danger'", defaultValue: "'neutral'", description: "Semantic color style." },
-      { name: "size", type: "'sm' | 'md'", defaultValue: "'md'", description: "Scale and padding." },
-      { name: "dot", type: "boolean", defaultValue: "false", description: "Displays leading status dot." },
+      { name: "tone", type: "'neutral' | 'accent' | 'info' | 'success' | 'warning' | 'danger'", defaultValue: "'neutral'", description: "Semantic color status tone." },
+      { name: "variant", type: "'subtle' | 'outline' | 'accent' | 'dot'", defaultValue: "'subtle'", description: "Visual border and background style." },
+      { name: "size", type: "'sm' | 'md'", defaultValue: "'md'", description: "Scale and typography." },
+      { name: "dot", type: "boolean", defaultValue: "false", description: "Displays leading status indicator dot." },
+      { name: "count", type: "number", description: "Numeric badge counter." },
+      { name: "maxCount", type: "number", defaultValue: "99", description: "Maximum value before capping at +." },
+      { name: "children", type: "ReactNode", description: "Badge label text." },
     ],
     webUsage: `import { Badge } from "@xenon/web";
 
 export function Example() {
-  return <Badge variant="accent" dot>Online</Badge>;
+  return <Badge tone="accent" variant="subtle" dot>Online</Badge>;
 }`,
     nativeUsage: `import { Badge } from "@xenon/native";
 
 export function Example() {
-  return <Badge variant="accent" dot>Online</Badge>;
+  return <Badge tone="accent" variant="subtle" dot>Online</Badge>;
 }`,
   },
   {
@@ -750,23 +813,26 @@ export function Example() {
     name: "Alert",
     category: "Feedback & Data Display",
     description: "Inline semantic status callout with Phosphor Thin icons, crisp 1px perimeter border, and restrained fill.",
-    a11y: "Role='alert' or role='status' depending on severity variant.",
+    a11y: "Role='alert' or role='status' depending on severity tone.",
     cliInstall: "npx xenon add alert",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "variant", type: "'info' | 'success' | 'warning' | 'danger'", defaultValue: "'info'", description: "Severity tone." },
-      { name: "title", type: "string", description: "Optional bold headline." },
-      { name: "children", type: "ReactNode", description: "Body message." },
+      { name: "tone", type: "'info' | 'success' | 'warning' | 'danger' | 'neutral'", defaultValue: "'info'", description: "Semantic severity tone." },
+      { name: "variant", type: "'subtle' | 'surface' | 'outline'", defaultValue: "'subtle'", description: "Surface background style." },
+      { name: "title", type: "ReactNode", description: "Optional headline text." },
+      { name: "dismissible", type: "boolean", defaultValue: "false", description: "Enables close dismiss trigger." },
+      { name: "onDismiss", type: "() => void", description: "Fired when dismiss action is triggered." },
+      { name: "children", type: "ReactNode", description: "Alert body message." },
     ],
     webUsage: `import { Alert } from "@xenon/web";
 
 export function Example() {
-  return <Alert variant="warning" title="Token Deprecation">Use compiled motion tokens.</Alert>;
+  return <Alert tone="warning" variant="subtle" title="Token Deprecation">Use compiled motion tokens.</Alert>;
 }`,
     nativeUsage: `import { Alert } from "@xenon/native";
 
 export function Example() {
-  return <Alert variant="warning" title="Token Deprecation">Use compiled motion tokens.</Alert>;
+  return <Alert tone="warning" variant="subtle" title="Token Deprecation">Use compiled motion tokens.</Alert>;
 }`,
   },
   {
@@ -778,15 +844,16 @@ export function Example() {
     cliInstall: "npx xenon add table",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "variant", type: "'default' | 'bordered' | 'minimal'", defaultValue: "'bordered'", description: "Border and divider treatment." },
+      { name: "variant", type: "'default' | 'subtle' | 'bordered' | 'striped'", defaultValue: "'default'", description: "Border and divider treatment." },
       { name: "size", type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: "Cell padding scale." },
-      { name: "fullWidth", type: "boolean", defaultValue: "true", description: "Spans 100% width." },
+      { name: "fullWidth", type: "boolean", defaultValue: "false", description: "Spans 100% width of parent." },
+      { name: "children", type: "ReactNode", description: "TableHeader, TableBody, TableRow elements." },
     ],
     webUsage: `import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@xenon/web";
 
 export function Example() {
   return (
-    <Table variant="bordered">
+    <Table variant="bordered" fullWidth>
       <TableHeader>
         <TableRow>
           <TableHead>Prop</TableHead>
@@ -806,7 +873,7 @@ export function Example() {
 
 export function Example() {
   return (
-    <Table variant="bordered">
+    <Table variant="bordered" fullWidth>
       <TableHeader>
         <TableRow>
           <TableHead>Prop</TableHead>
@@ -832,8 +899,13 @@ export function Example() {
     cliInstall: "npx xenon add accordion",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
-      { name: "type", type: "'single' | 'multiple'", defaultValue: "'single'", description: "Expansion mode." },
-      { name: "variant", type: "'default' | 'bordered' | 'separated'", defaultValue: "'default'", description: "Container visual treatment." },
+      { name: "variant", type: "'default' | 'bordered' | 'separated'", defaultValue: "'default'", description: "Container visual treatment and borders." },
+      { name: "type", type: "'single' | 'multiple'", defaultValue: "'single'", description: "Expansion mode: one item at a time or multi-open." },
+      { name: "collapsible", type: "boolean", defaultValue: "true", description: "Allows closing active item in single mode." },
+      { name: "value", type: "string | string[]", description: "Controlled expanded item value(s)." },
+      { name: "defaultValue", type: "string | string[]", description: "Initial expanded item value(s)." },
+      { name: "onValueChange", type: "(value: string | string[]) => void", description: "Expanded state change callback." },
+      { name: "children", type: "ReactNode", description: "AccordionItem elements." },
     ],
     webUsage: `import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@xenon/web";
 
@@ -869,18 +941,21 @@ export function Example() {
     cliInstall: "npx xenon add avatar",
     npmInstall: "pnpm add @xenon/web @xenon/core",
     props: [
+      { name: "size", type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", defaultValue: "'md'", description: "Dimension scale: xs (24), sm (32), md (40), lg (48), xl (64)." },
+      { name: "shape", type: "'circle' | 'rounded'", defaultValue: "'circle'", description: "Geometric shape profile." },
+      { name: "name", type: "string", description: "User name for automatic initials generation." },
       { name: "src", type: "string", description: "Image source URL." },
-      { name: "fallback", type: "string", description: "Text initials when image is unavailable." },
-      { name: "size", type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: "Dimension scale." },
+      { name: "fallback", type: "ReactNode", description: "Explicit custom fallback if image fails." },
+      { name: "status", type: "'online' | 'offline' | 'busy' | 'away'", description: "Presence indicator status." },
+      { name: "statusPlacement", type: "'bottom-right' | 'top-right'", defaultValue: "'bottom-right'", description: "Placement of status dot indicator." },
     ],
     webUsage: `import { Avatar, AvatarGroup } from "@xenon/web";
 
 export function Example() {
   return (
     <AvatarGroup max={3}>
-      <Avatar fallback="AS" />
-      <Avatar fallback="DK" />
-      <Avatar fallback="XC" />
+      <Avatar name="Dieter Rams" size="md" status="online" />
+      <Avatar name="Jony Ive" size="md" />
     </AvatarGroup>
   );
 }`,
@@ -889,8 +964,8 @@ export function Example() {
 export function Example() {
   return (
     <AvatarGroup max={3}>
-      <Avatar fallback="AS" />
-      <Avatar fallback="DK" />
+      <Avatar name="Dieter Rams" size="md" status="online" />
+      <Avatar name="Jony Ive" size="md" />
     </AvatarGroup>
   );
 }`,
@@ -906,19 +981,20 @@ export function Example() {
     props: [
       { name: "code", type: "string", required: true, description: "Raw code string to display." },
       { name: "language", type: "string", defaultValue: "'typescript'", description: "Language for syntax highlighting." },
+      { name: "variant", type: "'default' | 'minimal' | 'bordered'", defaultValue: "'default'", description: "Container visual treatment." },
       { name: "filename", type: "string", description: "Optional title bar filename." },
-      { name: "lineNumbers", type: "boolean", defaultValue: "true", description: "Shows line numbers in gutter." },
-      { name: "copyable", type: "boolean", defaultValue: "true", description: "Enables copy to clipboard button." },
+      { name: "showLineNumbers", type: "boolean", defaultValue: "true", description: "Shows line numbers in gutter." },
+      { name: "copyable", type: "boolean", defaultValue: "true", description: "Enables copy to clipboard action button." },
     ],
     webUsage: `import { CodeBlock } from "@xenon/web";
 
 export function Example() {
-  return <CodeBlock code="const xenon = true;" language="typescript" filename="index.ts" />;
+  return <CodeBlock code="const xenon = true;" language="typescript" filename="index.ts" showLineNumbers copyable />;
 }`,
     nativeUsage: `import { CodeBlock } from "@xenon/native";
 
 export function Example() {
-  return <CodeBlock code="const xenon = true;" language="typescript" filename="index.ts" />;
+  return <CodeBlock code="const xenon = true;" language="typescript" filename="index.ts" showLineNumbers copyable />;
 }`,
   },
 ];

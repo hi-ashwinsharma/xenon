@@ -40,6 +40,7 @@ import {
   SheetTitle,
   SheetTrigger,
   Sidebar,
+  SidebarDivider,
   SidebarGroup,
   SidebarItem,
   Slider,
@@ -59,51 +60,125 @@ import {
   Text,
   Textarea,
 } from "@xenon/web";
-import type { ButtonSize, ButtonVariant, InputSize } from "@xenon/core";
+import type {
+  AccordionVariant,
+  AlertTone,
+  AlertVariant,
+  AvatarShape,
+  AvatarSize,
+  AvatarStatus,
+  BadgeSize,
+  BadgeTone,
+  BadgeVariant,
+  ButtonSize,
+  ButtonVariant,
+  CheckboxSize,
+  CodeBlockVariant,
+  InputSize,
+  SegmentedControlSize,
+  SelectSize,
+  SheetSide,
+  SliderSize,
+  SurfaceVariant,
+  SwitchSize,
+  TableSize,
+  TableVariant,
+  TabsVariant,
+  TextTone,
+} from "@xenon/core";
+import type { FontWeight, TextStyleKey } from "@xenon/tokens";
 import { SlidersIcon } from "./Icons";
 
-interface LivePreviewProps {
+export interface LivePreviewProps {
   componentId: string;
-  variant: string;
-  size: string;
-  disabled: boolean;
-  loading: boolean;
-  label: string;
+  variant?: string;
+  tone?: string;
+  size?: string;
+  disabled?: boolean;
+  loading?: boolean;
+  fullWidth?: boolean;
+  checked?: boolean;
+  indeterminate?: boolean;
+  clearable?: boolean;
+  invalid?: boolean;
+  dot?: boolean;
+  dismissible?: boolean;
+  sliderVal?: number;
+  shape?: string;
+  avatarStatus?: string;
+  rows?: number;
+  padding?: number;
+  side?: string;
+  styleKey?: string;
+  weight?: number;
+  label?: string;
+  onSliderChange?: (val: number) => void;
+  onCheckedChange?: (val: boolean) => void;
 }
 
 export function ComponentLivePreview({
   componentId,
-  variant,
-  size,
-  disabled,
-  loading,
-  label,
+  variant = "filled",
+  tone = "default",
+  size = "md",
+  disabled = false,
+  loading = false,
+  fullWidth = false,
+  checked = true,
+  indeterminate = false,
+  clearable = false,
+  invalid = false,
+  dot = false,
+  dismissible = true,
+  sliderVal = 42,
+  shape = "circle",
+  avatarStatus = "none",
+  rows = 4,
+  padding = 4,
+  side = "right",
+  styleKey = "body",
+  weight = 400,
+  label = "Xenon Component",
+  onSliderChange,
+  onCheckedChange,
 }: LivePreviewProps): ReactElement {
-  // Local states for interactive items
-  const [switchChecked, setSwitchChecked] = useState<boolean>(true);
-  const [checkboxChecked, setCheckboxChecked] = useState<boolean>(true);
-  const [sliderVal, setSliderVal] = useState<number>(4);
-  const [segmentedVal, setSegmentedVal] = useState<string>("preview");
+  // Local state for select dropdown inside preview
   const [selectVal, setSelectVal] = useState<string>("pro");
+  const [segmentedVal, setSegmentedVal] = useState<string>("preview");
 
   switch (componentId) {
     case "button":
       return (
-        <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "12px",
+            alignItems: "center",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            width: fullWidth ? "100%" : "auto",
+            maxWidth: "600px",
+          }}
+        >
           <Button
             variant={variant as ButtonVariant}
             size={size as ButtonSize}
             disabled={disabled}
             loading={loading}
+            fullWidth={fullWidth}
           >
             {label || "Confirm Action"}
           </Button>
-          <Button variant="outline" size={size as ButtonSize} disabled={disabled}>
-            Outline
-          </Button>
-          <Button variant="subtle" size={size as ButtonSize} disabled={disabled}>
-            Subtle
-          </Button>
+          {!fullWidth && (
+            <>
+              <Button variant="accent" size={size as ButtonSize} disabled={disabled}>
+                Accent
+              </Button>
+              <Button variant="outline" size={size as ButtonSize} disabled={disabled}>
+                Outline
+              </Button>
+            </>
+          )}
         </div>
       );
 
@@ -115,13 +190,14 @@ export function ComponentLivePreview({
             variant={variant as ButtonVariant}
             size={size as ButtonSize}
             disabled={disabled}
+            loading={loading}
           >
             <SlidersIcon size={size === "lg" ? "md" : "sm"} />
           </IconButton>
-          <IconButton ariaLabel="Action Subtle" variant="subtle" size={size as ButtonSize}>
+          <IconButton ariaLabel="Action Accent" variant="accent" size={size as ButtonSize} disabled={disabled}>
             <SlidersIcon size={size === "lg" ? "md" : "sm"} />
           </IconButton>
-          <IconButton ariaLabel="Action Ghost" variant="ghost" size={size as ButtonSize}>
+          <IconButton ariaLabel="Action Ghost" variant="ghost" size={size as ButtonSize} disabled={disabled}>
             <SlidersIcon size={size === "lg" ? "md" : "sm"} />
           </IconButton>
         </div>
@@ -129,27 +205,27 @@ export function ComponentLivePreview({
 
     case "button-group":
       return (
-        <ButtonGroup>
-          <Button variant="outline" size={size as ButtonSize}>Cut</Button>
-          <Button variant="outline" size={size as ButtonSize}>Copy</Button>
-          <Button variant="outline" size={size as ButtonSize}>Paste</Button>
+        <ButtonGroup variant={variant as ButtonVariant} size={size as ButtonSize} disabled={disabled}>
+          <Button>Cut</Button>
+          <Button>Copy</Button>
+          <Button>Paste</Button>
         </ButtonGroup>
       );
 
     case "surface":
       return (
         <Surface
-          variant="subtle"
-          padding={20}
+          variant={variant as SurfaceVariant}
+          padding={padding}
           style={{ width: "100%", maxWidth: "420px", border: "1px solid var(--x-border)" }}
         >
           <Stack gap={12}>
             <Heading level={4} weight={400}>Concentric Surface Level</Heading>
             <Text styleKey="body" tone="muted">
-              Inner radius calculates as R_parent - padding = 16px.
+              Inner radius calculates as R_parent - padding = {Math.max(0, 16 - padding)}px.
             </Text>
             <div>
-              <Button size="sm" variant="subtle">Inner Action</Button>
+              <Button size="sm" variant="accent">Accent Action</Button>
             </div>
           </Stack>
         </Surface>
@@ -158,13 +234,14 @@ export function ComponentLivePreview({
     case "typography":
       return (
         <Stack gap={16} style={{ width: "100%", maxWidth: "480px" }}>
-          <Heading level={2} weight={200}>Minimalist Geist Display</Heading>
-          <Heading level={4} weight={300}>Subheading with Hairline Weight</Heading>
-          <Text styleKey="body" tone="default" weight={300}>
+          <Heading level={2} weight={weight as FontWeight} tone={tone as TextTone}>
+            Geist Minimalist Heading
+          </Heading>
+          <Text styleKey={styleKey as TextStyleKey} tone={tone as TextTone} weight={weight as FontWeight}>
             Body copy uses strict weights 200, 300, and 400. Font weights of 500 and higher are strictly banned in Xenon.
           </Text>
           <Text styleKey="caption1" tone="muted">
-            Caption metadata rendered in Geist Mono with tabular figures.
+            Caption metadata rendered with tabular figures.
           </Text>
         </Stack>
       );
@@ -176,7 +253,8 @@ export function ComponentLivePreview({
             placeholder={label || "Type here..."}
             size={size as InputSize}
             disabled={disabled}
-            clearable
+            clearable={clearable}
+            invalid={invalid}
           />
         </div>
       );
@@ -187,9 +265,10 @@ export function ComponentLivePreview({
           <Field
             label="Workspace Identifier"
             helpText="Must be globally unique"
-            error={disabled ? "Domain validation is temporarily suspended" : undefined}
+            error={invalid ? "Workspace identifier is already taken" : undefined}
+            optional={disabled}
           >
-            <Input placeholder="my-team-workspace" size="md" />
+            <Input placeholder="my-team-workspace" size="md" disabled={disabled} />
           </Field>
         </div>
       );
@@ -199,8 +278,9 @@ export function ComponentLivePreview({
         <div style={{ width: "100%", maxWidth: "420px" }}>
           <Textarea
             placeholder="Enter component architectural notes..."
-            rows={3}
+            minRows={rows}
             maxLength={180}
+            invalid={invalid}
             disabled={disabled}
           />
         </div>
@@ -211,13 +291,17 @@ export function ComponentLivePreview({
         <Stack gap={12}>
           <Checkbox
             label={label || "Enforce mathematical concentric radii"}
-            checked={checkboxChecked}
-            onCheckedChange={(checked: boolean) => setCheckboxChecked(checked)}
+            checked={checked}
+            indeterminate={indeterminate}
+            onCheckedChange={onCheckedChange}
+            size={size as CheckboxSize}
             disabled={disabled}
           />
           <Checkbox
-            label="Indeterminate selection state"
-            indeterminate
+            label="Secondary supporting selection state"
+            checked={!checked}
+            size={size as CheckboxSize}
+            disabled={disabled}
           />
         </Stack>
       );
@@ -226,9 +310,9 @@ export function ComponentLivePreview({
       return (
         <Switch
           label={label || "Liquid Glass Floating Layers"}
-          checked={switchChecked}
-          onCheckedChange={setSwitchChecked}
-          size={size === "lg" ? "md" : "sm"}
+          checked={checked}
+          onCheckedChange={onCheckedChange}
+          size={size as SwitchSize}
           disabled={disabled}
         />
       );
@@ -237,13 +321,17 @@ export function ComponentLivePreview({
       return (
         <div style={{ width: "100%", maxWidth: "360px" }}>
           <Stack gap={8}>
-            <Text styleKey="caption1" tone="muted">Radius Stop: {sliderVal}</Text>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", fontFamily: "var(--x-font-family-mono)", color: "var(--x-text-muted)" }}>
+              <span>Value</span>
+              <span style={{ color: "var(--x-accent)" }}>{sliderVal}</span>
+            </div>
             <Slider
               min={0}
               max={6}
               step={1}
               value={sliderVal}
-              onValueChange={setSliderVal}
+              onValueChange={onSliderChange}
+              size={size as SliderSize}
               disabled={disabled}
             />
           </Stack>
@@ -253,6 +341,8 @@ export function ComponentLivePreview({
     case "segmented-control":
       return (
         <SegmentedControl
+          size={size as SegmentedControlSize}
+          disabled={disabled}
           options={[
             { value: "preview", label: "Preview" },
             { value: "code", label: "Code" },
@@ -269,7 +359,7 @@ export function ComponentLivePreview({
           <Navbar bordered style={{ position: "relative" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
               <Text weight={400}>Xenon System</Text>
-              <Button size="sm" variant="subtle">Connect</Button>
+              <Button size="sm" variant="accent">Connect</Button>
             </div>
           </Navbar>
         </div>
@@ -278,12 +368,13 @@ export function ComponentLivePreview({
     case "sidebar":
       return (
         <div style={{ width: "240px" }}>
-          <Sidebar bordered style={{ height: "auto" }}>
+          <Sidebar variant={variant as "docked" | "floating"} bordered style={{ height: "auto" }}>
             <SidebarGroup label="Documentation">
               <SidebarItem active>Overview</SidebarItem>
               <SidebarItem>Guidelines</SidebarItem>
               <SidebarItem>Components</SidebarItem>
             </SidebarGroup>
+            <SidebarDivider />
           </Sidebar>
         </div>
       );
@@ -291,7 +382,7 @@ export function ComponentLivePreview({
     case "tabs":
       return (
         <div style={{ width: "100%", maxWidth: "420px" }}>
-          <Tabs defaultValue="overview">
+          <Tabs defaultValue="overview" variant={variant as TabsVariant}>
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="architecture">Architecture</TabsTrigger>
@@ -314,7 +405,7 @@ export function ComponentLivePreview({
       return (
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant={variant as ButtonVariant}>Open Dialog Modal</Button>
+            <Button variant="filled">Open Dialog Modal</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
@@ -325,7 +416,7 @@ export function ComponentLivePreview({
                 Centered overlay with backdrop blur scrim and Apple-grade fluid spring dismissal.
               </Text>
               <div style={{ display: "flex", justifyContent: "flex-end", gap: "8px", marginTop: "12px" }}>
-                <Button size="sm" variant="filled">Acknowledge</Button>
+                <Button size="sm" variant="accent">Acknowledge</Button>
               </div>
             </Stack>
           </DialogContent>
@@ -336,9 +427,9 @@ export function ComponentLivePreview({
       return (
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline">Open Slide Drawer</Button>
+            <Button variant="outline">Open Slide Drawer ({side})</Button>
           </SheetTrigger>
-          <SheetContent side="right">
+          <SheetContent side={side as SheetSide}>
             <SheetHeader>
               <SheetTitle>Drawer Specification</SheetTitle>
             </SheetHeader>
@@ -368,7 +459,7 @@ export function ComponentLivePreview({
     case "select":
       return (
         <div style={{ width: "240px" }}>
-          <Select value={selectVal} onValueChange={setSelectVal}>
+          <Select value={selectVal} onValueChange={setSelectVal} size={size as SelectSize} disabled={disabled}>
             <SelectTrigger />
             <SelectContent>
               <SelectItem value="starter">Starter Architecture</SelectItem>
@@ -388,18 +479,33 @@ export function ComponentLivePreview({
 
     case "badge":
       return (
-        <div style={{ display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
-          <Badge tone="accent" dot>Accent Status</Badge>
-          <Badge tone="neutral">Neutral Tag</Badge>
-          <Badge tone="success">Passed Audit</Badge>
-          <Badge tone="warning">Warning</Badge>
+        <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
+          <Badge
+            tone={tone as BadgeTone}
+            variant={variant as BadgeVariant}
+            size={size as BadgeSize}
+            dot={dot}
+          >
+            {tone.toUpperCase()} {variant.toUpperCase()}
+          </Badge>
+          <Badge tone="accent" variant={variant as BadgeVariant} size={size as BadgeSize} dot={dot}>
+            Accent Tag
+          </Badge>
+          <Badge tone="neutral" variant="outline" size={size as BadgeSize}>
+            v1.0.0
+          </Badge>
         </div>
       );
 
     case "alert":
       return (
-        <div style={{ width: "100%", maxWidth: "460px" }}>
-          <Alert tone="info" title="Hairline Invariant">
+        <div style={{ width: "100%", maxWidth: "480px" }}>
+          <Alert
+            tone={tone as AlertTone}
+            variant={variant as AlertVariant}
+            title={`${tone.charAt(0).toUpperCase() + tone.slice(1)} Notification`}
+            dismissible={dismissible}
+          >
             All dividers and borders must strictly measure 1px across desktop and mobile.
           </Alert>
         </div>
@@ -407,8 +513,8 @@ export function ComponentLivePreview({
 
     case "table":
       return (
-        <div style={{ width: "100%", maxWidth: "480px" }}>
-          <Table variant="bordered">
+        <div style={{ width: "100%", maxWidth: fullWidth ? "100%" : "480px" }}>
+          <Table variant={variant as TableVariant} size={size as TableSize} fullWidth={fullWidth}>
             <TableHeader>
               <TableRow>
                 <TableHead>Property</TableHead>
@@ -424,7 +530,7 @@ export function ComponentLivePreview({
               </TableRow>
               <TableRow>
                 <TableCell>--x-dur-base</TableCell>
-                <TableCell>200ms</TableCell>
+                <TableCell>240ms</TableCell>
                 <TableCell>Motion Spec</TableCell>
               </TableRow>
             </TableBody>
@@ -435,7 +541,7 @@ export function ComponentLivePreview({
     case "accordion":
       return (
         <div style={{ width: "100%", maxWidth: "460px" }}>
-          <Accordion type="single" variant="bordered">
+          <Accordion type="single" variant={variant as AccordionVariant}>
             <AccordionItem value="item-1">
               <AccordionTrigger>Why are shadows banned?</AccordionTrigger>
               <AccordionContent>
@@ -455,11 +561,16 @@ export function ComponentLivePreview({
     case "avatar":
       return (
         <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-          <Avatar fallback="AS" size="lg" />
-          <AvatarGroup max={3}>
-            <Avatar fallback="XC" />
-            <Avatar fallback="HG" />
-            <Avatar fallback="DK" />
+          <Avatar
+            name="Dieter Rams"
+            size={size as AvatarSize}
+            shape={shape as AvatarShape}
+            status={avatarStatus !== "none" ? (avatarStatus as AvatarStatus) : undefined}
+          />
+          <AvatarGroup max={3} size={size as AvatarSize}>
+            <Avatar name="Jony Ive" shape={shape as AvatarShape} />
+            <Avatar name="Kenya Hara" shape={shape as AvatarShape} />
+            <Avatar name="Massimo Vignelli" shape={shape as AvatarShape} />
           </AvatarGroup>
         </div>
       );
@@ -468,10 +579,12 @@ export function ComponentLivePreview({
       return (
         <div style={{ width: "100%", maxWidth: "480px" }}>
           <CodeBlock
-            code={`// Xenon token definition\nexport const TOKENS = {\n  border: "1px hairline",\n  motion: "apple-spring",\n};`}
+            code={`// Xenon design system configuration\nexport const TOKENS = {\n  border: "1px hairline",\n  accent: "var(--x-accent)",\n  motion: "apple-spring",\n};`}
             language="typescript"
             filename="xenon.config.ts"
+            variant={variant as CodeBlockVariant}
             showLineNumbers
+            copyable
           />
         </div>
       );
