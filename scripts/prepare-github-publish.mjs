@@ -23,7 +23,15 @@ for (const pkgPath of packages) {
   const targetName = `${scope}/${shortName}`;
 
   pkg.name = targetName;
+  pkg.main = "./dist/index.cjs";
+  pkg.module = "./dist/index.js";
+  pkg.types = "./dist/index.d.ts";
+  if (pkg.publishConfig?.exports) {
+    pkg.exports = pkg.publishConfig.exports;
+  }
+
   pkg.publishConfig = {
+    ...pkg.publishConfig,
     registry: "https://npm.pkg.github.com",
     access: "public",
   };
