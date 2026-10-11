@@ -49,12 +49,13 @@ export function XenonDocsProvider({ children }: { children: ReactNode }): ReactE
 
   const [theme, setThemeState] = useState<Theme>("dark");
   const [accent, setAccentState] = useState<Accent>("lime");
-  const [radius, setRadiusState] = useState<RadiusStop>(3);
+  const [radius, setRadiusState] = useState<RadiusStop>(5);
   const [amoled, setAmoledState] = useState<boolean>(true);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState<boolean>(false);
 
   // Hydrate from localStorage or URL query parameters on initial mount
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     if (typeof window === "undefined") return;
 
     try {

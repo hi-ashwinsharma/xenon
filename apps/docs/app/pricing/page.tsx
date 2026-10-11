@@ -17,7 +17,6 @@ import {
   TableRow,
   Text,
 } from "@xenon/web";
-import { useDocsTheme } from "../providers/XenonDocsProvider";
 import { MarketingNavbar } from "../components/MarketingNavbar";
 import { CheckIcon } from "../components/Icons";
 

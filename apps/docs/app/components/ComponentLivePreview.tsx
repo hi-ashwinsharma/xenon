@@ -152,10 +152,8 @@ export function ComponentLivePreview({
         <div
           style={{
             display: "flex",
-            gap: "12px",
             alignItems: "center",
             justifyContent: "center",
-            flexWrap: "wrap",
             width: fullWidth ? "100%" : "auto",
             maxWidth: "600px",
           }}
@@ -169,22 +167,12 @@ export function ComponentLivePreview({
           >
             {label || "Confirm Action"}
           </Button>
-          {!fullWidth && (
-            <>
-              <Button variant="accent" size={size as ButtonSize} disabled={disabled}>
-                Accent
-              </Button>
-              <Button variant="outline" size={size as ButtonSize} disabled={disabled}>
-                Outline
-              </Button>
-            </>
-          )}
         </div>
       );
 
     case "icon-button":
       return (
-        <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
           <IconButton
             ariaLabel="Custom Controls"
             variant={variant as ButtonVariant}
@@ -192,12 +180,6 @@ export function ComponentLivePreview({
             disabled={disabled}
             loading={loading}
           >
-            <SlidersIcon size={size === "lg" ? "md" : "sm"} />
-          </IconButton>
-          <IconButton ariaLabel="Action Accent" variant="accent" size={size as ButtonSize} disabled={disabled}>
-            <SlidersIcon size={size === "lg" ? "md" : "sm"} />
-          </IconButton>
-          <IconButton ariaLabel="Action Ghost" variant="ghost" size={size as ButtonSize} disabled={disabled}>
             <SlidersIcon size={size === "lg" ? "md" : "sm"} />
           </IconButton>
         </div>
@@ -288,7 +270,7 @@ export function ComponentLivePreview({
 
     case "checkbox":
       return (
-        <Stack gap={12}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Checkbox
             label={label || "Enforce mathematical concentric radii"}
             checked={checked}
@@ -297,13 +279,7 @@ export function ComponentLivePreview({
             size={size as CheckboxSize}
             disabled={disabled}
           />
-          <Checkbox
-            label="Secondary supporting selection state"
-            checked={!checked}
-            size={size as CheckboxSize}
-            disabled={disabled}
-          />
-        </Stack>
+        </div>
       );
 
     case "switch":
@@ -479,20 +455,14 @@ export function ComponentLivePreview({
 
     case "badge":
       return (
-        <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Badge
             tone={tone as BadgeTone}
             variant={variant as BadgeVariant}
             size={size as BadgeSize}
             dot={dot}
           >
-            {tone.toUpperCase()} {variant.toUpperCase()}
-          </Badge>
-          <Badge tone="accent" variant={variant as BadgeVariant} size={size as BadgeSize} dot={dot}>
-            Accent Tag
-          </Badge>
-          <Badge tone="neutral" variant="outline" size={size as BadgeSize}>
-            v1.0.0
+            {label || `${tone.toUpperCase()} ${variant.toUpperCase()}`}
           </Badge>
         </div>
       );

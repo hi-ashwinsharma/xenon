@@ -14,7 +14,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       lang="en"
       data-x-theme="dark"
       data-x-accent="lime"
-      data-x-radius="3"
+      data-x-radius="5"
       suppressHydrationWarning
       className="h-full antialiased"
     >

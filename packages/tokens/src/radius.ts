@@ -13,4 +13,4 @@ export const RADIUS_STOPS: Readonly<Record<RadiusStop, RadiusStopValues>> = {
   6: { stop: 6, control: 9999, surface: 28, joint: 6 },
 } as const;
 
-export const DEFAULT_RADIUS_STOP: RadiusStop = 4;
+export const DEFAULT_RADIUS_STOP: RadiusStop = 5;

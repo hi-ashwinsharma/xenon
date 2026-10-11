@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, type ReactElement } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Badge,
   Button,
@@ -51,6 +52,8 @@ const RADIUS_SHORT_LABELS: Record<RadiusStop, string> = {
 export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
   const docsTheme = useDocsTheme();
 
+  const pathname = usePathname();
+
   const theme = props.theme ?? docsTheme.theme;
   const onThemeChange = props.onThemeChange ?? docsTheme.setTheme;
   const accent = props.accent ?? docsTheme.accent;
@@ -59,7 +62,7 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
   const onRadiusChange = props.onRadiusChange ?? docsTheme.setRadius;
   const amoled = props.amoled ?? docsTheme.amoled;
   const onAmoledChange = props.onAmoledChange ?? docsTheme.setAmoled;
-  const activePath = props.activePath ?? "/";
+  const activePath = props.activePath || pathname || "";
   const onOpenCommandPalette =
     props.onOpenCommandPalette ?? (() => docsTheme.setCommandPaletteOpen(true));
 
@@ -71,11 +74,10 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
     const handleScroll = () => {
       if (rafId !== null) return;
       rafId = window.requestAnimationFrame(() => {
-        // Hysteresis threshold prevents jitter: scroll down past 24px activates pill; scroll up past 10px reverts to edge
         const currentY = window.scrollY;
         setIsScrolled((prev) => {
-          if (!prev && currentY > 24) return true;
-          if (prev && currentY < 10) return false;
+          if (!prev && currentY > 12) return true;
+          if (prev && currentY < 4) return false;
           return prev;
         });
         rafId = null;
@@ -90,52 +92,49 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
     };
   }, []);
 
-  // When pill is chosen (radius === 6), fully pill-shaped (9999px stadium capsule)
-  const targetRadius = radius === 6 ? "9999px" : "var(--x-radius-surface, 16px)";
-  const currentRadius = isScrolled ? targetRadius : "0px";
+  // In docs routes, the bar is permanently demarcated; on marketing pages it engages on scroll
+  const isDocs =
+    activePath.startsWith("/docs") ||
+    (typeof window !== "undefined" && window.location.pathname.startsWith("/docs"));
 
   return (
-    <div
+    <header
+      data-x-scrolled={isScrolled ? "true" : "false"}
+      data-x-docs={isDocs ? "true" : "false"}
       style={{
         position: "sticky",
         top: 0,
         zIndex: 50,
         width: "100%",
+        marginTop: 0,
+        height: "64px",
         display: "flex",
+        alignItems: "center",
         justifyContent: "center",
-        pointerEvents: "none",
+        padding: "0 32px",
+        backgroundColor:
+          isDocs || isScrolled ? "var(--x-glass-regular-bg)" : "rgba(0, 0, 0, 0)",
+        backdropFilter:
+          isDocs || isScrolled
+            ? "blur(var(--x-glass-regular-blur, 20px))"
+            : "blur(0px)",
+        WebkitBackdropFilter:
+          isDocs || isScrolled
+            ? "blur(var(--x-glass-regular-blur, 20px))"
+            : "blur(0px)",
+        borderWidth: "0 0 1px 0",
+        borderStyle: "solid",
+        borderColor: isDocs || isScrolled ? "var(--x-border)" : "transparent",
+        boxSizing: "border-box",
+        transition:
+          "background-color 380ms ease, border-color 380ms ease, backdrop-filter 380ms ease, -webkit-backdrop-filter 380ms ease",
       }}
     >
-      <header
-        data-x-scrolled={isScrolled ? "true" : "false"}
+      {/* Inner Content Wrapper: 1440px in docs to match docs grid, 1240px in marketing */}
+      <div
         style={{
-          pointerEvents: "auto",
-          width: isScrolled ? "calc(100% - 32px)" : "100%",
-          maxWidth: isScrolled ? "1240px" : "100%",
-          marginTop: isScrolled ? "14px" : "0px",
-          height: isScrolled ? "58px" : "64px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: isScrolled ? "0 22px" : "0 32px",
-          backgroundColor: isScrolled ? "var(--x-glass-regular-bg)" : "rgba(0, 0, 0, 0)",
-          backdropFilter: isScrolled ? "blur(var(--x-glass-regular-blur, 20px))" : "blur(0px)",
-          WebkitBackdropFilter: isScrolled ? "blur(var(--x-glass-regular-blur, 20px))" : "blur(0px)",
-          borderWidth: "1px",
-          borderStyle: "solid",
-          borderColor: isScrolled ? "var(--x-border)" : "transparent",
-          borderRadius: currentRadius,
-          boxSizing: "border-box",
-          willChange: "transform, width, max-width, margin-top, border-radius, background-color, border-color",
-          transition:
-            "width 480ms cubic-bezier(0.16, 1, 0.3, 1), max-width 480ms cubic-bezier(0.16, 1, 0.3, 1), margin-top 480ms cubic-bezier(0.16, 1, 0.3, 1), height 480ms cubic-bezier(0.16, 1, 0.3, 1), padding 480ms cubic-bezier(0.16, 1, 0.3, 1), border-radius 480ms cubic-bezier(0.16, 1, 0.3, 1), border-color 380ms ease, background-color 380ms ease, backdrop-filter 380ms ease, -webkit-backdrop-filter 380ms ease",
-        }}
-      >
-        {/* Inner Content Wrapper constrained to 1240px max-width */}
-        <div
-          style={{
             width: "100%",
-            maxWidth: "1240px",
+            maxWidth: isDocs ? "1440px" : "1240px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -468,7 +467,7 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
           </IconButton>
 
           {/* Launch Docs CTA (only on marketing pages, omitted on docs to prevent redundancy) */}
-          {!activePath.startsWith("/docs") && (
+          {!isDocs && (
             <Link href="/docs" style={{ textDecoration: "none" }}>
               <Button variant="filled" size="sm">
                 Docs →
@@ -478,6 +477,5 @@ export function MarketingNavbar(props: MarketingNavbarProps): ReactElement {
         </div>
       </div>
     </header>
-  </div>
   );
 }

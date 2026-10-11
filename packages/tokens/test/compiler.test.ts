@@ -85,6 +85,6 @@ describe("Token Compiler", () => {
   });
 
   it("exports sensible default switches", () => {
-    expect(DEFAULT_RADIUS_STOP).toBe(4);
+    expect(DEFAULT_RADIUS_STOP).toBe(5);
   });
 });
