@@ -6,4 +6,7 @@ export const AppRoutes: AppRoutesMap = {
   components: "/docs/components",
   guidelines: "/docs/guidelines",
   blog: "/blog",
+  llms: "/llms.txt",
+  llmsFull: "/llms-full.txt",
+  registry: "/r",
 } as const;

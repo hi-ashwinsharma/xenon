@@ -34,6 +34,7 @@ import {
   Text,
 } from "@xenon/web";
 import type { Accent, RadiusStop, Theme } from "@xenon/tokens";
+import { AppRoutes } from "@xenon/core";
 import {
   ClownCarVsAccentIllustration,
   EggVsConcentricIllustration,
@@ -157,7 +158,7 @@ export function MarketingLanding({
   const [heroCheckboxC, setHeroCheckboxC] = useState<boolean>(true);
   const [heroCheckboxD, setHeroCheckboxD] = useState<boolean>(true);
   const [heroInputToken, setHeroInputToken] = useState<string>(
-    "npx xenon add button",
+    "npx @xenon-kit/cli init",
   );
   const [heroMotionK, setHeroMotionK] = useState<number>(300);
   const [heroSliderVal, setHeroSliderVal] = useState<number>(64);
@@ -176,7 +177,9 @@ export function MarketingLanding({
 
   const handleCopyRegistry = (item: string) => {
     if (typeof navigator !== "undefined" && navigator.clipboard) {
-      navigator.clipboard.writeText(`npx xenon add ${item}`);
+      navigator.clipboard.writeText(
+        `https://xenon.hi-ashwin.xyz${AppRoutes.registry}/${item}.json`,
+      );
       setCopiedRegistryCmd(true);
       setTimeout(() => setCopiedRegistryCmd(false), 2000);
     }
@@ -184,7 +187,7 @@ export function MarketingLanding({
 
   const handleCopyInit = () => {
     if (typeof navigator !== "undefined" && navigator.clipboard) {
-      navigator.clipboard.writeText("npx xenon init");
+      navigator.clipboard.writeText("npx @xenon-kit/cli init");
       setCopiedInit(true);
       setTimeout(() => setCopiedInit(false), 2000);
     }
@@ -381,7 +384,7 @@ export function MarketingLanding({
                     fontWeight: 400,
                   }}
                 >
-                  $ npx xenon init
+                  $ npx @xenon-kit/cli init
                 </span>
                 <span
                   style={{
@@ -404,6 +407,27 @@ export function MarketingLanding({
                 </Button>
               </Link>
             </div>
+
+            {/* Agent entry points */}
+            <Text
+              styleKey="footnote"
+              tone="muted"
+              weight={300}
+              style={{ margin: 0 }}
+            >
+              For agents:{" "}
+              <a href={AppRoutes.llms} className="x-agent-link">
+                llms.txt
+              </a>
+              {" · "}
+              <a href={AppRoutes.llmsFull} className="x-agent-link">
+                llms-full.txt
+              </a>
+              {" · "}
+              <a href={AppRoutes.registry} className="x-agent-link">
+                registry
+              </a>
+            </Text>
           </div>
         </ScrollSection>
 
@@ -2754,7 +2778,7 @@ export function MarketingLanding({
                     marginBottom: "4px",
                   }}
                 >
-                  npx xenon add &lt;primitive&gt; · Registry Ownership
+                  /r/&lt;primitive&gt;.json · Agent Registry
                 </div>
                 <div
                   style={{
@@ -2763,9 +2787,9 @@ export function MarketingLanding({
                     lineHeight: 1.5,
                   }}
                 >
-                  Drops fully typed, unminified source code directly into your
-                  repository. You own every line, customize freely, and never
-                  deal with vendor lock-in.
+                  Every primitive is published as a machine-readable spec:
+                  props, accessibility contract and usage. Agents compose from
+                  facts, never from guesses.
                 </div>
               </div>
             </div>
@@ -2859,7 +2883,7 @@ export function MarketingLanding({
                     color: "var(--x-accent)",
                   }}
                 >
-                  $ npx xenon add {selectedRegistryItem}
+                  GET {AppRoutes.registry}/{selectedRegistryItem}.json
                 </span>
               </div>
               <span

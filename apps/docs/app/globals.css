@@ -99,3 +99,29 @@ body {
     display: none !important;
   }
 }
+
+/* Hero agent entry links */
+.x-agent-link {
+  color: var(--x-text-muted);
+  text-decoration: underline;
+  text-decoration-color: var(--x-border);
+  text-underline-offset: 3px;
+  transition-property: color, text-decoration-color;
+  transition-duration: var(--x-dur-base);
+  transition-timing-function: var(--x-ease-standard);
+}
+@media (hover: hover) {
+  .x-agent-link:hover {
+    color: var(--x-accent);
+    text-decoration-color: var(--x-accent);
+  }
+}
+.x-agent-link:focus-visible {
+  outline: none;
+  color: var(--x-accent);
+  text-decoration-color: var(--x-accent);
+}
+.x-agent-link.x-agent-link-accent {
+  color: var(--x-accent);
+  font-family: var(--x-font-family-mono);
+}
