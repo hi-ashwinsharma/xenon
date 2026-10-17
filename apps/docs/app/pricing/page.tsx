@@ -142,7 +142,7 @@ export default function PricingPage(): ReactElement {
                 <Stack gap={10}>
                   <FeatureItem text="All 30+ Web & Expo components" />
                   <FeatureItem text="Full source code access" />
-                  <FeatureItem text="CLI scaffolding tool (npx xenon)" />
+                  <FeatureItem text="CLI initializer (npx @xenon-kit/cli init)" />
                   <FeatureItem text="Community GitHub discussions" />
                   <FeatureItem text="Permissive use for public repos" />
                 </Stack>

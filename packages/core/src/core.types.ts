@@ -6,6 +6,9 @@ export interface AppRoutesMap {
   readonly components: string;
   readonly guidelines: string;
   readonly blog: string;
+  readonly llms: string;
+  readonly llmsFull: string;
+  readonly registry: string;
 }
 
 export interface NestedRadiusParams {

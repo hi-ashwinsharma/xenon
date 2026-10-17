@@ -6,6 +6,7 @@ import {
   CodeBlock,
   Divider,
   Heading,
+  Link,
   Stack,
   Surface,
   Table,
@@ -16,6 +17,7 @@ import {
   TableRow,
   Text,
 } from "@xenon/web";
+import { AppRoutes } from "@xenon/core";
 
 export function IntroductionDoc(): ReactElement {
   return (
@@ -199,16 +201,26 @@ export function IntroductionDoc(): ReactElement {
           Quickstart
         </Heading>
         <Text styleKey="body" tone="default" weight={300}>
-          Wrap your application root with XenonProvider to activate automatic
-          theme, accent, and radius coordination:
+          Run the initializer inside any React 19 app (Vite or Next.js App
+          Router). It installs the kit, imports the stylesheet, wraps your root
+          in XenonProvider, and writes AGENTS.md so coding agents follow the
+          design rules.
         </Text>
-
+        <CodeBlock code="npx @xenon-kit/cli init" language="bash" />
+        <Text styleKey="body" tone="default" weight={300}>
+          Or set it up by hand:
+        </Text>
         <CodeBlock
-          code={`import { XenonProvider } from "@xenon/web";
+          code={`npm install @xenon-kit/web @phosphor-icons/react`}
+          language="bash"
+        />
+        <CodeBlock
+          code={`import "@xenon-kit/web/styles.css";
+import { XenonProvider } from "@xenon-kit/web";
 
 export default function App({ children }: { children: React.ReactNode }) {
   return (
-    <XenonProvider theme="dark" accent="lime" radius={3}>
+    <XenonProvider defaultTheme="dark" defaultAccent="lime" defaultRadius={5}>
       {children}
     </XenonProvider>
   );
@@ -216,6 +228,64 @@ export default function App({ children }: { children: React.ReactNode }) {
           language="typescript"
           filename="app/layout.tsx"
           showLineNumbers
+        />
+      </Stack>
+
+      {/* Agent resources */}
+      <Stack gap={16}>
+        <Heading level={3} weight={300}>
+          For AI Agents
+        </Heading>
+        <Text styleKey="body" tone="default" weight={300}>
+          Point your coding agent at these machine-readable endpoints. The
+          design rules are as binding as the components, so agents should read
+          them before writing UI.
+        </Text>
+        <Table variant="bordered" fullWidth>
+          <TableBody>
+            <TableRow>
+              <TableCell style={{ width: "240px" }}>
+                <Link href={AppRoutes.llms}>
+                  <span className="x-agent-link x-agent-link-accent">
+                    llms.txt
+                  </span>
+                </Link>
+              </TableCell>
+              <TableCell>
+                Index: setup, hard rules, and every component at a glance.
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Link href={AppRoutes.llmsFull}>
+                  <span className="x-agent-link x-agent-link-accent">
+                    llms-full.txt
+                  </span>
+                </Link>
+              </TableCell>
+              <TableCell>
+                Full specification with the design guidelines and complete prop
+                tables.
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Link href={AppRoutes.registry}>
+                  <span className="x-agent-link x-agent-link-accent">/r</span>
+                </Link>
+              </TableCell>
+              <TableCell>
+                JSON registry. Each component at /r/&lt;name&gt;.json with
+                props, accessibility, and usage.
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+        <CodeBlock
+          code={`Use the Xenon UI kit to build a settings page.
+Start by reading https://xenon.hi-ashwin.xyz/llms.txt`}
+          language="text"
+          filename="Example prompt"
         />
       </Stack>
     </Stack>
