@@ -1,0 +1,27 @@
+/* Xenon base layer: shipped with @xenon-kit/web so consumer apps render on-system without extra setup. */
+:root {
+  --x-font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+    "Segoe UI", Roboto, sans-serif;
+  --x-font-family-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+}
+body {
+  background-color: var(--x-bg);
+  color: var(--x-text);
+  font-family: var(--x-font-family);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  transition-property: background-color, color;
+  transition-duration: var(--x-dur-base);
+  transition-timing-function: var(--x-ease-standard);
+}

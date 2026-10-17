@@ -4,6 +4,15 @@ This document defines how Xenon packages are built, published, distributed, quer
 
 ---
 
+## 0. Current distribution (public npm, `@xenon-kit`)
+
+- `@xenon-kit/web`: self-contained bundle (core and tokens inlined by `packages/web/tsup.config.ts`), `styles.css` (tokens + base layer), `AGENTS.md` and the design docs in `docs/`.
+- `@xenon-kit/cli`: `npx @xenon-kit/cli init` installs web, wires `styles.css` + `XenonProvider` (Vite / Next.js App Router), presets theme attributes on `<html>`, and writes `AGENTS.md` + `CLAUDE.md`.
+- Agent discovery: `https://xenon.hi-ashwin.xyz/llms.txt`, `/llms-full.txt` (embeds DESIGN, TOKENS and guidelines), `/r`, `/r/<component>.json`.
+- Release: `npm login`, then `pnpm release:npm` (builds, rewrites names for npm, publishes, restores workspace package.json files).
+
+The GitHub Packages flow below is superseded.
+
 ## 1. Package Readiness & Distribution
 
 Xenon provides two distribution modalities depending on how consumers adopt the design system:

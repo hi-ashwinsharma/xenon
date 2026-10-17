@@ -33,8 +33,8 @@ export const COMPONENTS_REGISTRY: ComponentDocEntry[] = [
     description:
       "Signature pill-first action control with physics-based spring squash interaction (0.98 scale on press).",
     a11y: "Rendered as native button element with role='button', supports Space and Enter keys, manages disabled and aria-busy states.",
-    cliInstall: "npx xenon add button",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "variant",
@@ -79,7 +79,7 @@ export const COMPONENTS_REGISTRY: ComponentDocEntry[] = [
       },
       { name: "children", type: "ReactNode", description: "Button content." },
     ],
-    webUsage: `import { Button } from "@xenon/web";
+    webUsage: `import { Button } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -105,8 +105,8 @@ export function Example() {
     description:
       "Concentric circular action button strictly optimized for Phosphor Thin icons with mandatory accessible labeling.",
     a11y: "Enforces non-empty ariaLabel prop, rendered with role='button' and accessible screen reader name.",
-    cliInstall: "npx xenon add icon-button",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "ariaLabel",
@@ -155,7 +155,7 @@ export function Example() {
         description: "Phosphor Thin icon element.",
       },
     ],
-    webUsage: `import { IconButton, Icon } from "@xenon/web";
+    webUsage: `import { IconButton, Icon } from "@xenon-kit/web";
 import { Gear } from "@phosphor-icons/react";
 
 export function Example() {
@@ -186,8 +186,8 @@ export function Example() {
     description:
       "Grouped capsule action bar where child buttons share outer bounds and internal 1px hairline dividers.",
     a11y: "Wraps buttons in a role='group' container with optional aria-label.",
-    cliInstall: "npx xenon add button-group",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "variant",
@@ -209,7 +209,7 @@ export function Example() {
       },
       { name: "children", type: "ReactNode", description: "Button elements." },
     ],
-    webUsage: `import { ButtonGroup, Button } from "@xenon/web";
+    webUsage: `import { ButtonGroup, Button } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -239,8 +239,8 @@ export function Example() {
     description:
       "Base structural container supporting concentric radius inheritance and Apple HIG Liquid Glass floating layers.",
     a11y: "Semantic generic container, transparent to screen readers.",
-    cliInstall: "npx xenon add surface",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "variant",
@@ -268,7 +268,7 @@ export function Example() {
       },
       { name: "children", type: "ReactNode", description: "Surface content." },
     ],
-    webUsage: `import { Surface, Text } from "@xenon/web";
+    webUsage: `import { Surface, Text } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -294,8 +294,8 @@ export function Example() {
     description:
       "Apple HIG calibrated Geist Sans typography system restricted strictly to light weights (200, 300, 400).",
     a11y: "Emits semantic h1-h6 headings and p/span elements with appropriate text hierarchy.",
-    cliInstall: "npx xenon add typography",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "styleKey",
@@ -340,7 +340,7 @@ export function Example() {
         description: "Underlying HTML element tag for Text.",
       },
     ],
-    webUsage: `import { Heading, Text } from "@xenon/web";
+    webUsage: `import { Heading, Text } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -370,8 +370,8 @@ export function Example() {
     description:
       "Restrained architectural text field (6-8px radius, 12px optical padding) avoiding stadium pill shapes.",
     a11y: "Accessible input element supporting ARIA descriptions, errors, and clear triggers.",
-    cliInstall: "npx xenon add input",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "size",
@@ -433,7 +433,7 @@ export function Example() {
         description: "Keyboard shortcut hint badge displayed on right.",
       },
     ],
-    webUsage: `import { Input } from "@xenon/web";
+    webUsage: `import { Input } from "@xenon-kit/web";
 
 export function Example() {
   return <Input placeholder="Project identifier..." size="md" clearable />;
@@ -451,8 +451,8 @@ export function Example() {
     description:
       "Persistent structural wrapper binding labels, helper annotations, and error callouts to input controls.",
     a11y: "Connects label and input via htmlFor/id, injects aria-describedby for errors and helper texts.",
-    cliInstall: "npx xenon add field",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "label",
@@ -487,7 +487,7 @@ export function Example() {
         description: "Form control element.",
       },
     ],
-    webUsage: `import { Field, Input } from "@xenon/web";
+    webUsage: `import { Field, Input } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -513,8 +513,8 @@ export function Example() {
     description:
       "Architectural multi-line text input with smooth auto-expansion, character limit tracking, and hairline borders.",
     a11y: "Standard textarea element with full keyboard and screen reader accessibility.",
-    cliInstall: "npx xenon add textarea",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "size",
@@ -551,7 +551,7 @@ export function Example() {
         description: "Enforces max character limit with live counter.",
       },
     ],
-    webUsage: `import { Textarea } from "@xenon/web";
+    webUsage: `import { Textarea } from "@xenon-kit/web";
 
 export function Example() {
   return <Textarea placeholder="Provide design specifications..." rows={4} maxLength={500} />;
@@ -569,8 +569,8 @@ export function Example() {
     description:
       "Restrained geometric square checkbox with crisp Phosphor Thin checkmark and indeterminate state support.",
     a11y: "Native role='checkbox', supports aria-checked='mixed', toggled via Space bar.",
-    cliInstall: "npx xenon add checkbox",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "checked",
@@ -618,7 +618,7 @@ export function Example() {
         description: "Secondary supporting text placed beneath label.",
       },
     ],
-    webUsage: `import { Checkbox } from "@xenon/web";
+    webUsage: `import { Checkbox } from "@xenon-kit/web";
 
 export function Example() {
   return <Checkbox label="Accept terms and specifications" defaultChecked />;
@@ -636,8 +636,8 @@ export function Example() {
     description:
       "Apple HIG calibrated sliding toggle with physics spring release and native haptic click feedback.",
     a11y: "Role='switch', announces aria-checked state, operated with Space and Enter keys.",
-    cliInstall: "npx xenon add switch",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "checked",
@@ -673,7 +673,7 @@ export function Example() {
         description: "Supporting subtext.",
       },
     ],
-    webUsage: `import { Switch } from "@xenon/web";
+    webUsage: `import { Switch } from "@xenon-kit/web";
 
 export function Example() {
   return <Switch label="Liquid Glass Blur" defaultChecked />;
@@ -691,8 +691,8 @@ export function Example() {
     description:
       "Precision track slider with Apple spring thumb response, live value tooltip, and discrete stop ticks.",
     a11y: "Role='slider', exposes aria-valuemin, aria-valuemax, and aria-valuenow, controllable via arrow keys.",
-    cliInstall: "npx xenon add slider",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "value",
@@ -741,7 +741,7 @@ export function Example() {
         description: "Fired when interaction commits (release).",
       },
     ],
-    webUsage: `import { Slider } from "@xenon/web";
+    webUsage: `import { Slider } from "@xenon-kit/web";
 
 export function Example() {
   return <Slider min={0} max={6} step={1} defaultValue={3} size="md" />;
@@ -759,8 +759,8 @@ export function Example() {
     description:
       "Sliding pill segmented group with animated indicator and spring squash transition across items.",
     a11y: "Role='radiogroup' or 'tablist' with roving focus and arrow key navigation.",
-    cliInstall: "npx xenon add segmented-control",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "options",
@@ -791,7 +791,7 @@ export function Example() {
         description: "Disables entire segmented group.",
       },
     ],
-    webUsage: `import { SegmentedControl } from "@xenon/web";
+    webUsage: `import { SegmentedControl } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -829,8 +829,8 @@ export function Example() {
     description:
       "Top navigation chrome featuring adaptive scroll elevation for Navbar and permanent Liquid Glass for GlassBar.",
     a11y: "Semantic <nav> element with role='navigation' and landmark identification.",
-    cliInstall: "npx xenon add navbar",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "bordered",
@@ -858,7 +858,7 @@ export function Example() {
       },
       { name: "children", type: "ReactNode", description: "Navbar content." },
     ],
-    webUsage: `import { GlassBar, Text } from "@xenon/web";
+    webUsage: `import { GlassBar, Text } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -884,8 +884,8 @@ export function Example() {
     description:
       "Background-less architectural sidebar navigation with collapsible rail mode, groups, and soft dividers.",
     a11y: "Semantic landmark <nav aria-label='Sidebar'> with accessible expandable groups.",
-    cliInstall: "npx xenon add sidebar",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "variant",
@@ -922,7 +922,7 @@ export function Example() {
         description: "Sidebar items and groups.",
       },
     ],
-    webUsage: `import { Sidebar, SidebarGroup, SidebarItem, SidebarDivider } from "@xenon/web";
+    webUsage: `import { Sidebar, SidebarGroup, SidebarItem, SidebarDivider } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -955,8 +955,8 @@ export function Example() {
     description:
       "Accessible view switcher supporting pill capsule and sliding hairline underline modes with roving keyboard focus.",
     a11y: "Strict WAI-ARIA Tabs pattern (role='tablist', role='tab', role='tabpanel') with Home, End, and Arrow navigation.",
-    cliInstall: "npx xenon add tabs",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "variant",
@@ -986,7 +986,7 @@ export function Example() {
         description: "TabsList and TabsContent elements.",
       },
     ],
-    webUsage: `import { Tabs, TabsList, TabsTrigger, TabsContent } from "@xenon/web";
+    webUsage: `import { Tabs, TabsList, TabsTrigger, TabsContent } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -1022,8 +1022,8 @@ export function Example() {
     description:
       "Centered modal surface with background scrim, focus restoration, focus trapping, and Apple spring dismissal.",
     a11y: "Role='dialog', aria-modal='true', trap focus inside dialog, dismisses on Escape key.",
-    cliInstall: "npx xenon add dialog",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "open",
@@ -1047,7 +1047,7 @@ export function Example() {
         description: "DialogTrigger and DialogContent elements.",
       },
     ],
-    webUsage: `import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Button } from "@xenon/web";
+    webUsage: `import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Button } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -1088,8 +1088,8 @@ export function Example() {
     description:
       "Slide-over drawer on web and gesture-driven bottom sheet with tactile drag handle on React Native.",
     a11y: "Accessible drawer dialog with focus trapping and ESC dismissal.",
-    cliInstall: "npx xenon add sheet",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "side",
@@ -1115,7 +1115,7 @@ export function Example() {
         description: "SheetTrigger and SheetContent elements.",
       },
     ],
-    webUsage: `import { Sheet, SheetTrigger, SheetContent, Button } from "@xenon/web";
+    webUsage: `import { Sheet, SheetTrigger, SheetContent, Button } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -1151,8 +1151,8 @@ export function Example() {
     description:
       "Hairline contextual action menu with openOnHover option, keyboard navigation, groups, and shortcuts.",
     a11y: "Strict WAI-ARIA Menu pattern (role='menu', role='menuitem') with roving tabIndex.",
-    cliInstall: "npx xenon add dropdown-menu",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       { name: "open", type: "boolean", description: "Controlled open state." },
       {
@@ -1178,7 +1178,7 @@ export function Example() {
         description: "DropdownMenuTrigger and DropdownMenuContent elements.",
       },
     ],
-    webUsage: `import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, Button } from "@xenon/web";
+    webUsage: `import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, Button } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -1215,8 +1215,8 @@ export function Example() {
     description:
       "Architectural custom listbox on web and native picker sheet on Expo with dynamic radius matching global tokens.",
     a11y: "Role='combobox' / role='listbox' with ARIA expanded and active-descendant management.",
-    cliInstall: "npx xenon add select",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "value",
@@ -1257,7 +1257,7 @@ export function Example() {
         description: "SelectTrigger and SelectContent elements.",
       },
     ],
-    webUsage: `import { Select, SelectTrigger, SelectContent, SelectItem } from "@xenon/web";
+    webUsage: `import { Select, SelectTrigger, SelectContent, SelectItem } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -1291,8 +1291,8 @@ export function Example() {
     description:
       "Global quick-launcher overlay triggered by ⌘K with keyboard arrow navigation and categorized action groups.",
     a11y: "ARIA combobox with full keyboard roving focus, live filtered search announcements.",
-    cliInstall: "npx xenon add command-palette",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "open",
@@ -1319,7 +1319,7 @@ export function Example() {
         description: "Input placeholder prompt.",
       },
     ],
-    webUsage: `import { CommandPalette } from "@xenon/web";
+    webUsage: `import { CommandPalette } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -1356,8 +1356,8 @@ export function Example() {
     description:
       "Compact status indicator with acid accent tones, subtle neutral styles, and optional live pulse dot.",
     a11y: "Screen-reader readable status tag, aria-hidden dot indicator.",
-    cliInstall: "npx xenon add badge",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "tone",
@@ -1392,7 +1392,7 @@ export function Example() {
       },
       { name: "children", type: "ReactNode", description: "Badge label text." },
     ],
-    webUsage: `import { Badge } from "@xenon/web";
+    webUsage: `import { Badge } from "@xenon-kit/web";
 
 export function Example() {
   return <Badge tone="accent" variant="subtle" dot>Online</Badge>;
@@ -1410,8 +1410,8 @@ export function Example() {
     description:
       "Inline semantic status callout with Phosphor Thin icons, crisp 1px perimeter border, and restrained fill.",
     a11y: "Role='alert' or role='status' depending on severity tone.",
-    cliInstall: "npx xenon add alert",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "tone",
@@ -1447,7 +1447,7 @@ export function Example() {
         description: "Alert body message.",
       },
     ],
-    webUsage: `import { Alert } from "@xenon/web";
+    webUsage: `import { Alert } from "@xenon-kit/web";
 
 export function Example() {
   return <Alert tone="warning" variant="subtle" title="Token Deprecation">Use compiled motion tokens.</Alert>;
@@ -1465,8 +1465,8 @@ export function Example() {
     description:
       "Outer-rounded hairline bordered table with tabular numbers, clean row highlighting, and horizontal containment.",
     a11y: "Full HTML table semantics (caption, thead, tbody, th with scope='col', td).",
-    cliInstall: "npx xenon add table",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "variant",
@@ -1492,7 +1492,7 @@ export function Example() {
         description: "TableHeader, TableBody, TableRow elements.",
       },
     ],
-    webUsage: `import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@xenon/web";
+    webUsage: `import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -1540,8 +1540,8 @@ export function Example() {
     description:
       "Apple-grade fluid grid disclosure (zero instant snappy jumps) with 280ms cubic-bezier transitions and spring caret rotation.",
     a11y: "Strict WAI-ARIA Accordion pattern with aria-expanded and aria-controls.",
-    cliInstall: "npx xenon add accordion",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "variant",
@@ -1582,7 +1582,7 @@ export function Example() {
         description: "AccordionItem elements.",
       },
     ],
-    webUsage: `import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@xenon/web";
+    webUsage: `import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -1614,8 +1614,8 @@ export function Example() {
     description:
       "Circular avatar with graceful image loading, typographic initial fallbacks, and overlapping grouped clustering.",
     a11y: "Alt text fallback on image, aria-label describing user initials.",
-    cliInstall: "npx xenon add avatar",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "size",
@@ -1653,7 +1653,7 @@ export function Example() {
         description: "Placement of status dot indicator.",
       },
     ],
-    webUsage: `import { Avatar, AvatarGroup } from "@xenon/web";
+    webUsage: `import { Avatar, AvatarGroup } from "@xenon-kit/web";
 
 export function Example() {
   return (
@@ -1681,8 +1681,8 @@ export function Example() {
     description:
       "Zero-dependency isomorphic syntax highlighted code block in Geist Mono with copy micro-action and line numbering.",
     a11y: "Accessible pre/code elements, copy button with aria-label.",
-    cliInstall: "npx xenon add codeblock",
-    npmInstall: "pnpm add @xenon/web @xenon/core",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       {
         name: "code",
@@ -1720,7 +1720,7 @@ export function Example() {
         description: "Enables copy to clipboard action button.",
       },
     ],
-    webUsage: `import { CodeBlock } from "@xenon/web";
+    webUsage: `import { CodeBlock } from "@xenon-kit/web";
 
 export function Example() {
   return <CodeBlock code="const xenon = true;" language="typescript" filename="index.ts" showLineNumbers copyable />;

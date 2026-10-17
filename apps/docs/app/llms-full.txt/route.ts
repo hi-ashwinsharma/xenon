@@ -1,3 +1,5 @@
+import { readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 import { NextResponse } from "next/server";
 import { COMPONENTS_REGISTRY } from "../docs-data/components-registry";
 
@@ -10,6 +12,23 @@ export async function GET() {
     "> Complete technical specification, token geometry, accessibility contracts, and full prop tables for all Xenon components.",
   );
   lines.push("");
+  // Embed the canonical design rules so agents get them from one URL.
+  const docsDir = join(process.cwd(), "../../docs");
+  const ruleFiles = [
+    "DESIGN.md",
+    "TOKENS.md",
+    ...readdirSync(join(docsDir, "guidelines"))
+      .filter((f) => f.endsWith(".md") && f !== "README.md")
+      .map((f) => `guidelines/${f}`),
+  ];
+  lines.push("## Binding Design Rules");
+  lines.push("");
+  for (const file of ruleFiles) {
+    lines.push(`<!-- source: docs/${file} -->`);
+    lines.push(readFileSync(join(docsDir, file), "utf-8").trim());
+    lines.push("");
+  }
+
   lines.push("## Design Tokens");
   lines.push("- **Themes**: `dark` (default), `light`");
   lines.push(

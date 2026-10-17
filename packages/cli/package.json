@@ -1,0 +1,21 @@
+{
+  "name": "@xenon/cli",
+  "version": "0.1.1",
+  "description": "Set up Xenon UI in a React project and hand its design rules to your AI agent",
+  "type": "module",
+  "bin": {
+    "xenon": "bin/xenon.mjs"
+  },
+  "files": [
+    "bin",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://xenon.hi-ashwin.xyz",
+  "license": "UNLICENSED"
+}

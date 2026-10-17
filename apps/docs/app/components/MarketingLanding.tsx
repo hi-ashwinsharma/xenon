@@ -4288,7 +4288,7 @@ export function MarketingLanding({
                 Web (React DOM)
               </Text>
               <CodeBlock
-                code={`import { Button, ButtonGroup } from "@xenon/web";\n\n<ButtonGroup size="md">\n  <Button variant="outline">Inspect</Button>\n  <Button variant="filled">Launch</Button>\n</ButtonGroup>`}
+                code={`import { Button, ButtonGroup } from "@xenon-kit/web";\n\n<ButtonGroup size="md">\n  <Button variant="outline">Inspect</Button>\n  <Button variant="filled">Launch</Button>\n</ButtonGroup>`}
                 language="typescript"
                 showLineNumbers={false}
               />

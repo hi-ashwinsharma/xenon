@@ -273,11 +273,11 @@ export function ComponentShowcase({
   const installCommand = useMemo(() => {
     switch (cliPm) {
       case "npm":
-        return `npm install @xenon/web @xenon/core`;
+        return `npm install @xenon-kit/web @phosphor-icons/react`;
       case "yarn":
-        return `yarn add @xenon/web @xenon/core`;
+        return `yarn add @xenon-kit/web @phosphor-icons/react`;
       case "bun":
-        return `bun add @xenon/web @xenon/core`;
+        return `bun add @xenon-kit/web @phosphor-icons/react`;
       case "cli":
         return entry.cliInstall;
       case "pnpm":

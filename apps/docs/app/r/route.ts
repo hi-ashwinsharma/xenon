@@ -3,21 +3,21 @@ import { COMPONENTS_REGISTRY } from "../docs-data/components-registry";
 
 export async function GET() {
   const index = {
-    $schema: "https://xenon.design/schema/registry.json",
+    $schema: "https://xenon.hi-ashwin.xyz/schema/registry.json",
     name: "xenon",
     title: "Xenon Component Registry",
     description:
       "Minimalistic, hairline-crisp UI kit for React and React Native built from shared token geometry.",
     version: "0.1.0",
-    homepage: "https://xenon.design",
+    homepage: "https://xenon.hi-ashwin.xyz",
     items: COMPONENTS_REGISTRY.map((item) => ({
       name: item.id,
       type: "registry:ui",
       title: item.name,
       category: item.category,
       description: item.description,
-      dependencies: ["@phosphor-icons/react"],
-      registryDependencies: ["@xenon/core", "@xenon/tokens"],
+      dependencies: ["@xenon-kit/web", "@phosphor-icons/react"],
+      registryDependencies: [],
       url: `/r/${item.id}.json`,
     })),
   };
