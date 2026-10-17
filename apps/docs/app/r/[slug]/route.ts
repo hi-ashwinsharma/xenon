@@ -20,21 +20,21 @@ export async function GET(
 
   if (cleanSlug === "index") {
     const index = {
-      $schema: "https://xenon.design/schema/registry.json",
+      $schema: "https://xenon.hi-ashwin.xyz/schema/registry.json",
       name: "xenon",
       title: "Xenon Component Registry",
       description:
         "Minimalistic, hairline-crisp UI kit for React and React Native built from shared token geometry.",
       version: "0.1.0",
-      homepage: "https://xenon.design",
+      homepage: "https://xenon.hi-ashwin.xyz",
       items: COMPONENTS_REGISTRY.map((item) => ({
         name: item.id,
         type: "registry:ui",
         title: item.name,
         category: item.category,
         description: item.description,
-        dependencies: ["@phosphor-icons/react"],
-        registryDependencies: ["@xenon/core", "@xenon/tokens"],
+        dependencies: ["@xenon-kit/web", "@phosphor-icons/react"],
+        registryDependencies: [],
         url: `/r/${item.id}.json`,
       })),
     };
@@ -61,15 +61,15 @@ export async function GET(
   }
 
   const payload = {
-    $schema: "https://xenon.design/schema/registry-item.json",
+    $schema: "https://xenon.hi-ashwin.xyz/schema/registry-item.json",
     name: component.id,
     type: "registry:ui",
     title: component.name,
     category: component.category,
     description: component.description,
     accessibility: component.a11y,
-    dependencies: ["@phosphor-icons/react"],
-    registryDependencies: ["@xenon/core", "@xenon/tokens"],
+    dependencies: ["@xenon-kit/web", "@phosphor-icons/react"],
+    registryDependencies: [],
     install: {
       cli: component.cliInstall,
       npm: component.npmInstall,

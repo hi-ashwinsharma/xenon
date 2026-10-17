@@ -7,10 +7,13 @@
   "module": "./src/index.ts",
   "types": "./src/index.ts",
   "files": [
-    "dist"
+    "dist",
+    "docs",
+    "AGENTS.md",
+    "README.md"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean --external react,react-dom,@phosphor-icons/react && node ./scripts/copy-styles.mjs",
+    "build": "tsup && node ./scripts/copy-styles.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   },

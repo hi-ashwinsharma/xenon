@@ -33,32 +33,48 @@ export async function GET() {
     "- **Radius Scale**: Discrete radius stops R0 (0px), R1 (4px), R2 (8px), R3 (12px), R4 (16px), R5 (20px - default), R6 (9999px pill). Form inputs maintain architectural geometry (R1-R2 / 6-8px), pills are reserved for buttons and search bars.",
   );
   lines.push("");
-  lines.push("## Package Installation & Setup");
-  lines.push("```bash");
-  lines.push("pnpm add @xenon/web @xenon/core");
-  lines.push("# or install single components via CLI / registry:");
-  lines.push("npx xenon add button");
-  lines.push("```");
+  lines.push("## Agent Quickstart");
+  lines.push(
+    "Xenon's design rules are as binding as its components. Before writing UI, read the rules (AGENTS.md in the package, or /llms-full.txt which embeds the full guidelines).",
+  );
   lines.push("");
-  lines.push("### Root Provider Setup");
-  lines.push("```tsx");
-  lines.push('import { XenonProvider } from "@xenon/web";');
-  lines.push('import "@xenon/web/styles.css";');
+  lines.push("```bash");
+  lines.push(
+    "# inside an existing React 19 app (Vite or Next.js App Router); if none exists:",
+  );
+  lines.push("#   npm create vite@latest my-app -- --template react-ts");
+  lines.push("npx @xenon-kit/cli init");
+  lines.push("```");
   lines.push("");
   lines.push(
-    "export default function RootLayout({ children }: { children: React.ReactNode }) {",
+    "`init` installs `@xenon-kit/web` and `@phosphor-icons/react`, imports `@xenon-kit/web/styles.css`, wraps the app in `XenonProvider`, and writes AGENTS.md + CLAUDE.md with the binding design rules.",
   );
-  lines.push("  return (");
-  lines.push('    <html lang="en">');
-  lines.push("      <body>");
-  lines.push('        <XenonProvider theme="dark" accent="lime" radius={5}>');
-  lines.push("          {children}");
-  lines.push("        </XenonProvider>");
-  lines.push("      </body>");
-  lines.push("    </html>");
-  lines.push("  );");
-  lines.push("}");
+  lines.push("");
+  lines.push("Manual setup:");
+  lines.push("```bash");
+  lines.push("npm install @xenon-kit/web @phosphor-icons/react");
   lines.push("```");
+  lines.push("```tsx");
+  lines.push('import "@xenon-kit/web/styles.css";');
+  lines.push('import { XenonProvider } from "@xenon-kit/web";');
+  lines.push("");
+  lines.push(
+    '<XenonProvider defaultTheme="dark" defaultAccent="lime" defaultRadius={5}>{children}</XenonProvider>',
+  );
+  lines.push("```");
+  lines.push("");
+  lines.push("## Agent Resources");
+  lines.push(
+    "- Rules (offline, version-locked): `node_modules/@xenon-kit/web/AGENTS.md` and `node_modules/@xenon-kit/web/docs/`",
+  );
+  lines.push("- Exact props: `node_modules/@xenon-kit/web/dist/index.d.ts`");
+  lines.push(
+    "- Full spec + guidelines: https://xenon.hi-ashwin.xyz/llms-full.txt",
+  );
+  lines.push("- Registry index: https://xenon.hi-ashwin.xyz/r");
+  lines.push(
+    "- Component detail (props, usage): https://xenon.hi-ashwin.xyz/r/<component>.json",
+  );
   lines.push("");
   lines.push("## Component Registry (26 Components)");
   lines.push("");

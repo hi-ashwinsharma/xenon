@@ -9,7 +9,8 @@
     "typecheck": "pnpm -r --if-present run typecheck",
     "test": "pnpm -r --if-present run test",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "release:npm": "pnpm build && node scripts/prepare-npm-publish.mjs && (cd packages/web && npm publish) && (cd packages/cli && npm publish); git checkout -- packages/web/package.json packages/cli/package.json"
   },
   "devDependencies": {
     "eslint": "^9",
