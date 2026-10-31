@@ -125,3 +125,56 @@ body {
   color: var(--x-accent);
   font-family: var(--x-font-family-mono);
 }
+
+/* Pre-launch countdown gate */
+.x-launch {
+  flex: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--x-space-6);
+  padding: var(--x-space-4);
+  box-sizing: border-box;
+  background-color: var(--x-bg);
+}
+.x-launch-timer {
+  display: flex;
+  gap: var(--x-space-5);
+  opacity: 0;
+  transition: opacity var(--x-dur-slow) var(--x-ease-standard);
+}
+.x-launch-timer[data-ready="true"] {
+  opacity: 1;
+}
+.x-launch-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--x-space-2);
+}
+.x-launch-digits {
+  display: flex;
+}
+.x-launch-digit {
+  display: inline-block;
+  animation: x-launch-digit-in var(--x-dur-slow) var(--x-ease-standard);
+}
+@keyframes x-launch-digit-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--x-space-2));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .x-launch-digit {
+    animation-name: x-launch-digit-fade;
+    animation-duration: var(--x-dur-instant);
+  }
+}
+@keyframes x-launch-digit-fade {
+  from {
+    opacity: 0;
+  }
+}

@@ -2,6 +2,7 @@ import type { RadiusStop } from "@xenon/tokens";
 
 export interface AppRoutesMap {
   readonly home: string;
+  readonly launch: string;
   readonly docs: string;
   readonly components: string;
   readonly guidelines: string;
