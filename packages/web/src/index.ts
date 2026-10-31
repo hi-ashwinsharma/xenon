@@ -40,7 +40,16 @@ export type {
   WebDropdownMenuTriggerProps,
   WebFieldProps,
   WebGlassBarProps,
+  WebAccentPickerProps,
+  WebContainerProps,
+  WebFooterProps,
+  WebChapterProps,
+  WebConcentricFieldProps,
+  WebScrollSceneProps,
+  WebGridItemProps,
+  WebGridProps,
   WebGroupProps,
+  WebRevealProps,
   WebHeadingProps,
   WebIconButtonProps,
   WebIconProps,
@@ -118,6 +127,14 @@ export { Surface, useSurface } from "./surface";
 export { Divider } from "./divider";
 export { Stack } from "./stack";
 export { Group } from "./group";
+export { Container } from "./container";
+export { Grid, GridItem } from "./grid";
+export { ConcentricField } from "./concentric-field";
+export { Reveal } from "./reveal";
+export { Chapter } from "./chapter";
+export { ScrollScene } from "./scroll-scene";
+export { Footer } from "./footer";
+export { AccentPicker } from "./accent-picker";
 export { Text } from "./text";
 export { Heading } from "./heading";
 export { Icon } from "./icon";

@@ -61,7 +61,8 @@ export function CodeBlock({
   }, [code, language, highlight]);
 
   const headerLabel = filename ?? title;
-  const showHeader = Boolean(headerLabel || language || copyable);
+  const showHeader =
+    variant !== "command" && Boolean(headerLabel || language || copyable);
 
   const tokenColorMap: Record<CodeTokenType, string> = {
     keyword: tokens.colors.accent,

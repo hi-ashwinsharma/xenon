@@ -59,7 +59,13 @@ import {
   TabsTrigger,
   Text,
   Textarea,
+  AccentPicker,
+  ConcentricField,
+  Container,
+  Grid,
+  Reveal,
 } from "@xenon/web";
+import type { Accent } from "@xenon/tokens";
 import type {
   AccordionVariant,
   AlertTone,
@@ -145,8 +151,53 @@ export function ComponentLivePreview({
   // Local state for select dropdown inside preview
   const [selectVal, setSelectVal] = useState<string>("pro");
   const [segmentedVal, setSegmentedVal] = useState<string>("preview");
+  const [accentVal, setAccentVal] = useState<Accent>("lime");
 
   switch (componentId) {
+    case "concentric-field":
+      return (
+        <ConcentricField rings={3} gap={14}>
+          <Surface padding={12}>
+            <Text styleKey="caption1" tone="muted">
+              One center
+            </Text>
+          </Surface>
+        </ConcentricField>
+      );
+    case "container":
+      return (
+        <Container size="sm">
+          <Text styleKey="footnote" tone="muted" align="center">
+            Centered at a finite width with the system gutter.
+          </Text>
+        </Container>
+      );
+    case "grid":
+      return (
+        <Grid minItemWidth={72} gap={8} style={{ width: "100%" }}>
+          {["One", "Two", "Three"].map((cell) => (
+            <Surface key={cell} padding={12} variant="subtle">
+              <Text styleKey="caption1" tone="muted">
+                {cell}
+              </Text>
+            </Surface>
+          ))}
+        </Grid>
+      );
+    case "reveal":
+      return (
+        <Reveal>
+          <Text styleKey="callout">Arrives on first view</Text>
+        </Reveal>
+      );
+    case "footer":
+      return (
+        <Text styleKey="footnote" tone="muted" align="center">
+          The footer at the bottom of this page is the real component.
+        </Text>
+      );
+    case "accent-picker":
+      return <AccentPicker value={accentVal} onValueChange={setAccentVal} />;
     case "button":
       return (
         <div

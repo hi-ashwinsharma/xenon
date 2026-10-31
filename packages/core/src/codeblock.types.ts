@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-export type CodeBlockVariant = "default" | "minimal" | "bordered";
+export type CodeBlockVariant = "default" | "minimal" | "command" | "bordered";
 
 export type CodeTokenType =
   | "keyword"

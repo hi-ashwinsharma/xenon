@@ -19,9 +19,26 @@ export type {
   FlexDirection,
   FlexJustify,
   FlexWrap,
+  ContainerProps,
+  ChapterProps,
+  ConcentricFieldProps,
+  ContainerSize,
+  GridItemProps,
+  GridProps,
   GroupProps,
+  ScrollSceneProps,
   StackProps,
 } from "./layout.types";
+
+export type { RevealProps } from "./reveal.types";
+
+export type {
+  FooterColumnItem,
+  FooterLinkItem,
+  FooterProps,
+} from "./footer.types";
+
+export type { AccentPickerProps } from "./accent-picker.types";
 
 export type {
   HeadingLevel,

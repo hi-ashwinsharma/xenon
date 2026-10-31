@@ -18,6 +18,12 @@ export interface NavbarProps {
   readonly bordered?: boolean;
   /** Maximum inner container width in pixels or CSS value (default: 1280) */
   readonly maxWidth?: number | string;
+  /** Where the nav slot sits: beside the brand or centered in the bar (default: 'center') */
+  readonly navAlign?: "start" | "center";
+  /** When the glass material engages: past `threshold`, or permanently (default: 'scroll') */
+  readonly glass?: "scroll" | "always";
+  /** Folds nav and actions behind a menu button on narrow viewports (default: false) */
+  readonly collapsible?: boolean;
   readonly className?: string;
 }
 
