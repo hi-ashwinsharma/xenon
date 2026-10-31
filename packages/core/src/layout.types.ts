@@ -39,6 +39,24 @@ export interface ContainerProps {
 export interface GridProps {
   /** Smallest width an item may shrink to before wrapping, in px. Default: 280 */
   readonly minItemWidth?: number;
+  /** Fixed column track count for bento layouts; collapses to one column on narrow viewports */
+  readonly columns?: number;
+  readonly gap?: number;
+  readonly children?: ReactNode;
+  readonly className?: string;
+}
+
+export interface GridItemProps {
+  /** Tracks this item spans inside a Grid with `columns`. Default: 1 */
+  readonly span?: number;
+  readonly children?: ReactNode;
+  readonly className?: string;
+}
+
+export interface ConcentricFieldProps {
+  /** Hairline rings around the child. Default: 6 */
+  readonly rings?: number;
+  /** Distance between rings in px; each ring's radius grows by the same amount. Default: 40 */
   readonly gap?: number;
   readonly children?: ReactNode;
   readonly className?: string;

@@ -69,9 +69,10 @@ export function Surface({
     surfaceRadius = RADIUS_STOPS[stop].surface;
   }
 
-  const effectiveRadius = parentSurface
-    ? computeNestedRadius(parentSurface.parentRadius, parentSurface.padding)
-    : surfaceRadius;
+  const effectiveRadius =
+    parentSurface && explicitRadius === undefined
+      ? computeNestedRadius(parentSurface.parentRadius, parentSurface.padding)
+      : surfaceRadius;
 
   const surfaceStyle: CSSProperties = useMemo(() => {
     const base: CSSProperties = {
@@ -101,6 +102,23 @@ export function Surface({
         WebkitBackdropFilter: isClear
           ? "blur(var(--x-glass-clear-blur))"
           : "blur(var(--x-glass-regular-blur))",
+      };
+    }
+
+    if (variant === "accent") {
+      // Rescopes the text tokens so kit children stay legible on the flat fill
+      return {
+        ...base,
+        backgroundColor: "var(--x-accent)",
+        borderColor: "var(--x-accent)",
+        color: "var(--x-on-accent)",
+        ["--x-text" as string]: "var(--x-on-accent)",
+        ["--x-text-muted" as string]:
+          "color-mix(in srgb, var(--x-on-accent) 72%, transparent)",
+        ["--x-surface-2" as string]:
+          "color-mix(in srgb, var(--x-on-accent) 8%, transparent)",
+        ["--x-border" as string]:
+          "color-mix(in srgb, var(--x-on-accent) 24%, transparent)",
       };
     }
 

@@ -53,7 +53,7 @@ import { XenonProvider } from "@xenon-kit/web";
 
 ## Build pages from these primitives
 
-Layout and type: `Container` (`size`), `Grid` (`minItemWidth`, `gap`; wraps without breakpoints), `Reveal` (`order`), `Stack` (`direction`, `gap` in px, `align`, `justify`), `Group` (horizontal, `wrap`), `Surface` (`variant="default"|"subtle"|"glass"`, `padding`; nested radius is computed automatically), `Divider`, `Heading` (`level`, `styleKey="display"|"largeTitle"|"title1"|"title2"|"title3"`), `Text` (`styleKey`, `tone`, `as`), `Link`, `Icon`.
+Layout and type: `Container` (`size`), `Grid` (`minItemWidth`, `gap`; wraps without breakpoints), `GridItem` (`span`, inside `Grid columns`), `ConcentricField` (`rings`, `gap`), `Reveal` (`order`), `Stack` (`direction`, `gap` in px, `align`, `justify`), `Group` (horizontal, `wrap`), `Surface` (`variant="default"|"subtle"|"glass"|"accent"`, `padding`; nested radius is computed automatically), `Divider`, `Heading` (`level`, `styleKey="display"|"largeTitle"|"title1"|"title2"|"title3"`), `Text` (`styleKey`, `tone`, `as`), `Link`, `Icon`.
 
 Actions: `Button` (`variant="accent"|"filled"|"subtle"|"outline"|"ghost"|"glass"`, `size="sm"|"md"|"lg"`, `loading`), `IconButton` (requires `ariaLabel`), `ButtonGroup`, `ToggleButton`, `SegmentedControl`.
 

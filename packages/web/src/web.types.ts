@@ -59,6 +59,8 @@ import type {
   AccentPickerProps as CoreAccentPickerProps,
   ContainerProps as CoreContainerProps,
   FooterProps as CoreFooterProps,
+  ConcentricFieldProps as CoreConcentricFieldProps,
+  GridItemProps as CoreGridItemProps,
   GridProps as CoreGridProps,
   GroupProps as CoreGroupProps,
   RevealProps as CoreRevealProps,
@@ -171,6 +173,16 @@ export interface WebContainerProps
 export interface WebGridProps
   extends
     Omit<CoreGridProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebGridItemProps
+  extends
+    Omit<CoreGridItemProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebConcentricFieldProps
+  extends
+    Omit<CoreConcentricFieldProps, "className">,
     Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
 
 export interface WebRevealProps

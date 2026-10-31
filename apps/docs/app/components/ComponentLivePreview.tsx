@@ -60,6 +60,7 @@ import {
   Text,
   Textarea,
   AccentPicker,
+  ConcentricField,
   Container,
   Grid,
   Reveal,
@@ -153,6 +154,16 @@ export function ComponentLivePreview({
   const [accentVal, setAccentVal] = useState<Accent>("lime");
 
   switch (componentId) {
+    case "concentric-field":
+      return (
+        <ConcentricField rings={3} gap={14}>
+          <Surface padding={12}>
+            <Text styleKey="caption1" tone="muted">
+              One center
+            </Text>
+          </Surface>
+        </ConcentricField>
+      );
     case "container":
       return (
         <Container size="sm">

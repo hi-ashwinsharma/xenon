@@ -6,7 +6,7 @@ export interface SurfaceContextValue {
   readonly padding: number;
 }
 
-export type SurfaceVariant = "default" | "subtle" | "glass";
+export type SurfaceVariant = "default" | "subtle" | "glass" | "accent";
 
 export interface SurfaceProps {
   readonly variant?: SurfaceVariant;

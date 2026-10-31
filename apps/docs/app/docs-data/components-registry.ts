@@ -26,6 +26,40 @@ export interface ComponentDocEntry {
 
 export const COMPONENTS_REGISTRY: ComponentDocEntry[] = [
   {
+    id: "concentric-field",
+    name: "ConcentricField",
+    category: "Primitives",
+    description:
+      "Hairline rings radiating from a child, each corner sharing its center. Follows the global radius stop.",
+    a11y: "Rings are aria-hidden and ignore pointer events. Their entrance is disabled under reduced motion.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "rings",
+        type: "number",
+        defaultValue: "6",
+        description: "Number of hairline rings.",
+      },
+      {
+        name: "gap",
+        type: "number",
+        defaultValue: "40",
+        description: "Distance between rings in px.",
+      },
+    ],
+    webUsage: `import { ConcentricField, Surface } from "@xenon-kit/web";
+
+export function Example() {
+  return <ConcentricField rings={4} gap={32}><Surface>Content</Surface></ConcentricField>;
+}`,
+    nativeUsage: `import { ConcentricField, Surface } from "@xenon-kit/native";
+
+export function Example() {
+  return <ConcentricField rings={4} gap={32}><Surface>Content</Surface></ConcentricField>;
+}`,
+  },
+  {
     id: "container",
     name: "Container",
     category: "Primitives",
@@ -35,7 +69,12 @@ export const COMPONENTS_REGISTRY: ComponentDocEntry[] = [
     cliInstall: "npx @xenon-kit/cli init",
     npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
-      { name: "size", type: "'sm' | 'md' | 'lg'", defaultValue: "'lg'", description: "Maximum content width." },
+      {
+        name: "size",
+        type: "'sm' | 'md' | 'lg'",
+        defaultValue: "'lg'",
+        description: "Maximum content width.",
+      },
     ],
     webUsage: `import { Container } from "@xenon-kit/web";
 
@@ -58,8 +97,24 @@ export function Example() {
     cliInstall: "npx @xenon-kit/cli init",
     npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
-      { name: "minItemWidth", type: "number", defaultValue: "280", description: "Smallest item width in px before wrapping." },
-      { name: "gap", type: "number", defaultValue: "16", description: "Gap between items in px." },
+      {
+        name: "minItemWidth",
+        type: "number",
+        defaultValue: "280",
+        description: "Smallest item width in px before wrapping.",
+      },
+      {
+        name: "gap",
+        type: "number",
+        defaultValue: "16",
+        description: "Gap between items in px.",
+      },
+      {
+        name: "columns",
+        type: "number",
+        description:
+          "Fixed tracks for bento layouts, used with GridItem span. Collapses to one column on narrow web viewports.",
+      },
     ],
     webUsage: `import { Grid } from "@xenon-kit/web";
 
@@ -82,7 +137,13 @@ export function Example() {
     cliInstall: "npx @xenon-kit/cli init",
     npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
-      { name: "order", type: "number", defaultValue: "0", description: "Position in a stagger; each step waits one instant duration." },
+      {
+        name: "order",
+        type: "number",
+        defaultValue: "0",
+        description:
+          "Position in a stagger; each step waits one instant duration.",
+      },
     ],
     webUsage: `import { Reveal } from "@xenon-kit/web";
 
@@ -106,10 +167,18 @@ export function Example() {
     npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       { name: "brand", type: "ReactNode", description: "Leading slot." },
-      { name: "columns", type: "FooterColumnItem[]", description: "Titled groups of links." },
+      {
+        name: "columns",
+        type: "FooterColumnItem[]",
+        description: "Titled groups of links.",
+      },
       { name: "legal", type: "ReactNode", description: "Bottom row start." },
       { name: "credit", type: "ReactNode", description: "Bottom row end." },
-      { name: "renderLink", type: "(link, label) => ReactNode", description: "Wraps links for client-side routers." },
+      {
+        name: "renderLink",
+        type: "(link, label) => ReactNode",
+        description: "Wraps links for client-side routers.",
+      },
     ],
     webUsage: `import { Footer } from "@xenon-kit/web";
 
@@ -132,9 +201,24 @@ export function Example() {
     cliInstall: "npx @xenon-kit/cli init",
     npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
-      { name: "value", type: "Accent", description: "Selected accent.", required: true },
-      { name: "onValueChange", type: "(accent: Accent) => void", description: "Called on selection.", required: true },
-      { name: "label", type: "string", defaultValue: "'Accent'", description: "Accessible group name." },
+      {
+        name: "value",
+        type: "Accent",
+        description: "Selected accent.",
+        required: true,
+      },
+      {
+        name: "onValueChange",
+        type: "(accent: Accent) => void",
+        description: "Called on selection.",
+        required: true,
+      },
+      {
+        name: "label",
+        type: "string",
+        defaultValue: "'Accent'",
+        description: "Accessible group name.",
+      },
     ],
     webUsage: `import { AccentPicker } from "@xenon-kit/web";
 

@@ -53,6 +53,8 @@ import type {
   AccentPickerProps as CoreAccentPickerProps,
   ContainerProps as CoreContainerProps,
   FooterProps as CoreFooterProps,
+  ConcentricFieldProps as CoreConcentricFieldProps,
+  GridItemProps as CoreGridItemProps,
   GridProps as CoreGridProps,
   GroupProps as CoreGroupProps,
   RevealProps as CoreRevealProps,
@@ -169,6 +171,20 @@ export interface NativeContainerProps extends Omit<
 }
 
 export interface NativeGridProps extends Omit<CoreGridProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeGridItemProps extends Omit<
+  CoreGridItemProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeConcentricFieldProps extends Omit<
+  CoreConcentricFieldProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 

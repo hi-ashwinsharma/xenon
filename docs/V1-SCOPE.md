@@ -8,7 +8,7 @@ Grouped controls (button group, input group, segmented control) are a v1 signatu
 
 ## Foundations
 
-`XenonProvider` (theme, accent, radius), `Surface` (`glass`, `interactive`), `Divider`, `Stack`, `Group`, `Container`, `Grid`, `Reveal`, `Text`, `Heading`, `Icon`, `VisuallyHidden`.
+`XenonProvider` (theme, accent, radius), `Surface` (`glass`, `interactive`), `Divider`, `Stack`, `Group`, `Container`, `Grid`, `GridItem`, `ConcentricField`, `Reveal`, `Text`, `Heading`, `Icon`, `VisuallyHidden`.
 
 ## Actions
 
