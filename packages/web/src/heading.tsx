@@ -69,8 +69,14 @@ export function Heading({
   const headingStyle: CSSProperties = useMemo(
     () => ({
       fontFamily: "var(--x-font-family)",
-      fontSize: tokenDef.web.remSize,
-      lineHeight: tokenDef.web.remLineHeight,
+      fontSize:
+        effectiveKey === "display" || effectiveKey === "largeTitle"
+          ? `clamp(calc(${tokenDef.web.remSize} * 0.62), 7vw, ${tokenDef.web.remSize})`
+          : tokenDef.web.remSize,
+      lineHeight:
+        effectiveKey === "display" || effectiveKey === "largeTitle"
+          ? 1.08
+          : tokenDef.web.remLineHeight,
       letterSpacing: `${tokenDef.web.letterSpacing}em`,
       fontWeight: effectiveWeight,
       color: getToneColor(tone),
@@ -79,7 +85,7 @@ export function Heading({
       padding: 0,
       ...style,
     }),
-    [tokenDef, effectiveWeight, tone, align, style],
+    [effectiveKey, tokenDef, effectiveWeight, tone, align, style],
   );
 
   return createElement(

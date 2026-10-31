@@ -53,13 +53,13 @@ import { XenonProvider } from "@xenon-kit/web";
 
 ## Build pages from these primitives
 
-Layout and type: `Stack` (`direction`, `gap` in px, `align`, `justify`), `Group` (horizontal, `wrap`), `Surface` (`variant="default"|"subtle"|"glass"`, `padding`; nested radius is computed automatically), `Divider`, `Heading` (`level`, `styleKey="display"|"largeTitle"|"title1"|"title2"|"title3"`), `Text` (`styleKey`, `tone`, `as`), `Link`, `Icon`.
+Layout and type: `Container` (`size`), `Grid` (`minItemWidth`, `gap`; wraps without breakpoints), `Reveal` (`order`), `Stack` (`direction`, `gap` in px, `align`, `justify`), `Group` (horizontal, `wrap`), `Surface` (`variant="default"|"subtle"|"glass"`, `padding`; nested radius is computed automatically), `Divider`, `Heading` (`level`, `styleKey="display"|"largeTitle"|"title1"|"title2"|"title3"`), `Text` (`styleKey`, `tone`, `as`), `Link`, `Icon`.
 
 Actions: `Button` (`variant="accent"|"filled"|"subtle"|"outline"|"ghost"|"glass"`, `size="sm"|"md"|"lg"`, `loading`), `IconButton` (requires `ariaLabel`), `ButtonGroup`, `ToggleButton`, `SegmentedControl`.
 
-Forms: `Field`, `Input`, `InputGroup`, `Textarea`, `Checkbox`, `Radio`/`RadioGroup`, `Switch`, `Slider`, `Select`, `Combobox`.
+Forms: `Field`, `Input`, `InputGroup`, `Textarea`, `Checkbox`, `Radio`/`RadioGroup`, `Switch`, `Slider`, `Select`, `Combobox`, `AccentPicker`.
 
-Navigation: `Navbar`, `GlassBar`, `Sidebar`, `Tabs`, `TabBar`, `Breadcrumb`, `Pagination`.
+Navigation: `Navbar`, `Footer`, `GlassBar`, `Sidebar`, `Tabs`, `TabBar`, `Breadcrumb`, `Pagination`.
 
 Overlays: `Popover`, `Dialog`, `Sheet`, `DropdownMenu`, `Tooltip`, `CommandPalette`, `Toast` (mount `ToastProvider` once, then call `toast(...)`).
 

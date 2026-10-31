@@ -153,6 +153,60 @@ export const CodeBlock = forwardRef<HTMLDivElement, WebCodeBlockProps>(
 
     const isCustomNode = !Array.isArray(tokenizedLines);
 
+    if (variant === "command") {
+      return (
+        <div
+          ref={ref}
+          className={className}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "var(--x-space-3)",
+            maxWidth: "100%",
+            minHeight: "44px",
+            paddingLeft: "var(--x-space-4)",
+            paddingRight: "var(--x-space-1)",
+            backgroundColor: "var(--x-surface-2)",
+            border: "1px solid var(--x-border)",
+            borderRadius: "var(--x-radius-control)",
+            fontFamily: "var(--x-font-family-mono)",
+            fontSize: "var(--x-text-subhead-size)",
+            color: "var(--x-text)",
+            ...style,
+          }}
+          {...restProps}
+        >
+          <code style={{ overflowX: "auto", whiteSpace: "pre" }}>{code}</code>
+          {copyable && (
+            <button
+              type="button"
+              onClick={handleCopy}
+              aria-label={copied ? "Copied" : "Copy command"}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                width: "32px",
+                height: "32px",
+                padding: 0,
+                border: "none",
+                borderRadius: "var(--x-radius-control)",
+                backgroundColor: "transparent",
+                color: copied ? "var(--x-accent)" : "var(--x-text-muted)",
+                cursor: "pointer",
+                transition:
+                  "color var(--x-dur-base) var(--x-ease-standard), transform var(--x-dur-base) var(--x-ease-spring)",
+                transform: copied ? "scale(1.1)" : "scale(1)",
+              }}
+            >
+              {copied ? <CheckIcon /> : <CopyIcon />}
+            </button>
+          )}
+        </div>
+      );
+    }
+
     return (
       <div
         ref={ref}

@@ -37,7 +37,12 @@ export type {
   NativeDropdownMenuTriggerProps,
   NativeFieldProps,
   NativeGlassBarProps,
+  NativeAccentPickerProps,
+  NativeContainerProps,
+  NativeFooterProps,
+  NativeGridProps,
   NativeGroupProps,
+  NativeRevealProps,
   NativeHeadingProps,
   NativeIconButtonProps,
   NativeIconProps,
@@ -115,6 +120,11 @@ export { Surface, useSurface } from "./surface";
 export { Divider } from "./divider";
 export { Stack } from "./stack";
 export { Group } from "./group";
+export { Container } from "./container";
+export { Grid } from "./grid";
+export { Reveal } from "./reveal";
+export { Footer } from "./footer";
+export { AccentPicker } from "./accent-picker";
 export { Text } from "./text";
 export { Heading } from "./heading";
 export { Icon } from "./icon";

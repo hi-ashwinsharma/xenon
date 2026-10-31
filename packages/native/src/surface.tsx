@@ -27,6 +27,7 @@ export function Surface({
   variant = "default",
   radius: explicitRadius,
   padding: explicitPadding,
+  interactive: _interactive,
   children,
   style,
   ...restProps

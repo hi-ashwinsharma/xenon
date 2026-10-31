@@ -13,6 +13,8 @@ export interface SurfaceProps {
   readonly glassType?: LiquidGlassVariant;
   readonly radius?: RadiusStop | number;
   readonly padding?: number;
+  /** Responds to hover and press, for surfaces that act as a single target */
+  readonly interactive?: boolean;
   readonly children?: ReactNode;
   readonly className?: string;
 }

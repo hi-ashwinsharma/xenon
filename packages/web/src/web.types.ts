@@ -56,7 +56,12 @@ import type {
   DropdownMenuTriggerProps as CoreDropdownMenuTriggerProps,
   FieldProps as CoreFieldProps,
   GlassBarProps as CoreGlassBarProps,
+  AccentPickerProps as CoreAccentPickerProps,
+  ContainerProps as CoreContainerProps,
+  FooterProps as CoreFooterProps,
+  GridProps as CoreGridProps,
   GroupProps as CoreGroupProps,
+  RevealProps as CoreRevealProps,
   HeadingProps as CoreHeadingProps,
   IconButtonProps as CoreIconButtonProps,
   IconProps as CoreIconProps,
@@ -157,6 +162,31 @@ export interface WebStackProps
   extends
     Omit<CoreStackProps, "className">,
     Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebContainerProps
+  extends
+    Omit<CoreContainerProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebGridProps
+  extends
+    Omit<CoreGridProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebRevealProps
+  extends
+    Omit<CoreRevealProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebFooterProps
+  extends
+    Omit<CoreFooterProps, "className">,
+    Omit<HTMLAttributes<HTMLElement>, "children"> {}
+
+export interface WebAccentPickerProps
+  extends
+    Omit<CoreAccentPickerProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children" | "onChange"> {}
 
 export interface WebGroupProps
   extends

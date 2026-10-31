@@ -50,7 +50,12 @@ import type {
   DropdownMenuTriggerProps as CoreDropdownMenuTriggerProps,
   FieldProps as CoreFieldProps,
   GlassBarProps as CoreGlassBarProps,
+  AccentPickerProps as CoreAccentPickerProps,
+  ContainerProps as CoreContainerProps,
+  FooterProps as CoreFooterProps,
+  GridProps as CoreGridProps,
   GroupProps as CoreGroupProps,
+  RevealProps as CoreRevealProps,
   HeadingProps as CoreHeadingProps,
   IconButtonProps as CoreIconButtonProps,
   IconProps as CoreIconProps,
@@ -153,6 +158,32 @@ export interface NativeDividerProps extends Omit<
 }
 
 export interface NativeStackProps extends Omit<CoreStackProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeContainerProps extends Omit<
+  CoreContainerProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeGridProps extends Omit<CoreGridProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeRevealProps extends Omit<CoreRevealProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeFooterProps extends Omit<CoreFooterProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeAccentPickerProps extends Omit<
+  CoreAccentPickerProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 

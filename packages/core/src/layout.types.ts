@@ -26,3 +26,20 @@ export interface GroupProps {
   readonly children?: ReactNode;
   readonly className?: string;
 }
+
+export type ContainerSize = "sm" | "md" | "lg";
+
+export interface ContainerProps {
+  /** Maximum content width: 'sm' (prose), 'md' (focused), 'lg' (page). Default: 'lg' */
+  readonly size?: ContainerSize;
+  readonly children?: ReactNode;
+  readonly className?: string;
+}
+
+export interface GridProps {
+  /** Smallest width an item may shrink to before wrapping, in px. Default: 280 */
+  readonly minItemWidth?: number;
+  readonly gap?: number;
+  readonly children?: ReactNode;
+  readonly className?: string;
+}

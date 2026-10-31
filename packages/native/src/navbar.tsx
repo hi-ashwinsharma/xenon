@@ -14,6 +14,12 @@ export function Navbar({
   actions,
   children,
   bordered = true,
+  sticky: _sticky,
+  threshold: _threshold,
+  maxWidth: _maxWidth,
+  navAlign: _navAlign,
+  glass: _glass,
+  collapsible: _collapsible,
   style,
   ...restProps
 }: NativeNavbarProps): ReactElement {
