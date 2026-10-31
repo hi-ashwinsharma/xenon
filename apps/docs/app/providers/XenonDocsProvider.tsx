@@ -10,8 +10,9 @@ import React, {
   type ReactElement,
   type ReactNode,
 } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import { CommandPalette, ToastProvider, XenonProvider } from "@xenon/web";
+import { AppRoutes } from "@xenon/core";
 import type { Accent, RadiusStop, Theme } from "@xenon/tokens";
 import { COMPONENTS_REGISTRY } from "../docs-data/components-registry";
 
@@ -53,6 +54,8 @@ export function XenonDocsProvider({
   children: ReactNode;
 }): ReactElement {
   const router = useRouter();
+  // The palette indexes every docs page, so it stays out of the pre-launch gate.
+  const isLaunchGate = useSelectedLayoutSegment() === AppRoutes.launch.slice(1);
 
   const [theme, setThemeState] = useState<Theme>("dark");
   const [accent, setAccentState] = useState<Accent>("lime");
@@ -162,6 +165,7 @@ export function XenonDocsProvider({
 
   // Keyboard shortcut listener for ⌘K / Ctrl+K
   useEffect(() => {
+    if (isLaunchGate) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
@@ -170,7 +174,7 @@ export function XenonDocsProvider({
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [isLaunchGate]);
 
   // Command palette items list
   const commandPaletteItems = useMemo(() => {
@@ -259,12 +263,14 @@ export function XenonDocsProvider({
       <ToastProvider>
         <XenonDocsContext.Provider value={contextValue}>
           {children}
-          <CommandPalette
-            open={commandPaletteOpen}
-            onOpenChange={setCommandPaletteOpen}
-            items={commandPaletteItems}
-            placeholder="Search components, tokens, or guidelines..."
-          />
+          {isLaunchGate ? null : (
+            <CommandPalette
+              open={commandPaletteOpen}
+              onOpenChange={setCommandPaletteOpen}
+              items={commandPaletteItems}
+              placeholder="Search components, tokens, or guidelines..."
+            />
+          )}
         </XenonDocsContext.Provider>
       </ToastProvider>
     </XenonProvider>
