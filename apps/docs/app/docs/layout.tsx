@@ -9,6 +9,7 @@ import React, {
 import { usePathname, useRouter } from "next/navigation";
 import { MarketingNavbar } from "../components/MarketingNavbar";
 import { DocsSidebar } from "../components/DocsSidebar";
+import { SiteFooter } from "../components/SiteFooter";
 
 function DocsLayoutContent({
   children,
@@ -67,7 +68,13 @@ function DocsLayoutContent({
         }}
       >
         {isGallery ? (
-          <main style={{ flex: 1, padding: "40px 32px 80px 32px" }}>
+          <main
+            style={{
+              flex: 1,
+              minWidth: 0,
+              padding: "var(--x-space-8) var(--x-space-5) var(--x-space-9)",
+            }}
+          >
             {children}
           </main>
         ) : (
@@ -85,6 +92,7 @@ function DocsLayoutContent({
           </>
         )}
       </div>
+      <SiteFooter />
     </div>
   );
 }
@@ -97,7 +105,7 @@ export default function DocsLayout({
   return (
     <Suspense
       fallback={
-        <div style={{ minHeight: "100vh", backgroundColor: "#000000" }} />
+        <div style={{ minHeight: "100vh", backgroundColor: "var(--x-bg)" }} />
       }
     >
       <DocsLayoutContent>{children}</DocsLayoutContent>

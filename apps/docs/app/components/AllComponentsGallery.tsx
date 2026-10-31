@@ -1,149 +1,160 @@
 "use client";
 
-import React, { type ReactElement } from "react";
+import React, { useMemo, useState, type ReactElement } from "react";
+import Link from "next/link";
 import {
-  Badge,
-  Button,
-  Divider,
+  Grid,
+  Group,
   Heading,
+  Input,
+  Reveal,
+  SegmentedControl,
   Stack,
   Surface,
   Text,
 } from "@xenon/web";
-import { COMPONENTS_REGISTRY } from "../docs-data/components-registry";
+import { AppRoutes } from "@xenon/core";
+import {
+  COMPONENTS_REGISTRY,
+  type ComponentDocEntry,
+} from "../docs-data/components-registry";
 import { ComponentLivePreview } from "./ComponentLivePreview";
+import { CaretRightIcon, MagnifyingGlassIcon } from "./Icons";
 
-interface AllComponentsGalleryProps {
-  onSelectComponent: (id: string) => void;
+type GalleryCategory = "All" | ComponentDocEntry["category"];
+
+const CATEGORIES: ReadonlyArray<{ value: GalleryCategory; label: string }> = [
+  { value: "All", label: "All" },
+  { value: "Primitives", label: "Primitives" },
+  { value: "Form Controls", label: "Forms" },
+  { value: "Navigation", label: "Navigation" },
+  { value: "Overlays", label: "Overlays" },
+  { value: "Feedback & Data Display", label: "Feedback" },
+];
+
+function GalleryCard({ item }: { item: ComponentDocEntry }): ReactElement {
+  return (
+    <Surface
+      interactive
+      padding={0}
+      style={{ height: "100%", display: "flex", flexDirection: "column" }}
+    >
+      {/* The preview stays hands-on; the caption row opens the component page */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "14rem",
+          padding: "var(--x-space-4)",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            zoom: 0.8,
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <ComponentLivePreview
+            componentId={item.id}
+            variant="filled"
+            size="md"
+            disabled={false}
+            loading={false}
+            label={item.name}
+          />
+        </div>
+      </div>
+      <Link
+        href={`${AppRoutes.components}/${item.id}`}
+        style={{
+          display: "block",
+          padding: "var(--x-space-3) var(--x-space-4) var(--x-space-4)",
+          color: "inherit",
+          textDecoration: "none",
+        }}
+      >
+        <Stack gap={4}>
+          <Group justify="between" align="center">
+            <Text styleKey="callout" weight={400}>
+              {item.name}
+            </Text>
+            <CaretRightIcon size="sm" color="var(--x-text-muted)" />
+          </Group>
+          <Text styleKey="footnote" tone="muted">
+            {item.description}
+          </Text>
+        </Stack>
+      </Link>
+    </Surface>
+  );
 }
 
-export function AllComponentsGallery({
-  onSelectComponent,
-}: AllComponentsGalleryProps): ReactElement {
-  const categories: Array<
-    | "Primitives"
-    | "Form Controls"
-    | "Navigation"
-    | "Overlays"
-    | "Feedback & Data Display"
-  > = [
-    "Primitives",
-    "Form Controls",
-    "Navigation",
-    "Overlays",
-    "Feedback & Data Display",
-  ];
+export function AllComponentsGallery(): ReactElement {
+  const [category, setCategory] = useState<GalleryCategory>("All");
+  const [query, setQuery] = useState<string>("");
+
+  const items = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    return COMPONENTS_REGISTRY.filter(
+      (item) =>
+        (category === "All" || item.category === category) &&
+        (needle === "" || item.name.toLowerCase().includes(needle)),
+    );
+  }, [category, query]);
 
   return (
-    <Stack gap={32} style={{ width: "100%", maxWidth: "1140px" }}>
-      <Stack gap={8}>
-        <Heading level={1} weight={200}>
-          Component Gallery
-        </Heading>
-        <Text styleKey="body" tone="muted" weight={300}>
-          Comprehensive overview of all v1 components. Click any card to inspect
-          full props and code snippets.
+    <Stack gap={40} style={{ width: "100%" }}>
+      <Reveal>
+        <Stack gap={12} style={{ maxWidth: "40rem" }}>
+          <Heading level={1} styleKey="largeTitle" weight={200}>
+            Components
+          </Heading>
+          <Text styleKey="body" tone="muted">
+            {COMPONENTS_REGISTRY.length} components with one contract on web and
+            Expo. Every card below is the real thing, so try it.
+          </Text>
+        </Stack>
+      </Reveal>
+
+      <Reveal order={1}>
+        <Group justify="between" align="center" gap={16} wrap="wrap">
+          <SegmentedControl
+            size="sm"
+            value={category}
+            onValueChange={(next) => setCategory(next as GalleryCategory)}
+            options={CATEGORIES.map(({ value, label }) => ({ value, label }))}
+          />
+          <div style={{ width: "16rem", maxWidth: "100%" }}>
+            <Input
+              size="sm"
+              clearable
+              placeholder="Filter by name"
+              aria-label="Filter components by name"
+              prefix={<MagnifyingGlassIcon size="sm" />}
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+          </div>
+        </Group>
+      </Reveal>
+
+      {items.length === 0 ? (
+        <Text styleKey="body" tone="muted">
+          No components match that name.
         </Text>
-      </Stack>
-
-      <Divider />
-
-      {categories.map((cat) => {
-        const items = COMPONENTS_REGISTRY.filter((i) => i.category === cat);
-        return (
-          <Stack key={cat} gap={16}>
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <Heading level={3} weight={300}>
-                {cat}
-              </Heading>
-              <Badge tone="neutral">{items.length} components</Badge>
-            </div>
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-                gap: "20px",
-              }}
-            >
-              {items.map((item) => (
-                <Surface
-                  key={item.id}
-                  variant="subtle"
-                  padding={0}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    borderRadius: "var(--x-radius-surface, 16px)",
-                    overflow: "hidden",
-                    backgroundColor: "var(--x-surface-1)",
-                    border: "1px solid var(--x-border)",
-                  }}
-                >
-                  {/* Card Header */}
-                  <div
-                    style={{
-                      padding: "14px 16px",
-                      borderBottom: "1px solid var(--x-border)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      backgroundColor: "var(--x-surface-0)",
-                    }}
-                  >
-                    <div>
-                      <Text styleKey="body" weight={400} tone="default">
-                        {item.name}
-                      </Text>
-                    </div>
-                    <Button
-                      size="sm"
-                      variant="subtle"
-                      onClick={() => onSelectComponent(item.id)}
-                    >
-                      Inspect →
-                    </Button>
-                  </div>
-
-                  {/* Card Live Canvas */}
-                  <div
-                    style={{
-                      padding: "32px 16px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      minHeight: "140px",
-                    }}
-                  >
-                    <ComponentLivePreview
-                      componentId={item.id}
-                      variant="filled"
-                      size="md"
-                      disabled={false}
-                      loading={false}
-                      label={item.name}
-                    />
-                  </div>
-
-                  {/* Card Description */}
-                  <div
-                    style={{
-                      padding: "10px 16px",
-                      borderTop: "1px solid var(--x-border)",
-                      backgroundColor: "var(--x-surface-0)",
-                    }}
-                  >
-                    <Text styleKey="caption1" tone="muted">
-                      {item.description}
-                    </Text>
-                  </div>
-                </Surface>
-              ))}
-            </div>
-          </Stack>
-        );
-      })}
+      ) : (
+        <Grid minItemWidth={320} gap={16}>
+          {items.map((item, index) => (
+            <Reveal key={item.id} order={index % 3}>
+              <GalleryCard item={item} />
+            </Reveal>
+          ))}
+        </Grid>
+      )}
     </Stack>
   );
 }

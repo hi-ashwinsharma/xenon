@@ -27,6 +27,7 @@ export function Surface({
   variant = "default",
   radius: explicitRadius,
   padding: explicitPadding,
+  interactive: _interactive,
   children,
   style,
   ...restProps
@@ -67,9 +68,11 @@ export function Surface({
 
   const surfaceStyle: ViewStyle = useMemo(() => {
     const bg =
-      variant === "subtle"
-        ? nativeTokens.colors.surface2
-        : nativeTokens.colors.surface;
+      variant === "accent"
+        ? nativeTokens.colors.accent
+        : variant === "subtle"
+          ? nativeTokens.colors.surface2
+          : nativeTokens.colors.surface;
 
     return {
       padding,

@@ -19,9 +19,27 @@ export type {
   FlexDirection,
   FlexJustify,
   FlexWrap,
+  ContainerProps,
+  ChapterProps,
+  ConcentricFieldProps,
+  ContainerSize,
+  GridItemProps,
+  GridProps,
   GroupProps,
+  ScrollProgressProps,
+  ScrollSceneProps,
   StackProps,
 } from "./layout.types";
+
+export type { RevealProps } from "./reveal.types";
+
+export type {
+  FooterColumnItem,
+  FooterLinkItem,
+  FooterProps,
+} from "./footer.types";
+
+export type { AccentPickerProps } from "./accent-picker.types";
 
 export type {
   HeadingLevel,
@@ -234,6 +252,8 @@ export { toast, type ToastSubscriber } from "./toast-store";
 export { clampProgress, formatBadgeCount } from "./feedback.utils";
 
 export { AppRoutes } from "./routes";
+
+export { mix, scrollRange } from "./scroll";
 
 export { computeFloatingPlacement } from "./floating";
 

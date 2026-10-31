@@ -19,6 +19,7 @@ import {
 } from "@xenon/web";
 import { MarketingNavbar } from "../components/MarketingNavbar";
 import { CheckIcon } from "../components/Icons";
+import { SiteFooter } from "../components/SiteFooter";
 
 export default function PricingPage(): ReactElement {
   return (
@@ -151,7 +152,7 @@ export default function PricingPage(): ReactElement {
               <div style={{ marginTop: "32px" }}>
                 <Link href="/docs" style={{ textDecoration: "none" }}>
                   <Button variant="outline" size="md" fullWidth>
-                    Start Free →
+                    Start Free
                   </Button>
                 </Link>
               </div>
@@ -238,7 +239,7 @@ export default function PricingPage(): ReactElement {
 
               <div style={{ marginTop: "32px" }}>
                 <Button variant="filled" size="md" fullWidth>
-                  Get Pro ($5) →
+                  Get Pro ($5)
                 </Button>
               </div>
             </Surface>
@@ -366,6 +367,7 @@ export default function PricingPage(): ReactElement {
           </div>
         </Stack>
       </main>
+      <SiteFooter />
     </div>
   );
 }

@@ -6,13 +6,15 @@ export interface SurfaceContextValue {
   readonly padding: number;
 }
 
-export type SurfaceVariant = "default" | "subtle" | "glass";
+export type SurfaceVariant = "default" | "subtle" | "glass" | "accent";
 
 export interface SurfaceProps {
   readonly variant?: SurfaceVariant;
   readonly glassType?: LiquidGlassVariant;
   readonly radius?: RadiusStop | number;
   readonly padding?: number;
+  /** Responds to hover and press, for surfaces that act as a single target */
+  readonly interactive?: boolean;
   readonly children?: ReactNode;
   readonly className?: string;
 }

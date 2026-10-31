@@ -25,6 +25,336 @@ export interface ComponentDocEntry {
 }
 
 export const COMPONENTS_REGISTRY: ComponentDocEntry[] = [
+  {
+    id: "scroll-progress",
+    name: "ScrollProgress",
+    category: "Feedback & Data Display",
+    description:
+      "A one-pixel accent line fixed to the top of the page, showing how far the reader has scrolled.",
+    a11y: "Presentational and ignores pointer events. Renders nothing on native.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "label",
+        type: "string",
+        defaultValue: "'Page progress'",
+        description: "Accessible name.",
+      },
+    ],
+    webUsage: `import { ScrollProgress } from "@xenon-kit/web";
+
+export function Example() {
+  return <ScrollProgress />;
+}`,
+    nativeUsage: `import { ScrollProgress } from "@xenon-kit/native";
+
+export function Example() {
+  return <ScrollProgress />;
+}`,
+  },
+  {
+    id: "scroll-scene",
+    name: "ScrollScene",
+    category: "Primitives",
+    description:
+      "Pins a full-viewport frame and drives it from scroll. Motion stops when the reader stops. Pair with mix and scrollRange from core.",
+    a11y: "Under reduced motion the scene stops pinning and shows restingProgress. On native it renders restingProgress.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "length",
+        type: "number",
+        defaultValue: "3",
+        description: "Pinned scroll distance in viewport heights.",
+      },
+      {
+        name: "fade",
+        type: "'both' | 'in' | 'out' | 'none'",
+        defaultValue: "'both'",
+        description:
+          "Edges that dissolve as the scene enters and leaves the viewport.",
+      },
+      {
+        name: "restingProgress",
+        type: "number",
+        defaultValue: "1",
+        description: "Progress shown when the scene cannot scrub.",
+      },
+      {
+        name: "children",
+        type: "ReactNode | (progress: number) => ReactNode",
+        required: true,
+        description:
+          "Frame content. Plain nodes read the --x-scroll CSS variable without re-rendering.",
+      },
+    ],
+    webUsage: `import { ScrollScene, Surface } from "@xenon-kit/web";
+
+export function Example() {
+  return (
+    <ScrollScene length={3}>
+      {(progress) => <Surface style={{ opacity: progress }}>Content</Surface>}
+    </ScrollScene>
+  );
+}`,
+    nativeUsage: `import { ScrollScene, Surface } from "@xenon-kit/native";
+
+export function Example() {
+  return (
+    <ScrollScene>
+      {(progress) => <Surface style={{ opacity: progress }}>Content</Surface>}
+    </ScrollScene>
+  );
+}`,
+  },
+  {
+    id: "chapter",
+    name: "Chapter",
+    category: "Primitives",
+    description:
+      "One idea per viewport: a large headline beside a single visual, with an entrance on first view.",
+    a11y: "Web renders a section with a level 2 heading.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "title",
+        type: "ReactNode",
+        required: true,
+        description: "Chapter headline.",
+      },
+      { name: "lead", type: "ReactNode", description: "Supporting sentences." },
+      {
+        name: "visual",
+        type: "ReactNode",
+        description: "The single visual or demo.",
+      },
+      {
+        name: "reverse",
+        type: "boolean",
+        defaultValue: "false",
+        description: "Places the visual first on wide viewports.",
+      },
+    ],
+    webUsage: `import { Chapter } from "@xenon-kit/web";
+
+export function Example() {
+  return <Chapter title="Nothing snaps." lead="Every change is fluid." />;
+}`,
+    nativeUsage: `import { Chapter } from "@xenon-kit/native";
+
+export function Example() {
+  return <Chapter title="Nothing snaps." lead="Every change is fluid." />;
+}`,
+  },
+  {
+    id: "concentric-field",
+    name: "ConcentricField",
+    category: "Primitives",
+    description:
+      "Hairline rings radiating from a child, each corner sharing its center. Follows the global radius stop.",
+    a11y: "Rings are aria-hidden and ignore pointer events. Their entrance is disabled under reduced motion.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "rings",
+        type: "number",
+        defaultValue: "6",
+        description: "Number of hairline rings.",
+      },
+      {
+        name: "gap",
+        type: "number",
+        defaultValue: "40",
+        description: "Distance between rings in px.",
+      },
+    ],
+    webUsage: `import { ConcentricField, Surface } from "@xenon-kit/web";
+
+export function Example() {
+  return <ConcentricField rings={4} gap={32}><Surface>Content</Surface></ConcentricField>;
+}`,
+    nativeUsage: `import { ConcentricField, Surface } from "@xenon-kit/native";
+
+export function Example() {
+  return <ConcentricField rings={4} gap={32}><Surface>Content</Surface></ConcentricField>;
+}`,
+  },
+  {
+    id: "container",
+    name: "Container",
+    category: "Primitives",
+    description:
+      "Centers page content at a finite width with the system gutter.",
+    a11y: "Renders a neutral block element with no landmark role.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "size",
+        type: "'sm' | 'md' | 'lg'",
+        defaultValue: "'lg'",
+        description: "Maximum content width.",
+      },
+    ],
+    webUsage: `import { Container } from "@xenon-kit/web";
+
+export function Example() {
+  return <Container size="md">Content</Container>;
+}`,
+    nativeUsage: `import { Container } from "@xenon-kit/native";
+
+export function Example() {
+  return <Container size="md">Content</Container>;
+}`,
+  },
+  {
+    id: "grid",
+    name: "Grid",
+    category: "Primitives",
+    description:
+      "Responsive grid that wraps by item width, so it needs no breakpoints.",
+    a11y: "Keeps DOM order equal to visual order.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "minItemWidth",
+        type: "number",
+        defaultValue: "280",
+        description: "Smallest item width in px before wrapping.",
+      },
+      {
+        name: "gap",
+        type: "number",
+        defaultValue: "16",
+        description: "Gap between items in px.",
+      },
+      {
+        name: "columns",
+        type: "number",
+        description:
+          "Fixed tracks for bento layouts, used with GridItem span. Collapses to one column on narrow web viewports.",
+      },
+    ],
+    webUsage: `import { Grid } from "@xenon-kit/web";
+
+export function Example() {
+  return <Grid minItemWidth={300}><Item /><Item /></Grid>;
+}`,
+    nativeUsage: `import { Grid } from "@xenon-kit/native";
+
+export function Example() {
+  return <Grid minItemWidth={300}><Item /><Item /></Grid>;
+}`,
+  },
+  {
+    id: "reveal",
+    name: "Reveal",
+    category: "Primitives",
+    description:
+      "Entrance transition on first view, on tokenized motion. Staggers with order and respects reduced motion.",
+    a11y: "Content stays in the DOM and in the accessibility tree while hidden. Disabled under reduced motion.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "order",
+        type: "number",
+        defaultValue: "0",
+        description:
+          "Position in a stagger; each step waits one instant duration.",
+      },
+    ],
+    webUsage: `import { Reveal } from "@xenon-kit/web";
+
+export function Example() {
+  return <Reveal order={1}>Content</Reveal>;
+}`,
+    nativeUsage: `import { Reveal } from "@xenon-kit/native";
+
+export function Example() {
+  return <Reveal order={1}>Content</Reveal>;
+}`,
+  },
+  {
+    id: "footer",
+    name: "Footer",
+    category: "Navigation",
+    description:
+      "Page footer with a brand slot, link columns, and a legal and credit row, separated by one hairline.",
+    a11y: "Web renders the footer landmark; external links carry rel noopener.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      { name: "brand", type: "ReactNode", description: "Leading slot." },
+      {
+        name: "columns",
+        type: "FooterColumnItem[]",
+        description: "Titled groups of links.",
+      },
+      { name: "legal", type: "ReactNode", description: "Bottom row start." },
+      { name: "credit", type: "ReactNode", description: "Bottom row end." },
+      {
+        name: "renderLink",
+        type: "(link, label) => ReactNode",
+        description: "Wraps links for client-side routers.",
+      },
+    ],
+    webUsage: `import { Footer } from "@xenon-kit/web";
+
+export function Example() {
+  return <Footer columns={[{ title: "Product", links: [{ label: "Docs", href: "/docs" }] }]} legal="Copyright" />;
+}`,
+    nativeUsage: `import { Footer } from "@xenon-kit/native";
+
+export function Example() {
+  return <Footer columns={[{ title: "Product", links: [{ label: "Docs", href: "/docs" }] }]} legal="Copyright" />;
+}`,
+  },
+  {
+    id: "accent-picker",
+    name: "AccentPicker",
+    category: "Form Controls",
+    description:
+      "Radio group of the six accent swatches. The selected swatch is ringed by a hairline.",
+    a11y: "Radiogroup with arrow-key navigation and roving focus; each swatch is named.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "value",
+        type: "Accent",
+        description: "Selected accent.",
+        required: true,
+      },
+      {
+        name: "onValueChange",
+        type: "(accent: Accent) => void",
+        description: "Called on selection.",
+        required: true,
+      },
+      {
+        name: "label",
+        type: "string",
+        defaultValue: "'Accent'",
+        description: "Accessible group name.",
+      },
+    ],
+    webUsage: `import { AccentPicker } from "@xenon-kit/web";
+
+export function Example() {
+  return <AccentPicker value={accent} onValueChange={setAccent} />;
+}`,
+    nativeUsage: `import { AccentPicker } from "@xenon-kit/native";
+
+export function Example() {
+  return <AccentPicker value={accent} onValueChange={setAccent} />;
+}`,
+  },
   // Primitives
   {
     id: "button",

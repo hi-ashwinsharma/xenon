@@ -56,7 +56,17 @@ import type {
   DropdownMenuTriggerProps as CoreDropdownMenuTriggerProps,
   FieldProps as CoreFieldProps,
   GlassBarProps as CoreGlassBarProps,
+  AccentPickerProps as CoreAccentPickerProps,
+  ContainerProps as CoreContainerProps,
+  FooterProps as CoreFooterProps,
+  ChapterProps as CoreChapterProps,
+  ConcentricFieldProps as CoreConcentricFieldProps,
+  ScrollProgressProps as CoreScrollProgressProps,
+  ScrollSceneProps as CoreScrollSceneProps,
+  GridItemProps as CoreGridItemProps,
+  GridProps as CoreGridProps,
   GroupProps as CoreGroupProps,
+  RevealProps as CoreRevealProps,
   HeadingProps as CoreHeadingProps,
   IconButtonProps as CoreIconButtonProps,
   IconProps as CoreIconProps,
@@ -157,6 +167,56 @@ export interface WebStackProps
   extends
     Omit<CoreStackProps, "className">,
     Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebContainerProps
+  extends
+    Omit<CoreContainerProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebGridProps
+  extends
+    Omit<CoreGridProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebGridItemProps
+  extends
+    Omit<CoreGridItemProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebConcentricFieldProps
+  extends
+    Omit<CoreConcentricFieldProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebChapterProps
+  extends
+    Omit<CoreChapterProps, "className">,
+    Omit<HTMLAttributes<HTMLElement>, "children" | "title"> {}
+
+export interface WebScrollSceneProps
+  extends
+    Omit<CoreScrollSceneProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebScrollProgressProps
+  extends
+    Omit<CoreScrollProgressProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebRevealProps
+  extends
+    Omit<CoreRevealProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebFooterProps
+  extends
+    Omit<CoreFooterProps, "className">,
+    Omit<HTMLAttributes<HTMLElement>, "children"> {}
+
+export interface WebAccentPickerProps
+  extends
+    Omit<CoreAccentPickerProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children" | "onChange"> {}
 
 export interface WebGroupProps
   extends
