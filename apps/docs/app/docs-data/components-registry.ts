@@ -26,6 +26,29 @@ export interface ComponentDocEntry {
 
 export const COMPONENTS_REGISTRY: ComponentDocEntry[] = [
   {
+    id: "scroll-progress",
+    name: "ScrollProgress",
+    category: "Feedback & Data Display",
+    description:
+      "A one-pixel accent line fixed to the top of the page, showing how far the reader has scrolled.",
+    a11y: "Presentational and ignores pointer events. Renders nothing on native.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      { name: "label", type: "string", defaultValue: "'Page progress'", description: "Accessible name." },
+    ],
+    webUsage: `import { ScrollProgress } from "@xenon-kit/web";
+
+export function Example() {
+  return <ScrollProgress />;
+}`,
+    nativeUsage: `import { ScrollProgress } from "@xenon-kit/native";
+
+export function Example() {
+  return <ScrollProgress />;
+}`,
+  },
+  {
     id: "scroll-scene",
     name: "ScrollScene",
     category: "Primitives",
@@ -36,6 +59,7 @@ export const COMPONENTS_REGISTRY: ComponentDocEntry[] = [
     npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
       { name: "length", type: "number", defaultValue: "3", description: "Pinned scroll distance in viewport heights." },
+      { name: "fade", type: "'both' | 'in' | 'out' | 'none'", defaultValue: "'both'", description: "Edges that dissolve as the scene enters and leaves the viewport." },
       { name: "restingProgress", type: "number", defaultValue: "1", description: "Progress shown when the scene cannot scrub." },
       { name: "children", type: "ReactNode | (progress: number) => ReactNode", required: true, description: "Frame content. Plain nodes read the --x-scroll CSS variable without re-rendering." },
     ],

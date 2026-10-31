@@ -44,6 +44,7 @@ import { AppRoutes, computeNestedRadius, mix, scrollRange } from "@xenon/core";
 import { ACCENT_COLORS, RADIUS_STOPS, type Accent } from "@xenon/tokens";
 import {
   BookOpenIcon,
+  CaretDownIcon,
   CubeIcon,
   LightningIcon,
   MagnifyingGlassIcon,
@@ -182,7 +183,7 @@ function AppWindow({ fill }: { fill: number }): ReactElement {
 /** The window rises from under the headline and takes over the viewport. */
 export function HeroScene(): ReactElement {
   return (
-    <ScrollScene length={3} restingProgress={0}>
+    <ScrollScene length={3} restingProgress={0} fade="out">
       {(p) => {
         const away = scrollRange(p, 0.05, 0.45);
         const rise = scrollRange(p, 0, 0.6);
@@ -222,6 +223,12 @@ export function HeroScene(): ReactElement {
                       Browse components
                     </Button>
                   </Link>
+                </Group>
+                <Group gap={6} align="center">
+                  <Text styleKey="footnote" tone="muted">
+                    Scroll
+                  </Text>
+                  <CaretDownIcon size="sm" color="var(--x-text-muted)" />
                 </Group>
               </Stack>
             </div>
@@ -378,7 +385,7 @@ function WallRows(): ReactElement {
 
   return (
     <Stack gap={32} justify="center" style={{ ...FILL }}>
-      {rows.map((row, rowIndex) => {
+      {[...rows, ...rows.slice(0, 2)].map((row, rowIndex) => {
         const direction = rowIndex % 2 === 0 ? -1 : 1;
         return (
           <div
@@ -634,6 +641,14 @@ export function AccentScene(): ReactElement {
             return (
               <Surface
                 key={accent.key}
+                inert={
+                  grow < 1 ||
+                  scrollRange(
+                    p,
+                    start + 1 / ACCENTS.length,
+                    start + 2 / ACCENTS.length,
+                  ) > 0
+                }
                 variant="accent"
                 radius={0}
                 padding={24}

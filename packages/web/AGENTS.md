@@ -53,7 +53,7 @@ import { XenonProvider } from "@xenon-kit/web";
 
 ## Build pages from these primitives
 
-Layout and type: `Container` (`size`), `Grid` (`minItemWidth`, `gap`; wraps without breakpoints), `GridItem` (`span`, inside `Grid columns`), `ConcentricField` (`rings`, `gap`), `Reveal` (`order`), `Chapter` (`title`, `lead`, `visual`, `reverse`; one idea per viewport), `ScrollScene` (`length`, render prop with scroll progress), `Stack` (`direction`, `gap` in px, `align`, `justify`), `Group` (horizontal, `wrap`), `Surface` (`variant="default"|"subtle"|"glass"|"accent"`, `padding`; nested radius is computed automatically), `Divider`, `Heading` (`level`, `styleKey="display"|"largeTitle"|"title1"|"title2"|"title3"`), `Text` (`styleKey`, `tone`, `as`), `Link`, `Icon`.
+Layout and type: `Container` (`size`), `Grid` (`minItemWidth`, `gap`; wraps without breakpoints), `GridItem` (`span`, inside `Grid columns`), `ConcentricField` (`rings`, `gap`), `Reveal` (`order`), `Chapter` (`title`, `lead`, `visual`, `reverse`; one idea per viewport), `ScrollScene` (`length`, `fade`, render prop with scroll progress), `ScrollProgress`, `Stack` (`direction`, `gap` in px, `align`, `justify`), `Group` (horizontal, `wrap`), `Surface` (`variant="default"|"subtle"|"glass"|"accent"`, `padding`; nested radius is computed automatically), `Divider`, `Heading` (`level`, `styleKey="display"|"largeTitle"|"title1"|"title2"|"title3"`), `Text` (`styleKey`, `tone`, `as`), `Link`, `Icon`.
 
 Actions: `Button` (`variant="accent"|"filled"|"subtle"|"outline"|"ghost"|"glass"`, `size="sm"|"md"|"lg"`, `loading`), `IconButton` (requires `ariaLabel`), `ButtonGroup`, `ToggleButton`, `SegmentedControl`.
 

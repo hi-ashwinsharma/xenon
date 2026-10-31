@@ -61,6 +61,7 @@ import type {
   FooterProps as CoreFooterProps,
   ChapterProps as CoreChapterProps,
   ConcentricFieldProps as CoreConcentricFieldProps,
+  ScrollProgressProps as CoreScrollProgressProps,
   ScrollSceneProps as CoreScrollSceneProps,
   GridItemProps as CoreGridItemProps,
   GridProps as CoreGridProps,
@@ -195,6 +196,11 @@ export interface WebChapterProps
 export interface WebScrollSceneProps
   extends
     Omit<CoreScrollSceneProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebScrollProgressProps
+  extends
+    Omit<CoreScrollProgressProps, "className">,
     Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
 
 export interface WebRevealProps

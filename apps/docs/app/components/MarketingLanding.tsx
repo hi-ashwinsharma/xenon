@@ -1,6 +1,8 @@
 "use client";
 
 import React, { type ReactElement } from "react";
+import { ScrollProgress } from "@xenon/web";
+import { SmoothScroll } from "./journey/SmoothScroll";
 import {
   AccentScene,
   ConcentricScene,
@@ -25,6 +27,8 @@ import {
 export function MarketingLanding(): ReactElement {
   return (
     <>
+      <SmoothScroll />
+      <ScrollProgress />
       <HeroScene />
       <WallScene />
       <RadiusScene />

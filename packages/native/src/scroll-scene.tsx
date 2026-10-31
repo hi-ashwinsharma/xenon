@@ -5,6 +5,7 @@ import type { NativeScrollSceneProps } from "./native.types";
 /** Native has no shared page scroll to read, so the scene shows its resting frame. */
 export function ScrollScene({
   length: _length,
+  fade: _fade,
   restingProgress = 1,
   children,
   style,

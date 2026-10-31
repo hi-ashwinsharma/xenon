@@ -32,7 +32,7 @@ import {
 import { AppRoutes, mix, scrollRange } from "@xenon/core";
 import { TYPOGRAPHY_SCALE, type TextStyleKey } from "@xenon/tokens";
 import { MagnifyingGlassIcon } from "../Icons";
-import { CENTER, FILL, SceneCopy, useIsNarrow } from "./shared";
+import { CENTER, CrossFade, FILL, SceneCopy, useIsNarrow } from "./shared";
 
 const GROUPS: readonly (readonly string[])[] = [
   ["Day", "Week", "Month", "Year"],
@@ -304,7 +304,7 @@ export function GlassScene(): ReactElement {
           gap: "var(--x-space-3)",
           padding: "var(--x-space-3)",
           height: "220%",
-          transform: "translateY(calc(var(--x-scroll, 0) * -55%))",
+          transform: "translateY(calc(var(--x-scroll, 0) * -50%))",
         }}
       >
         {Array.from({ length: 32 }, (_, index) => (
@@ -382,11 +382,13 @@ export function OverlayScene(): ReactElement {
           narrow ? 380 : 420,
           toPalette,
         );
-        const stageStyle = (visible: number): React.CSSProperties => ({
-          ...FILL,
-          padding: "var(--x-space-4)",
-          opacity: visible,
-          pointerEvents: visible > 0.5 ? "auto" : "none",
+        const stageProps = (visible: number) => ({
+          inert: visible < 0.5,
+          style: {
+            ...FILL,
+            padding: "var(--x-space-4)",
+            opacity: visible,
+          } as React.CSSProperties,
         });
         return (
           <>
@@ -422,9 +424,7 @@ export function OverlayScene(): ReactElement {
                   <Text styleKey="callout">Open</Text>
                 </div>
                 <div
-                  style={stageStyle(
-                    toPopover * (1 - scrollRange(p, 0.36, 0.44)),
-                  )}
+                  {...stageProps(toPopover * (1 - scrollRange(p, 0.36, 0.44)))}
                 >
                   <Stack gap={4}>
                     {["Duplicate", "Rename", "Share", "Archive"].map((item) => (
@@ -440,7 +440,7 @@ export function OverlayScene(): ReactElement {
                   </Stack>
                 </div>
                 <div
-                  style={stageStyle(
+                  {...stageProps(
                     scrollRange(p, 0.44, 0.56) *
                       (1 - scrollRange(p, 0.66, 0.74)),
                   )}
@@ -463,7 +463,7 @@ export function OverlayScene(): ReactElement {
                     </Group>
                   </Stack>
                 </div>
-                <div style={stageStyle(scrollRange(p, 0.74, 0.86))}>
+                <div {...stageProps(scrollRange(p, 0.74, 0.86))}>
                   <Stack gap={12}>
                     <Input
                       value="Search components"
@@ -494,16 +494,25 @@ export function OverlayScene(): ReactElement {
             >
               <SceneCopy
                 title={
-                  p < 0.34
-                    ? "It grows from the trigger."
-                    : p < 0.64
-                      ? "It stays in context."
-                      : "It searches everything."
+                  <CrossFade
+                    items={[
+                      {
+                        label: "It grows from the trigger.",
+                        visible: 1 - scrollRange(p, 0.3, 0.38),
+                      },
+                      {
+                        label: "It stays in context.",
+                        visible:
+                          scrollRange(p, 0.38, 0.46) *
+                          (1 - scrollRange(p, 0.62, 0.7)),
+                      },
+                      {
+                        label: "It searches everything.",
+                        visible: scrollRange(p, 0.7, 0.78),
+                      },
+                    ]}
+                  />
                 }
-                style={{
-                  transition:
-                    "opacity var(--x-dur-base) var(--x-ease-standard)",
-                }}
               />
             </div>
           </>
@@ -522,7 +531,7 @@ export function FormScene(): ReactElement {
   return (
     <ScrollScene length={4}>
       {(p) => {
-        const done = p > 0.92;
+        const done = scrollRange(p, 0.88, 0.96);
         return (
           <div style={{ ...FILL, ...CENTER, padding: "var(--x-space-5)" }}>
             <div
@@ -595,19 +604,37 @@ export function FormScene(): ReactElement {
                     <Switch checked={p > 0.68} label="Auto-deploy" />
                     <Checkbox checked={p > 0.74} label="Accept terms" />
                   </Group>
-                  {done ? (
-                    <Alert
-                      tone="success"
-                      variant="subtle"
-                      title="Workspace created"
+                  <div style={{ display: "grid" }}>
+                    <div
+                      inert={done > 0.5}
+                      style={{
+                        gridArea: "1 / 1",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        opacity: 1 - done,
+                      }}
                     >
-                      Ready for your first release.
-                    </Alert>
-                  ) : (
-                    <Button variant="accent" loading={p > 0.82}>
-                      Create workspace
-                    </Button>
-                  )}
+                      <Button variant="accent" loading={p > 0.8}>
+                        Create workspace
+                      </Button>
+                    </div>
+                    <div
+                      style={{
+                        gridArea: "1 / 1",
+                        opacity: done,
+                        transform: `translateY(${mix(12, 0, done)}px)`,
+                      }}
+                    >
+                      <Alert
+                        tone="success"
+                        variant="subtle"
+                        title="Workspace created"
+                      >
+                        Ready for your first release.
+                      </Alert>
+                    </div>
+                  </div>
                 </Stack>
               </Surface>
             </div>
@@ -821,12 +848,18 @@ export function PlatformScene(): ReactElement {
     <ScrollScene length={4}>
       {(p) => {
         const toPhone = scrollRange(p, 0.15, 0.8);
-        const isPhone = toPhone > 0.5;
         return (
           <div style={{ ...FILL, ...CENTER, padding: "var(--x-space-5)" }}>
             <Stack gap={32} align="center" style={{ width: "100%" }}>
               <SceneCopy
-                title={isPhone ? "Expo." : "Web."}
+                title={
+                  <CrossFade
+                    items={[
+                      { label: "Web.", visible: 1 - scrollRange(p, 0.4, 0.5) },
+                      { label: "Expo.", visible: scrollRange(p, 0.5, 0.6) },
+                    ]}
+                  />
+                }
                 lead="One contract, two renderers. The same props on both."
               />
               <Surface
@@ -850,7 +883,18 @@ export function PlatformScene(): ReactElement {
                     Settings
                   </Text>
                   <Badge tone="accent" size="sm">
-                    {isPhone ? "@xenon-kit/native" : "@xenon-kit/web"}
+                    <CrossFade
+                      items={[
+                        {
+                          label: "@xenon-kit/web",
+                          visible: 1 - scrollRange(p, 0.4, 0.5),
+                        },
+                        {
+                          label: "@xenon-kit/native",
+                          visible: scrollRange(p, 0.5, 0.6),
+                        },
+                      ]}
+                    />
                   </Badge>
                 </Group>
                 <Stack gap={16} style={{ padding: "var(--x-space-4)" }}>
@@ -885,7 +929,7 @@ export function PlatformScene(): ReactElement {
 /** One final flood of accent carries the closing call to action. */
 export function ClosingScene(): ReactElement {
   return (
-    <ScrollScene length={2.5}>
+    <ScrollScene length={2.5} fade="in">
       {(p) => {
         const grow = scrollRange(p, 0.05, 0.75);
         const settle = scrollRange(p, 0.45, 0.85);

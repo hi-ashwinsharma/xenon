@@ -55,6 +55,7 @@ import type {
   FooterProps as CoreFooterProps,
   ChapterProps as CoreChapterProps,
   ConcentricFieldProps as CoreConcentricFieldProps,
+  ScrollProgressProps as CoreScrollProgressProps,
   ScrollSceneProps as CoreScrollSceneProps,
   GridItemProps as CoreGridItemProps,
   GridProps as CoreGridProps,
@@ -196,6 +197,13 @@ export interface NativeChapterProps extends Omit<CoreChapterProps, "className"> 
 
 export interface NativeScrollSceneProps extends Omit<
   CoreScrollSceneProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeScrollProgressProps extends Omit<
+  CoreScrollProgressProps,
   "className"
 > {
   readonly style?: StyleProp<ViewStyle>;

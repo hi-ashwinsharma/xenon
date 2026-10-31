@@ -26,6 +26,7 @@ export type {
   GridItemProps,
   GridProps,
   GroupProps,
+  ScrollProgressProps,
   ScrollSceneProps,
   StackProps,
 } from "./layout.types";

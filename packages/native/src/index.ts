@@ -42,6 +42,7 @@ export type {
   NativeFooterProps,
   NativeChapterProps,
   NativeConcentricFieldProps,
+  NativeScrollProgressProps,
   NativeScrollSceneProps,
   NativeGridItemProps,
   NativeGridProps,
@@ -130,6 +131,7 @@ export { ConcentricField } from "./concentric-field";
 export { Reveal } from "./reveal";
 export { Chapter } from "./chapter";
 export { ScrollScene } from "./scroll-scene";
+export { ScrollProgress } from "./scroll-progress";
 export { Footer } from "./footer";
 export { AccentPicker } from "./accent-picker";
 export { Text } from "./text";

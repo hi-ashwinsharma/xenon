@@ -1,7 +1,7 @@
 "use client";
 
 import React, {
-  useEffect,
+  useLayoutEffect,
   useState,
   type CSSProperties,
   type ReactElement,
@@ -11,7 +11,8 @@ import { Heading, Stack, Text } from "@xenon/web";
 
 export function useIsNarrow(): boolean {
   const [narrow, setNarrow] = useState<boolean>(false);
-  useEffect(() => {
+  // Layout effect: the phone layout must be in place before the first paint
+  useLayoutEffect(() => {
     const query = window.matchMedia("(max-width: 60rem)");
     const update = (): void => setNarrow(query.matches);
     update();
@@ -63,5 +64,26 @@ export function SceneCopy({
         </Text>
       )}
     </Stack>
+  );
+}
+
+/** Stacks labels in one place so text changes dissolve instead of swapping. */
+export function CrossFade({
+  items,
+}: {
+  items: ReadonlyArray<{ label: ReactNode; visible: number }>;
+}): ReactElement {
+  return (
+    <span style={{ display: "inline-grid", justifyItems: "inherit" }}>
+      {items.map((item, index) => (
+        <span
+          key={index}
+          aria-hidden={item.visible < 0.5}
+          style={{ gridArea: "1 / 1", opacity: item.visible }}
+        >
+          {item.label}
+        </span>
+      ))}
+    </span>
   );
 }

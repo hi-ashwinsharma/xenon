@@ -45,6 +45,7 @@ export type {
   WebFooterProps,
   WebChapterProps,
   WebConcentricFieldProps,
+  WebScrollProgressProps,
   WebScrollSceneProps,
   WebGridItemProps,
   WebGridProps,
@@ -133,6 +134,7 @@ export { ConcentricField } from "./concentric-field";
 export { Reveal } from "./reveal";
 export { Chapter } from "./chapter";
 export { ScrollScene } from "./scroll-scene";
+export { ScrollProgress } from "./scroll-progress";
 export { Footer } from "./footer";
 export { AccentPicker } from "./accent-picker";
 export { Text } from "./text";

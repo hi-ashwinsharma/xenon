@@ -77,6 +77,8 @@ export interface ChapterProps {
 export interface ScrollSceneProps {
   /** Scroll distance the scene stays pinned for, in viewport heights. Default: 3 */
   readonly length?: number;
+  /** Which edges dissolve as the scene enters and leaves the viewport. Default: 'both' */
+  readonly fade?: "both" | "in" | "out" | "none";
   /** Progress shown when the scene cannot scrub, such as under reduced motion. Default: 1 */
   readonly restingProgress?: number;
   /**
@@ -84,5 +86,11 @@ export interface ScrollSceneProps {
    * nodes do not re-render and read progress from the `--x-scroll` CSS variable.
    */
   readonly children: ReactNode | ((progress: number) => ReactNode);
+  readonly className?: string;
+}
+
+export interface ScrollProgressProps {
+  /** Accessible name. Default: 'Page progress' */
+  readonly label?: string;
   readonly className?: string;
 }
