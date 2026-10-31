@@ -110,7 +110,7 @@ export function Surface({
       return {
         ...base,
         backgroundColor: "var(--x-accent)",
-        borderColor: "var(--x-accent)",
+        border: "1px solid var(--x-accent)",
         color: "var(--x-on-accent)",
         ["--x-text" as string]: "var(--x-on-accent)",
         ["--x-text-muted" as string]:

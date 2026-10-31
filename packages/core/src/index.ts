@@ -252,6 +252,8 @@ export { clampProgress, formatBadgeCount } from "./feedback.utils";
 
 export { AppRoutes } from "./routes";
 
+export { mix, scrollRange } from "./scroll";
+
 export { computeFloatingPlacement } from "./floating";
 
 export {

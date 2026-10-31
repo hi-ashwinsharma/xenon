@@ -77,7 +77,12 @@ export interface ChapterProps {
 export interface ScrollSceneProps {
   /** Scroll distance the scene stays pinned for, in viewport heights. Default: 3 */
   readonly length?: number;
-  /** Renders the pinned frame from scroll progress between 0 and 1 */
-  readonly children: (progress: number) => ReactNode;
+  /** Progress shown when the scene cannot scrub, such as under reduced motion. Default: 1 */
+  readonly restingProgress?: number;
+  /**
+   * The pinned frame. A function re-renders from progress between 0 and 1. Plain
+   * nodes do not re-render and read progress from the `--x-scroll` CSS variable.
+   */
+  readonly children: ReactNode | ((progress: number) => ReactNode);
   readonly className?: string;
 }

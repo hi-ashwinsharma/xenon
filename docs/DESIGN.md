@@ -29,7 +29,7 @@ Xenon is a quiet UI kit. It earns trust through geometry, restraint and negative
 | Pure-white text on AMOLED black for body copy                                               | `--x-text` (softened)                                                                                            |
 | Multiple accents on one screen for decoration                                               | One accent, semantic colors only for status                                                                      |
 | Heavy borders (2px+), dashed borders for decoration                                         | 1px hairline                                                                                                     |
-| Decorative animation, parallax, looping motion                                              | Purposeful feedback only                                                                                         |
+| Decorative animation, autoplay parallax, looping motion                                     | Purposeful feedback, or scroll-scrubbed motion on showcase pages (`ScrollScene`: the user drives it)             |
 | Instant or snappy UI transitions, uncoordinated `hidden` / `display: none`                  | Apple-grade fluid transitions (physics springs, easing)                                                          |
 | Mixed icon sets or icon weights                                                             | Phosphor `thin` via `Icon`                                                                                       |
 | Backdrop blur and glassmorphism in the static content layer (cards, inputs, page canvas)    | Opaque surfaces (`--x-surface`)                                                                                  |
@@ -77,4 +77,4 @@ Avoid the generic generated-UI look: purple-blue gradients, glowing cards, emoji
 
 ## Showcase tone
 
-The landing page is sparse. One idea per viewport. Show real components, not mock screenshots. Lead with the signature features: global radius scale, concentric nesting, grouped controls, accent and theme switching.
+The landing page is a scrolling journey. One idea per viewport, and each viewport is full: elements morph with scroll through `ScrollScene`, and motion stops when the reader stops. Show real components, not mock screenshots. Lead with the signature features: global radius scale, concentric nesting, grouped controls, accent and theme switching.

@@ -26,6 +26,65 @@ export interface ComponentDocEntry {
 
 export const COMPONENTS_REGISTRY: ComponentDocEntry[] = [
   {
+    id: "scroll-scene",
+    name: "ScrollScene",
+    category: "Primitives",
+    description:
+      "Pins a full-viewport frame and drives it from scroll. Motion stops when the reader stops. Pair with mix and scrollRange from core.",
+    a11y: "Under reduced motion the scene stops pinning and shows restingProgress. On native it renders restingProgress.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      { name: "length", type: "number", defaultValue: "3", description: "Pinned scroll distance in viewport heights." },
+      { name: "restingProgress", type: "number", defaultValue: "1", description: "Progress shown when the scene cannot scrub." },
+      { name: "children", type: "ReactNode | (progress: number) => ReactNode", required: true, description: "Frame content. Plain nodes read the --x-scroll CSS variable without re-rendering." },
+    ],
+    webUsage: `import { ScrollScene, Surface } from "@xenon-kit/web";
+
+export function Example() {
+  return (
+    <ScrollScene length={3}>
+      {(progress) => <Surface style={{ opacity: progress }}>Content</Surface>}
+    </ScrollScene>
+  );
+}`,
+    nativeUsage: `import { ScrollScene, Surface } from "@xenon-kit/native";
+
+export function Example() {
+  return (
+    <ScrollScene>
+      {(progress) => <Surface style={{ opacity: progress }}>Content</Surface>}
+    </ScrollScene>
+  );
+}`,
+  },
+  {
+    id: "chapter",
+    name: "Chapter",
+    category: "Primitives",
+    description:
+      "One idea per viewport: a large headline beside a single visual, with an entrance on first view.",
+    a11y: "Web renders a section with a level 2 heading.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      { name: "title", type: "ReactNode", required: true, description: "Chapter headline." },
+      { name: "lead", type: "ReactNode", description: "Supporting sentences." },
+      { name: "visual", type: "ReactNode", description: "The single visual or demo." },
+      { name: "reverse", type: "boolean", defaultValue: "false", description: "Places the visual first on wide viewports." },
+    ],
+    webUsage: `import { Chapter } from "@xenon-kit/web";
+
+export function Example() {
+  return <Chapter title="Nothing snaps." lead="Every change is fluid." />;
+}`,
+    nativeUsage: `import { Chapter } from "@xenon-kit/native";
+
+export function Example() {
+  return <Chapter title="Nothing snaps." lead="Every change is fluid." />;
+}`,
+  },
+  {
     id: "concentric-field",
     name: "ConcentricField",
     category: "Primitives",

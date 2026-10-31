@@ -164,6 +164,13 @@ export function ComponentLivePreview({
           </Surface>
         </ConcentricField>
       );
+    case "scroll-scene":
+    case "chapter":
+      return (
+        <Text styleKey="footnote" tone="muted" align="center">
+          The landing page is built from this. Scroll it to try it.
+        </Text>
+      );
     case "container":
       return (
         <Container size="sm">
