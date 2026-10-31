@@ -61,3 +61,23 @@ export interface ConcentricFieldProps {
   readonly children?: ReactNode;
   readonly className?: string;
 }
+
+export interface ChapterProps {
+  /** Chapter headline */
+  readonly title: ReactNode;
+  /** One or two sentences under the headline */
+  readonly lead?: ReactNode;
+  /** The chapter's single visual or interactive demo */
+  readonly visual?: ReactNode;
+  /** Places the visual before the copy on wide viewports (default: false) */
+  readonly reverse?: boolean;
+  readonly className?: string;
+}
+
+export interface ScrollSceneProps {
+  /** Scroll distance the scene stays pinned for, in viewport heights. Default: 3 */
+  readonly length?: number;
+  /** Renders the pinned frame from scroll progress between 0 and 1 */
+  readonly children: (progress: number) => ReactNode;
+  readonly className?: string;
+}

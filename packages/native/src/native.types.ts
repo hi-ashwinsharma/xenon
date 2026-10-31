@@ -53,7 +53,9 @@ import type {
   AccentPickerProps as CoreAccentPickerProps,
   ContainerProps as CoreContainerProps,
   FooterProps as CoreFooterProps,
+  ChapterProps as CoreChapterProps,
   ConcentricFieldProps as CoreConcentricFieldProps,
+  ScrollSceneProps as CoreScrollSceneProps,
   GridItemProps as CoreGridItemProps,
   GridProps as CoreGridProps,
   GroupProps as CoreGroupProps,
@@ -183,6 +185,17 @@ export interface NativeGridItemProps extends Omit<
 
 export interface NativeConcentricFieldProps extends Omit<
   CoreConcentricFieldProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeChapterProps extends Omit<CoreChapterProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeScrollSceneProps extends Omit<
+  CoreScrollSceneProps,
   "className"
 > {
   readonly style?: StyleProp<ViewStyle>;

@@ -40,7 +40,9 @@ export type {
   NativeAccentPickerProps,
   NativeContainerProps,
   NativeFooterProps,
+  NativeChapterProps,
   NativeConcentricFieldProps,
+  NativeScrollSceneProps,
   NativeGridItemProps,
   NativeGridProps,
   NativeGroupProps,
@@ -126,6 +128,8 @@ export { Container } from "./container";
 export { Grid, GridItem } from "./grid";
 export { ConcentricField } from "./concentric-field";
 export { Reveal } from "./reveal";
+export { Chapter } from "./chapter";
+export { ScrollScene } from "./scroll-scene";
 export { Footer } from "./footer";
 export { AccentPicker } from "./accent-picker";
 export { Text } from "./text";

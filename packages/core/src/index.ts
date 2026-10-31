@@ -20,11 +20,13 @@ export type {
   FlexJustify,
   FlexWrap,
   ContainerProps,
+  ChapterProps,
   ConcentricFieldProps,
   ContainerSize,
   GridItemProps,
   GridProps,
   GroupProps,
+  ScrollSceneProps,
   StackProps,
 } from "./layout.types";
 

@@ -13,19 +13,16 @@ import {
   Badge,
   Button,
   ButtonGroup,
-  Checkbox,
+  Chapter,
   CodeBlock,
   ConcentricField,
   Container,
-  Divider,
-  Field,
   Grid,
-  GridItem,
   Group,
   Heading,
-  Input,
   Progress,
   Reveal,
+  ScrollScene,
   SegmentedControl,
   Slider,
   Stack,
@@ -79,7 +76,6 @@ const RELEASES = [
   { name: "Checkout", owner: "Ada Lovelace", progress: 92, state: "Live" },
   { name: "Search", owner: "Alan Turing", progress: 64, state: "Rolling" },
   { name: "Billing", owner: "Grace Hopper", progress: 38, state: "Rolling" },
-  { name: "Onboarding", owner: "Linus Pauling", progress: 12, state: "Queued" },
 ] as const;
 
 const STOPS: readonly RadiusStop[] = [0, 1, 2, 3, 4, 5, 6];
@@ -99,7 +95,6 @@ function useIsNarrow(): boolean {
 function AppWindow(): ReactElement {
   const narrow = useIsNarrow();
   const { accent, setAccent, radius, setRadius } = useDocsTheme();
-  const [autoShip, setAutoShip] = useState<boolean>(true);
 
   return (
     <div style={{ position: "relative" }}>
@@ -212,17 +207,6 @@ function AppWindow(): ReactElement {
               ))}
             </Grid>
 
-            <SegmentedControl
-              size="sm"
-              defaultValue="active"
-              options={[
-                { value: "active", label: "Active" },
-                { value: "scheduled", label: "Scheduled" },
-                { value: "archived", label: "Archived" },
-              ]}
-              style={{ alignSelf: "flex-start" }}
-            />
-
             <Table>
               <TableHeader>
                 <TableRow>
@@ -305,432 +289,365 @@ function AppWindow(): ReactElement {
           </Stack>
         </Stack>
       </Surface>
-
-      <Surface
-        variant="glass"
-        padding={16}
-        style={
-          narrow
-            ? { marginTop: "var(--x-space-3)" }
-            : {
-                position: "absolute",
-                bottom: "var(--x-space-6)",
-                left: "calc(var(--x-space-7) * -1)",
-                width: "17rem",
-              }
-        }
-      >
-        <Stack gap={12}>
-          <Switch
-            checked={autoShip}
-            onCheckedChange={setAutoShip}
-            label="Ship when checks pass"
-          />
-          <Field label="Notify">
-            <Input size="sm" placeholder="team@studio.com" />
-          </Field>
-        </Stack>
-      </Surface>
     </div>
   );
 }
 
-function ConcentricTile(): ReactElement {
+function RadiusScene(): ReactElement {
+  return (
+    <ScrollScene length={3}>
+      {(progress) => {
+        const stop = Math.round(progress * (STOPS.length - 1)) as RadiusStop;
+        return (
+          <Container size="md">
+            <Stack gap={48} align="center">
+              <Stack gap={12} align="center">
+                <Heading
+                  level={2}
+                  styleKey="display"
+                  weight={200}
+                  align="center"
+                >
+                  Seven shapes, one token.
+                </Heading>
+                <Text
+                  styleKey="title3"
+                  weight={300}
+                  tone="muted"
+                  align="center"
+                >
+                  Keep scrolling. Every corner in the system moves together.
+                </Text>
+              </Stack>
+              <Surface
+                variant="accent"
+                radius={RADIUS_STOPS[stop].surface * 2}
+                padding={32}
+                style={{
+                  width: "min(100%, 26rem)",
+                  aspectRatio: "1.4",
+                  display: "flex",
+                  alignItems: "flex-end",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text styleKey="title3" weight={300}>
+                  Radius stop
+                </Text>
+                <Heading level={3} styleKey="display" weight={200}>
+                  {stop}
+                </Heading>
+              </Surface>
+            </Stack>
+          </Container>
+        );
+      }}
+    </ScrollScene>
+  );
+}
+
+function ConcentricVisual(): ReactElement {
   const { radius } = useDocsTheme();
-  const [padding, setPadding] = useState<number>(14);
+  const [padding, setPadding] = useState<number>(16);
   const outer = RADIUS_STOPS[radius].surface;
   const inner = Math.round(computeNestedRadius(outer, padding));
 
   return (
-    <Surface style={{ height: "100%" }}>
-      <Stack gap={24}>
-        <Stack gap={8}>
-          <Heading level={3} styleKey="title1" weight={200}>
-            Corners that nest.
-          </Heading>
-          <Text styleKey="callout" tone="muted">
-            A child subtracts its parent’s padding from the radius. Drag it and
-            every curve stays concentric.
-          </Text>
-        </Stack>
-        <Surface padding={padding} variant="subtle">
-          <Surface padding={padding}>
-            <Surface padding={padding} variant="accent">
-              <Group justify="between" align="center">
-                <Text styleKey="footnote">Inner radius</Text>
-                <Text styleKey="title2" weight={300}>
-                  {inner}px
-                </Text>
-              </Group>
-            </Surface>
-          </Surface>
-        </Surface>
-        <Slider
-          min={0}
-          max={24}
-          step={2}
-          size="sm"
-          value={padding}
-          onValueChange={setPadding}
-          aria-label="Nested padding"
-        />
-      </Stack>
-    </Surface>
-  );
-}
-
-function AccentTile(): ReactElement {
-  const { accent, setAccent } = useDocsTheme();
-  return (
-    <Surface variant="accent" style={{ height: "100%" }}>
-      <Stack gap={24} justify="between" style={{ height: "100%" }}>
-        <Heading level={3} styleKey="display" weight={200}>
-          One accent.
-        </Heading>
-        <Stack gap={12}>
-          <Text styleKey="callout">
-            One token recolors everything. Everything else stays calm.
-          </Text>
-          <AccentPicker value={accent} onValueChange={setAccent} />
-        </Stack>
-      </Stack>
-    </Surface>
-  );
-}
-
-function RadiusTile(): ReactElement {
-  const { radius, setRadius } = useDocsTheme();
-  return (
-    <Surface>
-      <Stack gap={24}>
-        <Group justify="between" align="center" gap={12} wrap="wrap">
-          <Heading level={3} styleKey="title1" weight={200}>
-            Seven shapes, one token.
-          </Heading>
-          <Text styleKey="callout" tone="muted">
-            Pick a stop. The whole page follows.
-          </Text>
-        </Group>
-        <Grid minItemWidth={88} gap={12}>
-          {STOPS.map((stop) => (
-            <button
-              key={stop}
-              type="button"
-              aria-pressed={radius === stop}
-              aria-label={`Radius stop ${stop}`}
-              onClick={() => setRadius(stop)}
-              style={{
-                padding: 0,
-                border: "none",
-                background: "none",
-                color: "inherit",
-                cursor: "pointer",
-                textAlign: "left",
-              }}
-            >
-              <Surface
-                interactive
-                radius={RADIUS_STOPS[stop].surface}
-                padding={12}
-                variant={radius === stop ? "accent" : "subtle"}
-                style={{
-                  aspectRatio: "1",
-                  display: "flex",
-                  alignItems: "flex-end",
-                }}
-              >
-                <Text styleKey="title3" weight={300}>
-                  {stop}
-                </Text>
-              </Surface>
-            </button>
-          ))}
-        </Grid>
-      </Stack>
-    </Surface>
-  );
-}
-
-function GroupedTile(): ReactElement {
-  return (
-    <Surface style={{ height: "100%" }}>
-      <Stack gap={24}>
-        <Stack gap={8}>
-          <Heading level={3} styleKey="title1" weight={200}>
-            Controls that join.
-          </Heading>
-          <Text styleKey="callout" tone="muted">
-            Pill outer edges, small inner joints.
-          </Text>
-        </Stack>
-        <Stack gap={12} align="start">
-          <ButtonGroup variant="outline">
-            <Button>Day</Button>
-            <Button>Week</Button>
-            <Button>Month</Button>
-          </ButtonGroup>
-          <SegmentedControl
-            defaultValue="code"
-            options={[
-              { value: "preview", label: "Preview" },
-              { value: "code", label: "Code" },
-              { value: "props", label: "Props" },
-            ]}
-          />
-          <ButtonGroup variant="subtle">
-            <Button variant="accent">Publish</Button>
-            <Button>Save draft</Button>
-          </ButtonGroup>
-        </Stack>
-      </Stack>
-    </Surface>
-  );
-}
-
-function MotionTile(): ReactElement {
-  const [loading, setLoading] = useState<boolean>(false);
-  return (
-    <Surface style={{ height: "100%" }}>
-      <Stack gap={24}>
-        <Stack gap={8}>
-          <Heading level={3} styleKey="title1" weight={200}>
-            Nothing snaps.
-          </Heading>
-          <Text styleKey="callout" tone="muted">
-            Every state change travels on a spring or a tokenized curve. Try it.
-          </Text>
-        </Stack>
-        <Accordion type="single" variant="bordered" defaultValue="caret">
-          <AccordionItem value="caret">
-            <AccordionTrigger>Open this, then the next one</AccordionTrigger>
-            <AccordionContent>
-              Height and caret share one curve, so they move as a single
-              gesture.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="interrupt">
-            <AccordionTrigger>Interrupt it halfway</AccordionTrigger>
-            <AccordionContent>
-              Motion reverses from where it is and never jumps.
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-        <Group gap={8} wrap="wrap" align="center">
-          <Button
-            variant="filled"
-            loading={loading}
-            onClick={() => {
-              setLoading(true);
-              window.setTimeout(() => setLoading(false), 1600);
+    <Stack gap={24}>
+      <Surface padding={padding} variant="subtle">
+        <Surface padding={padding}>
+          <Surface
+            padding={padding}
+            variant="accent"
+            style={{
+              minHeight: "12rem",
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "space-between",
             }}
           >
-            Save changes
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() =>
-              toast.show({
-                title: "Saved",
-                description: "Toasts arrive on the same spring.",
-              })
-            }
-          >
-            Show a toast
-          </Button>
-          <Switch defaultChecked label="Springs" />
-          <Checkbox defaultChecked label="Reduced motion safe" />
-        </Group>
-      </Stack>
-    </Surface>
+            <Text styleKey="footnote">Inner radius</Text>
+            <Text styleKey="title1" weight={200}>
+              {inner}px
+            </Text>
+          </Surface>
+        </Surface>
+      </Surface>
+      <Slider
+        min={0}
+        max={24}
+        step={2}
+        size="sm"
+        value={padding}
+        onValueChange={setPadding}
+        aria-label="Nested padding"
+      />
+    </Stack>
   );
 }
 
-function AgentTile(): ReactElement {
+function AccentChapter(): ReactElement {
+  const { accent, setAccent } = useDocsTheme();
   return (
-    <Surface style={{ height: "100%" }}>
-      <Stack gap={24}>
-        <Stack gap={8}>
-          <Heading level={3} styleKey="title1" weight={200}>
-            Written for your agent too.
-          </Heading>
-          <Text styleKey="callout" tone="muted">
-            Banned patterns, exact props and every token ship as plain text.
-          </Text>
-        </Stack>
-        <CodeBlock language="bash" code={AGENT_SNIPPET} />
-        <Group gap={8} wrap="wrap">
-          <a href={AppRoutes.llms}>
-            <Button variant="outline" size="sm">
-              llms.txt
-            </Button>
-          </a>
-          <a href={AppRoutes.llmsFull}>
-            <Button variant="outline" size="sm">
-              llms-full.txt
-            </Button>
-          </a>
-          <a href={AppRoutes.registry}>
-            <Button variant="outline" size="sm">
-              Registry
-            </Button>
-          </a>
-        </Group>
-      </Stack>
-    </Surface>
+    <Container
+      style={{
+        paddingTop: "var(--x-space-9)",
+        paddingBottom: "var(--x-space-9)",
+      }}
+    >
+      <Reveal>
+        <Surface
+          variant="accent"
+          padding={48}
+          style={{
+            minHeight: "70svh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Stack gap={32} align="center">
+            <Heading level={2} styleKey="display" weight={200} align="center">
+              One accent.
+            </Heading>
+            <Text styleKey="title3" weight={300} align="center">
+              One token recolors everything. The rest stays calm.
+            </Text>
+            <AccentPicker value={accent} onValueChange={setAccent} />
+          </Stack>
+        </Surface>
+      </Reveal>
+    </Container>
   );
 }
 
-function PlatformTile(): ReactElement {
+function GroupedVisual(): ReactElement {
   return (
-    <Surface style={{ height: "100%" }}>
-      <Stack gap={24}>
-        <Stack gap={8}>
-          <Heading level={3} styleKey="title1" weight={200}>
-            One contract, two renderers.
-          </Heading>
-          <Text styleKey="callout" tone="muted">
-            Web and Expo share tokens, formulas and props.
-          </Text>
-        </Stack>
-        <Tabs defaultValue="web">
-          <TabsList>
-            <TabsTrigger value="web">Web</TabsTrigger>
-            <TabsTrigger value="native">Expo</TabsTrigger>
-          </TabsList>
-          <TabsContent value="web">
-            <CodeBlock language="tsx" code={WEB_SNIPPET} />
-          </TabsContent>
-          <TabsContent value="native">
-            <CodeBlock language="tsx" code={NATIVE_SNIPPET} />
-          </TabsContent>
-        </Tabs>
-      </Stack>
-    </Surface>
+    <Stack gap={24} align="center">
+      <ButtonGroup variant="outline" size="lg">
+        <Button>Day</Button>
+        <Button>Week</Button>
+        <Button>Month</Button>
+      </ButtonGroup>
+      <SegmentedControl
+        defaultValue="code"
+        options={[
+          { value: "preview", label: "Preview" },
+          { value: "code", label: "Code" },
+          { value: "props", label: "Props" },
+        ]}
+      />
+    </Stack>
+  );
+}
+
+function MotionVisual(): ReactElement {
+  return (
+    <Stack gap={24}>
+      <Accordion type="single" variant="bordered" defaultValue="caret">
+        <AccordionItem value="caret">
+          <AccordionTrigger>Open this, then the next one</AccordionTrigger>
+          <AccordionContent>
+            Height and caret share one curve, so they move as a single gesture.
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="interrupt">
+          <AccordionTrigger>Interrupt it halfway</AccordionTrigger>
+          <AccordionContent>
+            Motion reverses from where it is and never jumps.
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+      <Group gap={12} align="center">
+        <Button
+          variant="outline"
+          onClick={() =>
+            toast.show({
+              title: "Saved",
+              description: "Toasts arrive on the same spring.",
+            })
+          }
+        >
+          Show a toast
+        </Button>
+        <Switch defaultChecked label="Springs" />
+      </Group>
+    </Stack>
+  );
+}
+
+function PlatformVisual(): ReactElement {
+  return (
+    <Tabs defaultValue="web">
+      <TabsList>
+        <TabsTrigger value="web">Web</TabsTrigger>
+        <TabsTrigger value="native">Expo</TabsTrigger>
+      </TabsList>
+      <TabsContent value="web">
+        <CodeBlock language="tsx" code={WEB_SNIPPET} />
+      </TabsContent>
+      <TabsContent value="native">
+        <CodeBlock language="tsx" code={NATIVE_SNIPPET} />
+      </TabsContent>
+    </Tabs>
   );
 }
 
 export function MarketingLanding(): ReactElement {
   return (
     <>
+      <Container
+        size="md"
+        style={{
+          minHeight: "calc(100svh - var(--x-space-8))",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Stack gap={32} align="center">
+          <Reveal>
+            <Heading level={1} weight={200} align="center">
+              The UI kit your AI can’t break.
+            </Heading>
+          </Reveal>
+          <Reveal order={1}>
+            <Text
+              as="p"
+              styleKey="title3"
+              weight={300}
+              tone="muted"
+              style={{ maxWidth: "38rem", textAlign: "center", margin: 0 }}
+            >
+              Finite tokens and exhaustive types, so humans and agents ship the
+              same hairline-crisp interface on web and Expo.
+            </Text>
+          </Reveal>
+          <Reveal order={2}>
+            <Group gap={12} justify="center" align="center" wrap="wrap">
+              <CodeBlock variant="command" code={INSTALL_COMMAND} />
+              <Link href={AppRoutes.components}>
+                <Button variant="accent" size="lg">
+                  Browse components
+                </Button>
+              </Link>
+            </Group>
+          </Reveal>
+        </Stack>
+      </Container>
+
       <section style={{ overflow: "hidden" }}>
         <Container
           style={{
-            paddingTop: "var(--x-space-8)",
+            paddingTop: "var(--x-space-9)",
             paddingBottom: "var(--x-space-10)",
           }}
         >
-          <Stack gap={64}>
-            <Stack gap={24} align="center">
-              <Reveal>
-                <Heading level={1} weight={200} align="center">
-                  The UI kit your AI can’t break.
-                </Heading>
-              </Reveal>
-              <Reveal order={1}>
-                <Text
-                  as="p"
-                  styleKey="title3"
-                  weight={300}
-                  tone="muted"
-                  style={{ maxWidth: "38rem", textAlign: "center", margin: 0 }}
-                >
-                  Finite tokens and exhaustive types, so humans and agents ship
-                  the same hairline-crisp interface on web and Expo.
-                </Text>
-              </Reveal>
-              <Reveal order={2}>
-                <Group gap={12} justify="center" align="center" wrap="wrap">
-                  <CodeBlock variant="command" code={INSTALL_COMMAND} />
-                  <Link href={AppRoutes.components}>
-                    <Button variant="accent" size="lg">
-                      Browse components
-                    </Button>
-                  </Link>
-                </Group>
-              </Reveal>
-            </Stack>
-            <Reveal order={3}>
-              <ConcentricField rings={7} gap={44}>
-                <AppWindow />
-              </ConcentricField>
-            </Reveal>
-          </Stack>
+          <Reveal>
+            <ConcentricField rings={7} gap={44}>
+              <AppWindow />
+            </ConcentricField>
+          </Reveal>
         </Container>
       </section>
 
-      <section style={{ position: "relative", backgroundColor: "var(--x-bg)" }}>
-        <Divider />
+      <RadiusScene />
+
+      <Chapter
+        title="Corners that nest."
+        lead="A child subtracts its parent’s padding from the radius. Drag the slider and every curve stays concentric."
+        visual={<ConcentricVisual />}
+      />
+
+      <AccentChapter />
+
+      <Chapter
+        reverse
+        title="Controls that join."
+        lead="Buttons and segments become one shape, with pill outer edges and small inner joints."
+        visual={<GroupedVisual />}
+      />
+
+      <Chapter
+        title="Nothing snaps."
+        lead="Every state change travels on a spring or a tokenized curve. Try to catch it out."
+        visual={<MotionVisual />}
+      />
+
+      <Chapter
+        reverse
+        title="Written for your agent too."
+        lead="Banned patterns, exact props and every token ship as plain text, so an agent has nothing to guess."
+        visual={
+          <Stack gap={16}>
+            <CodeBlock language="bash" code={AGENT_SNIPPET} />
+            <Group gap={8} wrap="wrap">
+              <a href={AppRoutes.llms}>
+                <Button variant="outline" size="sm">
+                  llms.txt
+                </Button>
+              </a>
+              <a href={AppRoutes.llmsFull}>
+                <Button variant="outline" size="sm">
+                  llms-full.txt
+                </Button>
+              </a>
+              <a href={AppRoutes.registry}>
+                <Button variant="outline" size="sm">
+                  Registry
+                </Button>
+              </a>
+            </Group>
+          </Stack>
+        }
+      />
+
+      <Chapter
+        title="One contract, two renderers."
+        lead="Web and Expo share tokens, formulas and props. Learn a component once."
+        visual={<PlatformVisual />}
+      />
+
+      <section style={{ overflow: "hidden" }}>
         <Container
+          size="sm"
           style={{
-            paddingTop: "var(--x-space-9)",
-            paddingBottom: "var(--x-space-9)",
+            minHeight: "100svh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <Grid columns={12} gap={16}>
-            <GridItem span={7}>
-              <Reveal style={{ height: "100%" }}>
-                <ConcentricTile />
-              </Reveal>
-            </GridItem>
-            <GridItem span={5}>
-              <Reveal order={1} style={{ height: "100%" }}>
-                <AccentTile />
-              </Reveal>
-            </GridItem>
-            <GridItem span={12}>
-              <Reveal>
-                <RadiusTile />
-              </Reveal>
-            </GridItem>
-            <GridItem span={5}>
-              <Reveal style={{ height: "100%" }}>
-                <GroupedTile />
-              </Reveal>
-            </GridItem>
-            <GridItem span={7}>
-              <Reveal order={1} style={{ height: "100%" }}>
-                <MotionTile />
-              </Reveal>
-            </GridItem>
-            <GridItem span={6}>
-              <Reveal style={{ height: "100%" }}>
-                <AgentTile />
-              </Reveal>
-            </GridItem>
-            <GridItem span={6}>
-              <Reveal order={1} style={{ height: "100%" }}>
-                <PlatformTile />
-              </Reveal>
-            </GridItem>
-            <GridItem span={12}>
-              <Reveal>
-                <Surface variant="accent" padding={48}>
-                  <Stack gap={24} align="center">
-                    <Heading
-                      level={2}
-                      styleKey="display"
-                      weight={200}
-                      align="center"
-                    >
-                      Get your weekends back.
-                    </Heading>
-                    <Text styleKey="body" align="center">
-                      Free for open source contributors, students and personal
-                      projects.
-                    </Text>
-                    <Group gap={12} justify="center" align="center" wrap="wrap">
-                      <CodeBlock variant="command" code={INSTALL_COMMAND} />
-                      <Link href="/pricing">
-                        <Button variant="outline" size="lg">
-                          See pricing
-                        </Button>
-                      </Link>
-                    </Group>
-                  </Stack>
-                </Surface>
-              </Reveal>
-            </GridItem>
-          </Grid>
+          <Reveal>
+            <ConcentricField rings={5} gap={48}>
+              <Stack
+                gap={24}
+                align="center"
+                style={{ padding: "var(--x-space-7) var(--x-space-5)" }}
+              >
+                <Heading
+                  level={2}
+                  styleKey="display"
+                  weight={200}
+                  align="center"
+                >
+                  Get your weekends back.
+                </Heading>
+                <Text styleKey="body" tone="muted" align="center">
+                  Free for open source contributors, students and personal
+                  projects.
+                </Text>
+                <Group gap={12} justify="center" align="center" wrap="wrap">
+                  <CodeBlock variant="command" code={INSTALL_COMMAND} />
+                  <Link href="/pricing">
+                    <Button variant="outline" size="lg">
+                      See pricing
+                    </Button>
+                  </Link>
+                </Group>
+              </Stack>
+            </ConcentricField>
+          </Reveal>
         </Container>
       </section>
     </>
