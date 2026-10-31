@@ -67,7 +67,11 @@ export function MarketingNavbar({
         <Link
           href={AppRoutes.home}
           aria-label="Xenon home"
-          style={{ display: "inline-flex", color: "inherit", textDecoration: "none" }}
+          style={{
+            display: "inline-flex",
+            color: "inherit",
+            textDecoration: "none",
+          }}
         >
           <Group gap={8} align="center">
             <XenonMark size={20} />

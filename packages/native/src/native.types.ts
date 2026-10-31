@@ -191,7 +191,10 @@ export interface NativeConcentricFieldProps extends Omit<
   readonly style?: StyleProp<ViewStyle>;
 }
 
-export interface NativeChapterProps extends Omit<CoreChapterProps, "className"> {
+export interface NativeChapterProps extends Omit<
+  CoreChapterProps,
+  "className"
+> {
   readonly style?: StyleProp<ViewStyle>;
 }
 

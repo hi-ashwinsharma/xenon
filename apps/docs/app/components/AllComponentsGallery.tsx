@@ -50,7 +50,14 @@ function GalleryCard({ item }: { item: ComponentDocEntry }): ReactElement {
           overflow: "hidden",
         }}
       >
-        <div style={{ zoom: 0.8, width: "100%", display: "flex", justifyContent: "center" }}>
+        <div
+          style={{
+            zoom: 0.8,
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           <ComponentLivePreview
             componentId={item.id}
             variant="filled"

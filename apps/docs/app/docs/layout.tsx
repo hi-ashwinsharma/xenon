@@ -68,7 +68,13 @@ function DocsLayoutContent({
         }}
       >
         {isGallery ? (
-          <main style={{ flex: 1, minWidth: 0, padding: "var(--x-space-8) var(--x-space-5) var(--x-space-9)" }}>
+          <main
+            style={{
+              flex: 1,
+              minWidth: 0,
+              padding: "var(--x-space-8) var(--x-space-5) var(--x-space-9)",
+            }}
+          >
             {children}
           </main>
         ) : (

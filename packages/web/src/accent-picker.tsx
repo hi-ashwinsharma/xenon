@@ -1,11 +1,7 @@
 "use client";
 
 import { type KeyboardEvent, type ReactElement } from "react";
-import {
-  ACCENT_COLORS,
-  type Accent,
-  type ResolvedTheme,
-} from "@xenon/tokens";
+import { ACCENT_COLORS, type Accent, type ResolvedTheme } from "@xenon/tokens";
 import { useXenon } from "./provider";
 import type { WebAccentPickerProps } from "./web.types";
 
@@ -71,7 +67,9 @@ export function AccentPicker({
     if (step === 0) return;
     event.preventDefault();
     const next =
-      ACCENTS[(ACCENTS.indexOf(value) + step + ACCENTS.length) % ACCENTS.length];
+      ACCENTS[
+        (ACCENTS.indexOf(value) + step + ACCENTS.length) % ACCENTS.length
+      ];
     if (!next) return;
     onValueChange(next);
     const swatch = event.currentTarget.querySelector<HTMLButtonElement>(
@@ -85,7 +83,12 @@ export function AccentPicker({
       role="radiogroup"
       aria-label={label}
       onKeyDown={handleKeyDown}
-      style={{ display: "inline-flex", alignItems: "center", gap: "2px", ...style }}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "2px",
+        ...style,
+      }}
       {...restProps}
     >
       <style href="x-accent-picker" precedence="default">
@@ -103,7 +106,9 @@ export function AccentPicker({
           tabIndex={accent === value ? 0 : -1}
           onClick={() => onValueChange(accent)}
         >
-          <span style={{ backgroundColor: ACCENT_COLORS[accent][resolvedTheme] }} />
+          <span
+            style={{ backgroundColor: ACCENT_COLORS[accent][resolvedTheme] }}
+          />
         </button>
       ))}
     </div>

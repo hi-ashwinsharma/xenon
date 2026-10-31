@@ -1,10 +1,6 @@
 import { type ReactElement } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
-import {
-  ACCENT_COLORS,
-  type Accent,
-  type ResolvedTheme,
-} from "@xenon/tokens";
+import { ACCENT_COLORS, type Accent, type ResolvedTheme } from "@xenon/tokens";
 import { useXenon } from "./provider";
 import type { NativeAccentPickerProps } from "./native.types";
 

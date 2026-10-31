@@ -24,7 +24,11 @@ const FOOTER_CSS = `
 }
 `;
 
-function FooterAnchor({ link }: { readonly link: FooterLinkItem }): ReactElement {
+function FooterAnchor({
+  link,
+}: {
+  readonly link: FooterLinkItem;
+}): ReactElement {
   return (
     <a
       className="x-footer-link"

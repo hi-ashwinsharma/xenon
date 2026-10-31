@@ -35,7 +35,12 @@ export const COMPONENTS_REGISTRY: ComponentDocEntry[] = [
     cliInstall: "npx @xenon-kit/cli init",
     npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
-      { name: "label", type: "string", defaultValue: "'Page progress'", description: "Accessible name." },
+      {
+        name: "label",
+        type: "string",
+        defaultValue: "'Page progress'",
+        description: "Accessible name.",
+      },
     ],
     webUsage: `import { ScrollProgress } from "@xenon-kit/web";
 
@@ -58,10 +63,32 @@ export function Example() {
     cliInstall: "npx @xenon-kit/cli init",
     npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
-      { name: "length", type: "number", defaultValue: "3", description: "Pinned scroll distance in viewport heights." },
-      { name: "fade", type: "'both' | 'in' | 'out' | 'none'", defaultValue: "'both'", description: "Edges that dissolve as the scene enters and leaves the viewport." },
-      { name: "restingProgress", type: "number", defaultValue: "1", description: "Progress shown when the scene cannot scrub." },
-      { name: "children", type: "ReactNode | (progress: number) => ReactNode", required: true, description: "Frame content. Plain nodes read the --x-scroll CSS variable without re-rendering." },
+      {
+        name: "length",
+        type: "number",
+        defaultValue: "3",
+        description: "Pinned scroll distance in viewport heights.",
+      },
+      {
+        name: "fade",
+        type: "'both' | 'in' | 'out' | 'none'",
+        defaultValue: "'both'",
+        description:
+          "Edges that dissolve as the scene enters and leaves the viewport.",
+      },
+      {
+        name: "restingProgress",
+        type: "number",
+        defaultValue: "1",
+        description: "Progress shown when the scene cannot scrub.",
+      },
+      {
+        name: "children",
+        type: "ReactNode | (progress: number) => ReactNode",
+        required: true,
+        description:
+          "Frame content. Plain nodes read the --x-scroll CSS variable without re-rendering.",
+      },
     ],
     webUsage: `import { ScrollScene, Surface } from "@xenon-kit/web";
 
@@ -92,10 +119,24 @@ export function Example() {
     cliInstall: "npx @xenon-kit/cli init",
     npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
     props: [
-      { name: "title", type: "ReactNode", required: true, description: "Chapter headline." },
+      {
+        name: "title",
+        type: "ReactNode",
+        required: true,
+        description: "Chapter headline.",
+      },
       { name: "lead", type: "ReactNode", description: "Supporting sentences." },
-      { name: "visual", type: "ReactNode", description: "The single visual or demo." },
-      { name: "reverse", type: "boolean", defaultValue: "false", description: "Places the visual first on wide viewports." },
+      {
+        name: "visual",
+        type: "ReactNode",
+        description: "The single visual or demo.",
+      },
+      {
+        name: "reverse",
+        type: "boolean",
+        defaultValue: "false",
+        description: "Places the visual first on wide viewports.",
+      },
     ],
     webUsage: `import { Chapter } from "@xenon-kit/web";
 

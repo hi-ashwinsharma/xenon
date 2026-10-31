@@ -71,8 +71,8 @@ export function Surface({
       variant === "accent"
         ? nativeTokens.colors.accent
         : variant === "subtle"
-        ? nativeTokens.colors.surface2
-        : nativeTokens.colors.surface;
+          ? nativeTokens.colors.surface2
+          : nativeTokens.colors.surface;
 
     return {
       padding,
