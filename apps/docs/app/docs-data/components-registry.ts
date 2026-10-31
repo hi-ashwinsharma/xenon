@@ -25,6 +25,128 @@ export interface ComponentDocEntry {
 }
 
 export const COMPONENTS_REGISTRY: ComponentDocEntry[] = [
+  {
+    id: "container",
+    name: "Container",
+    category: "Primitives",
+    description:
+      "Centers page content at a finite width with the system gutter.",
+    a11y: "Renders a neutral block element with no landmark role.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      { name: "size", type: "'sm' | 'md' | 'lg'", defaultValue: "'lg'", description: "Maximum content width." },
+    ],
+    webUsage: `import { Container } from "@xenon-kit/web";
+
+export function Example() {
+  return <Container size="md">Content</Container>;
+}`,
+    nativeUsage: `import { Container } from "@xenon-kit/native";
+
+export function Example() {
+  return <Container size="md">Content</Container>;
+}`,
+  },
+  {
+    id: "grid",
+    name: "Grid",
+    category: "Primitives",
+    description:
+      "Responsive grid that wraps by item width, so it needs no breakpoints.",
+    a11y: "Keeps DOM order equal to visual order.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      { name: "minItemWidth", type: "number", defaultValue: "280", description: "Smallest item width in px before wrapping." },
+      { name: "gap", type: "number", defaultValue: "16", description: "Gap between items in px." },
+    ],
+    webUsage: `import { Grid } from "@xenon-kit/web";
+
+export function Example() {
+  return <Grid minItemWidth={300}><Item /><Item /></Grid>;
+}`,
+    nativeUsage: `import { Grid } from "@xenon-kit/native";
+
+export function Example() {
+  return <Grid minItemWidth={300}><Item /><Item /></Grid>;
+}`,
+  },
+  {
+    id: "reveal",
+    name: "Reveal",
+    category: "Primitives",
+    description:
+      "Entrance transition on first view, on tokenized motion. Staggers with order and respects reduced motion.",
+    a11y: "Content stays in the DOM and in the accessibility tree while hidden. Disabled under reduced motion.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      { name: "order", type: "number", defaultValue: "0", description: "Position in a stagger; each step waits one instant duration." },
+    ],
+    webUsage: `import { Reveal } from "@xenon-kit/web";
+
+export function Example() {
+  return <Reveal order={1}>Content</Reveal>;
+}`,
+    nativeUsage: `import { Reveal } from "@xenon-kit/native";
+
+export function Example() {
+  return <Reveal order={1}>Content</Reveal>;
+}`,
+  },
+  {
+    id: "footer",
+    name: "Footer",
+    category: "Navigation",
+    description:
+      "Page footer with a brand slot, link columns, and a legal and credit row, separated by one hairline.",
+    a11y: "Web renders the footer landmark; external links carry rel noopener.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      { name: "brand", type: "ReactNode", description: "Leading slot." },
+      { name: "columns", type: "FooterColumnItem[]", description: "Titled groups of links." },
+      { name: "legal", type: "ReactNode", description: "Bottom row start." },
+      { name: "credit", type: "ReactNode", description: "Bottom row end." },
+      { name: "renderLink", type: "(link, label) => ReactNode", description: "Wraps links for client-side routers." },
+    ],
+    webUsage: `import { Footer } from "@xenon-kit/web";
+
+export function Example() {
+  return <Footer columns={[{ title: "Product", links: [{ label: "Docs", href: "/docs" }] }]} legal="Copyright" />;
+}`,
+    nativeUsage: `import { Footer } from "@xenon-kit/native";
+
+export function Example() {
+  return <Footer columns={[{ title: "Product", links: [{ label: "Docs", href: "/docs" }] }]} legal="Copyright" />;
+}`,
+  },
+  {
+    id: "accent-picker",
+    name: "AccentPicker",
+    category: "Form Controls",
+    description:
+      "Radio group of the six accent swatches. The selected swatch is ringed by a hairline.",
+    a11y: "Radiogroup with arrow-key navigation and roving focus; each swatch is named.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      { name: "value", type: "Accent", description: "Selected accent.", required: true },
+      { name: "onValueChange", type: "(accent: Accent) => void", description: "Called on selection.", required: true },
+      { name: "label", type: "string", defaultValue: "'Accent'", description: "Accessible group name." },
+    ],
+    webUsage: `import { AccentPicker } from "@xenon-kit/web";
+
+export function Example() {
+  return <AccentPicker value={accent} onValueChange={setAccent} />;
+}`,
+    nativeUsage: `import { AccentPicker } from "@xenon-kit/native";
+
+export function Example() {
+  return <AccentPicker value={accent} onValueChange={setAccent} />;
+}`,
+  },
   // Primitives
   {
     id: "button",
