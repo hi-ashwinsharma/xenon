@@ -50,5 +50,5 @@ export function proxy(request: NextRequest): NextResponse {
 }
 
 export const config = {
-  matcher: "/((?!_next/|__next|favicon.ico|icon.svg).*)",
+  matcher: "/((?!_next/|__next|_vercel/|favicon.ico|icon.svg).*)",
 };

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/next";
 import type { RootLayoutProps } from "./layout.types";
 import { XenonDocsProvider } from "./providers/XenonDocsProvider";
 import "./globals.css";
@@ -20,6 +22,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
     >
       <body className="min-h-full flex flex-col">
         <XenonDocsProvider>{children}</XenonDocsProvider>
+        {/* Cookie-free page views; a no-op until Web Analytics is enabled in Vercel. */}
+        <Suspense fallback={null}>
+          <Analytics />
+        </Suspense>
       </body>
     </html>
   );
