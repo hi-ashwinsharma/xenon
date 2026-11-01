@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { RootLayoutProps } from "./layout.types";
+import { Analytics } from "@vercel/analytics/next";
 import { XenonDocsProvider } from "./providers/XenonDocsProvider";
 import "./globals.css";
 
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     >
       <body className="min-h-full flex flex-col">
         <XenonDocsProvider>{children}</XenonDocsProvider>
+        <Analytics />
       </body>
     </html>
   );
