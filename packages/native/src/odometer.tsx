@@ -98,7 +98,12 @@ export function Odometer({
     .map((glyph) => (glyph.kind === "digit" ? String(glyph.digit) : glyph.char))
     .join("")}`;
   const staticText = [
-    { fontSize, lineHeight, color: tokens.colors.text, fontWeight: "200" as const },
+    {
+      fontSize,
+      lineHeight,
+      color: tokens.colors.text,
+      fontWeight: "200" as const,
+    },
     textStyle,
   ];
   let column = 0;
@@ -119,7 +124,11 @@ export function Odometer({
       {glyphs.map((glyph, index) => {
         if (glyph.kind === "char") {
           return (
-            <RNText key={`c${index}`} allowFontScaling={false} style={staticText}>
+            <RNText
+              key={`c${index}`}
+              allowFontScaling={false}
+              style={staticText}
+            >
               {glyph.char}
             </RNText>
           );

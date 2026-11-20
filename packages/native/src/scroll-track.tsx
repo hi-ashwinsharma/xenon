@@ -28,9 +28,7 @@ export function ScrollTrack({
         decelerationRate="fast"
         scrollEventThrottle={16}
         onLayout={(event) => setViewport(event.nativeEvent.layout.width)}
-        onContentSizeChange={(width) =>
-          setRange(Math.max(1, width - viewport))
-        }
+        onContentSizeChange={(width) => setRange(Math.max(1, width - viewport))}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: offset } } }],
           { useNativeDriver: false },

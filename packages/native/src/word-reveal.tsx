@@ -28,7 +28,9 @@ export function WordReveal({
     const animations = values.current.map((value, index) =>
       Animated.timing(value, {
         toValue: 1,
-        duration: reduced ? MOTION_TOKENS.durInstant : MOTION_TOKENS.durSlow * 3,
+        duration: reduced
+          ? MOTION_TOKENS.durInstant
+          : MOTION_TOKENS.durSlow * 3,
         delay: reduced
           ? 0
           : MOTION_TOKENS.durInstant *
@@ -47,7 +49,10 @@ export function WordReveal({
       accessible
       accessibilityRole="header"
       accessibilityLabel={text}
-      style={[{ flexDirection: "row", flexWrap: "wrap", columnGap: SPACE_SCALE[2] }, style]}
+      style={[
+        { flexDirection: "row", flexWrap: "wrap", columnGap: SPACE_SCALE[2] },
+        style,
+      ]}
       {...restProps}
     >
       {words.map((word, index) => {

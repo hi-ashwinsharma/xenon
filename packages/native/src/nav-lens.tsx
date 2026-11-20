@@ -36,7 +36,11 @@ export function NavLens({
       return undefined;
     }
     const animation = Animated.parallel([
-      Animated.spring(x, { toValue: frame.x, ...SPRING_SOFT, useNativeDriver: false }),
+      Animated.spring(x, {
+        toValue: frame.x,
+        ...SPRING_SOFT,
+        useNativeDriver: false,
+      }),
       Animated.spring(width, {
         toValue: frame.width,
         ...SPRING_SOFT,

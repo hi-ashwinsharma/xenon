@@ -167,7 +167,9 @@ export function ScrollStory({
       >
         <div className="x-scroll-story__stage">
           <div className="x-scroll-story__meta">
-            <TextRoll value={`Step ${pad(active + 1)} / ${pad(steps.length)}`} />
+            <TextRoll
+              value={`Step ${pad(active + 1)} / ${pad(steps.length)}`}
+            />
             <SegmentedProgress
               segments={steps.length}
               value={progress}

@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  useState,
-  type KeyboardEvent,
-  type ReactElement,
-} from "react";
+import { useState, type KeyboardEvent, type ReactElement } from "react";
 import { ArrowsCounterClockwise } from "@phosphor-icons/react";
 import { Icon } from "./icon";
 import type { WebFlipCardProps } from "./web.types";

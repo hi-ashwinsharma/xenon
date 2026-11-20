@@ -132,16 +132,13 @@ export function Curtain({
   useEffect(() => {
     if (phase !== "covering" && phase !== "leaving") return undefined;
     // Failsafe: a tab switch can swallow transitionend, so never strand the page covered
-    const failsafe = window.setTimeout(
-      () => {
-        if (phase === "covering") setPhase("covered");
-        else {
-          setPhase("idle");
-          callbacks.current.onFinished?.();
-        }
-      },
-      MOTION_TOKENS.durSlow * 4,
-    );
+    const failsafe = window.setTimeout(() => {
+      if (phase === "covering") setPhase("covered");
+      else {
+        setPhase("idle");
+        callbacks.current.onFinished?.();
+      }
+    }, MOTION_TOKENS.durSlow * 4);
     return () => window.clearTimeout(failsafe);
   }, [phase]);
 

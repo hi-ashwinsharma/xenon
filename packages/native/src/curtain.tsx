@@ -57,10 +57,7 @@ export function Curtain({
         useNativeDriver: true,
       }),
     ]);
-    const covered = setTimeout(
-      () => callbacks.current.onCovered?.(),
-      duration,
-    );
+    const covered = setTimeout(() => callbacks.current.onCovered?.(), duration);
     sequence.start(() => {
       setPhase("idle");
       callbacks.current.onFinished?.();

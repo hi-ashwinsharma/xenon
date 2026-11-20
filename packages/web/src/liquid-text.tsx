@@ -1,6 +1,11 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties, type ReactElement } from "react";
+import {
+  useEffect,
+  useRef,
+  type CSSProperties,
+  type ReactElement,
+} from "react";
 import { damp, liquidSurface, viewportProgress } from "@xenon/core";
 import { addScrollTask } from "./scroll-ticker";
 import { useReducedMotion } from "./hooks/use-media-query";
@@ -89,10 +94,7 @@ export function LiquidText({
       write: () => {
         const fill = fillRef.current;
         if (!fill) return;
-        fill.style.setProperty(
-          "--x-liquid-y",
-          surfaceOffset(shown),
-        );
+        fill.style.setProperty("--x-liquid-y", surfaceOffset(shown));
         fill.style.setProperty("--x-liquid-x", `${wave.toFixed(1)}px`);
       },
     });

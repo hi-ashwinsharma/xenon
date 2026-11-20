@@ -20,9 +20,7 @@ export function odometerGlyphs(
     : "0";
   return Array.from(formatted).map((char): OdometerGlyph => {
     const digit = Number(char);
-    return /\d/.test(char)
-      ? { kind: "digit", digit }
-      : { kind: "char", char };
+    return /\d/.test(char) ? { kind: "digit", digit } : { kind: "char", char };
   });
 }
 
@@ -70,9 +68,7 @@ export function segmentFills(
 ): readonly number[] {
   const count = Math.max(1, Math.floor(segments));
   const filled = clamp01(progress) * count;
-  return Array.from({ length: count }, (_, index) =>
-    clamp01(filled - index),
-  );
+  return Array.from({ length: count }, (_, index) => clamp01(filled - index));
 }
 
 /** Index of the segment that is currently filling, from 0. */

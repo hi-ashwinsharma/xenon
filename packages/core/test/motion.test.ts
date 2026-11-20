@@ -29,7 +29,9 @@ describe("odometerGlyphs", () => {
   it("groups by locale", () => {
     const glyphs = odometerGlyphs(1248000, "en-IN");
     const text = glyphs
-      .map((glyph) => (glyph.kind === "digit" ? String(glyph.digit) : glyph.char))
+      .map((glyph) =>
+        glyph.kind === "digit" ? String(glyph.digit) : glyph.char,
+      )
       .join("");
     expect(text).toBe("12,48,000");
   });

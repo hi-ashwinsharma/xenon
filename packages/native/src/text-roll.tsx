@@ -39,7 +39,12 @@ export function TextRoll({
 
   const travel = lineHeight * 1.1;
   const textBase = [
-    { fontSize, lineHeight, color: tokens.colors.text, fontWeight: "300" as const },
+    {
+      fontSize,
+      lineHeight,
+      color: tokens.colors.text,
+      fontWeight: "300" as const,
+    },
     textStyle,
   ];
 

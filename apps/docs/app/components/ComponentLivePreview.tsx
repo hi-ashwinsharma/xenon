@@ -64,6 +64,18 @@ import {
   Container,
   Grid,
   Reveal,
+  FlipCard,
+  LiquidText,
+  Magnetic,
+  NavLens,
+  Odometer,
+  ScrollConverge,
+  ScrollMarquee,
+  SegmentedProgress,
+  TextRoll,
+  Tilt,
+  WordReveal,
+  useCircleReveal,
 } from "@xenon/web";
 import type { Accent } from "@xenon/tokens";
 import type {
@@ -152,8 +164,151 @@ export function ComponentLivePreview({
   const [selectVal, setSelectVal] = useState<string>("pro");
   const [segmentedVal, setSegmentedVal] = useState<string>("preview");
   const [accentVal, setAccentVal] = useState<Accent>("lime");
+  const [rollIndex, setRollIndex] = useState<number>(0);
+  const [odometerValue, setOdometerValue] = useState<number>(12480);
+  const [segmentValue, setSegmentValue] = useState<number>(0.5);
+  const circleReveal = useCircleReveal();
 
   switch (componentId) {
+    case "odometer":
+      return (
+        <Stack gap={12} align="center">
+          <Heading level={3} styleKey="title1">
+            <Odometer key={odometerValue} value={odometerValue} prefix="$" />
+          </Heading>
+          <Button
+            size="sm"
+            variant="subtle"
+            onClick={() =>
+              setOdometerValue(1000 + Math.round(Math.random() * 98000))
+            }
+          >
+            Roll again
+          </Button>
+        </Stack>
+      );
+    case "text-roll":
+      return (
+        <Stack gap={12} align="center">
+          <Text styleKey="title3">
+            We keep{" "}
+            <TextRoll
+              value={["receipts", "warranties", "refunds"][rollIndex % 3] ?? ""}
+            />
+          </Text>
+          <Button
+            size="sm"
+            variant="subtle"
+            onClick={() => setRollIndex((value) => value + 1)}
+          >
+            Next word
+          </Button>
+        </Stack>
+      );
+    case "flip-card":
+      return (
+        <FlipCard
+          label="Late refund"
+          style={{ width: "100%", maxWidth: "16rem", minHeight: "9rem" }}
+          front={<Text styleKey="headline">Late refund</Text>}
+          back={
+            <Text styleKey="callout" tone="muted">
+              Followed up for you on day 16.
+            </Text>
+          }
+        />
+      );
+    case "segmented-progress":
+      return (
+        <Stack gap={12} align="center">
+          <SegmentedProgress segments={6} value={segmentValue} />
+          <Button
+            size="sm"
+            variant="subtle"
+            onClick={() =>
+              setSegmentValue((value) => (value >= 1 ? 0 : value + 1 / 6))
+            }
+          >
+            Advance
+          </Button>
+        </Stack>
+      );
+    case "liquid-text":
+      return <LiquidText progress={0.6}>Xenon</LiquidText>;
+    case "magnetic":
+      return (
+        <Magnetic>
+          <Button variant="accent">Pull me</Button>
+        </Magnetic>
+      );
+    case "tilt":
+      return (
+        <Tilt>
+          <Surface padding={24}>
+            <Text styleKey="callout">Hover to tilt</Text>
+          </Surface>
+        </Tilt>
+      );
+    case "word-reveal":
+      return (
+        <Heading level={3} styleKey="title2">
+          <WordReveal text="You buy. We keep working." />
+        </Heading>
+      );
+    case "scroll-converge":
+      return (
+        <ScrollConverge minItemWidth={72} gap={8} style={{ width: "100%" }}>
+          {["One", "Two", "Three"].map((cell) => (
+            <Surface key={cell} padding={12} variant="subtle">
+              <Text styleKey="caption1" tone="muted">
+                {cell}
+              </Text>
+            </Surface>
+          ))}
+        </ScrollConverge>
+      );
+    case "scroll-marquee":
+      return (
+        <div style={{ width: "100%" }}>
+          <ScrollMarquee items={["Receipts", "Refunds", "Warranties"]} />
+        </div>
+      );
+    case "nav-lens":
+      return (
+        <NavLens
+          items={[
+            { sectionId: "x-preview-a", label: "Story", href: "#x-preview-a" },
+            {
+              sectionId: "x-preview-b",
+              label: "Features",
+              href: "#x-preview-b",
+            },
+          ]}
+        />
+      );
+    case "circle-reveal":
+      return (
+        <Button
+          variant="subtle"
+          onClick={(event) =>
+            circleReveal(
+              () =>
+                setAccentVal((value) => (value === "lime" ? "orange" : "lime")),
+              { x: event.clientX, y: event.clientY },
+            )
+          }
+        >
+          Reveal from here
+        </Button>
+      );
+    case "curtain":
+    case "scroll-track":
+    case "scroll-story":
+      return (
+        <Text styleKey="footnote" tone="muted" align="center">
+          This one takes over the page, so try it in a full layout.
+        </Text>
+      );
     case "concentric-field":
       return (
         <ConcentricField rings={3} gap={14}>

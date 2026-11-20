@@ -39,12 +39,14 @@ export function DocsSidebar({
       | "Navigation"
       | "Overlays"
       | "Feedback & Data Display"
+      | "Motion"
     > = [
       "Primitives",
       "Form Controls",
       "Navigation",
       "Overlays",
       "Feedback & Data Display",
+      "Motion",
     ];
     return list;
   }, []);

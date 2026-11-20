@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  Children,
-  useEffect,
-  useRef,
-  type ReactElement,
-} from "react";
+import { Children, useEffect, useRef, type ReactElement } from "react";
 import { convergeOffset, damp, mix, viewportProgress } from "@xenon/core";
 import { SPACE_SCALE } from "@xenon/tokens";
 import { addScrollTask } from "./scroll-ticker";
