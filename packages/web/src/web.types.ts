@@ -67,6 +67,20 @@ import type {
   GridProps as CoreGridProps,
   GroupProps as CoreGroupProps,
   RevealProps as CoreRevealProps,
+  CurtainProps as CoreCurtainProps,
+  FlipCardProps as CoreFlipCardProps,
+  LiquidTextProps as CoreLiquidTextProps,
+  MagneticProps as CoreMagneticProps,
+  NavLensProps as CoreNavLensProps,
+  OdometerProps as CoreOdometerProps,
+  ScrollConvergeProps as CoreScrollConvergeProps,
+  ScrollMarqueeProps as CoreScrollMarqueeProps,
+  ScrollStoryProps as CoreScrollStoryProps,
+  ScrollTrackProps as CoreScrollTrackProps,
+  SegmentedProgressProps as CoreSegmentedProgressProps,
+  TextRollProps as CoreTextRollProps,
+  TiltProps as CoreTiltProps,
+  WordRevealProps as CoreWordRevealProps,
   HeadingProps as CoreHeadingProps,
   IconButtonProps as CoreIconButtonProps,
   IconProps as CoreIconProps,
@@ -207,6 +221,76 @@ export interface WebRevealProps
   extends
     Omit<CoreRevealProps, "className">,
     Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebOdometerProps
+  extends
+    Omit<CoreOdometerProps, "className">,
+    Omit<HTMLAttributes<HTMLSpanElement>, "children" | "prefix"> {}
+
+export interface WebTextRollProps
+  extends
+    Omit<CoreTextRollProps, "className">,
+    Omit<HTMLAttributes<HTMLSpanElement>, "children"> {}
+
+export interface WebFlipCardProps
+  extends
+    Omit<CoreFlipCardProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebCurtainProps
+  extends
+    Omit<CoreCurtainProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children" | "title"> {}
+
+export interface WebSegmentedProgressProps
+  extends
+    Omit<CoreSegmentedProgressProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebLiquidTextProps
+  extends
+    Omit<CoreLiquidTextProps, "className">,
+    Omit<HTMLAttributes<HTMLSpanElement>, "children"> {}
+
+export interface WebMagneticProps
+  extends
+    Omit<CoreMagneticProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebTiltProps
+  extends
+    Omit<CoreTiltProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebWordRevealProps
+  extends
+    Omit<CoreWordRevealProps, "className">,
+    Omit<HTMLAttributes<HTMLSpanElement>, "children"> {}
+
+export interface WebScrollTrackProps
+  extends
+    Omit<CoreScrollTrackProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebScrollConvergeProps
+  extends
+    Omit<CoreScrollConvergeProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebScrollMarqueeProps
+  extends
+    Omit<CoreScrollMarqueeProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebScrollStoryProps
+  extends
+    Omit<CoreScrollStoryProps, "className">,
+    Omit<HTMLAttributes<HTMLElement>, "children"> {}
+
+export interface WebNavLensProps
+  extends
+    Omit<CoreNavLensProps, "className">,
+    Omit<HTMLAttributes<HTMLElement>, "children"> {}
 
 export interface WebFooterProps
   extends
@@ -784,6 +868,10 @@ export interface WebCodeBlockProps
     Omit<HTMLAttributes<HTMLDivElement>, "title" | "onCopy" | "children"> {}
 
 export type {
+  CircleRevealOrigin,
+  CircleRevealRun,
+  NavLensItem,
+  ScrollStoryStep,
   AccordionType,
   AccordionVariant,
   AlertTone,

@@ -34,6 +34,30 @@ export type {
 export type { RevealProps } from "./reveal.types";
 
 export type {
+  CircleRevealOrigin,
+  CircleRevealRun,
+  CurtainProps,
+  FlipCardProps,
+  LiquidTextProps,
+  MagneticOffset,
+  MagneticProps,
+  NavLensItem,
+  NavLensProps,
+  OdometerGlyph,
+  OdometerProps,
+  ScrollConvergeProps,
+  ScrollMarqueeProps,
+  ScrollStoryProps,
+  ScrollStoryStep,
+  ScrollTrackProps,
+  SegmentedProgressProps,
+  TextRollProps,
+  TiltAngles,
+  TiltProps,
+  WordRevealProps,
+} from "./motion.types";
+
+export type {
   FooterColumnItem,
   FooterLinkItem,
   FooterProps,
@@ -254,6 +278,21 @@ export { clampProgress, formatBadgeCount } from "./feedback.utils";
 export { AppRoutes } from "./routes";
 
 export { mix, scrollRange } from "./scroll";
+
+export {
+  activeSegment,
+  circleRevealRadius,
+  convergeOffset,
+  damp,
+  liquidSurface,
+  magneticOffset,
+  odometerGlyphs,
+  odometerTravel,
+  segmentFills,
+  tiltAngles,
+  viewportProgress,
+  wrapOffset,
+} from "./motion";
 
 export { computeFloatingPlacement } from "./floating";
 
