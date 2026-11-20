@@ -3,7 +3,10 @@
 import { Fragment, useEffect, useRef, type ReactElement } from "react";
 import { damp, wrapOffset } from "@xenon/core";
 import { addScrollTask } from "./scroll-ticker";
+import { MOTION_TOKENS } from "@xenon/tokens";
 import { useReducedMotion } from "./hooks/use-media-query";
+import { useLoopGuard } from "./hooks/use-loop-guard";
+import { LoopPause } from "./loop-pause";
 import type { WebScrollMarqueeProps } from "./web.types";
 
 const SCROLL_MARQUEE_CSS = `
@@ -48,6 +51,8 @@ const DAMPING = 8;
 export function ScrollMarquee({
   items,
   speed = 0.6,
+  autoplay = false,
+  beats = 115,
   label = "Highlights",
   className,
   ...restProps
@@ -56,6 +61,8 @@ export function ScrollMarquee({
   const trackRef = useRef<HTMLDivElement | null>(null);
   const lapRef = useRef<HTMLDivElement | null>(null);
   const reduced = useReducedMotion();
+  const guard = useLoopGuard(ref, autoplay);
+  const drifting = guard.running;
 
   useEffect(() => {
     if (reduced) {
@@ -76,7 +83,13 @@ export function ScrollMarquee({
         const y = window.scrollY;
         const moved = y - lastY;
         lastY = y;
-        offset = wrapOffset(offset + moved * speed, lap.offsetWidth);
+        // Guarded autoplay: one lap per `beats` slow durations, on top of the scroll travel
+        const drift = drifting
+          ? (lap.offsetWidth /
+              ((MOTION_TOKENS.durSlow * Math.max(1, beats)) / 1000)) *
+            delta
+          : 0;
+        offset = wrapOffset(offset + moved * speed + drift, lap.offsetWidth);
         const velocity = delta > 0 ? moved / delta : 0;
         const lean = Math.max(
           -MAX_SKEW,
@@ -84,14 +97,14 @@ export function ScrollMarquee({
         );
         skew = moved === 0 ? damp(skew, 0, DAMPING, delta) : lean;
         if (Math.abs(skew) < 0.01) skew = 0;
-        return skew !== 0;
+        return skew !== 0 || drifting;
       },
       write: () => {
         if (!visible || !trackRef.current) return;
         trackRef.current.style.transform = `translate3d(${(-offset).toFixed(1)}px, 0, 0) skewX(${skew.toFixed(2)}deg)`;
       },
     });
-  }, [reduced, speed]);
+  }, [reduced, speed, drifting, beats]);
 
   const lap = (hidden: boolean): ReactElement => (
     <div
@@ -128,6 +141,9 @@ export function ScrollMarquee({
           {lap(true)}
         </div>
       </div>
+      {guard.showControl && (
+        <LoopPause paused={guard.paused} onToggle={guard.togglePaused} />
+      )}
     </>
   );
 }

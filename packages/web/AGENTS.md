@@ -36,7 +36,8 @@ import { XenonProvider } from "@xenon-kit/web";
 
 ## Hard rules (never violate)
 
-- **No gradients. No shadows** (`box-shadow`, `drop-shadow`, `text-shadow`, glows). Depth comes from 1px hairlines (`var(--x-border)`) and surface tone (`--x-bg`, `--x-surface`, `--x-surface-2`).
+- **No gradients. No shadows** (`box-shadow`, `drop-shadow`, `text-shadow`, glows). Depth comes from 1px hairlines (`var(--x-border)`) and surface tone (`--x-bg`, `--x-surface`, `--x-surface-2`). The only exception is the `Ambient` backdrop at the root of a showcase page; never write a gradient yourself.
+- **No motion that runs on its own** in product UI. On showcase pages only, `autoplay` on `ScrollMarquee`, `TextRoll` and `Float` is allowed: one per viewport, never on a control.
 - **No blur** except Liquid Glass on floating layers (navbar, tab bar, popovers, dialogs, command palette). Never on content cards, inputs or the page canvas.
 - **No emoji. No ASCII glyphs as UI chrome** (`×`, `+`, `-`, `>`, `!`, `?`). Every icon is Phosphor, weight `thin`, wrapped in Xenon `Icon`: `<Icon><MagnifyingGlass /></Icon>`.
 - **Font weights 200, 300 or 400 only.** Never 500+. Build hierarchy with size and color (`tone="muted"`), not weight.

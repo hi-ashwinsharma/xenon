@@ -81,6 +81,8 @@ import type {
   TextRollProps as CoreTextRollProps,
   TiltProps as CoreTiltProps,
   WordRevealProps as CoreWordRevealProps,
+  AmbientProps as CoreAmbientProps,
+  FloatProps as CoreFloatProps,
   HeadingProps as CoreHeadingProps,
   IconButtonProps as CoreIconButtonProps,
   IconProps as CoreIconProps,
@@ -286,6 +288,16 @@ export interface WebScrollStoryProps
   extends
     Omit<CoreScrollStoryProps, "className">,
     Omit<HTMLAttributes<HTMLElement>, "children"> {}
+
+export interface WebAmbientProps
+  extends
+    Omit<CoreAmbientProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
+
+export interface WebFloatProps
+  extends
+    Omit<CoreFloatProps, "className">,
+    Omit<HTMLAttributes<HTMLDivElement>, "children"> {}
 
 export interface WebNavLensProps
   extends

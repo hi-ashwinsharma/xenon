@@ -1,6 +1,9 @@
 "use client";
 
-import { useState, type ReactElement } from "react";
+import { useEffect, useRef, useState, type ReactElement } from "react";
+import { MOTION_TOKENS } from "@xenon/tokens";
+import { useLoopGuard } from "./hooks/use-loop-guard";
+import { LoopPause } from "./loop-pause";
 import type { WebTextRollProps } from "./web.types";
 
 const TEXT_ROLL_CSS = `
@@ -61,19 +64,37 @@ interface RollState {
 /** A word that rolls up and out as its replacement rolls in from below whenever `value` changes. */
 export function TextRoll({
   value,
+  autoplayWords,
+  beats = 6,
   className,
   ...restProps
 }: WebTextRollProps): ReactElement {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const autoplay = (autoplayWords?.length ?? 0) > 0;
+  const guard = useLoopGuard(ref, autoplay);
+  const [tick, setTick] = useState<number>(0);
+  const sequence = autoplay ? [value, ...(autoplayWords ?? [])] : [value];
+  const shown = sequence[tick % sequence.length] ?? value;
+
+  useEffect(() => {
+    if (!guard.running) return undefined;
+    const timer = window.setInterval(
+      () => setTick((count) => count + 1),
+      MOTION_TOKENS.durSlow * Math.max(1, Math.round(beats)),
+    );
+    return () => window.clearInterval(timer);
+  }, [guard.running, beats]);
+
   const [roll, setRoll] = useState<RollState>({
-    current: value,
+    current: shown,
     previous: null,
     generation: 0,
   });
 
   // Derive the transition during render so the outgoing word never flashes away
-  if (roll.current !== value) {
+  if (roll.current !== shown) {
     setRoll({
-      current: value,
+      current: shown,
       previous: roll.current,
       generation: roll.generation + 1,
     });
@@ -85,8 +106,10 @@ export function TextRoll({
         {TEXT_ROLL_CSS}
       </style>
       <span
+        ref={ref}
         className={className ? `x-text-roll ${className}` : "x-text-roll"}
-        aria-live="polite"
+        // An autoplay cycle would announce forever, so only value-driven rolls are live
+        aria-live={autoplay ? "off" : "polite"}
         {...restProps}
       >
         {roll.previous !== null && (
@@ -114,6 +137,9 @@ export function TextRoll({
           {roll.current}
         </span>
       </span>
+      {guard.showControl && (
+        <LoopPause paused={guard.paused} onToggle={guard.togglePaused} />
+      )}
     </>
   );
 }

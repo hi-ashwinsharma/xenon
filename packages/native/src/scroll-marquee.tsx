@@ -6,11 +6,13 @@ import type { NativeScrollMarqueeProps } from "./native.types";
 
 /**
  * Native screens own their scroll, so the line is a horizontal swipe the reader drives
- * directly. It never moves on its own.
+ * directly. It never moves on its own, so `autoplay` has no effect on native.
  */
 export function ScrollMarquee({
   items,
   speed: _speed,
+  autoplay: _autoplay,
+  beats: _beats,
   label = "Highlights",
   style,
   ...restProps

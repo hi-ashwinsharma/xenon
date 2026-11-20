@@ -75,6 +75,8 @@ import type {
   TextRollProps as CoreTextRollProps,
   TiltProps as CoreTiltProps,
   WordRevealProps as CoreWordRevealProps,
+  AmbientProps as CoreAmbientProps,
+  FloatProps as CoreFloatProps,
   HeadingProps as CoreHeadingProps,
   IconButtonProps as CoreIconButtonProps,
   IconProps as CoreIconProps,
@@ -320,6 +322,17 @@ export interface NativeScrollStoryProps extends Omit<
   CoreScrollStoryProps,
   "className"
 > {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeAmbientProps extends Omit<
+  CoreAmbientProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeFloatProps extends Omit<CoreFloatProps, "className"> {
   readonly style?: StyleProp<ViewStyle>;
 }
 

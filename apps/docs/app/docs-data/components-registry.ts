@@ -2119,6 +2119,18 @@ export function Example() {
         description: "The current word.",
         required: true,
       },
+      {
+        name: "autoplayWords",
+        type: "string[]",
+        description:
+          "Showcase pages only: words to cycle through on their own, guarded and with a pause control.",
+      },
+      {
+        name: "beats",
+        type: "number",
+        defaultValue: "6",
+        description: "Time each autoplay word stays, in slow-duration beats.",
+      },
     ],
     webUsage:
       'import { TextRoll } from "@xenon-kit/web";\n\nexport function Example() {\n  return <TextRoll value={status} />;\n}',
@@ -2427,6 +2439,19 @@ export function Example() {
         description: "Pixels travelled per pixel scrolled.",
       },
       {
+        name: "autoplay",
+        type: "boolean",
+        defaultValue: "false",
+        description:
+          "Showcase pages only: also drift on its own, guarded and with a pause control. No effect on native.",
+      },
+      {
+        name: "beats",
+        type: "number",
+        defaultValue: "115",
+        description: "Time one autoplay lap takes, in slow-duration beats.",
+      },
+      {
         name: "label",
         type: "string",
         defaultValue: '"Highlights"',
@@ -2521,5 +2546,63 @@ export function Example() {
       'import { useCircleReveal, useXenon } from "@xenon-kit/web";\n\nexport function ThemeToggle() {\n  const reveal = useCircleReveal();\n  const { setTheme } = useXenon();\n  return (\n    <button onClick={(e) => reveal(() => setTheme("light"), { x: e.clientX, y: e.clientY })}>\n      Light\n    </button>\n  );\n}',
     nativeUsage:
       'import { Button, useCircleReveal, useXenon } from "@xenon-kit/native";\n\nexport function ThemeToggle() {\n  const reveal = useCircleReveal();\n  const { setTheme } = useXenon();\n  return (\n    <Button onPress={() => reveal(() => setTheme("light"))}>Light</Button>\n  );\n}',
+  },
+
+  {
+    id: "ambient",
+    name: "Ambient",
+    category: "Motion",
+    description:
+      "Showcase pages only: one soft, accent-tinted backdrop behind the whole page, the single gradient Xenon allows. It never animates on a timer; the shapes lean after a mouse or trackpad pointer.",
+    a11y: "Hidden from assistive tech and ignores pointer events. Still under reduced motion, removed under reduced transparency. Renders nothing on native.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "placement",
+        type: '"corners" | "top"',
+        defaultValue: '"corners"',
+        description: "Where the two shapes sit at rest.",
+      },
+    ],
+    webUsage:
+      'import { Ambient } from "@xenon-kit/web";\n\nexport function Landing() {\n  return <Ambient placement="top" />;\n}',
+    nativeUsage:
+      'import { Ambient } from "@xenon-kit/native";\n\n// Renders nothing on native\nexport function Landing() {\n  return <Ambient />;\n}',
+  },
+  {
+    id: "float",
+    name: "Float",
+    category: "Motion",
+    description:
+      "Showcase pages only: lets its child bob gently in place when autoplay is on. Pauses offscreen and in the background, stops under reduced motion, and shows a pause control.",
+    a11y: "The pause control is a labelled button. Under reduced motion the child stays still and no control is shown.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "autoplay",
+        type: "boolean",
+        defaultValue: "false",
+        description: "Turns the bob on.",
+      },
+      {
+        name: "beats",
+        type: "number",
+        defaultValue: "16",
+        description: "Time one full bob takes, in slow-duration beats.",
+      },
+      {
+        name: "offset",
+        type: "number",
+        defaultValue: "0",
+        description:
+          "Start late by this many beats so neighbours fall out of step.",
+      },
+    ],
+    webUsage:
+      'import { Float } from "@xenon-kit/web";\n\nexport function Example() {\n  return <Float autoplay>{hero}</Float>;\n}',
+    nativeUsage:
+      'import { Float } from "@xenon-kit/native";\n\nexport function Example() {\n  return <Float autoplay>{hero}</Float>;\n}',
   },
 ];

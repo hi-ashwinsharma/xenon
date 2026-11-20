@@ -34,9 +34,11 @@ export type {
 export type { RevealProps } from "./reveal.types";
 
 export type {
+  AmbientProps,
   CircleRevealOrigin,
   CircleRevealRun,
   CurtainProps,
+  FloatProps,
   FlipCardProps,
   LiquidTextProps,
   MagneticOffset,

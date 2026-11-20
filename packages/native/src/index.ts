@@ -62,6 +62,8 @@ export type {
   NativeTextRollProps,
   NativeTiltProps,
   NativeWordRevealProps,
+  NativeAmbientProps,
+  NativeFloatProps,
   CircleRevealOrigin,
   CircleRevealRun,
   NavLensItem,
@@ -165,6 +167,8 @@ export { ScrollConverge } from "./scroll-converge";
 export { ScrollMarquee } from "./scroll-marquee";
 export { ScrollStory } from "./scroll-story";
 export { NavLens } from "./nav-lens";
+export { Ambient } from "./ambient";
+export { Float } from "./float";
 export { useCircleReveal } from "./use-circle-reveal";
 export { Footer } from "./footer";
 export { AccentPicker } from "./accent-picker";

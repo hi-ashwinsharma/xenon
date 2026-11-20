@@ -75,6 +75,7 @@ import {
   TextRoll,
   Tilt,
   WordReveal,
+  Float,
   useCircleReveal,
 } from "@xenon/web";
 import type { Accent } from "@xenon/tokens";
@@ -301,6 +302,15 @@ export function ComponentLivePreview({
           Reveal from here
         </Button>
       );
+    case "float":
+      return (
+        <Float autoplay>
+          <Surface padding={20}>
+            <Text styleKey="callout">Bobs while in view</Text>
+          </Surface>
+        </Float>
+      );
+    case "ambient":
     case "curtain":
     case "scroll-track":
     case "scroll-story":

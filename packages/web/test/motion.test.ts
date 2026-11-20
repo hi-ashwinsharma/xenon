@@ -15,6 +15,8 @@ import {
   TextRoll,
   Tilt,
   WordReveal,
+  Ambient,
+  Float,
   useCircleReveal,
 } from "../src/index";
 
@@ -35,6 +37,8 @@ describe("@xenon/web Motion", () => {
       TextRoll,
       Tilt,
       WordReveal,
+      Ambient,
+      Float,
       useCircleReveal,
     ]) {
       expect(typeof component).toBe("function");
@@ -111,5 +115,23 @@ describe("@xenon/web Motion", () => {
     expect(
       createElement(Curtain, { active: true, title: "Pricing" }).props.active,
     ).toBe(true);
+  });
+
+  it("accepts guarded showcase autoplay", () => {
+    expect(
+      createElement(TextRoll, {
+        value: "receipts",
+        autoplayWords: ["refunds"],
+        beats: 6,
+      }).props.autoplayWords,
+    ).toHaveLength(1);
+    expect(
+      createElement(ScrollMarquee, { items: ["One"], autoplay: true }).props
+        .autoplay,
+    ).toBe(true);
+    expect(createElement(Float, { autoplay: true }).props.autoplay).toBe(true);
+    expect(createElement(Ambient, { placement: "top" }).props.placement).toBe(
+      "top",
+    );
   });
 });

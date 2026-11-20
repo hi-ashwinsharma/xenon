@@ -20,6 +20,14 @@ export interface OdometerProps {
 export interface TextRollProps {
   /** The current word. A new value rolls the old word up and out and the new one in from below */
   readonly value: string;
+  /**
+   * Showcase pages only: words to cycle through on their own, starting after `value`.
+   * Guarded: pauses offscreen and in the background, off under reduced motion, and shows
+   * a pause control. See "Showcase exceptions" in docs/DESIGN.md.
+   */
+  readonly autoplayWords?: readonly string[];
+  /** Time each autoplay word stays, in `--x-dur-slow` beats. Default: 6 */
+  readonly beats?: number;
   readonly className?: string;
 }
 
@@ -117,8 +125,32 @@ export interface ScrollMarqueeProps {
   readonly items: readonly ReactNode[];
   /** Pixels the line travels per pixel scrolled. Default: 0.6 */
   readonly speed?: number;
+  /**
+   * Showcase pages only: the line also drifts on its own. Guarded: pauses offscreen and
+   * in the background, off under reduced motion, and shows a pause control. Default: false
+   */
+  readonly autoplay?: boolean;
+  /** Time one full lap of the autoplay drift takes, in `--x-dur-slow` beats. Default: 115 */
+  readonly beats?: number;
   /** Accessible name. Default: 'Highlights' */
   readonly label?: string;
+  readonly className?: string;
+}
+
+export interface AmbientProps {
+  /** Where the two soft accent shapes sit at rest. Default: 'corners' */
+  readonly placement?: "corners" | "top";
+  readonly className?: string;
+}
+
+export interface FloatProps {
+  /** Showcase pages only: the child bobs gently on its own, guarded. Default: false */
+  readonly autoplay?: boolean;
+  /** Time one full bob takes, in `--x-dur-slow` beats. Default: 16 */
+  readonly beats?: number;
+  /** Start the bob this many `--x-dur-slow` beats late, so neighbours fall out of step. Default: 0 */
+  readonly offset?: number;
+  readonly children?: ReactNode;
   readonly className?: string;
 }
 

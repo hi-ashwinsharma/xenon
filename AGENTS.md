@@ -24,7 +24,7 @@ Xenon is a closed-source, minimalistic UI kit for **web (React DOM) and React Na
 
 ## Hard rules (never violate)
 
-- No gradients. No shadows of any kind (CSS `box-shadow`, iOS `shadow*`, Android `elevation`). No blur except Liquid Glass on floating/overlay layers (see `docs/TOKENS.md`). Depth comes from hairlines and surface tone only.
+- No gradients. No shadows of any kind (CSS `box-shadow`, iOS `shadow*`, Android `elevation`). No blur except Liquid Glass on floating/overlay layers (see `docs/TOKENS.md`). Depth comes from hairlines and surface tone only. The single gradient exception is the showcase-only `Ambient` backdrop, built from `--x-ambient-*` tokens (see "Showcase exceptions" in `docs/DESIGN.md`). Components never write their own gradient.
 - No emoji anywhere. No raw ASCII/unicode characters (`×`, `!`, `+`, `-`, `?`, `>`) for UI chrome, badges, indicators, clear buttons, or action triggers. Icons must strictly be Phosphor, weight `thin`, via the Xenon `Icon` wrapper on both platforms.
 - Hairline precision & focus: All borders and dividers are strictly 1px (`StyleSheet.hairlineWidth` on native). Focus states must NEVER use detached browser outlines (no `outline-offset: 2px` or harsh halos). Interactive focus must smoothly transition the 1px hairline border to `var(--x-accent)` or hug the geometry seamlessly.
 - Dividers strictly demarcate macro act transitions: Dividers (1px hairlines) exist solely to separate major architectural acts (e.g., above Act I, above Act II, above Act III, above closing CTA). Never slice sub-sections, chapters, or consecutive scenes inside the same act with arbitrary dividers; maintain Gestalt continuity and group related content through proximity and negative space.
@@ -32,6 +32,7 @@ Xenon is a closed-source, minimalistic UI kit for **web (React DOM) and React Na
 - Zero instant/snappy transitions: No UI state change should EVER be snappy, instantaneous, or abrupt. Every transition (disclosures, expansions, collapses, active states, caret rotations, appearances, dismissals, hover, focus) must go through Apple-grade fluid animations using physics springs (`springSoft` / `springSnappy`) or tokenized ease curves (`var(--x-ease-standard)`, `var(--x-motion-ease-spring)`). Never use HTML `hidden` or `display: none` directly on elements being animated without presence/unmount coordination, as `display: none` immediately cancels all CSS transitions.
 - No raw hex, px, ms or cubic-bezier in components. Use tokens from `docs/TOKENS.md`.
 - Every v1 component ships on web and native with identical props. Shared logic and formulas live in `packages/core`, never duplicated per renderer.
+- Motion never runs on its own in product UI. On showcase pages only, opt-in `autoplay` loops are allowed when they pass every guard in "Showcase exceptions" (`docs/DESIGN.md`): paused offscreen and on hidden tabs, off under reduced motion, a visible pause control, token timing.
 - Hover is web-only and gated by `@media (hover: hover)`. Never hide critical actions behind hover.
 - No card inside a card. Use dividers and spacing to group within a surface.
 - Radius comes from the global radius token. Nested radius follows the concentric rule in `docs/guidelines/shape.md`.

@@ -2,24 +2,43 @@ import { useEffect, useRef, useState, type ReactElement } from "react";
 import { Animated, View } from "react-native";
 import { MOTION_TOKENS, TYPOGRAPHY_SCALE } from "@xenon/tokens";
 import { standardEasing, useMotionEnv } from "./use-motion-env";
+import { useLoopGuard } from "./use-loop-guard";
+import { LoopPause } from "./loop-pause";
 import type { NativeTextRollProps } from "./native.types";
 
 /** A word that rolls up and out as its replacement rolls in from below whenever `value` changes. */
 export function TextRoll({
   value,
+  autoplayWords,
+  beats = 6,
   style,
   textStyle,
   ...restProps
 }: NativeTextRollProps): ReactElement {
   const { tokens, reduced } = useMotionEnv();
   const { fontSize, lineHeight } = TYPOGRAPHY_SCALE.body.native;
-  const [current, setCurrent] = useState<string>(value);
+  const autoplay = (autoplayWords?.length ?? 0) > 0;
+  const guard = useLoopGuard(autoplay);
+  const [tick, setTick] = useState<number>(0);
+  const sequence = autoplay ? [value, ...(autoplayWords ?? [])] : [value];
+  const shown = sequence[tick % sequence.length] ?? value;
+
+  useEffect(() => {
+    if (!guard.running) return undefined;
+    const timer = setInterval(
+      () => setTick((count) => count + 1),
+      MOTION_TOKENS.durSlow * Math.max(1, Math.round(beats)),
+    );
+    return () => clearInterval(timer);
+  }, [guard.running, beats]);
+
+  const [current, setCurrent] = useState<string>(shown);
   const [previous, setPrevious] = useState<string | null>(null);
   const progress = useRef(new Animated.Value(1)).current;
 
-  if (current !== value) {
+  if (current !== shown) {
     setPrevious(current);
-    setCurrent(value);
+    setCurrent(shown);
   }
 
   useEffect(() => {
@@ -49,66 +68,71 @@ export function TextRoll({
   ];
 
   return (
-    <View
-      accessibilityLiveRegion="polite"
-      style={[{ height: lineHeight, overflow: "hidden" }, style]}
-      {...restProps}
-    >
-      {previous !== null && (
-        <Animated.Text
-          accessibilityElementsHidden
-          importantForAccessibility="no-hide-descendants"
-          style={[
-            textBase,
-            {
-              position: "absolute",
-              opacity: progress.interpolate({
-                inputRange: [0, 0.5],
-                outputRange: [1, 0],
-                extrapolate: "clamp",
-              }),
-              transform: reduced
-                ? []
-                : [
-                    {
-                      translateY: progress.interpolate({
-                        inputRange: [0, 0.5],
-                        outputRange: [0, -travel],
-                        extrapolate: "clamp",
-                      }),
-                    },
-                  ],
-            },
-          ]}
-        >
-          {previous}
-        </Animated.Text>
-      )}
-      <Animated.Text
-        style={[
-          textBase,
-          previous === null
-            ? null
-            : {
+    <>
+      <View
+        accessibilityLiveRegion={autoplay ? "none" : "polite"}
+        style={[{ height: lineHeight, overflow: "hidden" }, style]}
+        {...restProps}
+      >
+        {previous !== null && (
+          <Animated.Text
+            accessibilityElementsHidden
+            importantForAccessibility="no-hide-descendants"
+            style={[
+              textBase,
+              {
+                position: "absolute",
                 opacity: progress.interpolate({
-                  inputRange: [0, 0.3, 1],
-                  outputRange: [0, 0, 1],
+                  inputRange: [0, 0.5],
+                  outputRange: [1, 0],
+                  extrapolate: "clamp",
                 }),
                 transform: reduced
                   ? []
                   : [
                       {
                         translateY: progress.interpolate({
-                          inputRange: [0, 0.3, 1],
-                          outputRange: [travel, travel, 0],
+                          inputRange: [0, 0.5],
+                          outputRange: [0, -travel],
+                          extrapolate: "clamp",
                         }),
                       },
                     ],
               },
-        ]}
-      >
-        {current}
-      </Animated.Text>
-    </View>
+            ]}
+          >
+            {previous}
+          </Animated.Text>
+        )}
+        <Animated.Text
+          style={[
+            textBase,
+            previous === null
+              ? null
+              : {
+                  opacity: progress.interpolate({
+                    inputRange: [0, 0.3, 1],
+                    outputRange: [0, 0, 1],
+                  }),
+                  transform: reduced
+                    ? []
+                    : [
+                        {
+                          translateY: progress.interpolate({
+                            inputRange: [0, 0.3, 1],
+                            outputRange: [travel, travel, 0],
+                          }),
+                        },
+                      ],
+                },
+          ]}
+        >
+          {current}
+        </Animated.Text>
+      </View>
+      {guard.showControl && (
+        <LoopPause paused={guard.paused} onToggle={guard.togglePaused} />
+      )}
+    </>
   );
 }
