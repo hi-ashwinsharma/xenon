@@ -47,7 +47,7 @@ export interface FlipCardProps {
 }
 
 export interface CurtainProps {
-  /** Starting a run wipes the curtain up over the screen, then away */
+  /** Turning this true runs one wipe up over the screen, then away. Set it back to false before the next run */
   readonly active: boolean;
   /** Large title shown while the screen is covered, usually the destination name */
   readonly title?: ReactNode;

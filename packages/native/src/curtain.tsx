@@ -30,8 +30,11 @@ export function Curtain({
   const callbacks = useRef({ onCovered, onFinished });
   callbacks.current = { onCovered, onFinished };
 
+  // Start a run only when `active` turns true, so a value left on never loops the wipe
+  const wasActive = useRef(false);
   useEffect(() => {
-    if (active && phase === "idle") setPhase("running");
+    if (active && !wasActive.current && phase === "idle") setPhase("running");
+    wasActive.current = active;
   }, [active, phase]);
 
   useEffect(() => {
