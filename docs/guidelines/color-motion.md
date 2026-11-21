@@ -11,7 +11,7 @@
 7. **AMOLED black.** The page is `#000000` in dark. Surfaces step up only slightly (see `TOKENS.md`). Do not use pure white text for body; use `--x-text`.
 8. **Semantic colors** (danger, warning, success, info) are for status only, never decoration.
 9. **Charts and tags** may use the other named hues, one hue per series, never in the same row as the accent unless they encode data.
-10. **No gradients, no transparency tricks to fake depth.** Opacity is used for hairlines and disabled states only.
+10. **No gradients, no transparency tricks to fake depth.** Opacity is used for hairlines and disabled states only. The showcase-only `Ambient` backdrop is the single exception; see "Showcase exceptions" in `DESIGN.md`.
 11. **Disabled** is 40 percent opacity and `cursor: not-allowed`. Never remove a disabled control's label.
 
 ## States
@@ -32,3 +32,4 @@ Every interactive component defines: rest, hover, pressed, focus-visible, disabl
 10. **Theme and accent switching** crossfades colors in `--x-dur-base`.
 11. **Stagger** is allowed on landing page reveals at 40ms steps, maximum 6 items, never on product UI.
 12. **Zero instant/snappy transitions.** No UI state change is ever instantaneous or snappy. Disclosures, height changes (via CSS grid `0fr -> 1fr` with inner overflow clipping), active states, carets, appearances, and dismissals must transition with Apple-grade fluid curves (`--x-ease-standard` or physics springs). Never apply HTML `hidden` or `display: none` directly to elements undergoing transitions without presence/unmount coordination.
+13. **Guarded loops** follow the same scope as stagger: landing and showcase pages only, never product UI. See "Showcase exceptions" in `DESIGN.md` for the guards.

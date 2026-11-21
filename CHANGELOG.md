@@ -6,6 +6,8 @@ All notable changes are documented here. Format based on [Keep a Changelog](http
 
 ### Added
 
+- Motion components ported from the True Matters site, on web and native: `Odometer`, `TextRoll`, `FlipCard`, `Curtain`, `SegmentedProgress`, `LiquidText`, `Magnetic`, `Tilt`, `WordReveal`, `ScrollTrack`, `ScrollConverge`, `ScrollMarquee`, `ScrollStory`, `NavLens` and the `useCircleReveal` hook, with shared motion math in `@xenon/core` and a Motion category in the docs.
+- Showcase exceptions: the `Ambient` backdrop (built only from the new `--x-ambient-*` tokens) and guarded `autoplay` on `TextRoll`, `ScrollMarquee` and the new `Float` wrapper. Documented in `DESIGN.md` under "Showcase exceptions".
 - Multi-package pnpm monorepo architecture (`tokens`, `core`, `web`, `native`, `eslint-plugin`, `docs`, `native-example`).
 - `@xenon/tokens`: Single source of truth token engine with CSS variable and React Native compilers.
 - `@xenon/core`: Pure mathematical formulas (`computeNestedRadius`, `clampControlRadius`, `groupJointRadius`), centralized route constants (`AppRoutes`), and shared component contracts (`*.types.ts`).

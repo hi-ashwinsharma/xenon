@@ -30,6 +30,7 @@ const CATEGORIES: ReadonlyArray<{ value: GalleryCategory; label: string }> = [
   { value: "Navigation", label: "Navigation" },
   { value: "Overlays", label: "Overlays" },
   { value: "Feedback & Data Display", label: "Feedback" },
+  { value: "Motion", label: "Motion" },
 ];
 
 function GalleryCard({ item }: { item: ComponentDocEntry }): ReactElement {

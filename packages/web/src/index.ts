@@ -51,6 +51,26 @@ export type {
   WebGridProps,
   WebGroupProps,
   WebRevealProps,
+  WebCurtainProps,
+  WebFlipCardProps,
+  WebLiquidTextProps,
+  WebMagneticProps,
+  WebNavLensProps,
+  WebOdometerProps,
+  WebScrollConvergeProps,
+  WebScrollMarqueeProps,
+  WebScrollStoryProps,
+  WebScrollTrackProps,
+  WebSegmentedProgressProps,
+  WebTextRollProps,
+  WebTiltProps,
+  WebWordRevealProps,
+  WebAmbientProps,
+  WebFloatProps,
+  CircleRevealOrigin,
+  CircleRevealRun,
+  NavLensItem,
+  ScrollStoryStep,
   WebHeadingProps,
   WebIconButtonProps,
   WebIconProps,
@@ -135,6 +155,24 @@ export { Reveal } from "./reveal";
 export { Chapter } from "./chapter";
 export { ScrollScene } from "./scroll-scene";
 export { ScrollProgress } from "./scroll-progress";
+
+export { Odometer } from "./odometer";
+export { TextRoll } from "./text-roll";
+export { FlipCard } from "./flip-card";
+export { Curtain } from "./curtain";
+export { SegmentedProgress } from "./segmented-progress";
+export { LiquidText } from "./liquid-text";
+export { Magnetic } from "./magnetic";
+export { Tilt } from "./tilt";
+export { WordReveal } from "./word-reveal";
+export { ScrollTrack } from "./scroll-track";
+export { ScrollConverge } from "./scroll-converge";
+export { ScrollMarquee } from "./scroll-marquee";
+export { ScrollStory } from "./scroll-story";
+export { NavLens } from "./nav-lens";
+export { Ambient } from "./ambient";
+export { Float } from "./float";
+export { useCircleReveal } from "./hooks/use-circle-reveal";
 export { Footer } from "./footer";
 export { AccentPicker } from "./accent-picker";
 export { Text } from "./text";

@@ -14,7 +14,8 @@ export interface ComponentDocEntry {
     | "Form Controls"
     | "Navigation"
     | "Overlays"
-    | "Feedback & Data Display";
+    | "Feedback & Data Display"
+    | "Motion";
   description: string;
   a11y: string;
   cliInstall: string;
@@ -2060,5 +2061,548 @@ export function Example() {
 export function Example() {
   return <CodeBlock code="const xenon = true;" language="typescript" filename="index.ts" showLineNumbers copyable />;
 }`,
+  },
+
+  {
+    id: "odometer",
+    name: "Odometer",
+    category: "Motion",
+    description:
+      "A number whose digits roll into place like a mechanical counter when it first comes into view.",
+    a11y: "Announced once as the whole number. The rolling columns are hidden from assistive tech, and they land without moving under reduced motion.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "value",
+        type: "number",
+        description: "The number the digits roll to.",
+        required: true,
+      },
+      {
+        name: "prefix",
+        type: "string",
+        description: "Static text before the number, such as a currency sign.",
+      },
+      {
+        name: "locale",
+        type: "string",
+        defaultValue: '"en-US"',
+        description: "Locale used to group digits.",
+      },
+      {
+        name: "order",
+        type: "number",
+        defaultValue: "0",
+        description:
+          "Position in a stagger; each step waits one instant duration.",
+      },
+    ],
+    webUsage:
+      'import { Odometer } from "@xenon-kit/web";\n\nexport function Example() {\n  return <Odometer value={12480} prefix="$" />;\n}',
+    nativeUsage:
+      'import { Odometer } from "@xenon-kit/native";\n\nexport function Example() {\n  return <Odometer value={12480} prefix="$" />;\n}',
+  },
+  {
+    id: "text-roll",
+    name: "TextRoll",
+    category: "Motion",
+    description:
+      "A word that rolls up and out while its replacement rolls in from below, each time its value changes. It never cycles on its own.",
+    a11y: "A polite live region announces the new word. The outgoing word is hidden from assistive tech. Under reduced motion the swap is a short fade.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "value",
+        type: "string",
+        description: "The current word.",
+        required: true,
+      },
+      {
+        name: "autoplayWords",
+        type: "string[]",
+        description:
+          "Showcase pages only: words to cycle through on their own, guarded and with a pause control.",
+      },
+      {
+        name: "beats",
+        type: "number",
+        defaultValue: "6",
+        description: "Time each autoplay word stays, in slow-duration beats.",
+      },
+    ],
+    webUsage:
+      'import { TextRoll } from "@xenon-kit/web";\n\nexport function Example() {\n  return <TextRoll value={status} />;\n}',
+    nativeUsage:
+      'import { TextRoll } from "@xenon-kit/native";\n\nexport function Example() {\n  return <TextRoll value={status} />;\n}',
+  },
+  {
+    id: "flip-card",
+    name: "FlipCard",
+    category: "Motion",
+    description:
+      "A card that turns over on press, Enter or Space to show what sits behind its headline. A rotating icon signals that it can flip.",
+    a11y: "A button with aria-pressed. Only the visible face is in the accessibility tree. Under reduced motion the faces crossfade.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "front",
+        type: "ReactNode",
+        description: "Face shown at rest.",
+        required: true,
+      },
+      {
+        name: "back",
+        type: "ReactNode",
+        description: "Face shown once flipped.",
+        required: true,
+      },
+      {
+        name: "label",
+        type: "string",
+        description: "Accessible name of the card.",
+        required: true,
+      },
+      {
+        name: "flipped",
+        type: "boolean",
+        description: "Controlled flipped state.",
+      },
+      {
+        name: "defaultFlipped",
+        type: "boolean",
+        defaultValue: "false",
+        description: "Uncontrolled initial state.",
+      },
+      {
+        name: "onFlippedChange",
+        type: "(flipped: boolean) => void",
+        description: "Called when the card turns.",
+      },
+    ],
+    webUsage:
+      'import { FlipCard } from "@xenon-kit/web";\n\nexport function Example() {\n  return <FlipCard label="Late refund" front={<Text>Late refund</Text>} back={<Text>We chase it for you.</Text>} />;\n}',
+    nativeUsage:
+      'import { FlipCard } from "@xenon-kit/native";\n\nexport function Example() {\n  return <FlipCard label="Late refund" front={<Text>Late refund</Text>} back={<Text>We chase it for you.</Text>} />;\n}',
+  },
+  {
+    id: "curtain",
+    name: "Curtain",
+    category: "Motion",
+    description:
+      "A full-screen wipe for route changes. It rises over the page, names the destination while covered so the content can swap unseen, then lifts away.",
+    a11y: "Hidden from assistive tech. Under reduced motion it becomes a short fade.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "active",
+        type: "boolean",
+        description: "Turning it on starts one run.",
+        required: true,
+      },
+      {
+        name: "title",
+        type: "ReactNode",
+        description: "Destination name shown while covered.",
+      },
+      {
+        name: "onCovered",
+        type: "() => void",
+        description: "Runs once the screen is covered: swap the route here.",
+      },
+      {
+        name: "onFinished",
+        type: "() => void",
+        description: "Runs when the curtain has left.",
+      },
+    ],
+    webUsage:
+      'import { Curtain } from "@xenon-kit/web";\n\nexport function Example() {\n  return <Curtain active={leaving} title="Pricing" onCovered={() => router.push(AppRoutes.pricing)} onFinished={() => setLeaving(false)} />;\n}',
+    nativeUsage:
+      'import { Curtain } from "@xenon-kit/native";\n\nexport function Example() {\n  return <Curtain active={leaving} title="Pricing" onCovered={() => router.push(AppRoutes.pricing)} onFinished={() => setLeaving(false)} />;\n}',
+  },
+  {
+    id: "segmented-progress",
+    name: "SegmentedProgress",
+    category: "Motion",
+    description:
+      "A row of short tracks that fill one after another, for chapters, steps or story beats.",
+    a11y: "A progressbar whose value is the current segment, read as 'N of M'.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "value",
+        type: "number",
+        description: "Overall progress from 0 to 1.",
+        required: true,
+      },
+      {
+        name: "segments",
+        type: "number",
+        defaultValue: "6",
+        description: "Number of segments.",
+      },
+      {
+        name: "label",
+        type: "string",
+        defaultValue: '"Progress"',
+        description: "Accessible name.",
+      },
+    ],
+    webUsage:
+      'import { SegmentedProgress } from "@xenon-kit/web";\n\nexport function Example() {\n  return <SegmentedProgress segments={6} value={0.5} />;\n}',
+    nativeUsage:
+      'import { SegmentedProgress } from "@xenon-kit/native";\n\nexport function Example() {\n  return <SegmentedProgress segments={6} value={0.5} />;\n}',
+  },
+  {
+    id: "liquid-text",
+    name: "LiquidText",
+    category: "Motion",
+    description:
+      "A wordmark drawn as a hairline outline that fills with the accent like a rising liquid as it travels up the viewport. The wave moves with the reader's scroll and rests when they stop.",
+    a11y: "The word is read once; the fill layer is hidden. Under reduced motion it is either empty or full.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "children",
+        type: "string",
+        description: "The word that fills.",
+        required: true,
+      },
+      {
+        name: "progress",
+        type: "number",
+        description:
+          "Fill level from 0 to 1. Leave it out on web to fill from scroll.",
+      },
+    ],
+    webUsage:
+      'import { LiquidText } from "@xenon-kit/web";\n\nexport function Example() {\n  return <LiquidText>Xenon</LiquidText>;\n}',
+    nativeUsage:
+      'import { LiquidText } from "@xenon-kit/native";\n\nexport function Example() {\n  return <LiquidText>Xenon</LiquidText>;\n}',
+  },
+  {
+    id: "magnetic",
+    name: "Magnetic",
+    category: "Motion",
+    description:
+      "Leans its child toward a mouse or trackpad pointer and springs back on leave. Touch and reduced motion get the child unchanged.",
+    a11y: "Purely visual; focus and activation stay with the child.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "strength",
+        type: "number",
+        defaultValue: "0.22",
+        description:
+          "Share of the pointer's distance the child follows, 0 to 1.",
+      },
+    ],
+    webUsage:
+      'import { Magnetic } from "@xenon-kit/web";\n\nexport function Example() {\n  return <Magnetic><Button variant="accent">Get started</Button></Magnetic>;\n}',
+    nativeUsage:
+      'import { Magnetic } from "@xenon-kit/native";\n\nexport function Example() {\n  return <Magnetic><Button variant="accent">Get started</Button></Magnetic>;\n}',
+  },
+  {
+    id: "tilt",
+    name: "Tilt",
+    category: "Motion",
+    description:
+      "Turns its child a few degrees toward a mouse or trackpad pointer. Flat on touch and under reduced motion.",
+    a11y: "Purely visual.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "maxTilt",
+        type: "number",
+        defaultValue: "3",
+        description: "Largest tilt on each axis, in degrees.",
+      },
+    ],
+    webUsage:
+      'import { Tilt } from "@xenon-kit/web";\n\nexport function Example() {\n  return <Tilt><Surface padding={24}>Card</Surface></Tilt>;\n}',
+    nativeUsage:
+      'import { Tilt } from "@xenon-kit/native";\n\nexport function Example() {\n  return <Tilt><Surface padding={24}>Card</Surface></Tilt>;\n}',
+  },
+  {
+    id: "word-reveal",
+    name: "WordReveal",
+    category: "Motion",
+    description:
+      "Splits a headline into words that rise and turn upright one after another on first view. The stagger is capped at six steps.",
+    a11y: "Words stay in the DOM in reading order. Disabled under reduced motion.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "text",
+        type: "string",
+        description: "Text split into words.",
+        required: true,
+      },
+      {
+        name: "order",
+        type: "number",
+        defaultValue: "0",
+        description:
+          "Position in a stagger; each step waits one instant duration.",
+      },
+    ],
+    webUsage:
+      'import { WordReveal } from "@xenon-kit/web";\n\nexport function Example() {\n  return <Heading level={2}><WordReveal text="You buy. We keep working." /></Heading>;\n}',
+    nativeUsage:
+      'import { WordReveal } from "@xenon-kit/native";\n\nexport function Example() {\n  return <Heading level={2}><WordReveal text="You buy. We keep working." /></Heading>;\n}',
+  },
+  {
+    id: "scroll-track",
+    name: "ScrollTrack",
+    category: "Motion",
+    description:
+      "Turns vertical scroll into sideways travel: the row pins to the viewport and slides across as the reader scrolls. Narrow screens and reduced motion get a native swipe row.",
+    a11y: "A labelled region. In swipe mode the row is keyboard scrollable.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "label",
+        type: "string",
+        defaultValue: '"Scrolling row"',
+        description: "Accessible name of the row.",
+      },
+    ],
+    webUsage:
+      'import { ScrollTrack } from "@xenon-kit/web";\n\nexport function Example() {\n  return <ScrollTrack label="Where money leaks">{cards}</ScrollTrack>;\n}',
+    nativeUsage:
+      'import { ScrollTrack } from "@xenon-kit/native";\n\nexport function Example() {\n  return <ScrollTrack label="Where money leaks">{cards}</ScrollTrack>;\n}',
+  },
+  {
+    id: "scroll-converge",
+    name: "ScrollConverge",
+    category: "Motion",
+    description:
+      "A grid whose items start scattered outward and slide together into place as the reader scrolls it into view.",
+    a11y: "Items keep reading order. Static under reduced motion.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "minItemWidth",
+        type: "number",
+        defaultValue: "240",
+        description: "Smallest item width before wrapping, in px.",
+      },
+      {
+        name: "gap",
+        type: "number",
+        defaultValue: "16",
+        description: "Space between items, in px.",
+      },
+      {
+        name: "spread",
+        type: "number",
+        defaultValue: "0.55",
+        description: "How far apart items start.",
+      },
+    ],
+    webUsage:
+      'import { ScrollConverge } from "@xenon-kit/web";\n\nexport function Example() {\n  return <ScrollConverge minItemWidth={220}>{tiles}</ScrollConverge>;\n}',
+    nativeUsage:
+      'import { ScrollConverge } from "@xenon-kit/native";\n\nexport function Example() {\n  return <ScrollConverge minItemWidth={220}>{tiles}</ScrollConverge>;\n}',
+  },
+  {
+    id: "scroll-marquee",
+    name: "ScrollMarquee",
+    category: "Motion",
+    description:
+      "A line of words that slides sideways only while the page scrolls and leans with the reader's speed. It never moves on its own.",
+    a11y: "A labelled region; repeated copies of the line are hidden from assistive tech. Still under reduced motion.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "items",
+        type: "ReactNode[]",
+        description: "Items in the line.",
+        required: true,
+      },
+      {
+        name: "speed",
+        type: "number",
+        defaultValue: "0.6",
+        description: "Pixels travelled per pixel scrolled.",
+      },
+      {
+        name: "autoplay",
+        type: "boolean",
+        defaultValue: "false",
+        description:
+          "Showcase pages only: also drift on its own, guarded and with a pause control. No effect on native.",
+      },
+      {
+        name: "beats",
+        type: "number",
+        defaultValue: "115",
+        description: "Time one autoplay lap takes, in slow-duration beats.",
+      },
+      {
+        name: "label",
+        type: "string",
+        defaultValue: '"Highlights"',
+        description: "Accessible name.",
+      },
+    ],
+    webUsage:
+      'import { ScrollMarquee } from "@xenon-kit/web";\n\nexport function Example() {\n  return <ScrollMarquee items={["Receipts", "Refunds", "Warranties"]} />;\n}',
+    nativeUsage:
+      'import { ScrollMarquee } from "@xenon-kit/native";\n\nexport function Example() {\n  return <ScrollMarquee items={["Receipts", "Refunds", "Warranties"]} />;\n}',
+  },
+  {
+    id: "scroll-story",
+    name: "ScrollStory",
+    category: "Motion",
+    description:
+      "A story told in steps: the copy scrolls past while a pinned stage beside it swaps to each step's visual, with a segmented progress line. Phones stack each step over its visual.",
+    a11y: "Each step is an article; the current one has aria-current. Hidden stage visuals are hidden from assistive tech.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "steps",
+        type: "ScrollStoryStep[]",
+        description: "Steps with id, title, optional body and visual.",
+        required: true,
+      },
+      {
+        name: "label",
+        type: "string",
+        defaultValue: '"Story"',
+        description: "Accessible name.",
+      },
+    ],
+    webUsage:
+      'import { ScrollStory } from "@xenon-kit/web";\n\nexport function Example() {\n  return <ScrollStory steps={steps} />;\n}',
+    nativeUsage:
+      'import { ScrollStory } from "@xenon-kit/native";\n\nexport function Example() {\n  return <ScrollStory steps={steps} />;\n}',
+  },
+  {
+    id: "nav-lens",
+    name: "NavLens",
+    category: "Motion",
+    description:
+      "Section links with a lens that glides under whichever section is in the middle of the viewport.",
+    a11y: "A nav landmark; the current link has aria-current=location. On native, pass activeSectionId and onNavigate.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "items",
+        type: "NavLensItem[]",
+        description: "Links with sectionId, label and href.",
+        required: true,
+      },
+      {
+        name: "label",
+        type: "string",
+        defaultValue: '"Sections"',
+        description: "Accessible name.",
+      },
+    ],
+    webUsage:
+      'import { NavLens } from "@xenon-kit/web";\n\nexport function Example() {\n  return <NavLens items={[{ sectionId: "story", label: "Story", href: "#story" }]} />;\n}',
+    nativeUsage:
+      'import { NavLens } from "@xenon-kit/native";\n\nexport function Example() {\n  return <NavLens items={[{ sectionId: "story", label: "Story", href: "#story" }]} />;\n}',
+  },
+  {
+    id: "circle-reveal",
+    name: "useCircleReveal",
+    category: "Motion",
+    description:
+      "A hook that runs a theme, accent or content change behind a circle growing from a point, usually the control that was pressed. Uses View Transitions where available.",
+    a11y: "Falls back to an instant swap with the normal colour crossfade under reduced motion or without View Transitions.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "update",
+        type: "() => void",
+        description: "The change to apply.",
+        required: true,
+      },
+      {
+        name: "origin",
+        type: "{ x: number; y: number }",
+        defaultValue: "viewport centre",
+        description: "Where the circle starts.",
+      },
+    ],
+    webUsage:
+      'import { useCircleReveal, useXenon } from "@xenon-kit/web";\n\nexport function ThemeToggle() {\n  const reveal = useCircleReveal();\n  const { setTheme } = useXenon();\n  return (\n    <button onClick={(e) => reveal(() => setTheme("light"), { x: e.clientX, y: e.clientY })}>\n      Light\n    </button>\n  );\n}',
+    nativeUsage:
+      'import { Button, useCircleReveal, useXenon } from "@xenon-kit/native";\n\nexport function ThemeToggle() {\n  const reveal = useCircleReveal();\n  const { setTheme } = useXenon();\n  return (\n    <Button onPress={() => reveal(() => setTheme("light"))}>Light</Button>\n  );\n}',
+  },
+
+  {
+    id: "ambient",
+    name: "Ambient",
+    category: "Motion",
+    description:
+      "Showcase pages only: one soft, accent-tinted backdrop behind the whole page, the single gradient Xenon allows. It never animates on a timer; the shapes lean after a mouse or trackpad pointer.",
+    a11y: "Hidden from assistive tech and ignores pointer events. Still under reduced motion, removed under reduced transparency. Renders nothing on native.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "placement",
+        type: '"corners" | "top"',
+        defaultValue: '"corners"',
+        description: "Where the two shapes sit at rest.",
+      },
+    ],
+    webUsage:
+      'import { Ambient } from "@xenon-kit/web";\n\nexport function Landing() {\n  return <Ambient placement="top" />;\n}',
+    nativeUsage:
+      'import { Ambient } from "@xenon-kit/native";\n\n// Renders nothing on native\nexport function Landing() {\n  return <Ambient />;\n}',
+  },
+  {
+    id: "float",
+    name: "Float",
+    category: "Motion",
+    description:
+      "Showcase pages only: lets its child bob gently in place when autoplay is on. Pauses offscreen and in the background, stops under reduced motion, and shows a pause control.",
+    a11y: "The pause control is a labelled button. Under reduced motion the child stays still and no control is shown.",
+    cliInstall: "npx @xenon-kit/cli init",
+    npmInstall: "npm install @xenon-kit/web @phosphor-icons/react",
+    props: [
+      {
+        name: "autoplay",
+        type: "boolean",
+        defaultValue: "false",
+        description: "Turns the bob on.",
+      },
+      {
+        name: "beats",
+        type: "number",
+        defaultValue: "16",
+        description: "Time one full bob takes, in slow-duration beats.",
+      },
+      {
+        name: "offset",
+        type: "number",
+        defaultValue: "0",
+        description:
+          "Start late by this many beats so neighbours fall out of step.",
+      },
+    ],
+    webUsage:
+      'import { Float } from "@xenon-kit/web";\n\nexport function Example() {\n  return <Float autoplay>{hero}</Float>;\n}',
+    nativeUsage:
+      'import { Float } from "@xenon-kit/native";\n\nexport function Example() {\n  return <Float autoplay>{hero}</Float>;\n}',
   },
 ];

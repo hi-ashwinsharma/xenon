@@ -37,6 +37,9 @@ describe("Token Compiler", () => {
     expect(css).toContain("--x-dur-slow: 400ms;");
     expect(css).toContain("--x-ease-standard: cubic-bezier(0.2, 0, 0, 1);");
     expect(css).toContain("--x-scale-press: 0.98;");
+    expect(css).toContain("--x-ambient-size: 80vmax;");
+    expect(css).toContain("--x-ambient-alpha: 20%;");
+    expect(css).toContain("--x-ambient-shape: radial-gradient(");
 
     expect(css).toContain(':root[data-x-theme="dark"]');
     expect(css).toContain(`--x-bg: ${NEUTRAL_COLORS.dark.bg};`);

@@ -159,3 +159,14 @@ Liquid Glass has two variants:
 4. **Fallback Handling**: Gracefully falls back to opaque backgrounds when `prefers-reduced-transparency` is active, when `backdrop-filter` is unsupported, or on Android devices with low GPU capabilities.
 5. **Component API**: Supported components accept `glass?: boolean | "regular" | "clear"` (`true` defaults to `"regular"`). Dedicated aliases like `GlassBar` are provided for developer ergonomics.
 6. **Mirror edge (experimental, web only)**: Open Design-style mirror refraction remains an opt-in web-only prototype. Plain blur remains the universal cross-platform baseline.
+
+## Ambient (showcase only)
+
+The single gradient in Xenon, used only by the `Ambient` backdrop at the root of a showcase page `(proposed)`. Components never write their own gradient. See "Showcase exceptions" in [DESIGN.md](DESIGN.md).
+
+| Token               | Value                                                            |
+| ------------------- | ---------------------------------------------------------------- |
+| `--x-ambient-shape` | Radial accent tint at `--x-ambient-alpha`, fading to transparent |
+| `--x-ambient-alpha` | 14% dark, 20% light                                              |
+| `--x-ambient-size`  | 80vmax per shape                                                 |
+| `--x-ambient-drift` | 120px furthest pointer lean                                      |

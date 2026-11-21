@@ -80,6 +80,17 @@ export interface MotionTokenDefinition {
   readonly pressScale: number;
 }
 
+export interface AmbientTokenDefinition {
+  /** Accent opacity at the centre of an ambient shape, dark theme */
+  readonly alphaDark: number;
+  /** Accent opacity at the centre of an ambient shape, light theme */
+  readonly alphaLight: number;
+  /** Diameter of each shape, in viewport-max units */
+  readonly sizeVmax: number;
+  /** Furthest a shape follows the pointer, in px */
+  readonly pointerDriftPx: number;
+}
+
 export interface GlassVariantDefinition {
   readonly webBlurPx: number;
   readonly nativeBlurIntensity: number;

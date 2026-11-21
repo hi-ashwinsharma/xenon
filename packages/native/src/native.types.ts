@@ -61,6 +61,22 @@ import type {
   GridProps as CoreGridProps,
   GroupProps as CoreGroupProps,
   RevealProps as CoreRevealProps,
+  CurtainProps as CoreCurtainProps,
+  FlipCardProps as CoreFlipCardProps,
+  LiquidTextProps as CoreLiquidTextProps,
+  MagneticProps as CoreMagneticProps,
+  NavLensProps as CoreNavLensProps,
+  OdometerProps as CoreOdometerProps,
+  ScrollConvergeProps as CoreScrollConvergeProps,
+  ScrollMarqueeProps as CoreScrollMarqueeProps,
+  ScrollStoryProps as CoreScrollStoryProps,
+  ScrollTrackProps as CoreScrollTrackProps,
+  SegmentedProgressProps as CoreSegmentedProgressProps,
+  TextRollProps as CoreTextRollProps,
+  TiltProps as CoreTiltProps,
+  WordRevealProps as CoreWordRevealProps,
+  AmbientProps as CoreAmbientProps,
+  FloatProps as CoreFloatProps,
   HeadingProps as CoreHeadingProps,
   IconButtonProps as CoreIconButtonProps,
   IconProps as CoreIconProps,
@@ -214,6 +230,121 @@ export interface NativeScrollProgressProps extends Omit<
 
 export interface NativeRevealProps extends Omit<CoreRevealProps, "className"> {
   readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeOdometerProps extends Omit<
+  CoreOdometerProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+  /** Type for the digits. Default: the title1 style */
+  readonly textStyle?: StyleProp<TextStyle>;
+}
+
+export interface NativeTextRollProps extends Omit<
+  CoreTextRollProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly textStyle?: StyleProp<TextStyle>;
+}
+
+export interface NativeFlipCardProps extends Omit<
+  CoreFlipCardProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeCurtainProps extends Omit<
+  CoreCurtainProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeSegmentedProgressProps extends Omit<
+  CoreSegmentedProgressProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeLiquidTextProps extends Omit<
+  CoreLiquidTextProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly textStyle?: StyleProp<TextStyle>;
+}
+
+export interface NativeMagneticProps extends Omit<
+  CoreMagneticProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeTiltProps extends Omit<CoreTiltProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeWordRevealProps extends Omit<
+  CoreWordRevealProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+  readonly textStyle?: StyleProp<TextStyle>;
+}
+
+export interface NativeScrollTrackProps extends Omit<
+  CoreScrollTrackProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeScrollConvergeProps extends Omit<
+  CoreScrollConvergeProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeScrollMarqueeProps extends Omit<
+  CoreScrollMarqueeProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeScrollStoryProps extends Omit<
+  CoreScrollStoryProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeAmbientProps extends Omit<
+  CoreAmbientProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeFloatProps extends Omit<CoreFloatProps, "className"> {
+  readonly style?: StyleProp<ViewStyle>;
+}
+
+export interface NativeNavLensProps extends Omit<
+  CoreNavLensProps,
+  "className"
+> {
+  readonly style?: StyleProp<ViewStyle>;
+  /** Called with the pressed item's section id; native has no page anchors to jump to */
+  readonly onNavigate?: (sectionId: string) => void;
+  /** Section shown as current. Native screens own their scroll, so the screen reports it */
+  readonly activeSectionId?: string;
 }
 
 export interface NativeFooterProps extends Omit<CoreFooterProps, "className"> {
@@ -831,6 +962,10 @@ export interface NativeCodeBlockProps extends Omit<
 }
 
 export type {
+  CircleRevealOrigin,
+  CircleRevealRun,
+  NavLensItem,
+  ScrollStoryStep,
   AccordionType,
   AccordionVariant,
   AlertTone,

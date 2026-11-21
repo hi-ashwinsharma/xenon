@@ -17,25 +17,26 @@ Xenon is a quiet UI kit. It earns trust through geometry, restraint and negative
 
 ## Banned patterns
 
-| Banned                                                                                      | Use instead                                                                                                      |
-| ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `linear-gradient`, `radial-gradient`, `conic-gradient`, gradient text, mesh blobs           | Flat surface tones                                                                                               |
-| `box-shadow`, `drop-shadow`, `text-shadow`, glow, ring-as-shadow                            | 1px hairline border, surface tone step                                                                           |
-| Emoji and emoji-like glyphs                                                                 | Phosphor Thin icons                                                                                              |
-| Card inside card                                                                            | Divider, spacing, or a header row inside one surface                                                             |
-| Font weight 500 or higher                                                                   | Size and color for hierarchy                                                                                     |
-| Raw hex, raw px, raw ms, raw easing in components                                           | Tokens                                                                                                           |
-| Hardcoded `border-radius: 9999px` on large surfaces                                         | Radius tokens with surface cap                                                                                   |
-| Pure-white text on AMOLED black for body copy                                               | `--x-text` (softened)                                                                                            |
-| Multiple accents on one screen for decoration                                               | One accent, semantic colors only for status                                                                      |
-| Heavy borders (2px+), dashed borders for decoration                                         | 1px hairline                                                                                                     |
-| Decorative animation, autoplay parallax, looping motion                                     | Purposeful feedback, or scroll-scrubbed motion on showcase pages (`ScrollScene`: the user drives it)             |
-| Instant or snappy UI transitions, uncoordinated `hidden` / `display: none`                  | Apple-grade fluid transitions (physics springs, easing)                                                          |
-| Mixed icon sets or icon weights                                                             | Phosphor `thin` via `Icon`                                                                                       |
-| Backdrop blur and glassmorphism in the static content layer (cards, inputs, page canvas)    | Opaque surfaces (`--x-surface`)                                                                                  |
-| Overfilling popovers/surfaces with redundant widgets, duplicate controls, or preview boxes  | Compact, quiet, single-purpose controls (Apple reduction)                                                        |
-| Interactive disclosure triggers without visual signifiers (e.g. naked text without chevron) | Animated Phosphor CaretDown indicator (0° closed, 180° open)                                                     |
-| Slicing sub-sections/chapters inside a single act with decorative dividers                  | Preserve Gestalt continuity: Dividers strictly separate macro Acts; use proximity & negative space inside an act |
+| Banned                                                                                      | Use instead                                                                                                                                                   |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `linear-gradient`, `radial-gradient`, `conic-gradient`, gradient text, mesh blobs           | Flat surface tones                                                                                                                                            |
+| `box-shadow`, `drop-shadow`, `text-shadow`, glow, ring-as-shadow                            | 1px hairline border, surface tone step                                                                                                                        |
+| Emoji and emoji-like glyphs                                                                 | Phosphor Thin icons                                                                                                                                           |
+| Card inside card                                                                            | Divider, spacing, or a header row inside one surface                                                                                                          |
+| Font weight 500 or higher                                                                   | Size and color for hierarchy                                                                                                                                  |
+| Raw hex, raw px, raw ms, raw easing in components                                           | Tokens                                                                                                                                                        |
+| Hardcoded `border-radius: 9999px` on large surfaces                                         | Radius tokens with surface cap                                                                                                                                |
+| Pure-white text on AMOLED black for body copy                                               | `--x-text` (softened)                                                                                                                                         |
+| Multiple accents on one screen for decoration                                               | One accent, semantic colors only for status                                                                                                                   |
+| Heavy borders (2px+), dashed borders for decoration                                         | 1px hairline                                                                                                                                                  |
+| Decorative animation, autoplay parallax, looping motion                                     | Purposeful feedback, or scroll-scrubbed motion on showcase pages (`ScrollScene`: the user drives it)                                                          |
+| Unguarded autoplay loops                                                                    | Guarded showcase motion: `autoplay` that pauses offscreen and on hidden tabs, stops under reduced motion, and shows a pause control (see Showcase exceptions) |
+| Instant or snappy UI transitions, uncoordinated `hidden` / `display: none`                  | Apple-grade fluid transitions (physics springs, easing)                                                                                                       |
+| Mixed icon sets or icon weights                                                             | Phosphor `thin` via `Icon`                                                                                                                                    |
+| Backdrop blur and glassmorphism in the static content layer (cards, inputs, page canvas)    | Opaque surfaces (`--x-surface`)                                                                                                                               |
+| Overfilling popovers/surfaces with redundant widgets, duplicate controls, or preview boxes  | Compact, quiet, single-purpose controls (Apple reduction)                                                                                                     |
+| Interactive disclosure triggers without visual signifiers (e.g. naked text without chevron) | Animated Phosphor CaretDown indicator (0° closed, 180° open)                                                                                                  |
+| Slicing sub-sections/chapters inside a single act with decorative dividers                  | Preserve Gestalt continuity: Dividers strictly separate macro Acts; use proximity & negative space inside an act                                              |
 
 ## Liquid Glass: the floating layer exception
 
@@ -55,6 +56,26 @@ Blur is allowed exclusively as **Liquid Glass** on floating and overlay elements
 
 - **`regular`**: High legibility, structural blur for text-bearing chrome, navigation bars, and overlays.
 - **`clear`**: Ultra-translucent blur for minimal floating action icon pills over rich visual media.
+
+## Showcase exceptions
+
+Two narrow exceptions let landing and showcase pages carry more atmosphere without touching product UI. Like Liquid Glass, each has a permitted scope and guards. Anything outside them is still banned.
+
+### Ambient backdrop
+
+- **Scope**: one `<Ambient />` at the root of a showcase route. Never in product UI, never inside a `Surface`, never on overlays or forms.
+- **Form**: at most two soft accent shapes built only from the `--x-ambient-*` tokens. Components never write their own gradient; gradient text, glowing cards and multi-colour blooms stay banned.
+- **Motion**: no keyframe drift. The shapes may follow a fine pointer, and rest when it rests.
+- **Guards**: off under `prefers-reduced-motion` (shapes stay still) and `prefers-reduced-transparency` (layer removed). Native renders nothing.
+
+### Guarded autoplay
+
+- **Scope**: `autoplay` on `ScrollMarquee`, `TextRoll` (cycling `autoplayWords`) and `Float`. Off by default. Showcase pages only, at most one per viewport, never on a control.
+- **Guards, all required and built into the components**:
+  1. Pauses when offscreen and when the tab or app is in the background.
+  2. Fully off under reduced motion: the component shows its resting frame.
+  3. Shows a visible pause control, because the motion runs longer than 5 seconds beside other content (WCAG 2.2.2 Pause, Stop, Hide).
+  4. Timing comes only from tokens: a loop period is a whole number of `--x-dur-slow` beats, and a float travels at most `--x-space-2`.
 
 ## Overlay Architecture: Anchored Pop-Overs & Hero Kinematics
 

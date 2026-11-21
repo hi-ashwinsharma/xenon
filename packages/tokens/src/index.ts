@@ -1,4 +1,5 @@
 export type {
+  AmbientTokenDefinition,
   Accent,
   AccentColorPair,
   CompiledNativeTokens,
@@ -45,6 +46,7 @@ export {
 
 export { MOTION_TOKENS } from "./motion";
 export { LIQUID_GLASS_TOKENS } from "./glass";
+export { AMBIENT_TOKENS } from "./ambient";
 export { compileCssVariables, compileNativeTokens } from "./compiler";
 
 export const TOKEN_VERSION = "0.1.0" as const;

@@ -28,6 +28,10 @@
   --x-motion-duration-moderate: 240ms;
   --x-motion-duration-slow: 400ms;
   --x-scale-press: 0.98;
+  --x-ambient-size: 80vmax;
+  --x-ambient-drift: 120px;
+  --x-ambient-alpha: 14.000000000000002%;
+  --x-ambient-shape: radial-gradient(closest-side, color-mix(in srgb, var(--x-accent) var(--x-ambient-alpha), transparent), transparent);
   --x-text-display-size: 4rem;
   --x-text-display-lh: 4.25rem;
   --x-text-display-tracking: 0.004em;
@@ -105,6 +109,7 @@
   --x-warning: #FFD54F;
   --x-success: #81C784;
   --x-info: #64B5F6;
+  --x-ambient-alpha: 14.000000000000002%;
 }
 
 :root[data-x-theme="light"] {
@@ -121,6 +126,7 @@
   --x-warning: #F59E0B;
   --x-success: #2E7D32;
   --x-info: #1976D2;
+  --x-ambient-alpha: 20%;
 }
 
 :root[data-x-theme="dark"][data-x-amoled="false"] {

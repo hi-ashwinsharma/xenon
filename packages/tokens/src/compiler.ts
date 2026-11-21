@@ -5,6 +5,7 @@ import {
   SEMANTIC_COLORS,
   WARM_DARK_NEUTRALS,
 } from "./colors";
+import { AMBIENT_TOKENS } from "./ambient";
 import { LIQUID_GLASS_TOKENS } from "./glass";
 import { MOTION_TOKENS } from "./motion";
 import { RADIUS_STOPS } from "./radius";
@@ -49,6 +50,13 @@ export function compileCssVariables(): string {
   lines.push(`  --x-motion-duration-moderate: ${MOTION_TOKENS.durBase}ms;`);
   lines.push(`  --x-motion-duration-slow: ${MOTION_TOKENS.durSlow}ms;`);
   lines.push(`  --x-scale-press: ${MOTION_TOKENS.pressScale};`);
+  lines.push(`  --x-ambient-size: ${AMBIENT_TOKENS.sizeVmax}vmax;`);
+  lines.push(`  --x-ambient-drift: ${AMBIENT_TOKENS.pointerDriftPx}px;`);
+  lines.push(`  --x-ambient-alpha: ${AMBIENT_TOKENS.alphaDark * 100}%;`);
+  // The only gradient in Xenon: showcase-only, accent-tinted, never authored by components
+  lines.push(
+    "  --x-ambient-shape: radial-gradient(closest-side, color-mix(in srgb, var(--x-accent) var(--x-ambient-alpha), transparent), transparent);",
+  );
 
   for (const [, token] of Object.entries(TYPOGRAPHY_SCALE)) {
     lines.push(`  --x-text-${token.name}-size: ${token.web.remSize};`);
@@ -100,6 +108,9 @@ export function compileCssVariables(): string {
     lines.push(`  --x-warning: ${semantics.warning};`);
     lines.push(`  --x-success: ${semantics.success};`);
     lines.push(`  --x-info: ${semantics.info};`);
+    lines.push(
+      `  --x-ambient-alpha: ${(theme === "dark" ? AMBIENT_TOKENS.alphaDark : AMBIENT_TOKENS.alphaLight) * 100}%;`,
+    );
     lines.push("}");
   }
 
